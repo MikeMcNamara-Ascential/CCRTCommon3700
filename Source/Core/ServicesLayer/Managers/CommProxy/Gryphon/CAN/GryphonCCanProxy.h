@@ -114,6 +114,14 @@ protected:
      * @return true if message should be ignored.
      */
     bool CheckForBlock(const uint8_t *inBuf) ;
+	    /**
+     * Adds both sets of headers and padding as required.
+     * target protocol specific, code in protocol module
+     *
+     * @param locData The data to be sent.
+     * @param inBuf   The input buffer.
+     */
+    virtual void BuildCardMessage(SerialString_t &locData, const SerialString_t &inBuf);
     /**
      * adds protocol specific gryphon data header for the outgoing data message
      *
@@ -123,7 +131,14 @@ protected:
      * @param inBuf   source for data content.
      */
     virtual void BuildMessage(SerialString_t &locData, const SerialString_t &inBuf) ;
-    virtual void BuildPGNRequestMessage(SerialString_t &locData, const SerialString_t &inBuf) ;
+    virtual void BuildPGNRequestMessage(SerialString_t &locData, const SerialString_t &inBuf);
+    /**
+     * Wraps data message in Gryphon frame.
+     *
+     * @param locData
+     * @param inBuf
+     */
+    virtual void WrapPGNMessage(SerialString_t &locData, const SerialString_t &inBuf);
     /**
      * Handler method for client subscription requests
      *

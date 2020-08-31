@@ -597,14 +597,25 @@ bool GryphonCCanProxy::UsingGryphonUSDT()
 {
     return true;
 }
-void GryphonCCanProxy::BuildMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
+void GryphonCCanProxy::BuildCardMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
 {
+	SerialString_t locDS; // intermediate buffer
+	// Log the entry
+	Log( LOG_FN_ENTRY, "Enter GryphonCCanProxy::BuildCardMessage(inBuf(%d))\n", inBuf.size());
 	if ( IsPGNRequest(inBuf) )
 	{
-		BuildPGNRequestMessage(outBuf, inBuf);
+		BuildPGNRequestMessage(locDS, inBuf);	// add the protocol info
+		WrapPGNMessage(outBuf, locDS);	// add gryphon data frame
 	}
 	else
 	{
+		BuildMessage(locDS, inBuf);	// add the protocol info
+		WrapMessage(outBuf, locDS);	// add gryphon data frame
+	}
+	Log( LOG_FN_ENTRY, "Exit GryphonCCanProxy::BuildCardMessage()\n");
+}
+void GryphonCCanProxy::BuildMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
+{
 		gdatahdr locDH;
 		int moduleIDByteLength;
 
@@ -651,14 +662,15 @@ void GryphonCCanProxy::BuildMessage(SerialString_t &outBuf, const SerialString_t
 		outBuf = SerialString_t((uint8_t *) &locDH, sizeof(locDH));
 
 		outBuf += inBuf;         // append
-	}
 }
+
 void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
 {
 	Log( LOG_FN_ENTRY, "Enter BuildPGNRequestMessage\n");
 	gdatahdr locDH;
 	int moduleIDByteLength;
-	m_destinationType = SD_USDT;
+	m_destinationType = SD_CARD;
+	//m_destinationType = SD_J1939TP;
 
 	//32bit
 	locDH.hdrlen = 4;        // Can header is 4 bytes
@@ -673,7 +685,7 @@ void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const Seri
 	Log(LOG_DEV_DATA, "Module ID Length: %d InBuf Length: %d\n",moduleIDByteLength, inBuf.length());
 	locDH.datalen = htons(inBuf.length()-moduleIDByteLength);  // length of the DATA part of the message
 	locDH.extralen = 0;      // we dont support this, always 0
-	locDH.mode = MODE_LOCAL; // i suspect this is not used by the box
+	locDH.mode = MODE_LOCAL;
 	locDH.priority = 0;      // not used
 	locDH.stat = 0;          // probably not used
 	locDH.time = 0;          // probably not used
@@ -684,6 +696,43 @@ void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const Seri
 	outBuf = SerialString_t((uint8_t *) &locDH, sizeof(locDH));
 
 	outBuf += inBuf;         // append
+}
+void GryphonCCanProxy::WrapPGNMessage(SerialString_t &frameData, const SerialString_t &inBuf)
+{
+		char locBuf[30];
+		unsigned int locSize;
+		Msg *locMsg;
+		// Log the entry
+		Log( LOG_FN_ENTRY, "Enter GryphonCCanProxy::WrapPGNMessage()\n");
+		locMsg = (Msg *) locBuf;
+
+		locMsg->fh.src = SD_CLIENT;
+		locMsg->fh.srcchan = m_clientChannel;
+		locMsg->fh.dst = m_destinationType;
+		locMsg->fh.dstchan = m_channelId;
+
+		locSize = inBuf.size() + 4;
+
+		locMsg->fh.msglen=htons(locSize);
+		//locMsg->fh.frametype = FT_DATA;
+		locMsg->fh.frametype = FT_CMD;
+		locMsg->fh.reserved = 0;
+
+		//Send directly to card to skip USDT server formatting
+		uint8_t localBuffer[20];
+		// Clear out the message data
+		memset(localBuffer,0,sizeof(localBuffer));
+		localBuffer[0] = CMD_CARD_TX;
+		localBuffer[1] = UseContext();
+		localBuffer[2] = 0x00;
+		localBuffer[3] = 0x00;
+
+		frameData = SerialString_t ((uint8_t *)locBuf, 8);
+		frameData += SerialString_t ((uint8_t *)localBuffer, 4);;
+		frameData += inBuf;
+
+		BufferGryphonMessage(frameData);
+		Log( LOG_FN_ENTRY, "Exit GryphonCCanProxy::WrapPGNMessage()\n");
 }
 void GryphonCCanProxy::CreateFilter(bool is29BitHeader, uint32_t incomingId)
 {
@@ -792,7 +841,7 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
             registrationOk = RegisterWithUsdtNonLegacy(m_pathName, i);
         else
             registrationOk = RegisterWithUsdt(m_pathName, i);
-        
+
         if(!registrationOk)
         {
             Log(LOG_DEV_DATA, "USDT Registration failed! Try again? %s", maxAttempts <= 10 ? "Yes" : "No - Maxxed out");
@@ -801,7 +850,7 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
         else
             retVal = EOK;
     }
-        
+    
     // Set min msg separation for flow control
     if(retVal == EOK)  retVal = SetMinimumMessageSeperationTime(m_flowControlStMin);
 

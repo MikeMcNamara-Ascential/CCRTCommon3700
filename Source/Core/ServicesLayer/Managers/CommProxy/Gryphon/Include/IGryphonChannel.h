@@ -499,7 +499,7 @@ protected:
      * @param locData The data to be sent.
      * @param inBuf   The input buffer.
      */
-    void BuildCardMessage(SerialString_t &locData, const SerialString_t &inBuf);
+    virtual void BuildCardMessage(SerialString_t &locData, const SerialString_t &inBuf);
     /**
      * Check to see if this message should be blocked.
      * This is to prevent us from receiving a message twice. Once from the card
@@ -527,7 +527,7 @@ protected:
      * @param locData
      * @param inBuf
      */
-    void WrapMessage(SerialString_t &locData, const SerialString_t &inBuf);
+    virtual void WrapMessage(SerialString_t &locData, const SerialString_t &inBuf);
 
     virtual void BufferGryphonMessage(SerialString_t &frameData);
     /**
@@ -787,7 +787,10 @@ protected:
     int m_destinationType;
     /** Length of CAN protocol module IDs in bits */
     int m_moduleIDByteLength;
-
+    /**
+     * current physical channel number that we are using to the vehicle.
+     */
+    int m_channelId;
 private:
     /**
      * Check to see if a response is pending from the given module ID.
@@ -810,10 +813,7 @@ private:
      * @param moduleId Module ID to remove from the response pending list.
      */
     void ClearModuleResponsePending(const vector<UINT32> &moduleId);
-    /**
-     * current physical channel number that we are using to the vehicle.
-     */
-    int m_channelId;
+
     /**
      * this is the eternet socket that we have open to talk to the gryphon
      * if we were not able to connect, this is set to -1

@@ -88,6 +88,7 @@
 #define CARD_UUDT_STILL_REQUIRED_NON_LEGACY 0
 //In case broadcast messages are not forwarded as they should be from non legacy device
 #define J1939_BROADCASTS_NOT_WORKING_NON_LEGACY 0
+#define J1939_SendToCard 1
 
 #include <sys/neutrino.h>
 
@@ -663,7 +664,7 @@ void GryphonCCanProxy::BuildMessage(SerialString_t &outBuf, const SerialString_t
 
 		outBuf += inBuf;         // append
 }
-
+#if J1939_SendToCard
 void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
 {
 	Log( LOG_FN_ENTRY, "Enter BuildPGNRequestMessage\n");
@@ -734,6 +735,44 @@ void GryphonCCanProxy::WrapPGNMessage(SerialString_t &frameData, const SerialStr
 		BufferGryphonMessage(frameData);
 		Log( LOG_FN_ENTRY, "Exit GryphonCCanProxy::WrapPGNMessage()\n");
 }
+#else
+void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
+{
+	Log( LOG_FN_ENTRY, "Enter BuildPGNRequestMessage\n");
+	gdatahdr locDH;
+	int moduleIDByteLength;
+	m_destinationType = SD_J1939TP;
+
+	//32bit
+	locDH.hdrlen = 6;        // Can header is 4 bytes
+	locDH.hdrbits = 29;      // only 29 bits are used
+	moduleIDByteLength = 6;
+	Log(LOG_DEV_DATA, "InBuf Contents(%d)\n",inBuf.size());
+	for(int i=0;i<inBuf.size();i++)
+	{
+		Log(LOG_DEV_DATA, "\t\tindex: %04d -- %c <0x%02X>\n",
+			i,isprint(inBuf[i]) ? inBuf[i] : '?',inBuf[i]);
+	}
+	Log(LOG_DEV_DATA, "Module ID Length: %d InBuf Length: %d\n",moduleIDByteLength, inBuf.length());
+	locDH.datalen = htons(inBuf.length()-moduleIDByteLength);  // length of the DATA part of the message
+	locDH.extralen = 0;      // we dont support this, always 0
+	locDH.mode = MODE_TX;
+	locDH.priority = 0;      // not used
+	locDH.stat = 0;          // probably not used
+	locDH.time = 0;          // probably not used
+	locDH.context = UseContext();  // sequential message number
+	locDH.reservedchar = 0;  // not used
+	locDH.reservedshort = 0; // not used
+
+	outBuf = SerialString_t((uint8_t *) &locDH, sizeof(locDH));
+
+	outBuf += inBuf;         // append
+}
+void GryphonCCanProxy::WrapPGNMessage(SerialString_t &frameData, const SerialString_t &inBuf)
+{
+	WrapMessage(frameData, inBuf);
+}
+#endif
 void GryphonCCanProxy::CreateFilter(bool is29BitHeader, uint32_t incomingId)
 {
     if (is29BitHeader)

@@ -83,12 +83,12 @@
 //
 //******************************************************************************
 //For debug in case this isn't working - if address is not claimed all messages are received
-#define SKIP_J1939_ADDRESS_CLAIM_NON_LEGACY 1
+#define SKIP_J1939_ADDRESS_CLAIM_NON_LEGACY 0
 //In case Dearborn group still hasn't fixed their bugs (In registration we specify UUDT nodes - USDT server should know to pass these to us)
 #define CARD_UUDT_STILL_REQUIRED_NON_LEGACY 0
 //In case broadcast messages are not forwarded as they should be from non legacy device
 #define J1939_BROADCASTS_NOT_WORKING_NON_LEGACY 0
-#define J1939_SendToCard 1
+#define J1939_SendToCard 0
 
 #include <sys/neutrino.h>
 
@@ -901,6 +901,7 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 			Log(LOG_DEV_DATA, "Non-Legacy device with j1934 channel, but skipping j1939 address claim by #define"); 
 			if ( retVal == EOK )  retVal = EnableJ1939TransportProtocol();
 		#else
+			if ( retVal == EOK )  retVal = EnableJ1939TransportProtocol();
 			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress);
 		#endif
 	}

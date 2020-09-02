@@ -2528,21 +2528,24 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 	locMsg.header.cmd      = CMD_J1939_ADDR_CLAIM;
 	locMsg.header.context  = UseContext();
 	locMsg.header.reserved = 0;
-	// Set the ST Min time
+	locMsg.identityNumber=1;
+	locMsg.manufacturerCode = 11;//dearborn group
+	locMsg.ecuInstance = 0;
+	locMsg.functionInstance = 0;
+	locMsg.function = 0;//(setting to 0 as in dg example for now) 129 = 0x81 off board service tool
+	locMsg.vehicleSystem = 0;
+	locMsg.vehicleSystemInstance = 0;
+	locMsg.industryGroup = 0;
+	locMsg.selfConfiguration = 0;
+	// Set the address to claim
 	locMsg.addressToClaim = addressToClaim;
-	locMsg.emulation = 0x01;
-	locMsg.padding1 = 0x00;
-	locMsg.padding2 = 0x0000;
+	//locMsg.emulation = 0x01; //filter messages
+	locMsg.emulation = 0x00; //do not filter
+	locMsg.padding = 0x00;
 	// Send the Address claim command to the server
 	if(J1939AddressClaim.Acquire() == EOK)
 	{
 		J1939AddressClaim.SetValue(false);
-		Log(LOG_DETAILED_DATA, 
-			"\nUSDT Request:\n"
-			"\t\tHeader:          %02X %02X %02X %02X\n"
-			"\t\tOptions:         %02X\n",
-			locStr[0], locStr[1], locStr[2], locStr[3],
-			locStr[4]);
 		Log(LOG_DETAILED_DATA, "Sending raw frame - locSize = %d", locSize);
 		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_J1939TP, true, J1939_ADDRESS_CLAIM_FC_MSG_SIZE);
 		if(J1939AddressClaim.Wait(true,mSEC_nSEC(5000)) == EOK)

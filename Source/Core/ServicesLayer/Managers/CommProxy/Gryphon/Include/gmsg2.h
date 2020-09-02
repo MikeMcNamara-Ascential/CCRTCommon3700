@@ -4,7 +4,7 @@
 // additional restrictions for our use.
 #define MAX_EVNAMES 32
 #define STMIN_FC_MSG_SIZE 5
-#define J1939_ADDRESS_CLAIM_FC_MSG_SIZE 6
+#define J1939_ADDRESS_CLAIM_FC_MSG_SIZE 19
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // these are additional structure definitions that we find useful.
 #include "info.h"
@@ -131,13 +131,23 @@ struct StMinFcMsg
 struct J1939AddressClaimMsg
 {
     struct gcmdhdr header;
-    //Skipping name and such defaults will be used
+    //Including name and such - even though document claims you can skip, device will not accept message
+	unsigned int identityNumber;
+	unsigned short manufacturerCode;
+	unsigned char ecuInstance;
+	unsigned char functionInstance;
+	unsigned char function;//(setting to 0 as in dg example for now) 129 = 0x81 off board service tool
+	unsigned char vehicleSystem;
+	unsigned char vehicleSystemInstance;
+	unsigned char industryGroup;
+	unsigned char selfConfiguration;
+
+
     unsigned char addressToClaim; 
     unsigned char emulation;//0 = all messages present seen by client, 
 							//1 = only j1939 messages set to the claimed address and 
 							//broadcast messages seen by the client 
-    unsigned char padding1;
-    unsigned short padding2;
+    unsigned char padding;
 };
 
 #endif  //gmsg2_h

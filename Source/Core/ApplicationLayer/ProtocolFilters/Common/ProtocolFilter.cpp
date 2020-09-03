@@ -912,7 +912,22 @@ const BEP_STATUS_TYPE ProtocolFilter::GetIsPGNRequest(const std::string &message
 
 	return(status);
 }
+const BEP_STATUS_TYPE ProtocolFilter::GetIsBroadcastMessage(const std::string &messageTag, bool &isBroadcastMessage)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+	ComMessageMapItr_t  itr;
+	if((itr = m_mssgTags.find(messageTag)) != m_mssgTags.end())
+	{	
+        Log(LOG_DETAILED_DATA, "GetIsBroadcastMessage message found\n");
+        // Get the message to be sent
+		ComMssgTableEntry   &mssgEntry = itr->second;
+		isBroadcastMessage = mssgEntry.GetBoolIsBusBroadcastMessage();
+		status = BEP_STATUS_SUCCESS;
+	}
+	else status	= BEP_STATUS_FAILURE;
 
+	return(status);
+}
 const UINT16 &ProtocolFilter::GetDataStartIndex(void)
 {
 	return(m_dataStartIndex);

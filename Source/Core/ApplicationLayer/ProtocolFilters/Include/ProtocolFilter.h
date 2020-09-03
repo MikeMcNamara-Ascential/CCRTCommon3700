@@ -424,6 +424,14 @@ public:
      */
     virtual const BEP_STATUS_TYPE GetIsPGNRequest(const std::string &messageTag, bool &isPGNRequest);
     /**
+	 * Get the flag indicating if message is transmitted on bus
+     * unsolicited
+     * @param messageTag Message Tag to look up.
+     * @param message    ASCII message.
+     * @return Status of the operation.
+     */
+    virtual const BEP_STATUS_TYPE GetIsBroadcastMessage(const std::string &messageTag, bool &isBroadcastMessage);
+    /**
      * Get the index in the response where the data actually begins.
      *
      * @return Offset into the response for the data.

@@ -7,7 +7,7 @@
         <DataByteCountIndex>3</DataByteCountIndex>
         <DataHeaderLength>4</DataHeaderLength>
         <DataStartIndex>8</DataStartIndex>
-        <ModuleRequestID>0x18DA00F9</ModuleRequestID>
+        <ModuleRequestID>0x18DA00F1</ModuleRequestID>
         <ModuleResponseDelay>500</ModuleResponseDelay>
         <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
         <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
@@ -160,17 +160,17 @@
                 <ReplyInterpretation>EgrErrorPercent</ReplyInterpretation>
             </ReadEgrErrorSensor>
 
-            <ReadEngineCoolantTemperatureSensor>
-                <TransmitMessage>ReadPid</TransmitMessage>
-                <TransmitInterpretation>EngineCoolantTemperature</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+            <ReadEngineCoolantTemperatureSensor IsPGNRequest="True">
+                <TransmitMessage>RequestParameterGroup</TransmitMessage>
+                <TransmitInterpretation>EngineCoolantTempPGN</TransmitInterpretation>
+                <ReplyMessage>RequestParameterGroup</ReplyMessage>
                 <ReplyInterpretation>EngineCoolantTemperature</ReplyInterpretation>
             </ReadEngineCoolantTemperatureSensor>
 
-            <ReadEngineTemperature>
-                <TransmitMessage>ReadPid</TransmitMessage>
-                <TransmitInterpretation>EngineCoolantTemperature</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+            <ReadEngineTemperature IsPGNRequest="True">
+                <TransmitMessage>RequestParameterGroup</TransmitMessage>
+                <TransmitInterpretation>EngineCoolantTempPGN</TransmitInterpretation>
+                <ReplyMessage>EngineCoolantTempPGN</ReplyMessage>
                 <ReplyInterpretation>EngineCoolantTemperature</ReplyInterpretation>
             </ReadEngineTemperature>
 
@@ -604,9 +604,9 @@
             </ReadVehicleSpeed>
 
             <ReadVIN IsPGNRequest="True">
-                <TransmitMessage>ReadVinPGN</TransmitMessage>
-                <TransmitInterpretation/>
-                <ReplyMessage>ReadVinPGNResponse</ReplyMessage>
+                <TransmitMessage>RequestParameterGroup</TransmitMessage>
+                <TransmitInterpretation>VinPGN</TransmitInterpretation>
+                <ReplyMessage>RequestParameterGroup</ReplyMessage>
                 <ReplyInterpretation>Vin</ReplyInterpretation>
             </ReadVIN>
 
@@ -719,9 +719,10 @@
             <WriteDid4>0x2F,0x??,0x??,0x??</WriteDid4>
             <ClearFaults>0x14,0xFF,0x00</ClearFaults>
             <ReadFaults>0x18,0x00,0xFF,0x00</ReadFaults>
+			<RequestParameterGroup>0x00,0xEA,0x00,0x06,0xF9,0x00,0x??,0x??,0x??</RequestParameterGroup>
 			<!-- Card transmit style ReadVinPGN>0x18,0xEA,0x00,0xF9,0xEC,0xFE,0x00</ReadVinPGN -->
-			<ReadVinPGN>0x00,0xEA,0x00,0x06,0xF9,0x00,0xEC,0xFE,0x00</ReadVinPGN>
-
+			<ReadVinPGN>0x00,0xEA,0x00,0x06,0xF9,0x00</ReadVinPGN>
+			<!-- PGN = 65262 = FEEE; SPN = 110 = 6E; PF = 254 = FE; PS = 238 = EE  -->
         </TransmitMessages>
 
         <!-- ============ Message PIDs/LIDs ============ -->
@@ -793,6 +794,10 @@
 			<EndTECL>0x05,0x19,0x00</EndTECL>
 			<TECLearned>0x12,0xF0</TECLearned>
 			<TECData>0x12,0xF0</TECData>
+			<!-- PGN = 65260 = FEEC; SPN = 237 = ED; PF = 254 = FE; PS = 236 = EC-->
+			<VinPGN>0xEC,0xFE,0x00</VinPGN>
+			<!-- PGN = 65262 = FEEE; SPN = 110 = 6E; PF = 254 = FE; PS = 238 = EE  -->
+			<EngineCoolantTempPGN>0xEE,0xFE,0x00</EngineCoolantTempPGN>
         </TransmitInterpretations>
 
         <!-- ============ Message Responses ============ -->
@@ -850,16 +855,9 @@
                 <Reply_02>0x7F,0x18,0x??</Reply_02>
             </ReadFaults>
 
-			<ReadVinPGNResponse ReplyTimeout="1000">
-			   <Reply_00 lengthType="Variable" endGapTime="800">0x18,0xFE,0xEC,0x00,0x??</Reply_00>
-			   <Reply_01 lengthType="Variable" endGapTime="800">0x??</Reply_01>
-			   <Reply_02 lengthType="Variable" endGapTime="800">0x00,0x00,0x18,0x00,0xED,0x00,0x??</Reply_02>
-			   <Reply_03 lengthType="Variable" endGapTime="800">0x00,0x00,0x00,0x18,0x00,0xED,0x00,0x??</Reply_03>
-			   <Reply_04 lengthType="Variable" endGapTime="800">0x00,0x00,0x00,0x00,0x18,0x00,0xED,0x00,0x??</Reply_04>
-			   <Reply_05 lengthType="Variable" endGapTime="800">0x00,0x00,0x00,0x00,0x00,0x18,0x00,0xED,0x00,0x??</Reply_05>
-			   <Reply_06 lengthType="Variable" endGapTime="800">0x00,0x00,0x00,0x00,0x00,0x00,0x18,0x00,0xED,0x00,0x??</Reply_06>
-			   <Reply_07 lengthType="Variable" endGapTime="800">0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x18,0x00,0xED,0x00,0x??</Reply_07>
-			</ReadVinPGNResponse>
+			<RequestParameterGroup>
+			   <Reply_00 lengthType="Variable" endGapTime="0">0x??</Reply_00>
+			</RequestParameterGroup>
         </ReplyMessages>
 
         <!-- ============ Data Translations ============ -->

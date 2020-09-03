@@ -382,7 +382,8 @@
             <TestStep00>Setup</TestStep00>
             <!--TestStep05>WaitForEngineRunning</TestStep05-->
             <TestStep10>EnterDiagnosticMode</TestStep10>
-            <TestStep15>CheckVIN</TestStep15>
+            <!-- TestStep15>CheckVIN</TestStep15 -->
+            <TestStep065 AltValue="EngineCoolantTemperature">CheckEngineCoolantTemperature</TestStep065>
             <!--TestStep15>ConditionalFaultClear</TestStep15-->
         </EngineRunning>
         <KeyOffEngineOffKeyOn>

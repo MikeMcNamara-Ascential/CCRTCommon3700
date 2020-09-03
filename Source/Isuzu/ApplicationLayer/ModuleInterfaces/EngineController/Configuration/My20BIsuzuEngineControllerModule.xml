@@ -170,7 +170,7 @@
             <ReadEngineTemperature IsPGNRequest="True">
                 <TransmitMessage>RequestParameterGroup</TransmitMessage>
                 <TransmitInterpretation>EngineCoolantTempPGN</TransmitInterpretation>
-                <ReplyMessage>EngineCoolantTempPGN</ReplyMessage>
+                <ReplyMessage>RequestParameterGroup</ReplyMessage>
                 <ReplyInterpretation>EngineCoolantTemperature</ReplyInterpretation>
             </ReadEngineTemperature>
 
@@ -720,9 +720,6 @@
             <ClearFaults>0x14,0xFF,0x00</ClearFaults>
             <ReadFaults>0x18,0x00,0xFF,0x00</ReadFaults>
 			<RequestParameterGroup>0x00,0xEA,0x00,0x06,0xF9,0x00,0x??,0x??,0x??</RequestParameterGroup>
-			<!-- Card transmit style ReadVinPGN>0x18,0xEA,0x00,0xF9,0xEC,0xFE,0x00</ReadVinPGN -->
-			<ReadVinPGN>0x00,0xEA,0x00,0x06,0xF9,0x00</ReadVinPGN>
-			<!-- PGN = 65262 = FEEE; SPN = 110 = 6E; PF = 254 = FE; PS = 238 = EE  -->
         </TransmitMessages>
 
         <!-- ============ Message PIDs/LIDs ============ -->
@@ -931,9 +928,8 @@
             </EgrErrorPercent>
 
             <EngineCoolantTemperature>
-                <Integer type="simple signed" bits="16" scale="1" offset="-40">
-                    <Byte1 input_index="2" mask="0x00" output_index="1"/>
-                    <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                <Integer type="simple signed" bits="8" scale="1" offset="-40">
+                    <Byte1 input_index="2" mask="0xFF" output_index="0"/>
                 </Integer>
             </EngineCoolantTemperature>
 

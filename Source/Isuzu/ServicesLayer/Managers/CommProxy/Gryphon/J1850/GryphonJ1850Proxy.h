@@ -77,7 +77,7 @@ public:
      * @return value of the expected response for this request
      */
     virtual int getExpectedFromRaw(SerialString_t rawMessage);
-    virtual UINT32 getModuleId(const char *rawMessage);
+    virtual UINT32 getModuleId(const SerialString_t &rawMessage);
     virtual int getRespCode(const char *rawMessage);
     virtual vector<UINT32> getModuleIdsFromRaw(SerialString_t rawMessage);
 

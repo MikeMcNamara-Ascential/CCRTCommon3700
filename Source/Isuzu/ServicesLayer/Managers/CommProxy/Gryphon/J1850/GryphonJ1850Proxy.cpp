@@ -156,7 +156,7 @@ int GryphonJ1850Proxy::getExpectedFromRaw(SerialString_t rawMessage)
     return expectedResponseCode;
 }
 
-UINT32 GryphonJ1850Proxy::getModuleId(const char *rawMessage)
+UINT32 GryphonJ1850Proxy::getModuleId(const SerialString_t &rawMessage)
 {
     int locModule;
     // Log the entry

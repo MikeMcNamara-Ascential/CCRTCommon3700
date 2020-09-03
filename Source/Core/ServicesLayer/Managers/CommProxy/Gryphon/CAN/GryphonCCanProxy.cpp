@@ -193,16 +193,6 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
     {
         m_j1939TesterAddress = (UINT8)BposReadInt(portSetup->getChild("Setup/J1939TesterAddress")->getValue().c_str());
         Log(LOG_DEV_DATA, "J1939 tester address %s interpreted to %d", portSetup->getChild("Setup/J1939TesterAddress")->getValue().c_str(), m_j1939TesterAddress);
-        /**
-         *  0 - 0xFF
-		 *  0xF1 , 0xF9 are typical values
-		 *  0x00 will pass all messages
-         */
-		if ( m_j1939TesterAddress < 0 || m_j1939TesterAddress > 0xFF )
-		{
-			Log(LOG_ERRORS, "J1939 tester address out of range, setting to 0");
-			m_j1939TesterAddress = 0;
-		}
 	}
     catch(XmlException &excpt)
     {
@@ -422,13 +412,19 @@ vector<UINT32> GryphonCCanProxy::FindNodePair(const UINT32 locModule)
     }
     return(locNode);
 }
+
 vector<UINT32> GryphonCCanProxy::BuildPGNRequestNodePair(SerialString_t rawMessage)
-{
+{//push back each byte independently (6 bytes are needed to determine match)
+	//example
+	//request: <ReadVinPGN>0x00,0xEA,0x00,0x06,0xF9,0x00,0xEC,0xFE,0x00</ReadVinPGN>
+	//response: 00 FE EC 06 00 F9
     vector<UINT32> locNode;
-	if(rawMessage.length() >= 5)
+	if(rawMessage.length() >= 9)
     {
-        locNode.push_back(((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[5]) * 0x10000) + 
-                    ((0xFF & (int) rawMessage[4]) * 0x100) + (0xFF & (int) rawMessage[2]));
+		//PGN in reverse order then destination (which will come back as source)
+        locNode.push_back(((0xFF & (int) rawMessage[8]) * 0x1000000) + ((0xFF & (int) rawMessage[7]) * 0x10000) + 
+                     ((0xFF & (int) rawMessage[6]) * 0x100) + (0xFF & (int) rawMessage[5]));
+		Log(LOG_DEV_DATA, "Response ID set: %08X", locNode[0]);
 	}
 	else
 	{
@@ -465,14 +461,14 @@ int GryphonCCanProxy::getExpectedFromRaw(SerialString_t rawMessage)
     return(0xFF & ((int) rawMessage[3]) + 0x40); // calculate expected response
 }
 
-UINT32 GryphonCCanProxy::getModuleId(const char *rawMessage)
+UINT32 GryphonCCanProxy::getModuleId(const SerialString_t &rawMessage)
 {
     int locModule;
     int tempModule;
     // Log the entry
     Log( LOG_FN_ENTRY, "Enter GryphonCCan::getModuleId\n");
     bool isFourByteHeader = false;
-    if(m_moduleIDByteLength != 2 && strlen(rawMessage) >= 3)
+    if(m_moduleIDByteLength != 2 && rawMessage.length() >= 3)
     {   //32 bit header
         //Log( LOG_DEV_DATA, "Looking for a 32Bit Header\n");
         tempModule = ((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[1]) * 0x10000) + 
@@ -489,6 +485,11 @@ UINT32 GryphonCCanProxy::getModuleId(const char *rawMessage)
         if(isFourByteHeader)
         {
             locModule = tempModule;
+        }
+		else if ( m_j1939Channel)
+        {//PGN (skip priority) then source
+            locModule =  ((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[1]) * 0x10000) + 
+                     ((0xFF & (int) rawMessage[2]) * 0x100) + (0xFF & (int) rawMessage[4]);
         }
         else
         {
@@ -564,7 +565,6 @@ bool GryphonCCanProxy::IsFourByteHeader(SerialString_t rawMessage)
 bool GryphonCCanProxy::IsPGNRequest(SerialString_t rawMessage)
 {
     Log(LOG_DEV_DATA, "IsPGNRequest");
-    UINT32 locModule;
     vector<UINT32> locResponseModule;
 	if ( m_j1939Channel )
 	{
@@ -748,7 +748,7 @@ void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const Seri
 	locDH.hdrbits = 29;      // only 29 bits are used
 	moduleIDByteLength = 6;
 	Log(LOG_DEV_DATA, "InBuf Contents(%d)\n",inBuf.size());
-	for(int i=0;i<inBuf.size();i++)
+	for(UINT32 i=0;i<inBuf.size();i++)
 	{
 		Log(LOG_DEV_DATA, "\t\tindex: %04d -- %c <0x%02X>\n",
 			i,isprint(inBuf[i]) ? inBuf[i] : '?',inBuf[i]);
@@ -903,6 +903,9 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 		#else
 			if ( retVal == EOK )  retVal = EnableJ1939TransportProtocol();
 			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress);
+			SetDefaultFilterMode(DEFAULT_FILTER_PASS);
+			SetFilterMode(FILTER_OFF_PASS_ALL);
+
 		#endif
 	}
 

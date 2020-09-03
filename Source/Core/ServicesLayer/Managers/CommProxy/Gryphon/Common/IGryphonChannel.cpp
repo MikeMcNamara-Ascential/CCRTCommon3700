@@ -1789,7 +1789,7 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	if ( RawCommProxy::CanAddToClientFifo(data,ocb) == true)
 	{
 		// Get the module ID and response code
-		locModuleId = getModuleId(buff);
+		locModuleId = getModuleId(data);
 		locRespCode = getRespCode(buff);
 
 		Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored module IDs: $%s incoming module ID: $%04X\n",

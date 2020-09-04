@@ -687,7 +687,8 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetPGNBroadcastMessage(string messag
 		if(status == BEP_STATUS_SUCCESS)
 		{
 			reply = ExtractModuleData(moduleResponse);
-			validMessage = IsResponseValid(messageTag, reply);
+			//already filtered at the comm proxy level and known to be our response
+			validMessage = true;
 		}
 		// Get the elapsed time
 		clock_gettime( CLOCK_REALTIME, &currentTime);

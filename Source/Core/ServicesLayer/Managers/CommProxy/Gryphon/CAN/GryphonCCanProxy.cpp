@@ -924,25 +924,166 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 int GryphonCCanProxy::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
                                        resMgrIoOcb_t *ioOcb)
 {
-	Log(LOG_DEV_DATA, "GryphonCCanProxy::PortSubscribeHandler() - Enter");
-	//JPS potential remove Nothing was being done here
-//    if (m_recordBroadcastMessages)
-//    {
-//        //unblock broadcast message
-//        GryphonIoOcb_t    *clientOcb = (GryphonIoOcb_t*)ioOcb;
-//		Log(LOG_DEV_DATA, "Checking if clientOcb is NULL");
-//		if(clientOcb != NULL)
-//		{
-//			Log(LOG_DEV_DATA, "clientOcb is not NULL, setting braodcast block");
-////			SetBroadcastBlock(false,clientOcb->moduleIDs[0]);
-//		}
-//		else
-//		{
-//			Log(LOG_ERRORS, "clientOcb is NULL, not setting broadcast block");
-//		}
-//    }
-	Log(LOG_DEV_DATA, "GryphonCCanProxy::PortSubscribeHandler() - Exit");
-    return IGryphonChannel::PortSubscribeHandler(ctp, msg, ioOcb); 
+    logPortMsg_t            *portMsg = (logPortMsg_t*)_DEVCTL_DATA( msg->i);
+    logPortSubscribe_t      &subMsg = portMsg->portSubscribe;
+    logPortSubscribeReply_t &reply = portMsg->portSubscribeReply;
+    CommIoOcb_t             *clientOcb = (CommIoOcb_t*)ioOcb;
+    int                     retVal;
+    LogPortSubscriptionId_t subId = LOG_PORT_INVALID_SUB;
+
+    Log( LOG_FN_ENTRY, "Enter GryphonCCanProxy::PortSubscribeHandler(), size = %d\n", ctp->size);
+
+    // Need to lock this operation to avoid duplicate subscription ID's
+    if( (retVal = pthread_mutex_lock( &m_dataLock)) == EOK)
+    {
+        clientOcb->subMask |= subMsg.flags;
+
+        // If subscribing for received data
+        if( subMsg.flags & PORT_SUBSCRIBE_RX)
+        {
+            // If not already subscribed for RX data
+            if( clientOcb->rxSubscription->ShouldNotify() == false)
+            {
+                // Get a reference to the existing RX subscription
+                clientOcb->rxSubscription->count = subMsg.byteCount;
+                clientOcb->rxSubscription->SetNotifyEvent( subMsg.notifyEvent, ctp->rcvid);
+                clientOcb->rxSubscription->notifyModeMask = subMsg.modeMask;
+
+                // If there is a filter string specified for this subscription
+                if( (subMsg.flags & PORT_NOTIFY_FILTER) && (subMsg.filterByteCount > 0))
+                {
+                    Log( LOG_DEV_DATA, "Adding Rx Filter String for coId %d\n", ctp->rcvid);
+                    Log( LOG_DEV_DATA, "Rx Filter String length = %d\n", subMsg.filterByteCount);
+
+                    // Copy the desired filter string
+                    LogPortFilterString filterString;
+
+                    //filterString.reserve( subMsg.filterByteCount);
+                    for( uint32_t ii=0; ii<subMsg.filterByteCount; ii++)
+                    {
+                        LogPortFilterByte   fb = LogPortFilterByte( subMsg.filterString[ ii]);
+                        filterString.push_back( fb);
+                        Log( LOG_DEV_DATA, "\tAdded filter byte %d: $%02X $%02X %d\n",
+                             ii, fb.m_fbVal, fb.m_mask, fb.m_isWildCard);
+                    }
+                    if ( m_j1939Channel )
+					{//setting filters for pgns (only subscriptions) to variable length
+						filterString.SetRespLenType(VAR_LEN);
+					}
+					// Add filter string to the clients filter list
+                    clientOcb->rxSubscription->filterList.AddFilterString(filterString);
+                    Log( LOG_DEV_DATA, "Added Rx Filter String for coId %d\n", ctp->rcvid);
+                }
+
+                // Already subscribed for rx data
+                reply.flags |= PORT_SUBSCRIBE_RX;
+                Log( LOG_DEV_DATA, "Added Rx subscriber() for coId %d\n", ctp->rcvid);
+            }
+        }
+
+        // If subscribing for transmit data
+        if( (subMsg.flags & PORT_SUBSCRIBE_TX) && (clientOcb->txSubscription == NULL))
+        {
+            clientOcb->txSubscription = new LogPortSubscription( subMsg.byteCount,
+                                                                 subMsg.modeMask,
+                                                                 subMsg.notifyEvent,
+                                                                 ctp->rcvid);
+            if(LOG_PORT_INVALID_SUB == subId)   subId = clientOcb->txSubscription->id;
+
+            // Add to transmit data subscribers list
+            m_txSubscribers.AddSubscriber( clientOcb->txSubscription->id, clientOcb);
+            reply.flags |= PORT_SUBSCRIBE_TX;
+            Log( LOG_DEV_DATA, "Added Tx subscriber() for coId %d\n", ctp->rcvid);
+        }
+
+        // If subscribing for port lock events
+        if( (subMsg.flags & PORT_SUBSCRIBE_LOCK) && (clientOcb->lockSubscription == NULL))
+        {
+            clientOcb->lockSubscription = new LogPortSubscription( subMsg.byteCount,
+                                                                   subMsg.modeMask,
+                                                                   subMsg.notifyEvent,
+                                                                   ctp->rcvid);
+            if(LOG_PORT_INVALID_SUB == subId)   subId = clientOcb->lockSubscription->id;
+
+            // Add to transmit data subscribers list
+            m_lockSubscribers.AddSubscriber( clientOcb->lockSubscription->id, clientOcb);
+
+            reply.flags |= PORT_SUBSCRIBE_LOCK;
+            Log( LOG_DEV_DATA, "Added Lock subscriber()\n");
+
+            // Check current port lock status
+            if( IsPortLocked() == true)
+            {
+                // Port is currently locked, so deliver pulse now
+                /////////////////////////////////////////////////
+
+                // If client wants to use a pulse for notifications
+                if(subMsg.notifyEvent.sigev_notify == SIGEV_PULSE)
+                {
+                    // Set pulse value to proper event
+                    subMsg.notifyEvent.sigev_value.sival_int |= PORT_SUBSCRIBE_LOCK;
+                }
+                MsgDeliverEvent( ctp->rcvid, &subMsg.notifyEvent);
+            }
+        }
+
+        // If subscribing for port unlock events
+        if( (subMsg.flags & PORT_SUBSCRIBE_UNLOCK) && (clientOcb->unlockSubscription == NULL))
+        {
+            clientOcb->unlockSubscription = new LogPortSubscription( subMsg.byteCount,
+                                                                     subMsg.modeMask,
+                                                                     subMsg.notifyEvent,
+                                                                     ctp->rcvid);
+            if(LOG_PORT_INVALID_SUB == subId)   subId = clientOcb->unlockSubscription->id;
+
+            // Add to transmit data subscribers list
+            m_unlockSubscribers.AddSubscriber( clientOcb->unlockSubscription->id, clientOcb);
+
+            reply.flags |= PORT_SUBSCRIBE_UNLOCK;
+
+            // Check current port lock status
+            if( IsPortLocked() == false)
+            {
+                // Port is currently unlocked, so deliver pulse now
+                /////////////////////////////////////////////////
+
+                // If client wants to use a pulse for notifications
+                if(subMsg.notifyEvent.sigev_notify == SIGEV_PULSE)
+                {
+                    // Set pulse value to proper event
+                    subMsg.notifyEvent.sigev_value.sival_int |= PORT_SUBSCRIBE_UNLOCK;
+                }
+                MsgDeliverEvent( ctp->rcvid, &subMsg.notifyEvent);
+            }
+        }
+
+        // If clients wants notification of exisating data in FIFOs
+        if( subMsg.flags & PORT_NOTIFY_EXISTING)
+        {
+            if( reply.flags)    reply.flags |= PORT_NOTIFY_EXISTING;
+        }
+
+        // If no other subscriptions were made, default to the RX subscription ID
+        if(LOG_PORT_INVALID_SUB == subId)   subId = clientOcb->rxSubscription->id;
+
+        reply.handle = subId;
+        memset( &msg->o, 0, sizeof( msg->o));
+        msg->o.nbytes = sizeof( reply);
+        SETIOV( ctp->iov, &msg->o, sizeof( msg->o)+msg->o.nbytes);
+        retVal = _RESMGR_NPARTS(1);
+
+        pthread_mutex_unlock( &m_dataLock);
+    }
+    else
+    {
+        Log( LOG_ERRORS, "\tError locking data in PortSubscribeHandler: %s\n",
+             strerror( retVal));
+        retVal = EBUSY;
+    }
+
+    Log( LOG_FN_ENTRY, "Exit GryphonCCanProxy::PortSubscribeHandler()\n");
+
+    return( retVal);
 }
 
 /**

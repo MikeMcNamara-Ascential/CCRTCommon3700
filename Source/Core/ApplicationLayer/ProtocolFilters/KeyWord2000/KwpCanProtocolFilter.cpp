@@ -681,9 +681,10 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetPGNBroadcastMessage(string messag
 	do
 	{   // Read the port for the message
 		moduleResponse.erase();
-		replyBytes = ReadPort(messageTag, moduleResponse);
+		status = GetResponse(moduleResponse);
+		//replyBytes = ReadPort(messageTag, moduleResponse);
 		// Check the message
-		if(replyBytes > 0)
+		if(status == BEP_STATUS_SUCCESS)
 		{
 			reply = ExtractModuleData(moduleResponse);
 			validMessage = IsResponseValid(messageTag, reply);

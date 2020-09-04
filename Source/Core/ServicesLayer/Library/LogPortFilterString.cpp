@@ -454,6 +454,11 @@ RespLenType_t LogPortFilterString::GetRespLenType() const
     return( m_lenType);
 }
 
+void LogPortFilterString::SetRespLenType(RespLenType_t responseLengthType)
+{
+	m_lenType = responseLengthType;
+}
+
 /**
  * Returns the response message type (fixed length or variable length)
  *

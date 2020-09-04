@@ -351,6 +351,7 @@ public:
 	 * @return The response message type (fixed length or variable length)
 	 */
 	RespLenType_t GetRespLenType() const;
+	void SetRespLenType(RespLenType_t responseLengthType);
 
 	/**
 	 * Returns the response message type (fixed length or variable length)

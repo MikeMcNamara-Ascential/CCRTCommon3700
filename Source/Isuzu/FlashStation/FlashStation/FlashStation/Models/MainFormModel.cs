@@ -57,7 +57,7 @@ namespace Common.Lib.Models
             m_tcmLogger = new Logger(tcmRTB, "TCMLog", m_logsDirectory);
             m_performTCMFlash = true;
             m_performECMFlash = true;
-            m_performBASLearn = false;
+            m_performBASLearn = true;
             m_keyOffEngineOffWaitStart = false;
             m_vehicleCommInterface = new VehicleCommServerInterface();
             m_inputServerInterface = new InputServerInterface();
@@ -970,7 +970,8 @@ namespace Common.Lib.Models
             m_logger.Log("INFO:  GetBASHomePosition() Received: " + BitConverter.ToString(data.ToArray()));
             if (data.Count > 0)
             {
-                if ((data[3] & 0xFF) >= 0x33 && (data[3] & 0xFF) <= 0x4D)
+                //BAS Learn Tolerances
+                if ((data[3] & 0xFF) >= 0x33 && (data[3] & 0xFF) <= 0x50)
                 {
                     modulePositionOK = true;
                 }
@@ -1033,7 +1034,7 @@ namespace Common.Lib.Models
             if (m_isFlashRequired && m_performBASLearn && !IsBrakePedalApplied())
             {
                 //delay 800 ms for BAS Learn
-                Thread.Sleep(800);
+                Thread.Sleep(2000);
                 m_basHomePositionLearned = IsBASHomePositionLearned();
             }
             else

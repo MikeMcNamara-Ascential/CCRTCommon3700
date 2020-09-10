@@ -2607,8 +2607,8 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 	locMsg.selfConfiguration = 0;
 	// Set the address to claim
 	locMsg.addressToClaim = addressToClaim;
-	locMsg.emulation = 0x01; //filter messages - only our messages and broadcasts will be received
-	//locMsg.emulation = 0x00; //do not filter
+	//locMsg.emulation = 0x01; //filter messages - only our messages and broadcasts will be received
+	locMsg.emulation = 0x00; //do not filter
 	locMsg.padding = 0x00;
 	// Send the Address claim command to the server
 	if(J1939AddressClaim.Acquire() == EOK)

@@ -381,9 +381,9 @@ int IGryphonChannel::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
 	// Determine the size of the incoming data
 	locSize = m_rxFifo.Peek(buff, 8);
 	while (locSize >= 8)
-	{
+	{//get size from message, and account for padding (not included size embedded in message)
 		locSize = Align32(256* buff[4] + buff[5]);
-
+		//8 is size of gryphon frame header
 		if (m_rxFifo.GetSize() >= locSize + 8)
 		{
 			m_rxFifo.GetBytes(buff,locSize+8);
@@ -398,7 +398,7 @@ int IGryphonChannel::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
 			}
 			// Log communication for this client
 			UpdateBusCommLog( ComDirRx, buff, locSize+8, NULL);
-
+			//get next header
 			locSize = m_rxFifo.Peek(buff, 8);
 		}
 		else locSize = 0; // done for now
@@ -2539,8 +2539,8 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 	locMsg.selfConfiguration = 0;
 	// Set the address to claim
 	locMsg.addressToClaim = addressToClaim;
-	//locMsg.emulation = 0x01; //filter messages
-	locMsg.emulation = 0x00; //do not filter
+	locMsg.emulation = 0x01; //filter messages - only our messages and broadcasts will be received
+	//locMsg.emulation = 0x00; //do not filter
 	locMsg.padding = 0x00;
 	// Send the Address claim command to the server
 	if(J1939AddressClaim.Acquire() == EOK)

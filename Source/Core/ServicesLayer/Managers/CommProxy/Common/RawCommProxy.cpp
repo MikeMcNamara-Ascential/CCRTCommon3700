@@ -5218,14 +5218,22 @@ void RawCommProxy::PrintSerialString( uint32_t logMask, const char *prefix,
     {
         // Avoid SIGSEGV
         if( prefix == NULL) prefix = " ";
+        int lineNumber = 0;
 
         // Build logger string
         for( ii=0, prnBuff[ 0] = 0; ii<buffLen; ii++)
         {
             sprintf( hexBuff, "$%02hhX ", srlString[ ii]);
             strcat( prnBuff, hexBuff);
+            if ((ii + 1) % 128 == 0)
+            {//New ling
+                Log(logMask, "%s[%d]: %s\n", prefix, lineNumber, prnBuff);
+                lineNumber++;
+                prnBuff[0] = 0; 
+            }
         }
-        Log( logMask, "%s: %s\n", prefix, prnBuff);
+        //Log( logMask, "%s: %s\n", prefix, prnBuff);
+        Log(logMask, "%s[%d]: %s\n", prefix, lineNumber, prnBuff); 
     }
 }
 

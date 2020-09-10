@@ -38,7 +38,7 @@
 
 
 
-CommFifo::CommFifo() : m_size( 1024), m_protocolValid( false)
+CommFifo::CommFifo() : m_size(2048), m_protocolValid(false)
 {
     m_head = m_tail = 0;
 
@@ -89,11 +89,14 @@ int CommFifo::GetBytes( uint8_t *buff, uint32_t size)
     if( LockFifo())
     {
         // Calculate number of bytes available in FIFO
-        if( m_tail < m_head)	maxSz = m_size + (m_tail - m_head);
-        else					maxSz = (m_tail - m_head);
+        if (m_tail < m_head)
+            maxSz = m_size + (m_tail - m_head);
+        else
+            maxSz = (m_tail - m_head);
 
         // Don't overflow caller's buffer
-        if( size  < maxSz)		maxSz = size;
+        if (size  < maxSz)
+            maxSz = size;
 
         while( (m_head != m_tail) && (retVal < maxSz))
         {
@@ -114,11 +117,14 @@ int CommFifo::Peek( uint8_t *buff, uint32_t size)
     if( LockFifo())
     {
         // Calculate number of bytes available in FIFO
-        if( m_tail < m_head)	maxSz = m_size + (m_tail - m_head);
-        else					maxSz = (m_tail - m_head);
+        if (m_tail < m_head)
+            maxSz = m_size + (m_tail - m_head);
+        else
+            maxSz = (m_tail - m_head);
 
         // Don't overflow caller's buffer
-        if( size  < maxSz)		maxSz = size;
+        if (size  < maxSz)
+            maxSz = size;
 
         while( (idx != m_tail) && (retVal < maxSz))
         {
@@ -194,7 +200,8 @@ uint32_t CommFifo::GetSize()
     if( LockFifo())
     {
         size = m_tail - m_head;
-        if( m_tail < m_head)	size = m_size + size;
+        if (m_tail < m_head)
+            size = m_size + size;
         UnlockFifo();
     }
 
@@ -219,7 +226,8 @@ bool CommFifo::GetPostProtocol( SerialProtocol_t &postProtocol, bool clearFlag /
     if( m_protocolValid)
     {
         postProtocol = m_postProtocol;
-        if( clearFlag)	m_protocolValid = false;
+        if (clearFlag)
+            m_protocolValid = false;
     }
 
     return( retVal);
@@ -257,7 +265,8 @@ void CommFifo::IsrPrint(char *str)
 {
     void (*outchar)(struct syspage_entry *, char) = SYSPAGE_ENTRY(callout)->debug[0].display_char;
 
-    while (*str) outchar(_syspage_ptr, *str++);
+    while (*str)
+        outchar(_syspage_ptr, *str++);
 }
 
 

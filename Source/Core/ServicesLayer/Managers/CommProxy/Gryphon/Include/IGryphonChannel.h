@@ -738,6 +738,9 @@ protected:
      * @since Version 1.0
      */
     void ReverseBytes(unsigned int &byteString);
+	bool IsValidSourceType(uint8_t sdByte);
+	bool IsValidFrameType(uint8_t frameTypeByte);
+
     /**
      * This is used to select an alternate physical channel of the
      * designated type and subtype.

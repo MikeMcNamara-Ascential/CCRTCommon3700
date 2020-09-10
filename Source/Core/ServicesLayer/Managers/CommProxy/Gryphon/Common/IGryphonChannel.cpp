@@ -378,36 +378,104 @@ int IGryphonChannel::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
 	BEP_STATUS_TYPE messageStatus = BEP_STATUS_ERROR;
 	// Log the function entry
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::ReadPortDataUnlocked()\n");
-	// Determine the size of the incoming data
+	bool isValidSourceType = false;
+	bool isValidFrameType = false;
+	bool isValidDestination = false;
 	locSize = m_rxFifo.Peek(buff, 8);
-	while (locSize >= 8)
+	while ( locSize >= 8 )
 	{//get size from message, and account for padding (not included size embedded in message)
-		locSize = Align32(256* buff[4] + buff[5]);
-		//8 is size of gryphon frame header
-		if (m_rxFifo.GetSize() >= locSize + 8)
+		isValidSourceType = IsValidSourceType(buff[0]);
+		isValidFrameType = IsValidFrameType(buff[6]);
+		//all incoming messages are targetted to client (us)
+		isValidDestination = buff[2] == SD_CLIENT;
+		if (!isValidSourceType)
 		{
-			m_rxFifo.GetBytes(buff,locSize+8);
-			messageStatus = processNewMessage(buff);	// non-protocol (control) interpret
-			if (BEP_STATUS_SUCCESS == messageStatus)
-			{
-				DecodeRead(buff, locSize+8); // to clients
-			}
-			else
-			{
-				Log(LOG_ERRORS, "Error processing new message, not decoding the message");
-			}
-			// Log communication for this client
-			UpdateBusCommLog( ComDirRx, buff, locSize+8, NULL);
-			//get next header
+			Log(LOG_ERRORS, "Invalid source type: %02X, not decoding the message",buff[0]);
+			m_rxFifo.Erase(1);
 			locSize = m_rxFifo.Peek(buff, 8);
 		}
-		else locSize = 0; // done for now
+		else if (!isValidFrameType)
+		{
+			Log(LOG_ERRORS, "Invalid frame type: %02X, not decoding the message",buff[6]);
+			m_rxFifo.Erase(1);
+			locSize = m_rxFifo.Peek(buff, 8);
+		}
+		else if ( !isValidDestination )
+		{
+			Log(LOG_ERRORS, "Invalid Destination: %02X, not decoding the message",buff[2]);
+			m_rxFifo.Erase(1);
+			locSize = m_rxFifo.Peek(buff, 8);
+		}
+		else
+		{
+			Log(LOG_DETAILED_DATA,"Valid source: %02X, frame type: %02X and destination %02X, processing", buff[0], buff[6], buff[2]);
+			// Determine the size of the incoming data
+			locSize = Align32(256* buff[4] + buff[5]);
+			//8 is size of gryphon frame header
+			if (m_rxFifo.GetSize() >= locSize + 8)
+			{
+				m_rxFifo.GetBytes(buff,locSize+8);
+				messageStatus = processNewMessage(buff);	// non-protocol (control) interpret
+				if (BEP_STATUS_SUCCESS == messageStatus)
+				{
+					DecodeRead(buff, locSize+8); // to clients
+				}
+				else
+				{
+					Log(LOG_ERRORS, "Error processing new message, not decoding the message");
+				}
+				// Log communication for this client
+				UpdateBusCommLog( ComDirRx, buff, locSize+8, NULL);
+				//get next header
+				locSize = m_rxFifo.Peek(buff, 8);
+			}
+			else locSize = 0; // done for now
+		}
 	}
 	// Log the function exit and return the status
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::ReadPortDataUnlocked(%d)\n", locSize);
 	return(0);
 }
-
+bool IGryphonChannel::IsValidSourceType(uint8_t sdByte)
+{
+	switch (sdByte)
+	{
+		case SD_CARD:
+		case SD_SERVER:
+		//case SD_CLIENT:
+		//case SD_SCHED:
+		//case SD_SCRIPT:
+		//case SD_PGM:
+		case SD_USDT:
+		//case SD_BLM:
+		//case SD_LIN:
+		//case SD_LOGGER:
+		//case SD_RESP:
+		//case SD_IOPWR:
+		//case SD_UTIL:
+		//case SD_CNVT:
+		case SD_J1939TP:
+			return true;
+		default:
+			return false;
+	}
+}
+bool IGryphonChannel::IsValidFrameType(uint8_t frameTypeByte)
+{
+	switch (frameTypeByte)
+	{  
+		case FT_CMD:
+		case FT_RESP:
+		case FT_DATA:
+		case FT_EVENT:
+		case FT_MISC:
+		case FT_TEXT:
+		case FT_SIG:
+			return true;
+		default:
+			return false;
+	}
+}
 int IGryphonChannel::ConfigurePort( const SerialProtocol &portCfg, int mode)
 {
 	(void) portCfg;

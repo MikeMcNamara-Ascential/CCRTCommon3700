@@ -14,21 +14,21 @@
 //
 // LOG:
 //     $Log: /Ccrt/Source/Core/ServicesLayer/Managers/CommProxy/Common/RawCommProxy.cpp $
-// 
+//
 // 17    1/18/07 12:51p Rwiersem
 // Changes for the 07011901 core release:
-// 
+//
 // - Added DecodeIpAddress().
-// 
+//
 // 16    10/26/06 10:20a Rwiersem
 // Changes for the 06102701 core release:
-// 
+//
 // Added Read() and Write().
-// 
+//
 // Added DriverBytesAvailable().
-// 
+//
 // Added the clientOcb parameter to TransmitMessage().
-// 
+//
 // 15    6/21/06 4:39p Cward
 // Added ability to reload config file without rebooting
 //
@@ -440,8 +440,10 @@ bool RawCommProxy::HandleCommandLineArg( int option, const char *value)
         m_pathName = optarg;
         break;
     case 'P':       // Name of parent process to notify
-        if( value != NULL)      m_parentName = value;
-        else                    m_parentName = "mgr/SerialServer";
+        if (value != NULL)
+            m_parentName = value;
+        else
+            m_parentName = "mgr/SerialServer";
         Log( LOG_DEV_DATA, "parent process = %s\n", m_parentName.c_str());
         break;
     case 'R':
@@ -825,8 +827,10 @@ bool RawCommProxy::InitManager()
             break;
         case 3:     // Adopt our '/dev' path
             // Adopted path will be the same name as our logical port name
-            if( m_pathName[ 0] != '/')  path = path + m_pathName;
-            else                        path = m_pathName;
+            if (m_pathName[0] != '/')
+                path = path + m_pathName;
+            else
+                path = m_pathName;
 
             // Attach our pseudo main serial path
             if( PathAttach( path.c_str(), m_rxFifo.GetSize()) == -1)
@@ -1029,9 +1033,11 @@ const std::string RawCommProxy::Register(void)
     }
 
     // Unregister with TaskMon to say we have a problem (if we had a problem)
-    if( retVal != BEP_SUCCESS_RESPONSE)     ReportTaskEnding();
+    if (retVal != BEP_SUCCESS_RESPONSE)
+        ReportTaskEnding();
     // Tell TaskMon we are up and running
-    else                                    ReportTaskUp();
+    else
+        ReportTaskUp();
 
     Log( LOG_FN_ENTRY, "Exit RawCommProxy::Register( %s)\n", retVal.c_str());
 
@@ -1425,8 +1431,10 @@ bool RawCommProxy::AddToClientFifo( const char *buff, size_t len, CommIoOcb_t *o
                 if(m_blockedReaders.FindBlockedReader(ocb, client) != false)
                 {
                     // Determine the maximum number of bytes we can send to the client
-                    if(len > (size_t)client.readMsg.i.nbytes)   maxReply = client.readMsg.i.nbytes;
-                    else                                        maxReply = len;
+                    if (len > (size_t)client.readMsg.i.nbytes)
+                        maxReply = client.readMsg.i.nbytes;
+                    else
+                        maxReply = len;
 
                     Log( LOG_DEV_DATA, "Replying to blocked client (%d,%d) with %d bytes (%d, %d)\n",
                          ocb->baseOcb.mssgInfo.pid, ocb->baseOcb.mssgInfo.tid, maxReply, len, client.readMsg.i.nbytes);
@@ -1534,6 +1542,8 @@ bool RawCommProxy::ClientOwnsPortLock( CommIoOcb_t *clientOcb)
             else
             {
                 Log( LOG_DEV_DATA | LOG_ERRORS, "Client DOES NOT own locked port\n");
+                // Give it a second.. geez
+                BposSleep(50);
             }
         }
         else
@@ -1541,7 +1551,8 @@ bool RawCommProxy::ClientOwnsPortLock( CommIoOcb_t *clientOcb)
             Log( LOG_DEV_DATA | LOG_ERRORS, "Port is NOT currently locked\n");
         }
 
-        if( EOK == lockErr) m_portLock.Release();
+        if (EOK == lockErr)
+            m_portLock.Release();
     }
     else
     {
@@ -1584,11 +1595,14 @@ bool RawCommProxy::CanClientWrite( CommIoOcb_t *clientOcb)
             // Ability to write depends on whether or not this client owns
             //  the current port lock
             retVal = ClientOwnsPortLock( clientOcb);
-            if( true == retVal) Log( LOG_DEV_DATA, "Client can write\n");
-            else                Log( LOG_DEV_DATA | LOG_ERRORS, "Client can NOT write\n");
+            if (true == retVal)
+                Log(LOG_DEV_DATA, "Client can write\n");
+            else
+                Log(LOG_DEV_DATA | LOG_ERRORS, "Client can NOT write\n");
         }
 
-        if( EOK == lockErr) m_portLock.Release();
+        if (EOK == lockErr)
+            m_portLock.Release();
     }
     else
     {
@@ -1620,7 +1634,8 @@ bool RawCommProxy::IsPortLocked()
         retVal = m_portLock.GetValue();
 
         // Only release the lock if we just locked it
-        if( EOK == lockErr) m_portLock.Release();
+        if (EOK == lockErr)
+            m_portLock.Release();
     }
 
     return( retVal);
@@ -1961,7 +1976,8 @@ int RawCommProxy::IoRead(resmgr_context_t *ctp, io_read_t *msg, resMgrIoOcb_t *i
             Log( LOG_DEV_DATA, "\tClient FIFO contains %d bytes\n", count);
 
             // Calculate how many bytes to transfer from client's FIFO
-            if(count > (uint32_t)msg->i.nbytes)    count = msg->i.nbytes;
+            if (count > (uint32_t)msg->i.nbytes)
+                count = msg->i.nbytes;
 
             // If we need to transfer any data
             if(count > 0)
@@ -2140,7 +2156,8 @@ int RawCommProxy::JustWrite( resmgr_context_t *ctp, resMgrIoOcb_t *ioOcb, const 
 
         // Set flag to false here so no other clients will write
         //  until we have written and the timer expires
-        if( mssgGap > 0)    m_mssgGapExpired = false;
+        if (mssgGap > 0)
+            m_mssgGapExpired = false;
 
         // Add this message to the transmit queue
         retVal = TransmitMessage( xmtSting, xmtLen, clientOcb);
@@ -2375,7 +2392,7 @@ int RawCommProxy::IoDevCtl(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoOcb_
 
     ////////////////////////////////////////////////////////////
     //
-    Log( LOG_FN_ENTRY, "Exit RawCommProxy::IoDevCtl( pid %d, tid %d) cmd=%d\n", ctp->info.pid, ctp->info.tid, msg->i.dcmd);
+    Log(LOG_FN_ENTRY, "Exit RawCommProxy::IoDevCtl( pid %d, tid %d) cmd=%d\n", ctp->info.pid, ctp->info.tid, (msg->i.dcmd & 0xFFFF));
 
     return( retVal);
 }
@@ -2498,8 +2515,10 @@ int RawCommProxy::PosixDevCtl(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoO
         }
         break;
     case DCMD_CHR_TCFLUSH:
-        if( clientOcb->rxSubscription != NULL)  clientOcb->rxSubscription->fifo.Reset();
-        if( clientOcb->txSubscription != NULL)  clientOcb->txSubscription->fifo.Reset();
+        if (clientOcb->rxSubscription != NULL)
+            clientOcb->rxSubscription->fifo.Reset();
+        if (clientOcb->txSubscription != NULL)
+            clientOcb->txSubscription->fifo.Reset();
         retVal = FlushDriverFifos( dcp->data32);
         retVal = (retVal == -1 ? errno : EOK);
         break;
@@ -2509,8 +2528,10 @@ int RawCommProxy::PosixDevCtl(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoO
         break;
     case DCMD_CHR_TCGETPGRP:
         retVal = dcp->data32 = tcgetpgrp( m_comPortFd);
-        if( retVal == -1)   retVal = errno;
-        else                retVal = _RESMGR_PTR(ctp, &msg->o, sizeof(msg->o) + sizeof(dcp->data32));
+        if (retVal == -1)
+            retVal = errno;
+        else
+            retVal = _RESMGR_PTR(ctp, &msg->o, sizeof(msg->o) + sizeof(dcp->data32));
         break;
     case DCMD_CHR_TCSETPGRP:
         retVal = tcsetpgrp( m_comPortFd, dcp->data32);
@@ -2519,8 +2540,10 @@ int RawCommProxy::PosixDevCtl(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoO
     case DCMD_CHR_TCGETSID:
         retVal = ( m_comPortFd);
         retVal = dcp->data32 = tcgetsid( m_comPortFd);
-        if( retVal == -1)   retVal = errno;
-        else                retVal = _RESMGR_PTR(ctp, &msg->o, sizeof(msg->o) + sizeof(dcp->data32));
+        if (retVal == -1)
+            retVal = errno;
+        else
+            retVal = _RESMGR_PTR(ctp, &msg->o, sizeof(msg->o) + sizeof(dcp->data32));
         break;
     case DCMD_CHR_TCSETSID:
         retVal = tcsetsid( m_comPortFd, dcp->data32);
@@ -2539,13 +2562,17 @@ int RawCommProxy::PosixDevCtl(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoO
         }
         break;
     case DCMD_CHR_ISATTY:
-        if( isatty( m_comPortFd) == 0)  retVal = ENOTTY;
-        else                            retVal = EOK;
+        if (isatty(m_comPortFd) == 0)
+            retVal = ENOTTY;
+        else
+            retVal = EOK;
         break;
     case DCMD_CHR_GETSIZE:
         retVal = tcgetsize( m_comPortFd, (int*)&dcp->winsize.ws_row, (int*)&dcp->winsize.ws_col);
-        if( retVal == -1)   retVal = errno;
-        else                retVal = _RESMGR_PTR(ctp, &msg->o, sizeof(msg->o) + sizeof(dcp->winsize));
+        if (retVal == -1)
+            retVal = errno;
+        else
+            retVal = _RESMGR_PTR(ctp, &msg->o, sizeof(msg->o) + sizeof(dcp->winsize));
         break;
     case DCMD_CHR_SETSIZE:
         retVal = tcsetsize( m_comPortFd, dcp->winsize.ws_row, dcp->winsize.ws_col);
@@ -2554,8 +2581,10 @@ int RawCommProxy::PosixDevCtl(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoO
     case DCMD_CHR_ISCHARS:
 //      retVal = dcp->data32 = tcischars( m_comPortFd);
         retVal = dcp->data32 = clientOcb->rxSubscription->fifo.GetSize();
-        if( retVal == -1)   retVal = errno;
-        else                retVal = _RESMGR_PTR(ctp, &msg->o, sizeof(msg->o) + sizeof(dcp->data32));
+        if (retVal == -1)
+            retVal = errno;
+        else
+            retVal = _RESMGR_PTR(ctp, &msg->o, sizeof(msg->o) + sizeof(dcp->data32));
         break;
     default:
         // Just pass the request through to the serial driver
@@ -2622,7 +2651,8 @@ void RawCommProxy::ReplyToReadClient(resmgr_context_t *ctp, io_read_t *msg, resM
         uint32_t    count = clientOcb->rxSubscription->fifo.GetSize();
 
         // Calculate how many bytes to transfer from client's FIFO
-        if(count > (uint32_t)msg->i.nbytes)    count = msg->i.nbytes;
+        if (count > (uint32_t)msg->i.nbytes)
+            count = msg->i.nbytes;
 
         // If we need to transfer any data
         if(count > 0)
@@ -2798,7 +2828,8 @@ int RawCommProxy::ObtainClientPortLock( CommIoOcb_t *clientOcb, int replyId, boo
                  clientOcb->portLockCount);
         }
 
-        if( EOK == lockErr) m_portLock.Release();
+        if (EOK == lockErr)
+            m_portLock.Release();
     }
     else
     {
@@ -2875,7 +2906,8 @@ bool RawCommProxy::ReleaseClientPortLock( CommIoOcb_t *clientOcb, bool releaseAl
             LockForNextClient();
         }
 
-        if( EOK == lockErr) m_portLock.Release();
+        if (EOK == lockErr)
+            m_portLock.Release();
     }
     else
     {
@@ -2911,7 +2943,8 @@ int RawCommProxy::LockForNextClient( bool sendReply)
             Log( LOG_DEV_DATA, "Port currently unlocked...let client have it\n");
 
             // If we dont need to send a relpy to the client
-            if( sendReply == false) replyId = -1;
+            if (sendReply == false)
+                replyId = -1;
 
             status = LockForClient( nextClient, replyId);
         }
@@ -2996,9 +3029,11 @@ int RawCommProxy::UnlockForClient( CommIoOcb_t *clientOcb, bool releaseAll)
     Log( LOG_FN_ENTRY, "Enter RawCommProxy::UnlockForClient( %d)\n", clientOcb->portLockCount);
 
     // Release all of this client's locks on the port
-    if( releaseAll)     clientOcb->portLockCount = 0;
+    if (releaseAll)
+        clientOcb->portLockCount = 0;
     // Release one of this client's locks on the port
-    else                clientOcb->portLockCount--;
+    else
+        clientOcb->portLockCount--;
 
     Log( LOG_FN_ENTRY, "Exit RawCommProxy::UnlockForClient(%d)\n", clientOcb->portLockCount);
 
@@ -3021,7 +3056,8 @@ int RawCommProxy::ArmReplyTimeoutTimer( CommIoOcb_t *clientOcb, bool forceArm)
     // Default to our default timeout value
     replyTimeout = m_defaultReplyTimeout;
     // If the client has a custom timeout value, use it
-    if( clientOcb->replyTimeout)    replyTimeout = clientOcb->replyTimeout;
+    if (clientOcb->replyTimeout)
+        replyTimeout = clientOcb->replyTimeout;
 
     // IF we have a valid reply timout time
     if( replyTimeout > 0)
@@ -3292,7 +3328,7 @@ ResManagerCmd_t RawCommProxy::HandleResMgrPulse(io_pulse_t &pulse)
 ResManagerCmd_t RawCommProxy::HandleDriverNotificationPulse(io_pulse_t &pulse)
 {
     ResManagerCmd_t retVal = RES_MGR_CMD_NONE;
-    uint8_t         buff[ 1024];
+    uint8_t         buff[m_fifoSize];
     int             bytesRead, totalRead=0;
 
     Log( LOG_FN_ENTRY, "Enter HandleDriverNotificationPulse( %d, %d)\n", pulse.code,
@@ -3300,7 +3336,7 @@ ResManagerCmd_t RawCommProxy::HandleDriverNotificationPulse(io_pulse_t &pulse)
     if( (bytesRead=m_comGuard.Acquire()) == EOK)
     {
         // Read (up to) 128 bytes from the driver with a 0ms timeout
-        while((bytesRead = ReadDriverData( buff, 1024, (uint32_t)0)) > 0)
+        while ((bytesRead = ReadDriverData(buff, m_fifoSize, (uint32_t)0)) > 0)
         {
             // Add newly received data to rx fifo
             m_rxFifo.AddBytes( buff, bytesRead);
@@ -3366,8 +3402,10 @@ ResManagerCmd_t RawCommProxy::HandleMssgGapPulse(io_pulse_t &pulse)
                             writer.writeMsg.length());
 
         // Reply to the client to unblick him
-        if( nbytes >= 0)    MsgReply( writer.replyId, nbytes, NULL, 0);
-        else                MsgError( writer.replyId, errno);
+        if (nbytes >= 0)
+            MsgReply(writer.replyId, nbytes, NULL, 0);
+        else
+            MsgError(writer.replyId, errno);
 
         /////////////////////////////////////////////////
         //
@@ -3659,7 +3697,7 @@ void RawCommProxy::UpdateSubscribers( int eventMask)
 ResManagerCmd_t RawCommProxy::ProcessReadData()
 {
     ResManagerCmd_t retVal = RES_MGR_CMD_NONE;
-    const size_t    buffSz = 1024;
+    const size_t    buffSz = (size_t)m_fifoSize; //2048;//1024;
     uint8_t         buff[ buffSz];
     size_t          readCount=0;
 
@@ -3748,7 +3786,8 @@ int RawCommProxy::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
                                                                  subMsg.modeMask,
                                                                  subMsg.notifyEvent,
                                                                  ctp->rcvid);
-            if(LOG_PORT_INVALID_SUB == subId)   subId = clientOcb->txSubscription->id;
+            if (LOG_PORT_INVALID_SUB == subId)
+                subId = clientOcb->txSubscription->id;
 
             // Add to transmit data subscribers list
             m_txSubscribers.AddSubscriber( clientOcb->txSubscription->id, clientOcb);
@@ -3763,7 +3802,8 @@ int RawCommProxy::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
                                                                    subMsg.modeMask,
                                                                    subMsg.notifyEvent,
                                                                    ctp->rcvid);
-            if(LOG_PORT_INVALID_SUB == subId)   subId = clientOcb->lockSubscription->id;
+            if (LOG_PORT_INVALID_SUB == subId)
+                subId = clientOcb->lockSubscription->id;
 
             // Add to transmit data subscribers list
             m_lockSubscribers.AddSubscriber( clientOcb->lockSubscription->id, clientOcb);
@@ -3794,7 +3834,8 @@ int RawCommProxy::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
                                                                      subMsg.modeMask,
                                                                      subMsg.notifyEvent,
                                                                      ctp->rcvid);
-            if(LOG_PORT_INVALID_SUB == subId)   subId = clientOcb->unlockSubscription->id;
+            if (LOG_PORT_INVALID_SUB == subId)
+                subId = clientOcb->unlockSubscription->id;
 
             // Add to transmit data subscribers list
             m_unlockSubscribers.AddSubscriber( clientOcb->unlockSubscription->id, clientOcb);
@@ -3820,11 +3861,13 @@ int RawCommProxy::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
         // If clients wants notification of exisating data in FIFOs
         if( subMsg.flags & PORT_NOTIFY_EXISTING)
         {
-            if( reply.flags)    reply.flags |= PORT_NOTIFY_EXISTING;
+            if (reply.flags)
+                reply.flags |= PORT_NOTIFY_EXISTING;
         }
 
         // If no other subscriptions were made, default to the RX subscription ID
-        if(LOG_PORT_INVALID_SUB == subId)   subId = clientOcb->rxSubscription->id;
+        if (LOG_PORT_INVALID_SUB == subId)
+            subId = clientOcb->rxSubscription->id;
 
         reply.handle = subId;
         memset( &msg->o, 0, sizeof( msg->o));
@@ -3940,8 +3983,10 @@ int RawCommProxy::ResetConnectionHandler( resmgr_context_t *ctp, io_devctl_t *ms
 
     Log( LOG_FN_ENTRY, "Enter RawCommProxy::ResetConnectionHandler()\n");
 
-    if( clientOcb->rxSubscription != NULL)  clientOcb->rxSubscription->fifo.Reset();
-    if( clientOcb->txSubscription != NULL)  clientOcb->txSubscription->fifo.Reset();
+    if (clientOcb->rxSubscription != NULL)
+        clientOcb->rxSubscription->fifo.Reset();
+    if (clientOcb->txSubscription != NULL)
+        clientOcb->txSubscription->fifo.Reset();
 
     Log( LOG_FN_ENTRY, "Exit RawCommProxy::ResetConnectionHandler()\n");
 
@@ -4238,7 +4283,8 @@ int RawCommProxy::SendFastInitMessage( const uint8_t *initMssg, uint32_t mssgLen
                 UpdateBusCommLog( ComDirTx, &initMssg[reflCount], 1, NULL);
 
                 // Wait to send the next byte
-                if( byteGap > 0)    nanospin_ns( byteGap);
+                if (byteGap > 0)
+                    nanospin_ns(byteGap);
 
                 if( reflection)
                 {
@@ -4333,7 +4379,8 @@ int RawCommProxy::SendFastInitMessage( const uint8_t *initMssg, uint32_t mssgLen
         }
     }
 
-    if( retVal == EOK)      PrintSerialString( LOG_DEV_DATA, "Initialization string sent", initMssg, mssgLen);
+    if (retVal == EOK)
+        PrintSerialString(LOG_DEV_DATA, "Initialization string sent", initMssg, mssgLen);
 
     return( retVal);
 }
@@ -4382,7 +4429,8 @@ int RawCommProxy::LowSpeedInit(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIo
         ConfigurePort( &m_currentPortProtocol.m_tio, TCSANOW);
 
         // If low baud rate, give the Mizar time to adapt
-        if( initMssg->mssg[ 0].baud < 100)  delay( 500);
+        if (initMssg->mssg[0].baud < 100)
+            delay(500);
     }
     Log( "\tPort Speed: %d\n", m_currentPortProtocol.GetBaud());
     Log( "\tByteCount: %d\n", initMssg->byteCount);
@@ -4512,7 +4560,8 @@ int RawCommProxy::ReconnectHandlerVerify(resmgr_context_t *ctp, io_devctl_t *msg
             Log( LOG_DEV_DATA|LOG_ERRORS, "NOT OK to reconnect...port is NOT locked\n");
         }
 
-        if( EOK == lockErr) m_portLock.Release();
+        if (EOK == lockErr)
+            m_portLock.Release();
     }
     else
     {
@@ -4776,7 +4825,8 @@ int RawCommProxy::TransmitMessage( const uint8_t *message, int msgLen, CommIoOcb
             }
 
             // Wait until we can send the next byte
-            if( byteGap > 0) nanospin_ns( byteGap);
+            if (byteGap > 0)
+                nanospin_ns(byteGap);
         }
         // return number of bytes sent
         retVal = ii;
@@ -4810,6 +4860,7 @@ int RawCommProxy::TransmitMessage( const uint8_t *message, int msgLen, CommIoOcb
  */
 int RawCommProxy::Write( const void* buff, size_t bytes)
 {
+    Log(LOG_ERRORS, "\tComm port FD: %d\n", m_comPortFd);
     return( write( m_comPortFd, buff, bytes));
 }
 
@@ -4860,9 +4911,12 @@ void RawCommProxy::InitializeProtocol( SerialProtocol &portProtocol, uint32_t fl
         {
             switch( m_defaultPortProtocol.m_tio.c_cflag & (PARENB|PARODD))
             {
-            case PARENB:            portProtocol.SetParity( EVEN_PARITY);   break;
-            case PARENB | PARODD:   portProtocol.SetParity( ODD_PARITY);    break;
-            default:                portProtocol.SetParity( NO_PARITY);     break;
+            case PARENB:
+                portProtocol.SetParity(EVEN_PARITY);   break;
+            case PARENB | PARODD:
+                portProtocol.SetParity(ODD_PARITY);    break;
+            default:
+                portProtocol.SetParity(NO_PARITY);     break;
             }
         }
 
@@ -4871,11 +4925,15 @@ void RawCommProxy::InitializeProtocol( SerialProtocol &portProtocol, uint32_t fl
         {
             switch(m_defaultPortProtocol.m_tio.c_cflag & CSIZE)
             {
-            case CS5:   portProtocol.SetDataBits( BITS5);   break;
-            case CS6:   portProtocol.SetDataBits( BITS6);   break;
-            case CS7:   portProtocol.SetDataBits( BITS7);   break;
+            case CS5:
+                portProtocol.SetDataBits(BITS5);   break;
+            case CS6:
+                portProtocol.SetDataBits(BITS6);   break;
+            case CS7:
+                portProtocol.SetDataBits(BITS7);   break;
             default:
-            case CS8:   portProtocol.SetDataBits( BITS8);   break;
+            case CS8:
+                portProtocol.SetDataBits(BITS8);   break;
             }
         }
 
@@ -4884,16 +4942,20 @@ void RawCommProxy::InitializeProtocol( SerialProtocol &portProtocol, uint32_t fl
         {
             switch( m_defaultPortProtocol.m_tio.c_cflag & CSTOPB)
             {
-            case CSTOPB:    portProtocol.SetStopBits( STOP2);   break;
-            default:        portProtocol.SetStopBits( STOP1);   break;
+            case CSTOPB:
+                portProtocol.SetStopBits(STOP2);   break;
+            default:
+                portProtocol.SetStopBits(STOP1);   break;
             }
         }
 
         // Check if new inter-byte gap not valid
-        if( !(flags & PORT_SET_BYTE_GAP))   portProtocol.SetByteGap( m_defaultPortProtocol.m_byteGap);
+        if (!(flags & PORT_SET_BYTE_GAP))
+            portProtocol.SetByteGap(m_defaultPortProtocol.m_byteGap);
 
         // Check if new inter-message gap not valid
-        if( !(flags & PORT_SET_MSSG_GAP))   portProtocol.SetMsgGap( m_defaultPortProtocol.m_msgGap);
+        if (!(flags & PORT_SET_MSSG_GAP))
+            portProtocol.SetMsgGap(m_defaultPortProtocol.m_msgGap);
     }
 }
 
@@ -4992,6 +5054,7 @@ int RawCommProxy::ReadSendersBuffer( resmgr_context_t *ctp, SerialString_t &rawM
     if( (retVal = resmgr_msgread( ctp, rawData, buffSz, offset)) != -1)
     {
         rawMessage = SerialString_t( rawData, retVal);
+        Log(LOG_DEV_DATA, "rawMessage(%d)", rawMessage.size());
     }
     // If an error occurred
     else

@@ -2635,4 +2635,32 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::ClaimJ1939Address() - return value %d", retVal);
 	return retVal;
 }
-
+//int IGryphonChannel::SetOptimization()
+//{
+//	uint8_t localBuffer[20];
+//	int locSize;
+//	int retVal = EOK;
+//	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::EnableJ1939TransportProtocol()\n");
+//	// Clear out the message data
+//	memset(localBuffer,0,sizeof(localBuffer));
+//	localBuffer[0] = CMD_SERVER_SET_OPT;
+//	localBuffer[1] = UseContext();
+//	localBuffer[2] = 0x00;
+//	localBuffer[3] = 0x00;
+//	localBuffer[4] = TP_J1939;
+//	locSize = 5;
+//	// need to wait for acknowledgement
+//	if (J1939TPEnableAck.Acquire()== EOK)
+//	{
+//		J1939TPEnableAck.SetValue(false);
+//		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_SERVER);
+//		if (J1939TPEnableAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+//		{
+//		}
+//		J1939TPEnableAck.Release();
+//	}
+//	// Log the exit and return the status
+//	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::EnableJ1939TransportProtocol() retVal: %d\n", retVal);
+//	return(retVal);
+//
+//}

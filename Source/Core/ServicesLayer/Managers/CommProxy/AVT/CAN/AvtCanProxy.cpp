@@ -882,7 +882,7 @@ int AvtCanProxy::IoWrite(resmgr_context_t *ctp, io_write_t *msg, resMgrIoOcb_t *
                                 // Reset the AVT in case it's in a bad condition
                                 if( (err=m_comGuard.Acquire()) == EOK)
                                 {
-                                    m_rxFifo.Reset();
+                                    m_rxFifo->Reset();
                                     FlushDriverFifos( TCIOFLUSH);
                                     m_comGuard.Release();
                                 }
@@ -910,7 +910,7 @@ int AvtCanProxy::IoWrite(resmgr_context_t *ctp, io_write_t *msg, resMgrIoOcb_t *
                             // Reset the AVT in case it's in a bad condition
                             if( (err=m_comGuard.Acquire()) == EOK)
                             {
-                                m_rxFifo.Reset();
+                                m_rxFifo->Reset();
                                 FlushDriverFifos( TCIOFLUSH);
                                 m_comGuard.Release();
                             }
@@ -1095,14 +1095,14 @@ int AvtCanProxy::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
     Log( LOG_FN_ENTRY, "Enter AvtCanProxy::ReadPortDataUnlocked()\n");
 
     // The first byte of the buffer should be the AVT header byte
-    readCount = m_rxFifo.Peek( &buff[ 0], 1);
+    readCount = m_rxFifo->Peek( &buff[ 0], 1);
     m_avtBytesToCome = buff[ 0] & 0x0F;
 
     // See if we have a full AVT message packet
-    while( (m_avtBytesToCome <= (m_rxFifo.GetSize()-1)) && (readCount == 1))
+    while( (m_avtBytesToCome <= (m_rxFifo->GetSize()-1)) && (readCount == 1))
     {
         // Extract this packet
-        if( m_rxFifo.GetBytes( buff, m_avtBytesToCome+1) == (int)(m_avtBytesToCome+1))
+        if( m_rxFifo->GetBytes( buff, m_avtBytesToCome+1) == (int)(m_avtBytesToCome+1))
         {
             m_rawRxBuff = SerialString_t( buff, m_avtBytesToCome+1);
 
@@ -1157,7 +1157,7 @@ int AvtCanProxy::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
         }
 
         // Check if there is another packet waiting
-        readCount = m_rxFifo.Peek( &buff[ 0], 1);
+        readCount = m_rxFifo->Peek( &buff[ 0], 1);
         m_avtBytesToCome = buff[ 0] & 0x0F;
     }
 
@@ -1832,10 +1832,10 @@ void AvtCanProxy::ProcessReaderUnblockRequest(resMgrIoOcb_t *ioOcb, BlockedReade
             if( clientOcb->proxyOcb.portLockCount > 0)
             {
                 Log( LOG_DEV_DATA, "Resetting RX fifo due to response timeout\n");
-                if( (err=m_rxFifo.Lock()) == EOK)
+                if( (err=m_rxFifo->Lock()) == EOK)
                 {
-                    m_rxFifo.Reset();
-                    m_rxFifo.Unlock();
+                    m_rxFifo->Reset();
+                    m_rxFifo->Unlock();
                     Log( LOG_DEV_DATA, "RX fifo reset\n");
                 }
                 else
@@ -2534,7 +2534,7 @@ bool AvtCanProxy::AvtInit()
 
             // Reset our rx fifo
             FlushDriverFifos(TCIOFLUSH);
-            m_rxFifo.Reset();
+            m_rxFifo->Reset();
 
             // Try to initialize up to 3 times before failing
             while( (retries < 3) && ( retVal == false))
@@ -2604,7 +2604,7 @@ bool AvtCanProxy::AvtInit()
 
         // Reset our rx fifo
         FlushDriverFifos(TCIOFLUSH);
-        m_rxFifo.Reset();
+        m_rxFifo->Reset();
 
         ResumeReaderThread();
     }
@@ -3132,7 +3132,7 @@ void AvtCanProxy::SetAvtFilterByte( uint8_t filterByte, uint8_t position)
             if( avtReply.length() > 0)
             {
                 // Add extraneous data to our rx fifo
-                m_rxFifo.AddBytes( avtReply.c_str(), avtReply.length());
+                m_rxFifo->AddBytes( avtReply.c_str(), avtReply.length());
             }
             Log( LOG_DEV_DATA, "Filter byte $%02hhX added at position %d\n",
                  filterByte, position);
@@ -3323,7 +3323,7 @@ int AvtCanProxy::GetAvtResponse( SerialString_t &avtResponse)
     Log( LOG_FN_ENTRY, "Enter AvtCanProxy::GetAvtResponse()\n");
 
     // Clear the current contents of the FIFO
-    m_rxFifo.Reset();
+    m_rxFifo->Reset();
 
     if( (bytesRead = ReadDriverData( buff, 1, timeOut)) > 0)
     {

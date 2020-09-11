@@ -646,16 +646,6 @@ protected:
     virtual bool CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t *ocb);
 
     /**
-     * Method used to check if a serial response string can be added to a
-     * client's rx FIFO
-     *
-     * @param data   Serial string reseived from the port
-     * @param ocb    Client connection identifier
-     * @return true if the data should be added to the client's FIFO, false otherwise
-     */
-    virtual bool SubscriptionFilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb);
-
-    /**
      * Adds the gives serial string to the specified client's fifo
      *
      * @param buff   Serial data to be added to the client's fifo
@@ -732,6 +722,8 @@ protected:
 	 * @return int Status of request made to gryphon
 	 */
     int ClaimJ1939Address(UINT8 addressToClaim);
+    int SetOptimization(bool optimizeForLatency);
+
     /**
      * Reverse the bytes in the provided variable.
      *
@@ -755,6 +747,7 @@ protected:
     int m_nodePairSetupCount;
     bool m_nonLegacyDevice;
     bool m_j1939Channel;
+    bool m_optimizeForLatency;
     /**
      * Current channel type and subtype, from gdev.h file
      * This will be established at instantiation, depending on protocol.
@@ -775,6 +768,7 @@ protected:
     BepCondVar<bool> InitAck;
     BepCondVar<bool> J1939TPEnableAck;
     BepCondVar<bool> J1939AddressClaim;
+    BepCondVar<bool> SetOptimizationAck;
     std::string IPAddr;
     std::string UserId;
     std::string PortPathAlias;

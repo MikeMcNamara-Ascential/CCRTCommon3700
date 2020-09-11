@@ -1065,7 +1065,7 @@ int MultiComProxy::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
     Log( LOG_FN_ENTRY, "Enter MultiComProxy::ReadPortDataUnlocked()\n");
 
     // Try to extract the next full packet from our FIFO
-    while( ExtractNextPacket(m_rxFifo, packet) > 0)
+    while( ExtractNextPacket(*m_rxFifo, packet) > 0)
     {
         PrintSerialString( LOG_SER_COM, "MultiCom Packet", packet);
 
@@ -2128,7 +2128,7 @@ bool MultiComProxy::MultiComInit()
         do
         {
             // Reset our RX fifo
-            m_rxFifo.Reset();
+            m_rxFifo->Reset();
 
             try
             {
@@ -2523,7 +2523,7 @@ int MultiComProxy::GetMultiComResponse( SerialString_t &response)
     Log( LOG_FN_ENTRY, "Enter MultiComProxy::GetMultiComResponse()\n");
 
     // Clear the current contents of the FIFO
-    m_rxFifo.Reset();
+    m_rxFifo->Reset();
 
     if( (bytesRead = ReadDriverData( buff, 1, timeOut)) > 0)
     {

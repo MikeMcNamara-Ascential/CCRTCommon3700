@@ -97,6 +97,8 @@ class CommFifo
 public:
 	CommFifo();
 
+	CommFifo(uint32_t buffSize);
+
 	virtual ~CommFifo();
 
 	/**
@@ -223,7 +225,7 @@ private:
 	/**
 	 * Size of the FIFO buffer
 	 */
-	const uint32_t				m_size;
+	uint32_t				m_size;
 
 	/**
 	 * Index of next character to be read out of the buffer

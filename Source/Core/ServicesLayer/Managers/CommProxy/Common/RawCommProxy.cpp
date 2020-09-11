@@ -655,6 +655,7 @@ void RawCommProxy::ReadPortProtocol( const XmlNode *portNode)
     {
         m_fifoSize = 1024;
     }
+	m_rxFifo = new CommFifo(m_fifoSize);
 
     try
     {
@@ -833,7 +834,7 @@ bool RawCommProxy::InitManager()
                 path = m_pathName;
 
             // Attach our pseudo main serial path
-            if( PathAttach( path.c_str(), m_rxFifo.GetSize()) == -1)
+            if( PathAttach( path.c_str(), m_rxFifo->GetSize()) == -1)
             {
                 Log( LOG_ERRORS, "\tError attaching path: %s\n", strerror( errno));
                 state = -2;
@@ -1365,29 +1366,6 @@ bool RawCommProxy::CanAddToClientFifo( const SerialString_t &data, CommIoOcb_t *
             {
                 // No match...look at next filter
                 Log( LOG_DEV_DATA, "Response DOES NOT match filter string\n");
-
-                SerialString_t::const_iterator	sItr = sItr=data.begin();
-                LogPortFilterStringCItr_t		lItr = lItr=filter.begin();
-
-                // Size must match first or filter must be set to variable length
-                if( (filter.size() == data.size()) || (filter.GetRespLenType() == 1))
-                {
-                    // Examine each element of each string
-                    while( (sItr!=data.end()) && (lItr!=filter.end()))
-                    {
-                        Log( LOG_DEV_DATA, "data: 0x%02X : filter0x%02X\n");
-                        // Look at next element
-                        sItr++;
-                        lItr++;
-                    }
-                }
-                else
-                {
-                    Log( LOG_DEV_DATA, "Filter sizes do not match\n");
-                }
-                //Test Log message, remove
-                Log( LOG_DETAILED_DATA, "Not expecting NULL character reflection\n");
-
                 retVal = false;
             }
         }
@@ -3092,7 +3070,7 @@ int RawCommProxy::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
     {
         // If we read anything from the fifo
         Log(LOG_DEV_DATA, "Getting Bytes totalRead: %d, buffSz: %d\n", totalRead, buffSz);
-        if( (bytesRead=m_rxFifo.GetBytes(&buff[ totalRead], buffSz-totalRead)) <= 0)
+        if( (bytesRead=m_rxFifo->GetBytes(&buff[ totalRead], buffSz-totalRead)) <= 0)
         {
             break;
         }
@@ -3287,7 +3265,7 @@ ResManagerCmd_t RawCommProxy::HandleResMgrPulse(io_pulse_t &pulse)
         break;
     case SERIAL_DATA_READY:
         // If I just read any data or if there is data waiting in my FIFO
-        if( (pulse.value.sival_int > 0) || (m_rxFifo.GetSize() > 0))
+        if( (pulse.value.sival_int > 0) || (m_rxFifo->GetSize() > 0))
         {
             ProcessReadData();
         }
@@ -3339,7 +3317,7 @@ ResManagerCmd_t RawCommProxy::HandleDriverNotificationPulse(io_pulse_t &pulse)
         while ((bytesRead = ReadDriverData(buff, m_fifoSize, (uint32_t)0)) > 0)
         {
             // Add newly received data to rx fifo
-            m_rxFifo.AddBytes( buff, bytesRead);
+            m_rxFifo->AddBytes( buff, bytesRead);
             totalRead += bytesRead;
 
             PrintSerialString( LOG_SER_COM, "Comm Message", buff, bytesRead);
@@ -3353,7 +3331,7 @@ ResManagerCmd_t RawCommProxy::HandleDriverNotificationPulse(io_pulse_t &pulse)
 
 #if READER_PROCESSES == 1
     // If I just read any data or if there is data waiting in my FIFO
-    if( (totalRead > 0) || (m_rxFifo.GetSize() > 0))
+    if( (totalRead > 0) || (m_rxFifo->GetSize() > 0))
     {
         ProcessReadData();
     }
@@ -3488,7 +3466,7 @@ int RawCommProxy::ReadSerialData( SerialString_t &mssg)
     if( (m_comGuard.Acquire()) == EOK)
     {
         // Loop until no more data to read
-        while( (bytesRead=m_rxFifo.GetBytes( buff, 1024)) > 0)
+        while( (bytesRead=m_rxFifo->GetBytes( buff, 1024)) > 0)
         {
             mssg += SerialString_t( buff, bytesRead);
         }

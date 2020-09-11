@@ -381,7 +381,7 @@ int IGryphonChannel::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
 	bool isValidSourceType = false;
 	bool isValidFrameType = false;
 	bool isValidDestination = false;
-	locSize = m_rxFifo.Peek(buff, 8);
+	locSize = m_rxFifo->Peek(buff, 8);
 	while ( locSize >= 8 )
 	{//get size from message, and account for padding (not included size embedded in message)
 		isValidSourceType = IsValidSourceType(buff[0]);
@@ -391,20 +391,20 @@ int IGryphonChannel::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
 		if (!isValidSourceType)
 		{
 			Log(LOG_ERRORS, "Invalid source type: %02X, not decoding the message",buff[0]);
-			m_rxFifo.Erase(1);
-			locSize = m_rxFifo.Peek(buff, 8);
+			m_rxFifo->Erase(1);
+			locSize = m_rxFifo->Peek(buff, 8);
 		}
 		else if (!isValidFrameType)
 		{
 			Log(LOG_ERRORS, "Invalid frame type: %02X, not decoding the message",buff[6]);
-			m_rxFifo.Erase(1);
-			locSize = m_rxFifo.Peek(buff, 8);
+			m_rxFifo->Erase(1);
+			locSize = m_rxFifo->Peek(buff, 8);
 		}
 		else if ( !isValidDestination )
 		{
 			Log(LOG_ERRORS, "Invalid Destination: %02X, not decoding the message",buff[2]);
-			m_rxFifo.Erase(1);
-			locSize = m_rxFifo.Peek(buff, 8);
+			m_rxFifo->Erase(1);
+			locSize = m_rxFifo->Peek(buff, 8);
 		}
 		else
 		{
@@ -412,9 +412,9 @@ int IGryphonChannel::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
 			// Determine the size of the incoming data
 			locSize = Align32(256* buff[4] + buff[5]);
 			//8 is size of gryphon frame header
-			if (m_rxFifo.GetSize() >= locSize + 8)
+			if (m_rxFifo->GetSize() >= locSize + 8)
 			{
-				m_rxFifo.GetBytes(buff,locSize+8);
+				m_rxFifo->GetBytes(buff,locSize+8);
 				messageStatus = processNewMessage(buff);	// non-protocol (control) interpret
 				if (BEP_STATUS_SUCCESS == messageStatus)
 				{
@@ -427,7 +427,7 @@ int IGryphonChannel::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
 				// Log communication for this client
 				UpdateBusCommLog( ComDirRx, buff, locSize+8, NULL);
 				//get next header
-				locSize = m_rxFifo.Peek(buff, 8);
+				locSize = m_rxFifo->Peek(buff, 8);
 			}
 			else locSize = 0; // done for now
 		}
@@ -501,45 +501,53 @@ const std::string IGryphonChannel::Register(void)
 			if (EOK == GetGryphonConfiguration())
 			{	// tell the gryphon we want all messages
 				Log(LOG_DEV_DATA, "Informing Gryphon server to send all messages...\n");
-				if (EOK == BroadcastOn())
-				{	// get event names for our channel
-					Log(LOG_DEV_DATA, "Getting channel event names from the Gryphon server...\n");
-					if (EOK == GetEventNames())
-					{	// tell our card we want all events
-						Log(LOG_DEV_DATA, "Enabling all events for our card...\n");
-						if (EOK == EventEnable())
-						{	// reset the hardware
-							Log(LOG_DEV_DATA, "Resetting the hardware...\n");
-							if (EOK == InitCard())
-							{	// protocol specific initialization
-								Log(LOG_DEV_DATA, "Performing channel specific initialization...\n");
-								if (EOK == ChannelSpecificInit())
-								{
-									retString = BEP_SUCCESS_RESPONSE;
+				if ( EOK == SetOptimization(m_optimizeForLatency) )
+				{// tell the gryphon we want all messages
+					Log(LOG_DEV_DATA, "Informing Gryphon server to send all messages...\n");
+					if (EOK == BroadcastOn())
+					{	// get event names for our channel
+						Log(LOG_DEV_DATA, "Getting channel event names from the Gryphon server...\n");
+						if (EOK == GetEventNames())
+						{	// tell our card we want all events
+							Log(LOG_DEV_DATA, "Enabling all events for our card...\n");
+							if (EOK == EventEnable())
+							{	// reset the hardware
+								Log(LOG_DEV_DATA, "Resetting the hardware...\n");
+								if (EOK == InitCard())
+								{	// protocol specific initialization
+									Log(LOG_DEV_DATA, "Performing channel specific initialization...\n");
+									if (EOK == ChannelSpecificInit())
+									{
+										retString = BEP_SUCCESS_RESPONSE;
+									}
+									else
+									{
+										Log(LOG_ERRORS, "Error performing channel specifiv initialization\n");
+									}
 								}
 								else
 								{
-									Log(LOG_ERRORS, "Error performing channel specifiv initialization\n");
+									Log(LOG_ERRORS, "Error resetting the Gryphon hardware\n");
 								}
 							}
 							else
 							{
-								Log(LOG_ERRORS, "Error resetting the Gryphon hardware\n");
+								Log(LOG_ERRORS, "Error enabling all events for our card\n");
 							}
 						}
 						else
 						{
-							Log(LOG_ERRORS, "Error enabling all events for our card\n");
+							Log(LOG_ERRORS, "Error getting channel event names from the Gryphon server\n");
 						}
 					}
 					else
 					{
-						Log(LOG_ERRORS, "Error getting channel event names from the Gryphon server\n");
+						Log(LOG_ERRORS, "Error Informing Gryphon server to send all messages\n");
 					}
 				}
 				else
 				{
-					Log(LOG_ERRORS, "Error Informing Gryphon server to send all messages\n");
+					Log(LOG_ERRORS, "Error Setting Optimization\n");
 				}
 			}
 			else
@@ -1194,7 +1202,7 @@ int IGryphonChannel::SendRawFrame(const uint8_t *inBuf,
 
 		memcpy(&locMsg->subhdr.misc.data, inBuf, locSize);
 
-            // What is this for? Why 4 bytes of padding? Why not 7? What's the rational for this?
+            // Padding bytes if required (based on gryphon comm protocol)
             locMsg->subhdr.misc.data[locSize]   = 0;   // pad, in case needed
     		locMsg->subhdr.misc.data[locSize+1] = 0;
     		locMsg->subhdr.misc.data[locSize+2] = 0;
@@ -1549,6 +1557,15 @@ BEP_STATUS_TYPE IGryphonChannel::processNewServerMsg(const uint8_t *inBuf, const
 					J1939AddressClaim.Release();
 				}
 				break;	// end of event names
+			case CMD_SERVER_SET_OPT:
+				Log( LOG_DETAILED_DATA, "Gryphon CMD_SERVER_SET_OPT\n");
+				// set the ack flag for this
+				if(SetOptimizationAck.Acquire()== EOK)
+				{
+					SetOptimizationAck.Signal(true);
+					SetOptimizationAck.Release();
+				}
+				break;
 			default:
 				status = BEP_STATUS_HARDWARE;
 				Log(LOG_ERRORS, "Unknown response frame type [%02X] returned from Gryphon box!", inBuf[8]);
@@ -1848,47 +1865,34 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	GryphonIoOcb_t  *client = (GryphonIoOcb_t*)ocb;
 	const char      *buff = (const char *)data.c_str();
 	uint32_t        locModuleId;
-	uint16_t        locRespCode;
 	bool            canAdd = false;
-	bool 			subscriptionFilterMatches = false;
+	bool 			isMessageForClient = false;
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::CanAddToClientFifo()\n");
 
 	// Check with base class first for filter strings
 	if ( RawCommProxy::CanAddToClientFifo(data,ocb) == true)
 	{
-		// Get the module ID and response code
-		locModuleId = getModuleId(data);
-		locRespCode = getRespCode(buff);
-
-		Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored module IDs: $%s incoming module ID: $%04X\n",
+		LogPortFilterStringList         &fltrList = ocb->rxSubscription->filterList;
+		// If client has any filter strings
+		if( fltrList.size() > 0)
+		{// If a filter string exists, we returned true from Raw can add due to match
+			isMessageForClient = true;
+		}
+		else
+		{// Get the module ID
+			locModuleId = getModuleId(data);
+			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored module IDs: $%s incoming module ID: $%04X\n",
 			 GetModuleIDsString(client->moduleIDs).c_str(), locModuleId);
-//		bool isBroadcastModuleID = IsBroadcastModuleID(locModuleId);
-//		bool filterMatches = false;
-//		if(isBroadcastModuleID)
-//		{//check if client has a matching filter
-		//JPS do not require serial server to contain PGNs we will be requesting, this will be handled by filter
-			subscriptionFilterMatches = SubscriptionFilterMatchCheck(data, ocb);  //note, this will return false if no filter exists
-		//}
+			isMessageForClient = IsModuleIDPresent(client->moduleIDs,locModuleId);
+		}
 		// If the data is from the client's module or client subscribed
-		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || subscriptionFilterMatches)//(isBroadcastModuleID &&	filterMatches))
+		if(isMessageForClient)
 		{
-			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored resp code: $%04X incoming resp code: $%04X\n",
-				 client->expectedResponse, locRespCode);
-			// And it is the response the client is expecting or a NAK response
-			//Logic is incorrect - else will never be reached... somehow everything is working?
-			if ((client->expectedResponse = locRespCode) || (client->expectedResponse = 0x7F))
+			canAdd = true;
+			// Clear the response pending flag for this module ID
+			if(UsingGryphonUSDT() == false)
 			{
-				canAdd = true;
-				// Clear the response pending flag for this module ID
-				if(UsingGryphonUSDT() == false)
-				{
-					ClearModuleResponsePending(client->moduleIDs);
-				}
-			}
-			else
-			{
-				Log( LOG_DEV_DATA, "Not OK to add to client fifo because response was unexpected: $%04X != $%04X \n",
-					 locRespCode, client->expectedResponse);
+				ClearModuleResponsePending(client->moduleIDs);
 			}
 		}
 		else
@@ -1901,76 +1905,6 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::CanAddToClientFifo(%s)\n", canAdd ? "true" : "false");
 
 	return( canAdd);
-}
-
-/**
- * Method used to check if a serial response string can be added to a
- * client's rx FIFO
- *
- * @param data   Serial string reseived from the port
- * @param ocb    Client connection identifier
- * @return true if the data should be added to the client's FIFO, false otherwise
- */
-bool IGryphonChannel::SubscriptionFilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb)
-{
-	bool                            retVal = true;
-	LogPortFilterStringList         &fltrList = ocb->rxSubscription->filterList;
-	LogPortFilterStringListItr_t    itr;
-
-	// If client has any filter strings
-	if( fltrList.size() > 0)
-	{
-		fltrList.Lock();
-		for( itr=fltrList.begin(); itr!=fltrList.end(); itr++)
-		{
-			// Get reference to the filter string
-			const LogPortFilterString &filter = *itr;
-			// IF data matches the filter string
-			if( filter.IsStringValid( data) == true)
-			{
-				// Ok to ADD to FIFO
-				Log( LOG_DETAILED_DATA, "Response matches filter string\n");
-				retVal = true;
-				break;
-			}
-			else
-			{
-				// No match...look at next filter
-				Log( LOG_DETAILED_DATA, "Response DOES NOT match filter string\n");
-
-				SerialString_t::const_iterator  sItr = sItr=data.begin();
-				LogPortFilterStringCItr_t       lItr = lItr=filter.begin();
-
-				// Size must match first or filter must be set to variable length
-				if( (filter.size() == data.size()) || (filter.GetRespLenType() == 1))
-				{
-					// Examine each element of each string
-					while( (sItr!=data.end()) && (lItr!=filter.end()))
-					{
-						Log( LOG_DETAILED_DATA, "data: 0x%02X : filter0x%02X\n");
-						// Look at next element
-						sItr++;
-						lItr++;
-					}
-				}
-				else
-				{
-					Log( LOG_DETAILED_DATA, "Filter sizes do not match\n");
-				}
-				//Test Log message, remove
-				Log( LOG_DETAILED_DATA, "Not expecting NULL character reflection\n");
-
-				retVal = false;
-			}
-		}
-		fltrList.Unlock();
-	}
-	else
-	{
-		Log( LOG_DETAILED_DATA, "No filter strings for client\n");
-		retVal = false;
-	}
-	return( retVal);
 }
 
 bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t *ocb)
@@ -2635,32 +2569,39 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::ClaimJ1939Address() - return value %d", retVal);
 	return retVal;
 }
-//int IGryphonChannel::SetOptimization()
-//{
-//	uint8_t localBuffer[20];
-//	int locSize;
-//	int retVal = EOK;
-//	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::EnableJ1939TransportProtocol()\n");
-//	// Clear out the message data
-//	memset(localBuffer,0,sizeof(localBuffer));
-//	localBuffer[0] = CMD_SERVER_SET_OPT;
-//	localBuffer[1] = UseContext();
-//	localBuffer[2] = 0x00;
-//	localBuffer[3] = 0x00;
-//	localBuffer[4] = TP_J1939;
-//	locSize = 5;
-//	// need to wait for acknowledgement
-//	if (J1939TPEnableAck.Acquire()== EOK)
-//	{
-//		J1939TPEnableAck.SetValue(false);
-//		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_SERVER);
-//		if (J1939TPEnableAck.Wait(true,mSEC_nSEC(5000)) == EOK)
-//		{
-//		}
-//		J1939TPEnableAck.Release();
-//	}
-//	// Log the exit and return the status
-//	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::EnableJ1939TransportProtocol() retVal: %d\n", retVal);
-//	return(retVal);
-//
-//}
+int IGryphonChannel::SetOptimization(bool optimizeForLatency)
+{
+	uint8_t localBuffer[20];
+	int locSize;
+	int retVal = EOK;
+	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::SetOptimization()\n");
+	// Clear out the message data
+	memset(localBuffer,0,sizeof(localBuffer));
+	localBuffer[0] = CMD_SERVER_SET_OPT;
+	localBuffer[1] = UseContext();
+	localBuffer[2] = 0x00;
+	localBuffer[3] = 0x00;
+	if ( optimizeForLatency )
+	{
+		localBuffer[4] = 0x01;
+	}
+	else
+	{//optimize for throughput
+		localBuffer[4] = 0x00;
+	}
+	locSize = 5;
+	// need to wait for acknowledgement
+	if (SetOptimizationAck.Acquire()== EOK)
+	{
+		SetOptimizationAck.SetValue(false);
+		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_SERVER);
+		if (SetOptimizationAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+		{
+		}
+		SetOptimizationAck.Release();
+	}
+	// Log the exit and return the status
+	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::SetOptimization() retVal: %d\n", retVal);
+	return(retVal);
+
+}

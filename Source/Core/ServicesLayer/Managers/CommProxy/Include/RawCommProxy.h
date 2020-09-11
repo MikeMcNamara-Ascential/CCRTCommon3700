@@ -1652,7 +1652,7 @@ protected:
     /**
      * Buffer into which received data is placed
      */
-    CommFifo                    m_rxFifo;
+    CommFifo *                   m_rxFifo;
 
     /**
      * Flag to indicate whether or not we need to wait for the

@@ -236,7 +236,15 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
         Log(LOG_ERRORS, "J1939 parameter not specified, setting to false - %s", excpt.GetReason());
         m_j1939Channel = false;
     }
-
+    try
+    {
+        m_optimizeForLatency = atob(portSetup->getChild("Setup/OptimizeForLatency")->getValue().c_str()); 
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "OptimizeForLatency parameter not specified, setting to false (optimize for throughput) - %s", excpt.GetReason());
+        m_optimizeForLatency = false;
+    }
     // Sanity check the node pairs
     if(m_nodePairCount > 100) m_nodePairCount = 100;
     if(m_nodePairCount < 0) m_nodePairCount = 100;

@@ -1068,14 +1068,14 @@ int AvtJ2190Proxy::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
     Log( LOG_FN_ENTRY, "Enter AvtJ2190Proxy::ReadPortDataUnlocked()\n");
 
     // The first byte of the buffer should be the AVT header byte
-    readCount = m_rxFifo.Peek( &buff[ 0], 1);
+    readCount = m_rxFifo->Peek( &buff[ 0], 1);
     m_avtBytesToCome = buff[ 0] & 0x0F;
 
     // See if we have a full AVT message packet
-    while( (m_avtBytesToCome <= (m_rxFifo.GetSize()-1)) && (readCount == 1))
+    while( (m_avtBytesToCome <= (m_rxFifo->GetSize()-1)) && (readCount == 1))
     {
         // Extract this packet
-        if( m_rxFifo.GetBytes( buff, m_avtBytesToCome+1) == (int)(m_avtBytesToCome+1))
+        if( m_rxFifo->GetBytes( buff, m_avtBytesToCome+1) == (int)(m_avtBytesToCome+1))
         {
             m_rawRxBuff = SerialString_t( buff, m_avtBytesToCome+1);
 
@@ -1136,7 +1136,7 @@ int AvtJ2190Proxy::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
         }
 
         // Check if there is another packet waiting
-        readCount = m_rxFifo.Peek( &buff[ 0], 1);
+        readCount = m_rxFifo->Peek( &buff[ 0], 1);
         m_avtBytesToCome = buff[ 0] & 0x0F;
     }
 
@@ -2732,7 +2732,7 @@ void AvtJ2190Proxy::SetAvtFilterByte( uint8_t filterByte, uint8_t position)
             if( avtReply.length() > 0)
             {
                 // Add extraneous data to our rx fifo
-                m_rxFifo.AddBytes( avtReply.c_str(), avtReply.length());
+                m_rxFifo->AddBytes( avtReply.c_str(), avtReply.length());
             }
             Log( LOG_DEV_DATA, "Filter byte $%02hhX added at position %d\n",
                  filterByte, position);
@@ -3043,7 +3043,7 @@ int AvtJ2190Proxy::GetAvtResponse( SerialString_t &avtResponse)
     Log( LOG_FN_ENTRY, "Enter AvtJ2190Proxy::GetAvtResponse()\n");
 
     // Clear the current contents of the FIFO
-    m_rxFifo.Reset();
+    m_rxFifo->Reset();
 
     if( (bytesRead = ReadDriverData( buff, 1, timeOut)) > 0)
     {

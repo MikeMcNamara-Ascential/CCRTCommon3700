@@ -55,7 +55,24 @@ CommFifo::CommFifo() : m_size(2048), m_protocolValid(false)
     pthread_mutexattr_setrecursive(&attr, PTHREAD_RECURSIVE_ENABLE);
     pthread_mutex_init( &m_buffLock, &attr);
 }
+CommFifo::CommFifo(uint32_t fifoSize) : m_protocolValid(false)
+{
+	m_size = fifoSize;
+    m_head = m_tail = 0;
 
+    m_buff = new uint8_t[ m_size];
+    memset( (void*)m_buff, 0, m_size);
+    // set up the mutex
+    pthread_mutexattr_t attr;
+
+    memset( &attr, 0, sizeof( attr));
+    memset( &m_buffLock, 0, sizeof( m_buffLock));
+
+    pthread_mutexattr_init(&attr);
+    pthread_mutexattr_settype( &attr, PTHREAD_MUTEX_RECURSIVE);
+    pthread_mutexattr_setrecursive(&attr, PTHREAD_RECURSIVE_ENABLE);
+    pthread_mutex_init( &m_buffLock, &attr);
+}
 CommFifo::~CommFifo()
 {
     pthread_mutex_destroy( &m_buffLock);

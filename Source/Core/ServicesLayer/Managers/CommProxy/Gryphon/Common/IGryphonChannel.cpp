@@ -1878,7 +1878,7 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 		{// If a filter string exists, we returned true from Raw can add due to match
 			isMessageForClient = true;
 		}
-		else
+		else if(client->moduleIDs.size() > 0)
 		{// Get the module ID
 			locModuleId = getModuleId(data);
 			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored module IDs: $%s incoming module ID: $%04X\n",

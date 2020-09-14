@@ -17,3 +17,4 @@ INCLUDE_DIRECTORIES(${CORE_TRANS_TC_INC_PATH})
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Manual)
+ADD_SUBDIRECTORY(TCU)

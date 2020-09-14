@@ -1476,6 +1476,18 @@ public:
      */
     void SetObservedTCCFullLockState(const bool &observedTCCFullLock);
 
+     /**
+     * Monitor the different statuses of the AT learn procedure
+     * <p><b>Description:</b><br>
+     * The data flag indicating if Torque Converter Clutch Full-Lockup state was observed will be stored.
+     * <p>
+     * @param 
+     */
+    virtual BEP_STATUS_TYPE MonitorATLearnData(float &accelPedalPos, string &converterStatus, string &currentGear);
+
+
+    virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
+
 protected:
     /**
      * Intialize the module interface.
@@ -1643,7 +1655,7 @@ protected:
      * @param faultCodes Fault Codes read from the module.
      * @return BEP_STATUS_SOFTWARE
      */
-    virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
+    //virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
 
     /**
      * Read the transmission clutch volumes.

@@ -1,29 +1,39 @@
 <SelectionTable Description="Drive curve selection table">
-   <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
-      <BrakeType>BaseBrake</BrakeType>
-      <TransferCase>2WD</TransferCase>
-   </BaseBrake>
-   <BaseBrake4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrake4wdDriveCurve.xml">
-      <BrakeType>BaseBrake</BrakeType>
-      <TransferCase>4WD</TransferCase>
-   </BaseBrake4wd>
-   <BaseBrakeSPDL DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurveSPDL.xml">
-      <BrakeType>BaseBrake</BrakeType>
-      <SpeedLimiter>Equipped</SpeedLimiter>
-      <TransferCase>2WD</TransferCase>
-   </BaseBrakeSPDL>
-   <!--BI Abs Drive Curves-->
-    <BaseBIABS DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBIABSDriveCurve.xml">
-      <BrakeType>BI Abs</BrakeType>
-      <TransferCase>2WD</TransferCase>
-   </BaseBIABS>
-    <BIABS4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBIABS4wdDriveCurve.xml">
-        <BrakeType>BI Abs</BrakeType>
-        <TransferCase>4WD</TransferCase>
-    </BIABS4wd>
-    <BIABS4wdSPDL DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBIABSDriveCurveSPDL.xml">
-        <BrakeType>BI Abs</BrakeType>
-        <SpeedLimiter>Equipped</SpeedLimiter>
-      <TransferCase>2WD</TransferCase>
-    </BIABS4wdSPDL>
+	<BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+		<BrakeType>BaseBrake</BrakeType>
+		<TransferCase>2WD</TransferCase>
+	</BaseBrake>
+	<BaseBrake4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrake4wdDriveCurve.xml">
+		<BrakeType>BaseBrake</BrakeType>
+		<TransferCase>4WD</TransferCase>
+	</BaseBrake4wd>
+	<BaseBrakeSPDL DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurveSPDL.xml">
+		<BrakeType>BaseBrake</BrakeType>
+		<SpeedLimiter>Equipped</SpeedLimiter>
+		<TransferCase>2WD</TransferCase>
+	</BaseBrakeSPDL>
+	<!--BI Abs Drive Curves-->
+	<BaseBIABS DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBIABSDriveCurve.xml">
+		<BrakeType>BI Abs</BrakeType>
+		<TransferCase>2WD</TransferCase>
+	</BaseBIABS>
+	<BIABS4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBIABS4wdDriveCurve.xml">
+		<BrakeType>BI Abs</BrakeType>
+		<TransferCase>4WD</TransferCase>
+	</BIABS4wd>
+	<BIABS4wdSPDL DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBIABSDriveCurveSPDL.xml">
+		<BrakeType>BI Abs</BrakeType>
+		<SpeedLimiter>Equipped</SpeedLimiter>
+		<TransferCase>2WD</TransferCase>
+	</BIABS4wdSPDL>
+	<!-- Bosch Abs Drive Curve -->
+	<BoschABS4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBoschABS4wdDriveCurve.xml">
+		<BrakeType>Bosch Abs</BrakeType>
+		<TransferCase>4WD</TransferCase>
+	</BoschABS4wd>
+	<!-- Bosch Esp Drive Curve -->
+	<BoschESP4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBoschESP4wdDriveCurve.xml">
+		<BrakeType>Bosch Esp</BrakeType>
+		<TransferCase>4WD</TransferCase>
+	</BoschESP4wd>
 </SelectionTable>

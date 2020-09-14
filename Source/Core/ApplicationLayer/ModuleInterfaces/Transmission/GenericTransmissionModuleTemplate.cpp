@@ -2064,4 +2064,48 @@ bool GenericTransmissionModuleTemplate<ProtocolFilterType>::UseCommonModuleFault
 	return m_useCommonFaultList;
 }
 
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE GenericTransmissionModuleTemplate<ProtocolFilterType>::MonitorATLearnData(float &accelPedalPos, string &converterStatus, string &currentGear)
+{
+    BEP_STATUS_TYPE status, statusPedal, statusConverter, finalStatus = BEP_STATUS_ERROR;
+    SerialString_t moduleResponsePedalPos, moduleResponseCurrentGear, moduleResponseExtra;
+
+    //Read the important items from TCU module
+    status = m_protocolFilter->GetModuleData("CurrentGear", moduleResponseCurrentGear);
+    statusPedal = m_protocolFilter->GetModuleData("AcceleratorPedalPosition", moduleResponsePedalPos);
+    statusConverter = m_protocolFilter->GetModuleData("ConverterStatus", moduleResponseExtra);
+
+    // Check the status of the read
+    if ( (BEP_STATUS_SUCCESS == status) && (BEP_STATUS_SUCCESS == statusPedal) && (BEP_STATUS_SUCCESS == statusConverter) )
+    {   
+        // Good read, evaluate the data
+        try
+        {   
+            // Interpret the data
+            converterStatus = ParseStringResponse("ConverterStatus", moduleResponseExtra); 
+            accelPedalPos = ParseFloatResponse("AcceleratorPedalPosition", moduleResponsePedalPos);
+            currentGear = ParseStringResponse("CurrentGear", moduleResponseCurrentGear);
+
+            Log(LOG_DEV_DATA, "AT learn Module Values: \n \t converterStatus: %s \n \t accelPedalPos: %f\n \t currentGear: %s \n \t",
+                 converterStatus.c_str(), accelPedalPos, currentGear.c_str());
+
+            finalStatus = BEP_STATUS_SUCCESS;
+        }
+        catch (XmlException &err)
+        {   // Log the reason for the exception
+            Log(LOG_ERRORS, "%s XmlException in MonitorATLearnData: %s\n",
+                ModuleName().c_str(), err.GetReason());
+            // Set the status to software error
+            finalStatus = BEP_STATUS_SOFTWARE;
+        }
+    }
+    else
+    {   // Error reading AT learn items
+        Log(LOG_ERRORS, "Error monitoring AT learn data from the module - status: %s\n",
+            ConvertStatusToResponse(status).c_str());
+    }
+
+    return finalStatus;
+}
+
 #endif //GenericTransmissionModuleTemplate_cpp

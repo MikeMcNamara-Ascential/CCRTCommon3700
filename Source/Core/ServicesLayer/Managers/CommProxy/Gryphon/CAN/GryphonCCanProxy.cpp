@@ -82,12 +82,10 @@
 // Initial entry into source safe
 //
 //******************************************************************************
-//For debug in case this isn't working - if address is not claimed all messages are received
-#define SKIP_J1939_ADDRESS_CLAIM_NON_LEGACY 0
 //In case Dearborn group still hasn't fixed their bugs (In registration we specify UUDT nodes - USDT server should know to pass these to us)
 #define CARD_UUDT_STILL_REQUIRED_NON_LEGACY 0
 //In case broadcast messages are not forwarded as they should be from non legacy device
-#define J1939_BROADCASTS_NOT_WORKING_NON_LEGACY 0
+#define J1939_BROADCASTS_THROUGH_CARD_FILTER 0
 #define J1939_SendToCard 0
 
 #include <sys/neutrino.h>
@@ -372,7 +370,7 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
 	}
 	else
 	{
-		#if J1939_BROADCASTS_NOT_WORKING_NON_LEGACY
+		#if J1939_BROADCASTS_THROUGH_CARD_FILTER
 			try
 			{
 				XmlNodeMap bcastMessages;
@@ -819,7 +817,40 @@ void GryphonCCanProxy::CreateFilter(bool is29BitHeader, uint32_t incomingId)
                   idMask);                                    /*const char *secondValue*/
     }
 }
+void GryphonCCanProxy::CreateJ1939BroadcastFilter(void)
+{
+	if ( m_recordBroadcastMessages )
+    {
+        for (int ii = 0; ii < m_broadcastMessageCount; ii++)
+        {//all broadcast messages are j1939 therefore 29 bit headers
+			uint32_t incomingId = m_broadcastMessages[ii].incoming;
+			char idToMatch[6] = {char((incomingId >> 24) & 0x000000FF),
+            char((incomingId >> 16) & 0x000000FF),
+            char((incomingId >> 8) & 0x000000FF),
+            char(incomingId & 0x000000FF),
+			char(0x00),
+			char(0x00)};
+			char idMask[6] = {0xFF,0xFF,0xFF,0x00,0xFF,0x00};
 
+        Log( LOG_FN_ENTRY, "CreateJ1939BroadcastFilter Filter found: (%02x, %02x, %02x, %02x, %02, %02)\n",idToMatch[5], idToMatch[4],idToMatch[3], idToMatch[2], idToMatch[1], idToMatch[0]);
+
+        //Create filter to allow messages to pass
+        AddFilter( (FILTER_FLAG_PASS | FILTER_FLAG_ACTIVE),    /*const uint8_t locFlags*/
+                  0,                                        /*const uint16_t locOffset*/
+                  6,                                        /*const uint16_t locLength, */
+                  FILTER_DATA_TYPE_HEADER,                  /*const uint8_t locField*/
+                  BIT_FIELD_CHECK,                          /*const uint8_t locOperator*/ 
+                  idToMatch,                                     /*const char *firstValue, */
+                  idMask);                                    /*const char *secondValue*/
+		}
+        //TURN ON THE FILTER
+        SetFilterMode(FILTER_ON);
+
+        //BLOCK ALL OTHER MESSAGES???
+        SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
+    }
+
+}
 void GryphonCCanProxy::LegacyChannelSpecificUUDTInit(void)
 {
     // Check for UUDT filters - if they exist set up the card filter (gryph usdt server does not handle 
@@ -870,8 +901,8 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 		#else
 			Log(LOG_DEV_DATA, "Non-Legacy device, not settting card filters for UUDT messages, these are handled by USDT server now");
 		#endif
-		#if J1939_BROADCASTS_NOT_WORKING_NON_LEGACY
-			LegacyChannelSpecificJ1939Init();
+		#if J1939_BROADCASTS_THROUGH_CARD_FILTER
+			CreateJ1939BroadcastFilter();
 		#else
 			Log(LOG_DEV_DATA, "Non-Legacy device, not settting card filters for Broadcast messages, these are forwarded automatically by device now");
 		#endif
@@ -905,15 +936,13 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
     if(retVal == EOK)  retVal = SetMinimumMessageSeperationTimeMultiplier(m_stMinMultiplier);
 	if ( m_nonLegacyDevice && m_j1939Channel )
 	{
-		#if SKIP_J1939_ADDRESS_CLAIM_NON_LEGACY
-			Log(LOG_DEV_DATA, "Non-Legacy device with j1934 channel, but skipping j1939 address claim by #define"); 
 			if ( retVal == EOK )  retVal = EnableJ1939TransportProtocol();
+		#if J1939_BROADCASTS_THROUGH_CARD_FILTER
+			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress,true);
 		#else
-			if ( retVal == EOK )  retVal = EnableJ1939TransportProtocol();
-			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress);
+			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress,false);
 			SetDefaultFilterMode(DEFAULT_FILTER_PASS);
 			SetFilterMode(FILTER_OFF_PASS_ALL);
-
 		#endif
 	}
 

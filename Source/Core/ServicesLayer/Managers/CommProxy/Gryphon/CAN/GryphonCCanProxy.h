@@ -170,7 +170,8 @@ protected:
      *
      * @return EOK if successful, any other value is an error code
      */
-    int ChannelSpecificInit(void) ;
+    int ChannelSpecificInit(void); 
+	void CreateJ1939BroadcastFilter(void);
     void LegacyChannelSpecificUUDTInit(void);
     void LegacyChannelSpecificJ1939Init(void);
     void CreateFilter(bool is29BitHeader, uint32_t incomingId);

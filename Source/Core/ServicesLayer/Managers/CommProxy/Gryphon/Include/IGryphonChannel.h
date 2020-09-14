@@ -721,7 +721,7 @@ protected:
 	 * 
 	 * @return int Status of request made to gryphon
 	 */
-    int ClaimJ1939Address(UINT8 addressToClaim);
+    int ClaimJ1939Address(UINT8 addressToClaim, bool filterMessages);
     int SetOptimization(bool optimizeForLatency);
 
     /**

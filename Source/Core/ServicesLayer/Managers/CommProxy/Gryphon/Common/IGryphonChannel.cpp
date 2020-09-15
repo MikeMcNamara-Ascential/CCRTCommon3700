@@ -293,7 +293,7 @@ int IGryphonChannel::IoWrite(resmgr_context_t *ctp, io_write_t *msg, resMgrIoOcb
 	int             bytesRead, bytesWritten;
 	int             retVal = EINVAL;
 	vector<uint32_t>        moduleIds;
-
+	bool isJ1939PGNRequest = false;
 	// Log the function entry
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::IoWrite()\n");
 	// Make sure OK for client to write (port not locked)
@@ -308,10 +308,13 @@ int IGryphonChannel::IoWrite(resmgr_context_t *ctp, io_write_t *msg, resMgrIoOcb
 			//UpdateBusCommLog( ComDirTx, rawMessage.c_str(), rawMessage.length(), &clientOcb->proxyOcb);
 			// See which module we are sending to
 			// get module id from string at this point
-			clientOcb->moduleIDs = getModuleIdsFromRaw(rawMessage);
+			clientOcb->moduleIDs = getModuleIdsFromRaw(rawMessage, isJ1939PGNRequest);
 			clientOcb->expectedResponse = getExpectedFromRaw(rawMessage);
 			moduleIds = clientOcb->moduleIDs;
-
+			if ( isJ1939PGNRequest )
+			{//clear previous PGN request data if still present
+				clientOcb->proxyOcb.rxSubscription->fifo.Reset();
+			}
 
 			if(UsingGryphonUSDT() == false)
 			{

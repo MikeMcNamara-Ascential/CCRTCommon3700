@@ -214,7 +214,7 @@ public:
      */
     virtual int getExpectedFromRaw(SerialString_t rawMessage) = 0;
     virtual int getRespCode(const char *rawMessage) = 0;
-    virtual vector<UINT32> getModuleIdsFromRaw(SerialString_t rawMessage) = 0;
+    virtual vector<UINT32> getModuleIdsFromRaw(SerialString_t rawMessage, bool &isJ1939PGNRequest) = 0;
     virtual UINT32 getModuleId(const SerialString_t &rawMessage) = 0;
 
     virtual bool UsingGryphonUSDT() = 0;

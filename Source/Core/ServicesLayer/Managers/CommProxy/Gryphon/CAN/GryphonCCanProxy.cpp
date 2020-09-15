@@ -516,10 +516,11 @@ int GryphonCCanProxy::getRespCode(const char *rawMessage)
     return(0xFF & ((int) rawMessage[3]) ); // actual response
 }
 
-vector<UINT32> GryphonCCanProxy::getModuleIdsFromRaw(SerialString_t rawMessage)
+vector<UINT32> GryphonCCanProxy::getModuleIdsFromRaw(SerialString_t rawMessage, bool &isJ1939PGNRequest)
 {
     UINT32 locModule;
     vector<UINT32> locResponseModule;
+	isJ1939PGNRequest = false;
     // Log the entry
     Log( LOG_FN_ENTRY, "Enter GryphonCCan::getModuleIdFromRaw\n");
     if(m_moduleIDByteLength != 2)
@@ -542,6 +543,7 @@ vector<UINT32> GryphonCCanProxy::getModuleIdsFromRaw(SerialString_t rawMessage)
 	if ( IsPGNRequest(rawMessage) )
 	{
 		locResponseModule = BuildPGNRequestNodePair(rawMessage);
+		isJ1939PGNRequest = true;
 	}
 	else
 	{

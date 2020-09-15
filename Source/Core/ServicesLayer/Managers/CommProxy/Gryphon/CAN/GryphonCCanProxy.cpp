@@ -981,6 +981,8 @@ int GryphonCCanProxy::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *m
             // If not already subscribed for RX data
             if( clientOcb->rxSubscription->ShouldNotify() == false)
             {
+				//clear fifo
+				clientOcb->rxSubscription->fifo.Reset();
                 // Get a reference to the existing RX subscription
                 clientOcb->rxSubscription->count = subMsg.byteCount;
                 clientOcb->rxSubscription->SetNotifyEvent( subMsg.notifyEvent, ctp->rcvid);

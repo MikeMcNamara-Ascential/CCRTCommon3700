@@ -164,7 +164,7 @@
 					  <AdditionalLogFile>/Communication/GryphonJ1939.log</AdditionalLogFile>
 					  <Status>Enabled</Status>
 					  <LocalEcho>Disabled</LocalEcho>
-					  <Verbose>0xFF</Verbose>
+					  <Verbose>0x01</Verbose>
 				   </Logging>
 				   <CommLog>
 					  <ContentType>RAW</ContentType>
@@ -172,7 +172,7 @@
 						 <Logging>
 							<ProcessName>J1939CAN</ProcessName>
 							<AdditionalLogFile>/Communication/GryphonJ1939Comm.log</AdditionalLogFile>
-							<Status>Enabled</Status>
+							<Status>Disabled</Status>
 							<LocalEcho>Disabled</LocalEcho>
 							<Verbose>0xFF</Verbose>
 							<Debug>Off</Debug>

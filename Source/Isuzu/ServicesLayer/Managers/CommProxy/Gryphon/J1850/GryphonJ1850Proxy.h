@@ -79,7 +79,7 @@ public:
     virtual int getExpectedFromRaw(SerialString_t rawMessage);
     virtual UINT32 getModuleId(const SerialString_t &rawMessage);
     virtual int getRespCode(const char *rawMessage);
-    virtual vector<UINT32> getModuleIdsFromRaw(SerialString_t rawMessage);
+    virtual vector<UINT32> getModuleIdsFromRaw(SerialString_t rawMessage, bool &isJ1939PGNRequest);
 
     virtual bool UsingGryphonUSDT();
 protected:

@@ -177,10 +177,10 @@ int GryphonJ1850Proxy::getRespCode(const char *rawMessage)
     return locResp;
 }
 
-vector<UINT32> GryphonJ1850Proxy::getModuleIdsFromRaw(SerialString_t rawMessage)
+vector<UINT32> GryphonJ1850Proxy::getModuleIdsFromRaw(SerialString_t rawMessage, bool &isJ1939PGNRequest)
 {
     vector<UINT32> locModule;
-    
+    isJ1939PGNRequest = false;
     //int locResponseModule;
 
     //ERIC: MODULE ID IS THE SECOND BYTE AFTER PRIORITY IN THE MESSAGE TO THE MODULE

@@ -147,8 +147,8 @@
 			<AlwaysStartGUIForceThread>Yes</AlwaysStartGUIForceThread>
 			<ConfigFile>/Configuration/Components/Transmission/UdsTransmissionProtocolConfig.xml</ConfigFile>
 			<TcuConfigFile>/Configuration/Components/Transmission/UdsTransmissionProtocolConfig.xml</TcuConfigFile>
-			<CruiseConfigFile>/Configuration/Components/Transmission/UdsTransmissionProtocolConfig.xml</CruiseConfigFile>
-			<TpmsConfigFile>/Configuration/Components/Transmission/UdsTransmissionProtocolConfig.xml</TpmsConfigFile>
+			<CruiseConfigFile>/Configuration/Components/Transmission/CruiseModuleConfig.xml</CruiseConfigFile>
+			<TpmsConfigFile>/Configuration/Components/Transmission/TpmsModuleConfig.xml</TpmsConfigFile>
 			<CurrentForces>/dev/Icm/Block/Force</CurrentForces>
 			<CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
 			<CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
@@ -183,9 +183,10 @@
 			<TpmsTimeout Units="msec">60000</TpmsTimeout>
 
 			<!-- Cruise Control Parameters -->
-			<CruiseControlTestSpeed Units="mph">38</CruiseControlTestSpeed>
-			<CruiseControlTestSpeedRange Units="mph">38 48</CruiseControlTestSpeedRange>
+			<CruiseControlTestSpeed Units="mph">63</CruiseControlTestSpeed>
+			<CruiseControlTestSpeedRange Units="mph">63 68</CruiseControlTestSpeedRange>
 			<CruiseControlSpeedScanDelay>50</CruiseControlSpeedScanDelay>
+			<CruiseControlBrakeAtEnd>False</CruiseControlBrakeAtEnd>
 
 			<!-- AT Learn Parameters Target is 115 kmh -->
 			<ATLearnTargetSpeed Units="mph">80</ATLearnTargetSpeed>
@@ -195,6 +196,7 @@
 			<ATLearnSpeedScanDelay>50</ATLearnSpeedScanDelay>
 			<ATLearnTargetGear>6</ATLearnTargetGear>
 			<ATLearnTimeout Units="msec">300000</ATLearnTimeout>
+			<ATLearnBrakeAtEnd>False</ATLearnBrakeAtEnd>
 
 			<!-- Misfire Test Parameters -->
 			<MisfireTestSpeed Units="mph">50</MisfireTestSpeed>
@@ -208,8 +210,10 @@
 			<BrakeModeratelyInGreenBand PromptBox="1" Priority="0">BrakeModeratelyInGreenBand</BrakeModeratelyInGreenBand>
 			<MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
 			<ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
+			<ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
 			<ZeroSpeed PromptBox="1" Priority="0">ZeroSpeed</ZeroSpeed>
 			<CruiseEngage PromptBox="1" Priority="0">CruiseEngage</CruiseEngage>
+			<CruiseOff PromptBox="1" Priority="0">CruiseOff</CruiseOff>
 			<CruiseDisengage PromptBox="1" Priority="0">CruiseDisengage</CruiseDisengage>
 			<CruiseResume PromptBox="1" Priority="0">CruiseResume</CruiseResume>
 			<CruiseAccelerate PromptBox="1" Priority="0">CruiseAccelerate</CruiseAccelerate>
@@ -241,8 +245,8 @@
 			<TestStep10>AnalyzeDynamicParkBrake</TestStep10>
 		</ParkBrakeTest>
 		<CruiseTest>
-			<!-- <TestStep00>EnterDiagnosticMode</TestStep00> -->
 			<TestStep05>CruiseTest</TestStep05>
+			<TestStep10>MisfireTest</TestStep10>
 		</CruiseTest>
 		<Setup>
 			<TestStep00>Setup</TestStep00>
@@ -250,14 +254,32 @@
 			<TestStep095>StartModuleKeepAlive</TestStep095>
 			<!-- <TestStep05>Initialize</TestStep05> -->
 		</Setup>
+		<SetupNonAT>
+			<TestStep00>Setup</TestStep00>
+			<!-- <TestStep012>EnterDiagnosticMode</TestStep012> -->
+			<!-- <TestStep095>StartModuleKeepAlive</TestStep095> -->
+			<!-- <TestStep05>Initialize</TestStep05> -->
+		</SetupNonAT>
+		<ReverseTesting>
+			<TestStep00>AccelerateInReverse</TestStep00>
+			<TestStep10>BrakeToStop</TestStep10>
+		</ReverseTesting>
+		<PerformATLearn>
+			<TestStep00>ATLearnTest</TestStep00>
+			<TestStep05>CruiseTest</TestStep05>
+			<TestStep10>MisfireTest</TestStep10>
+		</PerformATLearn>
 	</Objectives>
 	<TestSteps>
+		<ATLearnTest Result="Not Tested" Timeout="300000" Description="Perform the AT learn test" ScanDelay="250"/>
+		<AccelerateInReverse Result="" Timeout="30000" Description="Validate Reverse gear functionality" ScanDelay="250"/>
 		<AccelerateToBrakeSpeed Result="Not Tested" Timeout="300000" Description="Accelerate to the brake test speed" SpeedTarget="35 45" ArmSpeed="35" Prompt1="AccelerateToTargetSpeed"/>
 		<AccelerateToParkBrakeSpeed Result="" Timeout="120000" Description="Accel to Park Brake Speed" SpeedTarget="5 15" ArmSpeed="55" Prompt1="AccelerateToTargetSpeed"/>
 		<AnalyzeBalance Result="Not Tested" Timeout="100" Description="Analyze brake force balance" FrontSideToSideBalance="20" RearSideToSideBalance="20" BalanceFrontToRearMin="20" BalanceFrontToRearMax="80"/>
 		<AnalyzeBrakeTest Result="Not Tested" Timeout="500" Description="Analyze brake forces" FrontMaxBrakeForce="400" FrontMinBrakeForce="150" RearMaxBrakeForce="400" RearMinBrakeForce="75"/>
 		<AnalyzeDragTest Result="Not Tested" Timeout="500" Description="Analyze drag force data" FrontMaxDragForce="90" RearMaxDragForce="90"/>
 		<AnalyzeDynamicParkBrake Result="" Timeout="1000" Description="Analyze Park Brake Samples"/>
+		<BrakeToStop Description="Prompt the driver to brake to stop" Result="" Timeout="120000" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
 		<BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" StartBrakeSampleSpeed="20" EndBrakeSampleSpeed="5" BrakeDomain="0 500" BrakeTarget="275 475"/>
 		<DisableForceMeter Result="Not Tested" Timeout="1000" Description="Disable the brake force meter"/>
 		<DragTest Result="Not Tested" Timeout="300000" Description="Measure vehicle drag forces" Prompt1="ShiftToNeutral" Prompt2="RemoveFootFromAccelerator" DragSpeed="31" DragDelay="1000" DragSamples="50"/>
@@ -271,5 +293,6 @@
 		<StartModuleKeepAlive Result="" Timeout="10000" Description="Start the module keep alive" ScanDelay="500"/>
 		<StopModuleKeepAlive Result="" Timeout="10000" Description="Stop the module keep alive" ScanDelay="500"/>
 		<ATLearnTest Result="Not Tested" Timeout="300000" Description="Perform the AT learn test" ScanDelay="500"/>
+		<MisfireTest Result="Not Tested" Timeout="30000" Description="Perform the Misfire Test"/>
 	</TestSteps>
 </RwalBrakeTest>

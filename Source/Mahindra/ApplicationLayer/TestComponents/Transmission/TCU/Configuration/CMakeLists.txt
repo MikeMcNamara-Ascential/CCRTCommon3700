@@ -4,5 +4,7 @@
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Transmission FILES
 	MahindraTransmissionTc.xml
 	UdsTransmissionProtocolConfig.xml
+	CruiseModuleConfig.xml
+	TpmsModuleConfig.xml
 	)
 	

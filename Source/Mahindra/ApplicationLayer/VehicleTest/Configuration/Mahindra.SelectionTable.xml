@@ -36,4 +36,10 @@
 		<BrakeType>Bosch Esp</BrakeType>
 		<TransferCase>4WD</TransferCase>
 	</BoschESP4wd>
+	<!-- AT Bosch Esp Drive Curve -->
+	<ATBoschESP4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/ATBoschESP4wdDriveCurve.xml">
+		<BrakeType>Bosch Esp</BrakeType>
+		<Transmission>AT</Transmission>
+		<TransferCase>4WD</TransferCase>
+	</ATBoschESP4wd>
 </SelectionTable>

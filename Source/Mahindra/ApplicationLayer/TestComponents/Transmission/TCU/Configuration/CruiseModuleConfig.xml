@@ -110,7 +110,7 @@
 
 		<TransmitInterpretations>
 			<CruiseState>0x01,0x34</CruiseState>
-			<CruiseStatus>0x08,0x0E</CruiseStatus>
+			<CruiseStatus>0x07,0xF2</CruiseStatus>
 			<MisfireStatus>0x01,0x42</MisfireStatus>
 		</TransmitInterpretations>
 
@@ -126,7 +126,7 @@
 			</CruiseState>
 
 			<CruiseStatus>
-				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x62,0x08,0x0E,0x??</Reply_00>
+				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x62,0x07,0xF2,0x??</Reply_00>
 				<Reply_01>0x7F,0x22,0x??</Reply_01>
 			</CruiseStatus>
 
@@ -142,10 +142,10 @@
 			<CruiseState>
 				<String>
 					<Substring>
-						<Chars input_index="3" mask="0xFF" length="1">
+						<Chars input_index="10" mask="0xFF" length="1">
 							<StringSubstitute00 condition="equals" compare="0x00" replace="Off"/>
 							<StringSubstitute01 condition="equals" compare="0x01" replace="Standby"/>
-							<StringSubstitute02 condition="equals" compare="0x02" replace="Const_Drive"/>
+							<StringSubstitute02 condition="equals" compare="0x02" replace="Engaged"/>
 							<StringSubstitute03 condition="equals" compare="0x03" replace="Decelerate"/>
 							<StringSubstitute04 condition="equals" compare="0x04" replace="Accelerate"/>
 							<StringSubstitute05 condition="equals" compare="0x05" replace="Override"/>
@@ -158,16 +158,18 @@
 			<CruiseStatus>
 				<String>
 					<Substring>
-						<Chars input_index="3" mask="0xFF" length="1">
+						<Chars input_index="21" mask="0xFF" length="1">
 							<StringSubstitute00 condition="equals" compare="0x00" replace="Off"/>
-							<StringSubstitute01 condition="equals" compare="0x01" replace="Hard Disengage"/>
-							<StringSubstitute02 condition="equals" compare="0x02" replace="Soft Disengage"/>
-							<StringSubstitute03 condition="equals" compare="0x03" replace="Waiting"/>
-							<StringSubstitute04 condition="equals" compare="0x04" replace="Resume"/>
-							<StringSubstitute05 condition="equals" compare="0x05" replace="Engaged"/>
-							<StringSubstitute06 condition="equals" compare="0x06" replace="Decellerate"/>
-							<StringSubstitute07 condition="equals" compare="0x07" replace="Accelerate"/>
-							<StringSubstitute08 condition="equals" compare="0x08" replace="Inhibit"/>
+							<StringSubstitute01 condition="equals" compare="0x01" replace="Standby"/>
+							<StringSubstitute02 condition="equals" compare="0x02" replace="Engaged"/>
+							<StringSubstitute03 condition="equals" compare="0x03" replace="Accelerate"/>
+							<StringSubstitute04 condition="equals" compare="0x04" replace="Decelerate"/>
+							<StringSubstitute05 condition="equals" compare="0x05" replace="Tip Up"/>
+							<StringSubstitute06 condition="equals" compare="0x06" replace="Tip Down"/>
+							<StringSubstitute07 condition="equals" compare="0x07" replace="Resume from above"/>
+							<StringSubstitute08 condition="equals" compare="0x08" replace="Resume from below"/>
+							<StringSubstitute09 condition="equals" compare="0x09" replace="Error"/>
+							<StringSubstitute10 condition="equals" compare="0x0A" replace="Override"/>
 						</Chars>
 					</Substring>
 				</String>
@@ -175,7 +177,7 @@
 
 			<MisfireStatus>
 				<Boolean>
-					<Byte input_index="5" mask="0xFF" compare="0x01"/>
+					<Byte input_index="3" mask="0xFF" compare="0x01"/>
 				</Boolean>
 			</MisfireStatus>
 

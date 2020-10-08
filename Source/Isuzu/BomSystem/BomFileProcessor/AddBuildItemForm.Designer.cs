@@ -123,7 +123,7 @@
             this.Controls.Add(this.m_upcLabel);
             this.Controls.Add(this.m_itemNameTextBox);
             this.Controls.Add(this.m_itemNameLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "AddBuildItemForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

@@ -85,8 +85,10 @@
             this.Controls.Add(this.m_removeButton);
             this.Controls.Add(this.m_modelCodeLabel);
             this.Controls.Add(this.m_itemComboBox);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RemoveModelCodeSpecificOptionsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RemoveModelCodeSpecificOptionsForm";
             this.ResumeLayout(false);
             this.PerformLayout();

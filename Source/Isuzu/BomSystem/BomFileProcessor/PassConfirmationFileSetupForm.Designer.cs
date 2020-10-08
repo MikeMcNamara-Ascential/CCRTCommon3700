@@ -275,8 +275,9 @@
             this.Controls.Add(this.m_ccrtPassConfirmFileLocationTextBox);
             this.Controls.Add(this.m_spartanPassConfirmLabel);
             this.Controls.Add(this.m_passConfirmCcrtLocationLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "PassConfirmationFileSetupForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pass Confirmation File Setup";
             ((System.ComponentModel.ISupportInitialize)(this.m_fileCheckDelayNumericUpDown)).EndInit();
             this.ResumeLayout(false);

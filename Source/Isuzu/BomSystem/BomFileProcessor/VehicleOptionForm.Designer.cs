@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.m_optionDataGridView = new System.Windows.Forms.DataGridView();
+            this.ModelCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.m_saveButton = new System.Windows.Forms.Button();
             this.m_cancelButton = new System.Windows.Forms.Button();
             this.m_addButton = new System.Windows.Forms.Button();
             this.m_removeButton = new System.Windows.Forms.Button();
-            this.ModelCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.m_optionDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,9 +42,9 @@
             // 
             this.m_optionDataGridView.AllowUserToAddRows = false;
             this.m_optionDataGridView.AllowUserToDeleteRows = false;
-            this.m_optionDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_optionDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_optionDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.m_optionDataGridView.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.m_optionDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -57,6 +57,17 @@
             this.m_optionDataGridView.RowHeadersVisible = false;
             this.m_optionDataGridView.Size = new System.Drawing.Size(353, 213);
             this.m_optionDataGridView.TabIndex = 0;
+            // 
+            // ModelCode
+            // 
+            this.ModelCode.HeaderText = "Model Code";
+            this.ModelCode.Name = "ModelCode";
+            this.ModelCode.ReadOnly = true;
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
             // 
             // m_saveButton
             // 
@@ -102,17 +113,6 @@
             this.m_removeButton.UseVisualStyleBackColor = true;
             this.m_removeButton.Click += new System.EventHandler(this.m_removeButton_Click);
             // 
-            // ModelCode
-            // 
-            this.ModelCode.HeaderText = "Model Code";
-            this.ModelCode.Name = "ModelCode";
-            this.ModelCode.ReadOnly = true;
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            // 
             // VehicleOptionForm
             // 
             this.AcceptButton = this.m_saveButton;
@@ -127,7 +127,7 @@
             this.Controls.Add(this.m_cancelButton);
             this.Controls.Add(this.m_saveButton);
             this.Controls.Add(this.m_optionDataGridView);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "VehicleOptionForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

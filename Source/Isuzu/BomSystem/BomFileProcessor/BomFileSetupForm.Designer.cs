@@ -41,9 +41,9 @@
             // 
             this.m_bomSettingsDataGridView.AllowUserToAddRows = false;
             this.m_bomSettingsDataGridView.AllowUserToDeleteRows = false;
-            this.m_bomSettingsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_bomSettingsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_bomSettingsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.m_bomSettingsDataGridView.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.m_bomSettingsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -108,7 +108,7 @@
             this.Controls.Add(this.m_cancelButton);
             this.Controls.Add(this.m_saveButton);
             this.Controls.Add(this.m_bomSettingsDataGridView);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "BomFileSetupForm";
             this.Text = "BOM File Setup";
             ((System.ComponentModel.ISupportInitialize)(this.m_bomSettingsDataGridView)).EndInit();

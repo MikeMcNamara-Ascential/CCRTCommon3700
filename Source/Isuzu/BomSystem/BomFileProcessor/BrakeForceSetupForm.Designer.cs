@@ -38,9 +38,9 @@
             this.MinBrakeForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaxBrakeForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SideToSideBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.m_modelCodeListComboBox = new System.Windows.Forms.ComboBox();
             this.FrontToRearBalMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FrontToRearBalMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.m_modelCodeListComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_brkFrcParamDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,9 +88,9 @@
             // 
             this.m_brkFrcParamDataGridView.AllowUserToAddRows = false;
             this.m_brkFrcParamDataGridView.AllowUserToDeleteRows = false;
-            this.m_brkFrcParamDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_brkFrcParamDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_brkFrcParamDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.m_brkFrcParamDataGridView.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.m_brkFrcParamDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -136,15 +136,6 @@
             this.SideToSideBalance.HeaderText = "Side to Side Balance (offset from 50%)";
             this.SideToSideBalance.Name = "SideToSideBalance";
             // 
-            // m_modelCodeListComboBox
-            // 
-            this.m_modelCodeListComboBox.FormattingEnabled = true;
-            this.m_modelCodeListComboBox.Location = new System.Drawing.Point(85, 21);
-            this.m_modelCodeListComboBox.Name = "m_modelCodeListComboBox";
-            this.m_modelCodeListComboBox.Size = new System.Drawing.Size(121, 21);
-            this.m_modelCodeListComboBox.TabIndex = 6;
-            this.m_modelCodeListComboBox.SelectedIndexChanged += new System.EventHandler(this.m_modelCodeListComboBox_SelectedIndexChanged);
-            // 
             // FrontToRearBalMin
             // 
             this.FrontToRearBalMin.HeaderText = "Front To Rear Balance Minimum (%)";
@@ -154,6 +145,15 @@
             // 
             this.FrontToRearBalMax.HeaderText = "Front To Rear Balance Maximum (%)";
             this.FrontToRearBalMax.Name = "FrontToRearBalMax";
+            // 
+            // m_modelCodeListComboBox
+            // 
+            this.m_modelCodeListComboBox.FormattingEnabled = true;
+            this.m_modelCodeListComboBox.Location = new System.Drawing.Point(85, 21);
+            this.m_modelCodeListComboBox.Name = "m_modelCodeListComboBox";
+            this.m_modelCodeListComboBox.Size = new System.Drawing.Size(121, 21);
+            this.m_modelCodeListComboBox.TabIndex = 6;
+            this.m_modelCodeListComboBox.SelectedIndexChanged += new System.EventHandler(this.m_modelCodeListComboBox_SelectedIndexChanged);
             // 
             // BrakeForceSetupForm
             // 
@@ -170,7 +170,7 @@
             this.Controls.Add(this.m_modelCodeLabel);
             this.Controls.Add(this.m_cancelButton);
             this.Controls.Add(this.m_saveButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "BrakeForceSetupForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Brake Force Setup";

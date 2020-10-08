@@ -146,9 +146,9 @@
             // 
             this.m_brakeParamDataGridView.AllowUserToAddRows = false;
             this.m_brakeParamDataGridView.AllowUserToDeleteRows = false;
-            this.m_brakeParamDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_brakeParamDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_brakeParamDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.m_brakeParamDataGridView.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.m_brakeParamDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -253,8 +253,9 @@
             this.Controls.Add(this.m_paramFileLabel);
             this.Controls.Add(this.m_closeButton);
             this.Controls.Add(this.m_saveButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "EditVehicleBuildFileForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Vehicle Parameters";
             ((System.ComponentModel.ISupportInitialize)(this.m_buildOptionDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_brakeParamDataGridView)).EndInit();

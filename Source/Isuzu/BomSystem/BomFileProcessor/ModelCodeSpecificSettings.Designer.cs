@@ -88,9 +88,9 @@
             // 
             this.m_modelOptionsDGV.AllowUserToAddRows = false;
             this.m_modelOptionsDGV.AllowUserToDeleteRows = false;
-            this.m_modelOptionsDGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_modelOptionsDGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_modelOptionsDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.m_modelOptionsDGV.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.m_modelOptionsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -135,6 +135,7 @@
             this.Controls.Add(this.m_modelOptionsDGV);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ModelCodeSpecificSettings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModelCodeSpecificSettings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModelCodeSpecificSettings_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.m_modelOptionsDGV)).EndInit();

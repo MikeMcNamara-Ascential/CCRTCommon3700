@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.IO;
-//using LoggingInterface;
+using LoggingInterface;
 using System.Net;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using BomFileProcessor;
+using AlexPilotti.FTPS.Client;
+using AlexPilotti.FTPS.Common;
 
 namespace FtpFileMonitorNamespace
 {
@@ -23,6 +24,8 @@ namespace FtpFileMonitorNamespace
         protected volatile bool m_terminate;
         protected object m_terminateLock;
         Thread m_fileMonitorThread;
+        protected int m_noESNFilesTransferedCount;
+        public bool m_esnFault;
 
         protected string m_ftpUserLogin;
         protected string m_ftpUserPassword;
@@ -43,7 +46,7 @@ namespace FtpFileMonitorNamespace
             DirectoryLock = new object();
             m_remoteLocation = remoteLocation;
             m_localLocation = localLocation;
-            m_tempLocation = tempLocalLocation;
+            m_tempLocation = tempLocalLocation + "\\";
             m_fileCheckInterval = fileCheckInterval;
             m_logger = logger;
             m_ftpUserLogin = userLogin;
@@ -52,6 +55,8 @@ namespace FtpFileMonitorNamespace
             m_terminate = false;
             m_terminateLock = new object();
             m_fileMask = fileMask;
+            m_noESNFilesTransferedCount = 0;
+            m_esnFault = false;
         }
 
         /// <summary>
@@ -70,15 +75,22 @@ namespace FtpFileMonitorNamespace
         {
             DirectoryLock = new object();
             m_remoteLocations = new List<string>(remoteLocations);
+            m_remoteLocation = m_remoteLocations.FirstOrDefault();
             m_localLocation = localLocation;
+            m_tempLocation = localLocation + "\\";
             m_logger = logger;
             m_ftpUserLogins = new List<string>(userLogins);
             m_ftpUserPasswords = new List<string>(passwords);
             m_ftpServerIps = new List<string>(ftpServerIps);
+            m_ftpUserLogin = m_ftpUserLogins.FirstOrDefault();
+            m_ftpUserPassword = m_ftpUserPasswords.FirstOrDefault();
+            m_ftpServerIp = m_ftpServerIps.FirstOrDefault();
+            m_fileCheckInterval = 10000;
             m_terminate = false;
             m_terminateLock = new object();
             m_fileMask = fileMask;
-
+            m_noESNFilesTransferedCount = 0;
+            m_esnFault = false;
         }
 
         public void StartFileMonitorThread()
@@ -114,77 +126,63 @@ namespace FtpFileMonitorNamespace
         /// </summary>
         public void FileChangeMonitorFtpLocation()
         {
-            string uri = "ftp://" + m_ftpServerIp + m_remoteLocation;
+            string uri = m_remoteLocation;
             string escapedUri = uri.Replace("../", "%2E%2E/");
-            //m_logger.Log(" FileChangeMonitorFtpLocation() - Enter");
+
 
             while (!TerminateCalled())
             {
                 try
                 {
-                    //m_logger.Log("Terminate not called for FTP File Monitor\n");
                     if (Directory.Exists(m_localLocation) && Directory.Exists(m_tempLocation))
                     {//both directories exist check num files
-                        //m_logger.Log("FTP File Monitor directories exist\n");
-                        FtpWebRequest reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri));
-                        reqFTP.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
-                        reqFTP.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
-                        reqFTP.UseBinary = true;
-                        reqFTP.UsePassive = false;
-                        //Send request for directory listing, get response
-                        FtpWebResponse respFTP = (FtpWebResponse)reqFTP.GetResponse();
-                        Stream responseStream = respFTP.GetResponseStream();
-                        StreamReader reader = new StreamReader(responseStream);
-                        List<FtpFileInfo> ftpFileInfos = new List<FtpFileInfo>();
-                        //Create list of files
-                        //note format only verified for qnx response
-                        //skip first line (num of files)
-                        reader.ReadLine();
-                        while (!reader.EndOfStream)
+                        using (FTPSClient client = new FTPSClient())
                         {
-                            //m_logger.Log("Checking the file stream\n");
-                            string file;
-                            file = reader.ReadLine();
-                            if (file[0] == '-')
-                            {//regular file (omits directories)
-                                FtpFileInfo fi = new FtpFileInfo(file);
-                                if (FitsMask(fi.Name, m_fileMask))
-                                {
-                                    ftpFileInfos.Add(fi);
-                                    m_logger.Log("INFO: Added " + fi.Name + " to the file list\n");
-                                }
+                            client.Connect(m_ftpServerIp, 2121, new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword),
+                                           ESSLSupportMode.ClearText, null, null, 0, 0, 0, null, true, EDataConnectionMode.Active);
+                            IList<string> fileList = new List<string>();
+                            try
+                            {
+                                fileList = client.GetShortDirectoryList(escapedUri);
                             }
+                            catch (FTPCommandException e)
+                            {
+                                if (e.Message != "No files found.")
+                                    Log("ERROR:    FileMonitor::Error during File update Process " + e.ToString());
+                            }
+                            DirectoryInfo localInfo = new DirectoryInfo(m_localLocation);
+                            if (fileList.Count() > 0)
+                            {
+                                Log("INFO:    Files to transfer found, updating " + m_localLocation);
+                                UpdateLocalDirectoryRemoteFtpLocation(client, fileList, localInfo);
+                                m_esnFault = false;
+                                m_noESNFilesTransferedCount = 0;
+                            }
+                            else
+                            {
+                                m_noESNFilesTransferedCount++;
+                                if (m_noESNFilesTransferedCount >= 90)
+                                    m_esnFault = true;
+                            }
+                            client.Close();
                         }
-
-
-                        DirectoryInfo localInfo = new DirectoryInfo(m_localLocation);
-                        if (ftpFileInfos.Count() > 0)
-                        {
-                            m_logger.Log("INFO:    Files to transfer found, updating " + m_localLocation);
-                            UpdateLocalDirectoryRemoteFtpLocation(ftpFileInfos, localInfo);
-                        }
-                        /*else
-                        {
-                            m_logger.Log("No file found to transfer\n");
-                        }*/
                     }
                     else
                     {
-                        m_logger.Log("ERROR:    FileMonitor::Temp or Target directory does not exist temp: " +
+                        Log("ERROR:    FileMonitor::Temp or Target directory does not exist temp: " +
                             m_tempLocation + " Target: " + m_localLocation);
                         //m_terminate = true;
                     }
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {//Error remote dir gone before transfer complete
-                    m_logger.Log("ERROR:    FileMonitor:: " + e.ToString());
+                    Log("ERROR:    FileMonitor::Error during File update Process " + ex.ToString());
                 }
                 Thread.Sleep(m_fileCheckInterval);
             }
-            //m_logger.Log("FileChangeMonitorFtpLocation() - Exit");
         }
 
-        public List<string> UpdateLocalDirectoryRemoteFtpLocation(List<FtpFileInfo> remoteInfo, DirectoryInfo localInfo)
+        public List<string> UpdateLocalDirectoryRemoteFtpLocation(FTPSClient client, IList<string> remoteFiles, DirectoryInfo localInfo)
         {
             List<string> filesTransfered = new List<string>();
 
@@ -199,13 +197,14 @@ namespace FtpFileMonitorNamespace
                         }
                     }
                     //get all files
-                    foreach (FtpFileInfo fi in remoteInfo)
-                    {//copy to temp folder first in case remote directory goes down durring transfer
-                        if (!TransferFileFromFtpLocation(fi.Name))
+                    foreach (string fi in remoteFiles)
+                    {//copy to temp folder first in case remote directory goes down during transfer
+                        if (!TransferFileFromFtpLocation(client, fi.Substring(fi.LastIndexOf('/') + 1)))
                         {
                             break;
                         }
                     }
+
                     List<FileInfo> matchingFiles = new List<FileInfo>();
                     List<FileInfo> temp = tempInfo.GetFiles().ToList();
                     matchingFiles = temp.FindAll(x => FitsMask(x.Name, m_fileMask));
@@ -217,8 +216,11 @@ namespace FtpFileMonitorNamespace
                     {
                         foreach (FileInfo fi in matchingFiles)
                         {
+                            Log("FTP File Info:");
+                            Log("    Name: " + fi.Name.ToString());
+                            Log("    Size: " + fi.Length.ToString());
                             fi.CopyTo(Path.Combine(localInfo.ToString(), fi.Name), true);
-                            DeleteFileFromFtpLocation(m_remoteLocation, fi.Name, currentFile == fileCount);
+                            DeleteFileFromFtpLocation(client, m_remoteLocation, fi.Name, currentFile == fileCount);
                             currentFile++;
                         }
                     }
@@ -231,20 +233,13 @@ namespace FtpFileMonitorNamespace
             return filesTransfered;
         }
 
-        public void DeleteFileFromFtpLocation(string location, string fileName, bool isFinal)
+        public void DeleteFileFromFtpLocation(FTPSClient client, string location, string fileName, bool isFinal)
         {
             try
             {
-                string uri = "ftp://" + m_ftpServerIp + location;
+                string uri = location + "/" + fileName;
                 string escapedUri = uri.Replace("../", "%2E%2E/");
-                FtpWebRequest remFileReq = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri + fileName));
-                remFileReq.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
-                remFileReq.Method = WebRequestMethods.Ftp.DeleteFile;
-                remFileReq.UseBinary = true;
-                remFileReq.UsePassive = false;
-                remFileReq.KeepAlive = !isFinal;
-                FtpWebResponse remFileResp = (FtpWebResponse)remFileReq.GetResponse();
-                remFileResp.Close();
+                client.DeleteFile(escapedUri);
             }
             catch (Exception ex)
             {
@@ -252,66 +247,31 @@ namespace FtpFileMonitorNamespace
             }
         }
 
-        public bool TransferFileFromFtpLocation(string fileName)
+        public bool TransferFileFromFtpLocation(FTPSClient client, string fileName)
         {
-            Log("TransferFileFromFtpLocation - Enter\n");
-            int buffLength = 2048;
-            byte[] buff = new byte[buffLength];
-            int contentLen;
+
             bool success = true;
-
-            FileStream fs = null;
-            FileInfo fileInf = new FileInfo(Path.Combine(m_tempLocation, fileName));
-            string uri = "ftp://" + m_ftpServerIp + m_remoteLocation;
+            string uri = m_remoteLocation;
             string escapedUri = uri.Replace("../", "%2E%2E/");
-
-            FtpWebRequest fileReq = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri + fileName));
-            fileReq.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
-            fileReq.Method = WebRequestMethods.Ftp.DownloadFile;
-            fileReq.UseBinary = true;
-            fileReq.UsePassive = false;
-            fileReq.KeepAlive = true;
 
             try
             {
-                Log("Trying to get files\n");
-                fs = fileInf.Create();
-                if (fs == null)
+                // Download a file
+                ulong bytesCopied = client.GetFile(escapedUri + fileName, m_tempLocation + fileName);
+                if (bytesCopied <= 0)
                 {
-                    Log("ERROR:  Could not create local copy of remote file");
                     success = false;
+                    Log("ERROR:  Could not copy remote file " + fileName + "bytes copied:" + bytesCopied.ToString());
                 }
-                else
-                {
-                    Log("created a local copy of the file\n");
-                    FtpWebResponse fileResp = (FtpWebResponse)fileReq.GetResponse();
-                    Stream strm = fileResp.GetResponseStream();
-                    BinaryReader fileReader = new BinaryReader(strm);
 
-
-                    contentLen = fileReader.Read(buff, 0, buffLength);
-                    Log("Read the file\n");
-                    while (contentLen != 0)
-                    {
-                        Log("Writing content to the file\n");
-                        fs.Write(buff, 0, contentLen);
-                        contentLen = fileReader.Read(buff, 0, buffLength);
-                    }
-                    Log("INFO:  Retrieved file " + fileName);
-
-                    fileReader.Close();
-                    strm.Close();
-                    fileResp.Close();
-                }
             }
             catch (Exception ex)
             {
-                Log("ERROR:  Could not create local copy of remote file " + fileName + ": " + ex.ToString());
-                fs = null;
                 success = false;
+                Log("ERROR:  Could not copy remote file " + fileName + ": " + ex.ToString());
             }
-            fs.Seek(0, SeekOrigin.Begin);
-            fs.Close();
+
+
             return success;
         }
 
@@ -402,122 +362,49 @@ namespace FtpFileMonitorNamespace
                 if (overAllSuccess)
                 {
                     bool success = true;
-
+                    //Send file to server via FTP
+                    string uri = m_remoteLocation + "/" + fileName.Substring(fileName.LastIndexOf('\\')+1);
+                    string escapedUri = uri.Replace("../", "%2E%2E/");
                     fileNumber++;
-                    FileInfo fileInf = new FileInfo(fileName);
-                    //ensure file is completely formed
-                    FileStream fs = null;
-                    try
+
+                    using (FTPSClient client = new FTPSClient())
                     {
-                        fs = TryOpen(fileInf, 100, 250);
-                        if (fs != null)
-                        {
-                            Log("INFO:  File Integrity Checked, beginning ftp process - test");
-
-                            //Send file to server via FTP
-                            string uri = "ftp://" + m_ftpServerIp + m_remoteLocation + "/" + fileInf.Name;
-                            string escapedUri = uri.Replace("../", "%2E%2E/");
-                            FtpWebRequest reqFTP;
+                        try
+                        {   // Connect to the server with no encryption
+                            client.Connect(m_ftpServerIp, 2121,new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword),
+                                           ESSLSupportMode.ClearText, null, null, 0, 0, 0, null, true, EDataConnectionMode.Active);
                             
-                            // Create FtpWebRequest object from the Uri provided
-                            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri));
-                            // Provide the WebPermission Credintials
-                            reqFTP.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
-                            // Specify the command to be executed.
-                            reqFTP.Method = WebRequestMethods.Ftp.UploadFile;
-                            // Specify the data transfer type.
-                            reqFTP.UseBinary = true;
+                            ulong bytesTransfered = client.PutFile(fileName, escapedUri);
 
-                            // Notify the server about the size of the uploaded file
-                            reqFTP.ContentLength = fileInf.Length;
-                            // By default KeepAlive is true, where the control connection is 
-                            // not closed after a command is executed.
-                            if (files.Count != fileNumber)
+                            if (bytesTransfered <= 0)
                             {
-                                reqFTP.KeepAlive = true;
+                                success = false;
+                                Log("ERROR:  Could not upload file to remote location " + fileName + "bytes copied:" + bytesTransfered.ToString());
                             }
                             else
                             {
-                                reqFTP.KeepAlive = false;
-                            }
-                            // The buffer size is set to 2kb
-                            int buffLength = 2048;
-                            byte[] buff = new byte[buffLength];
-                            int contentLen;
-                            Stream strm = null;
-                            try
-                            {
-                                // Stream to which the file to be upload is written
-                                Log("INFO:  Preparing to transfer file ");
-                                Log("INFO:  Opening FTP Connection");
-                                strm = reqFTP.GetRequestStream();
-
-                                Log("INFO:  Reading content from file");
-                                // Read from the file stream 2kb at a time
-                                contentLen = fs.Read(buff, 0, buffLength);
-
-                                // Till Stream content ends
-                                Log("INFO:  File Transfer Started");
-                                while (contentLen != 0)
-                                {
-                                    // Write Content from the file stream to the 
-                                    // FTP Upload Stream
-                                    strm.Write(buff, 0, contentLen);
-                                    contentLen = fs.Read(buff, 0, buffLength);
-                                }
-                                Log("INFO:  File Transfer Complete");
-                                Log("INFO:  File transfered successfully");
-
-                            }
-                            catch (Exception ex)
-                            {
-                                Log("ERROR:  Upload Error: " + ex.ToString());
-                                success = false;
-                                overAllSuccess = false;
-                            }
-                            if (strm != null)
-                            {// Close the Request Stream
-                                strm.Close();
-                            }
-                            fs.Seek(0, SeekOrigin.Begin);
-
-
-                            if (success)
-                            {
-                                Log("INFO:  " + fileName + " transferred successfully");
-                                //remove file from local directory
+                                Log("INFO:  " + fileName.Substring(fileName.LastIndexOf('\\') + 1) + " transfered successfully");
+                                //Delete the local file
                                 try
                                 {
-                                    fs.Close();
-                                    fs = null;
                                     System.IO.File.Delete(fileName);
                                 }
-                                catch
+                                catch (Exception e)
                                 {
-                                    Log("ERROR:  Could not delete original file");
+                                    Log("ERROR:  Could not delete original file: " + e.ToString());
                                 }
                             }
-                            else
-                            {
-                                Log("ERROR:  " + fileName + " was not transfered successfully");
-                                overAllSuccess = false;
-                            }
+
+                            client.Close();
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            Log("ERROR:  " + fileName + " File Integrity Check Failed");
-                            overAllSuccess = false;
+                            success = false;
+                            Log("ERROR:  Could not upload file to remote location" + fileName + ": " + ex.ToString());
                         }
                     }
-                    catch
-                    {
-                        Log("ERROR:  " + fileName + " Unknown Exception");
-                        overAllSuccess = false;
-                    }
-                    if (fs != null)
-                    {
-                        fs.Close();
-                    }
+
+                    overAllSuccess = success;
                 }
             }
             return overAllSuccess;
@@ -525,52 +412,35 @@ namespace FtpFileMonitorNamespace
 
         public void ManageRemoteLocationFileCount(string remoteLocation, int maxFiles)
         {
-            string uri = "ftp://" + m_ftpServerIp + remoteLocation;
+            string uri = m_remoteLocation;
             string escapedUri = uri.Replace("../", "%2E%2E/");
             string file;
             try
             {
-
-                //check num files
-                FtpWebRequest reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri));
-                reqFTP.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
-                reqFTP.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
-                reqFTP.UseBinary = true;
-                reqFTP.UsePassive = false;
-                //Send request for directory listing, get response
-                FtpWebResponse respFTP = (FtpWebResponse)reqFTP.GetResponse();
-                Stream responseStream = respFTP.GetResponseStream();
-                StreamReader reader = new StreamReader(responseStream);
-                List<FtpFileInfo> ftpFileInfos = new List<FtpFileInfo>();
-                //Create list of files
-                //note format only verified for qnx response
-                //skip first line (num of files)
-                reader.ReadLine();
-                while (!reader.EndOfStream)
+                using (FTPSClient client = new FTPSClient())
                 {
-                    file = reader.ReadLine();
-                    if (file[0] == '-')
-                    {//regular file (omits directories)
-                        FtpFileInfo fi = new FtpFileInfo(file);
-                        if (FitsMask(fi.Name, m_fileMask))
+                    client.Connect(m_ftpServerIp, 2121, new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword),
+                                    ESSLSupportMode.ClearText, null, null, 0, 0, 0, null, true, EDataConnectionMode.Active);
+                    
+                    IList<DirectoryListItem> fileList = client.GetDirectoryList(escapedUri);
+                    client.Close();
+                    if (fileList.Count > maxFiles)
+                    {//Delete oldest file
+                        int numFilesToDelete = fileList.Count() - maxFiles;
+                        int currentFile = 1;
+                        List<DirectoryListItem> oldestFiles = fileList.OrderBy(f => f.CreationTime).ToList();
+                        oldestFiles = oldestFiles.GetRange(0, numFilesToDelete);
+                        foreach(DirectoryListItem ftpFile in oldestFiles)
                         {
-                            ftpFileInfos.Add(fi);
+                            DeleteFileFromFtpLocation(client, remoteLocation, ftpFile.Name, currentFile == numFilesToDelete);
+                            currentFile++;
                         }
                     }
-                }
-                if (ftpFileInfos.Count() > maxFiles)
-                {//delete oldest files
-                    int numFilesToDelete =ftpFileInfos.Count()- maxFiles;
-                    int currentFile = 1;
-
-                    List<FtpFileInfo> oldestFiles = ftpFileInfos.OrderBy(f => f.DateCreated).ToList();
-                    oldestFiles = oldestFiles.GetRange(0,numFilesToDelete);
-                    foreach (FtpFileInfo ftpFile in oldestFiles)
-                    {
-                        DeleteFileFromFtpLocation(remoteLocation, ftpFile.Name, currentFile == numFilesToDelete);
-                        currentFile++;
-                    }
                     
+                    foreach (DirectoryListItem item in fileList)
+                    {
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -585,185 +455,68 @@ namespace FtpFileMonitorNamespace
             bool overallSuccess = true;
             int totalRemoteLocations = m_remoteLocations.Count();
             int currentLocal = 1;
-
             foreach (string location in m_remoteLocations)
             {
                 fileNumber = 0;
-                foreach (string fileName in files)
+                using (FTPSClient client = new FTPSClient())
                 {
-                    if (overallSuccess)
-                    {
-                        m_logger.Log("INFO:  Transferring: " + fileName + " to " + m_remoteLocations[currentLocal - 1]);
+                    try
+                    {   // Connect to the server with no encryption
+                        client.Connect(m_ftpServerIp, 2121, new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword),
+                                        ESSLSupportMode.ClearText, null, null, 0, 0, 0, null, true, EDataConnectionMode.Active);
                         bool success = true;
-
-                        fileNumber++;
-                        FileInfo fileInf = new FileInfo(fileName);
-                        //ensure file is completely formed
-                        FileStream fs = null;
-                        try
+                        foreach (string Name in files)
                         {
-                            fs = TryOpen(fileInf, 100, 250);
-                            if (fs != null)
+                            FileInfo fileInf = new FileInfo(Name);
+
+                            string fileName = fileInf.Name;
+
+                            if (overallSuccess)
                             {
-                                //Log("INFO: Beginning ftp process");
-                                //Send file to server via FTP
-                                string uri = "ftp://" + m_ftpServerIps[currentLocal - 1] + m_remoteLocations[currentLocal - 1] + fileInf.Name;
-                                string escapedUri = uri.Replace("../", "%2E%2E/"); 
-                                FtpWebRequest reqFTP;
-                                // Create FtpWebRequest object from the Uri provided
-                                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri));
-                                // Provide the WebPermission Credintials
-                                reqFTP.Credentials = new NetworkCredential(m_ftpUserLogins[currentLocal - 1], m_ftpUserPasswords[currentLocal - 1]);
-                                // Specify the command to be executed.
-                                reqFTP.Method = WebRequestMethods.Ftp.UploadFile;
-                                // Specify the data transfer type.
-                                reqFTP.UseBinary = true;
-
-                                // Notify the server about the size of the uploaded file
-                                reqFTP.ContentLength = fileInf.Length;
-                                // By default KeepAlive is true, where the control connection is 
-                                // not closed after a command is executed.
-                                if (files.Count != fileNumber)
-                                {
-                                    reqFTP.KeepAlive = true;
-                                }
-                                else
-                                {
-                                    reqFTP.KeepAlive = false;
-                                }
-                                // The buffer size is set to 2kb
-                                int buffLength = 2048;
-                                byte[] buff = new byte[buffLength];
-                                int contentLen;
-                                Stream strm = null;
-                                try
-                                {
-                                    // Stream to which the file to be upload is written
-                                    //Log("INFO:  Preparing to transfer file ");
-                                    //Log("INFO:  Opening FTP Connection");
-                                    try
-                                    {
-                                        strm = reqFTP.GetRequestStream();
-                                    }
-                                    catch (WebException web)
-                                    {
-                                        m_logger.Log("ERROR:  Upload Error: " + web.ToString());
-                                        success = false;
-                                        overallSuccess = false;
-                                    }
-                                    catch (ProtocolViolationException pro)
-                                    {
-                                        m_logger.Log("ERROR:  Upload Error: " + pro.ToString());
-                                        success = false;
-                                        overallSuccess = false;
-                                    }
-                                    catch (InvalidOperationException inv)
-                                    {
-                                        m_logger.Log("ERROR:  Upload Error: " + inv.ToString());
-                                        success = false;
-                                        overallSuccess = false;
-                                    }
-                                    catch (NullReferenceException nu)
-                                    {
-                                        m_logger.Log("ERROR:  Upload Error: " + nu.ToString());
-                                        success = false;
-                                        overallSuccess = false;
-                                    }
-                                    catch (ArgumentNullException ar)
-                                    {
-                                        m_logger.Log("ERROR:  Upload Error: " + ar.ToString());
-                                        success = false;
-                                        overallSuccess = false;
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        m_logger.Log("ERROR:  Upload Error: " + ex.ToString());
-                                        success = false;
-                                        overallSuccess = false;
-                                    }
-
-                                    // Read from the file stream 2kb at a time
-                                    contentLen = fs.Read(buff, 0, buffLength);
-
-                                    // Till Stream content ends
-                                    while (contentLen != 0)
-                                    {
-                                        // Write Content from the file stream to the 
-                                        // FTP Upload Stream
-                                        strm.Write(buff, 0, contentLen);
-                                        contentLen = fs.Read(buff, 0, buffLength);
-                                    }
-                                    //Log("INFO:  File Transfer Complete");
-                                    //Log("INFO:  File transfered successfully");
-                                }
-                                catch (Exception ex)
-                                {
-                                    Log("ERROR:  Upload Error: " + ex.ToString());
-                                    success = false;
-                                    overallSuccess = false;
-                                }
-
-                                if (strm != null)
-                                {// Close the Request Stream
-                                    strm.Close();
-                                }
-                                fs.Seek(0, SeekOrigin.Begin);
-
-                                //Log("Before checking success\n");
-                                if (success)
-                                {
-                                    //Log("INFO:  " + fileName + " transfered successfully");
-                                    //remove file from local directory
-                                    fs.Close();
-                                    try
-                                    {
+                                Log("INFO:  Transferring: " + fileName + " to " + m_remoteLocations[currentLocal - 1] + fileInf.Name);
                                         
-                                        fs = null;
-                                        //if final transfer and successfull
-                                        if (currentLocal == totalRemoteLocations && success)
-                                        {
-                                            m_logger.Log("INFO:  Deleting: " + fileName);
-                                            System.IO.File.Delete(fileName);
-                                        }
-                                    }
-                                    catch
-                                    {
-                                        Log("ERROR:  Could not delete original file");
-                                        success = false;
-                                        overallSuccess = false;
-                                    }
+                                //Send file to server via FTP
+                                string uri = m_remoteLocations[currentLocal - 1] + fileInf.Name;
+                                string escapedUri = uri.Replace("../", "%2E%2E/");
+                                fileNumber++;
+                                Log("INFO:  transferring to " + escapedUri);
+
+                                ulong bytesTransfered = client.PutFile(m_tempLocation + fileName, escapedUri);
+
+                                if (bytesTransfered <= 0)
+                                {
+                                    success = false;
+                                    Log("ERROR:  Could not upload file to remote location " + fileName + "bytes copied:" + bytesTransfered.ToString());
                                 }
                                 else
                                 {
-                                    Log("ERROR:  " + fileName + " was not transfered successfully");
-                                    success = false;
-                                    overallSuccess = false;
+                                    Log("INFO:  File transfered successfully");
+                                    //Delete the local file if we are out of locations to store the file
+                                    try
+                                    {
+                                        if(location == m_remoteLocations.LastOrDefault())
+                                            System.IO.File.Delete(Name);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Log("ERROR:  Could not delete original file: " + e.ToString());
+                                    }
                                 }
                             }
-                            else
-                            {
-                                Log("ERROR:  " + fileName + " File Integrity Check Failed");
-                                success = false;
-                                overallSuccess = false;
-                            }
                         }
-                        catch
-                        {
-                            Log("ERROR:  " + fileName + " Unknown Exception");
-                            success = false;
-                            overallSuccess = false;
-                        }
-                        if (fs != null)
-                        {
-                            fs.Close();
-                        }
+                        overallSuccess = success;
+                        client.Close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        overallSuccess = false;
+                        Log("ERROR:  Could not upload files to remote location: " + ex.ToString());
                     }
                 }
                 currentLocal++;
-
             }
             return overallSuccess;
         }
-
     }
 }

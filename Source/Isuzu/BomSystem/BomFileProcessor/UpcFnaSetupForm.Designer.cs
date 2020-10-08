@@ -43,9 +43,9 @@
             // 
             this.m_upcFnaDataGridView.AllowUserToAddRows = false;
             this.m_upcFnaDataGridView.AllowUserToDeleteRows = false;
-            this.m_upcFnaDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_upcFnaDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_upcFnaDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.m_upcFnaDataGridView.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.m_upcFnaDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -133,7 +133,7 @@
             this.Controls.Add(this.m_cancelButton);
             this.Controls.Add(this.m_saveButton);
             this.Controls.Add(this.m_upcFnaDataGridView);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "UpcFnaSetupForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

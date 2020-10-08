@@ -284,6 +284,9 @@
             // 
             // m_logMessageTextBox
             // 
+            this.m_logMessageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_logMessageTextBox.BackColor = System.Drawing.Color.White;
             this.m_logMessageTextBox.Location = new System.Drawing.Point(15, 166);
             this.m_logMessageTextBox.Name = "m_logMessageTextBox";
@@ -318,6 +321,7 @@
             this.Text = "BOM Processor";
             this.Closed += new System.EventHandler(this.BomProcessorMainForm_Closed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BomProcessorMainForm_FormClosing);
+            this.Load += new System.EventHandler(this.BomProcessorMainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

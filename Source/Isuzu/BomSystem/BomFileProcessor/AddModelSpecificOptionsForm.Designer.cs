@@ -123,8 +123,10 @@
             this.Controls.Add(this.m_upcLabel);
             this.Controls.Add(this.m_modelCodeTextBox);
             this.Controls.Add(this.m_itemNameLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AddModelSpecificOptionsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddModelSpecificOptionsForm";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -87,7 +87,7 @@
             this.Controls.Add(this.m_cancelButton);
             this.Controls.Add(this.m_modelCodeLabel);
             this.Controls.Add(this.m_modelCodeComboBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "RemoveOptionForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

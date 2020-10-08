@@ -66,6 +66,7 @@
             // m_cancelButton
             // 
             this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.m_cancelButton.Location = new System.Drawing.Point(12, 52);
             this.m_cancelButton.Name = "m_cancelButton";
             this.m_cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -86,8 +87,9 @@
             this.Controls.Add(this.m_removeButton);
             this.Controls.Add(this.m_buildItemLabel);
             this.Controls.Add(this.m_itemComboBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "RemoveBuildItemForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Remove Build Item";
             this.ResumeLayout(false);
             this.PerformLayout();

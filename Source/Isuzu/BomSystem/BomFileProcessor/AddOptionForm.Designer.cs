@@ -103,7 +103,7 @@
             this.Controls.Add(this.m_valueTextBox);
             this.Controls.Add(this.m_modelCodeTextBox);
             this.Controls.Add(this.m_modelCodeLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "AddOptionForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

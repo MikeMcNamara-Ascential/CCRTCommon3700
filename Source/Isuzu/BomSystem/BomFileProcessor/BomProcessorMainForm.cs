@@ -69,11 +69,13 @@ namespace BomFileProcessor
             passwords.Add("porter");
 
             List<string> ipaddresses = new List<string>();
-            ipaddresses.Add("192.168.1.1:2121");
-            ipaddresses.Add("192.168.1.1:2121");
+            ipaddresses.Add("192.168.1.1");
+            ipaddresses.Add("192.168.1.1");
             //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
             m_engineSerialNumberFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation,
                 users, passwords, ipaddresses,m_logger);
+
+           //m_engineSerialNumberFileMonitor.StartFileMonitorThread();
 
 
             remotePaths.Clear();
@@ -85,6 +87,8 @@ namespace BomFileProcessor
             
             m_buildRecordFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.VehicleBuildTempDirectory,
                 users, passwords, ipaddresses,m_logger);
+
+            //m_buildRecordFileMonitor.StartFileMonitorThread();
 
             m_esnFileCheckTimer.Interval = BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay;
             m_esnFileCheckTimer.Start();
@@ -99,7 +103,7 @@ namespace BomFileProcessor
                      BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
                      "burke",
                      "porter",
-                     "192.168.1.1:2121", m_logger, "*.DVT");
+                     "192.168.1.1", m_logger, "*.DVT");
                 m_dvtPassConfirmationMonitor.StartFileMonitorThread();
 
                 m_ecmPassConfirmationMonitor = new BomFtpFileMonitor(
@@ -109,7 +113,7 @@ namespace BomFileProcessor
                  BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
                  "burke",
                  "porter",
-                 "192.168.1.1:2121", m_logger, "*.ECM");
+                 "192.168.1.1", m_logger, "*.ECM");
                 m_ecmPassConfirmationMonitor.StartFileMonitorThread();
             }
 
@@ -120,7 +124,7 @@ namespace BomFileProcessor
             BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
             "burke",
             "porter",
-            "192.168.1.1:2121", m_logger, "*.STP");
+            "192.168.1.1", m_logger, "*.STP");
             m_vinStampingFileMonitor.StartFileMonitorThread();
 
         }
@@ -888,6 +892,7 @@ namespace BomFileProcessor
                     m_logger.Log("INFO: Found " + Convert.ToString(newFiles.Count()) + " new ESN File(s)");
                     System.Threading.Thread.Sleep(3000);   // Make sure any current files are closed
                     // Process each esn file
+
                     if (m_engineSerialNumberFileMonitor.UploadToSources(newFiles.ToList()))
                     {
                         m_logger.Log("INFO:  ESN Transmit Successful");
@@ -928,7 +933,8 @@ namespace BomFileProcessor
                     foreach (string s in files)
                     {
                        m_logger.Log("Retrieving VIN Stamper files from: " + s.Substring(s.LastIndexOf('\\') + 1) + "\n");
-                        m_vinStampingFileMonitor.TransferFileFromFtpLocation(s.Substring(s.LastIndexOf('\\') + 1));
+                       //m_vinStampingFileMonitor.TransferFileFromFtpLocation(s.Substring(s.LastIndexOf('\\') + 1));
+                       m_logger.Log("Not actually retreving the files as that should be done in the FTPThreads.");
                     }
                     m_logger.Log("Retrieved VIN Stamper files\n");
                 }
@@ -1266,6 +1272,11 @@ namespace BomFileProcessor
             m_vinStampingFileMonitor.StopFileMonitorThread();
         }
 
+        private void BomProcessorMainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
     public class BomFtpFileMonitor : FtpFileMonitor
@@ -1273,7 +1284,7 @@ namespace BomFileProcessor
                 public BomFtpFileMonitor(string source, string target, string temp, int fileCheckInterval,
             string userLogin, string password, string ftpServerIp,Logger logger, string fileMask = "*")
             : base(source, target, temp, fileCheckInterval,
-                    userLogin, password, ftpServerIp, fileMask, logger)/*base(source, target, temp, fileCheckInterval,
+                    userLogin, password, ftpServerIp, fileMask)/*base(source, target, temp, fileCheckInterval,
                 userLogin, password, ftpServerIp,fileMask)*/
         {
             m_logFunction = logger;
@@ -1281,7 +1292,7 @@ namespace BomFileProcessor
                 
                 public BomFtpFileMonitor(List<string> remoteLocations, string localLocation, List<string> userLogins,
             List<string> passwords, List<string> ftpServerIps, Logger logger, string fileMask = "*")
-            : base(remoteLocations, localLocation, userLogins, passwords, ftpServerIps,fileMask, logger)
+            : base(remoteLocations, localLocation, userLogins, passwords, ftpServerIps,fileMask)
         {
             m_logFunction = logger;
         }

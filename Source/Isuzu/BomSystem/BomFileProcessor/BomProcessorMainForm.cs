@@ -59,6 +59,9 @@ namespace BomFileProcessor
             m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation + " to the remote paths");
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFlashTransferLocation);
             m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.RealTimePCESNFlashTransferLocation + " to the remote paths");
+            // If two flash stations, remove otherwise
+            remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFlashTransferLocation2);
+            m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.RealTimePCESNFlashTransferLocation2 + " to the remote paths");
 
             List<string> users = new List<string>();
             users.Add("burke");
@@ -69,8 +72,8 @@ namespace BomFileProcessor
             passwords.Add("porter");
 
             List<string> ipaddresses = new List<string>();
-            ipaddresses.Add("192.168.1.1");
-            ipaddresses.Add("192.168.1.1");
+            ipaddresses.Add("192.168.1.3");
+            ipaddresses.Add("192.168.1.3");
             //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
             m_engineSerialNumberFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation,
                 users, passwords, ipaddresses,m_logger);
@@ -83,6 +86,9 @@ namespace BomFileProcessor
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory);
             m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.VehicleBuildFlashTransferLocation + " to the remote paths");
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.VehicleBuildFlashTransferLocation);
+            // If two flash stations, remove otherwise
+            m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.VehicleBuildFlashTransferLocation2 + " to the remote paths");
+            remotePaths.Add(BomFileProcessor.Properties.Settings.Default.VehicleBuildFlashTransferLocation2);
             //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
             
             m_buildRecordFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.VehicleBuildTempDirectory,
@@ -103,7 +109,7 @@ namespace BomFileProcessor
                      BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
                      "burke",
                      "porter",
-                     "192.168.1.1", m_logger, "*.DVT");
+                     "192.168.1.3", m_logger, "*.DVT");
                 m_dvtPassConfirmationMonitor.StartFileMonitorThread();
 
                 m_ecmPassConfirmationMonitor = new BomFtpFileMonitor(
@@ -113,7 +119,7 @@ namespace BomFileProcessor
                  BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
                  "burke",
                  "porter",
-                 "192.168.1.1", m_logger, "*.ECM");
+                 "192.168.1.3", m_logger, "*.ECM");
                 m_ecmPassConfirmationMonitor.StartFileMonitorThread();
             }
 
@@ -124,7 +130,7 @@ namespace BomFileProcessor
             BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
             "burke",
             "porter",
-            "192.168.1.1", m_logger, "*.STP");
+            "192.168.1.3", m_logger, "*.STP");
             m_vinStampingFileMonitor.StartFileMonitorThread();
 
         }

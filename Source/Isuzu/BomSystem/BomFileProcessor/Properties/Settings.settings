@@ -122,5 +122,11 @@
     <Setting Name="VehicleBuildDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">//home/CCRT/Rewrite/Configuration/VehicleTest/BuildRecords/</Value>
     </Setting>
+    <Setting Name="VehicleBuildFlashTransferLocation2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox2/BuildRecords/</Value>
+    </Setting>
+    <Setting Name="RealTimePCESNFlashTransferLocation2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox2/ESN/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -502,5 +502,29 @@ namespace BomFileProcessor.Properties {
                 this["VehicleBuildDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox2/BuildRecords/")]
+        public string VehicleBuildFlashTransferLocation2 {
+            get {
+                return ((string)(this["VehicleBuildFlashTransferLocation2"]));
+            }
+            set {
+                this["VehicleBuildFlashTransferLocation2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox2/ESN/")]
+        public string RealTimePCESNFlashTransferLocation2 {
+            get {
+                return ((string)(this["RealTimePCESNFlashTransferLocation2"]));
+            }
+            set {
+                this["RealTimePCESNFlashTransferLocation2"] = value;
+            }
+        }
     }
 }

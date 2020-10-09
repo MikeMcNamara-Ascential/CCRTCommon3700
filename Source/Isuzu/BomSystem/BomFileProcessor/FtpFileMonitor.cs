@@ -189,20 +189,24 @@ namespace FtpFileMonitorNamespace
                 try
                 {//delete current temp files
                     DirectoryInfo tempInfo = new DirectoryInfo(m_tempLocation);
+                    //Log("INFO: Checking for files to delete...");
                     foreach (FileInfo fi in tempInfo.GetFiles())
                     {
                         if (FitsMask(fi.Name, m_fileMask))
                         {
+                            //Log("INFO: Deleting: " + fi.Name);
                             fi.Delete();
                         }
                     }
                     //get all files
                     foreach (string fi in remoteFiles)
                     {//copy to temp folder first in case remote directory goes down during transfer
+                        //Log("INFO: Grabbing : " + fi);
                         if (!TransferFileFromFtpLocation(client, fi.Substring(fi.LastIndexOf('/') + 1)))
                         {
                             break;
                         }
+                        //Log("INFO: Grabed : " + fi.Substring(fi.LastIndexOf('/') + 1));
                     }
 
                     List<FileInfo> matchingFiles = new List<FileInfo>();
@@ -257,6 +261,7 @@ namespace FtpFileMonitorNamespace
             try
             {
                 // Download a file
+                Log("INFO: Copying " + escapedUri + fileName + " to " + m_tempLocation + fileName);
                 ulong bytesCopied = client.GetFile(escapedUri + fileName, m_tempLocation + fileName);
                 if (bytesCopied <= 0)
                 {

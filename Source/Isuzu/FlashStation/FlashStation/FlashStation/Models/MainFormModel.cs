@@ -1034,7 +1034,7 @@ namespace Common.Lib.Models
             if (m_isFlashRequired && m_performBASLearn && !IsBrakePedalApplied())
             {
                 //delay 800 ms for BAS Learn
-                Thread.Sleep(2000);
+                Thread.Sleep(5000);
                 m_basHomePositionLearned = IsBASHomePositionLearned();
             }
             else
@@ -2169,6 +2169,8 @@ namespace Common.Lib.Models
                 txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0xA1, 0x00, 0x01 });
                 messageNames.Add("GVW");
                 txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0xA2, 0x00, 0x01 });
+                messageNames.Add("MEC Lock");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x31, 0x0B, 0x00 });
                 messageNames.Add("Security Lock");
                 txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x31, 0x08 });
                 messageNames.Add("End Diagnostic Session");

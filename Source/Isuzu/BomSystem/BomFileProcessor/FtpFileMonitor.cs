@@ -202,11 +202,14 @@ namespace FtpFileMonitorNamespace
                     foreach (string fi in remoteFiles)
                     {//copy to temp folder first in case remote directory goes down during transfer
                         //Log("INFO: Grabbing : " + fi);
-                        if (!TransferFileFromFtpLocation(client, fi.Substring(fi.LastIndexOf('/') + 1)))
+                        if (FitsMask(fi, m_fileMask))
                         {
-                            break;
+                            if (!TransferFileFromFtpLocation(client, fi.Substring(fi.LastIndexOf('/') + 1)))
+                            {
+                                break;
+                            }
+                            //Log("INFO: Grabed : " + fi.Substring(fi.LastIndexOf('/') + 1));
                         }
-                        //Log("INFO: Grabed : " + fi.Substring(fi.LastIndexOf('/') + 1));
                     }
 
                     List<FileInfo> matchingFiles = new List<FileInfo>();

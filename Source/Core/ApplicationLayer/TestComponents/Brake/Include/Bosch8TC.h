@@ -452,6 +452,10 @@ protected:
 
     virtual string WriteVariantCode(void);
 
+    virtual string CheckStateData(void);
+    virtual string CheckPumpMotorStatus(void);
+    virtual string CheckRoutineStatus(void);
+
 
 private:
 

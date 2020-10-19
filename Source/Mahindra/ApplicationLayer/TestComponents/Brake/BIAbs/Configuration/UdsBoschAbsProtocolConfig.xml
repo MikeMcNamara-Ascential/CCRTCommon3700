@@ -30,7 +30,9 @@
 			<FirstDTCByteIndex>3</FirstDTCByteIndex>
 			<NumberOfFaultRegisters>0</NumberOfFaultRegisters>
 		</DTCData>
-		<SecurityUnlockType>BIAbs</SecurityUnlockType>
+		
+		<!-- Abs 9.1 -->
+		<SecurityUnlockType>Abs91</SecurityUnlockType>
 
 		<!-- Message Settings -->
 		<CheckSumLength>1</CheckSumLength>

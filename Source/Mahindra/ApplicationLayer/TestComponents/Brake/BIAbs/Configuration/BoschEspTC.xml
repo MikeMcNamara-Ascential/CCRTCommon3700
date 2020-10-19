@@ -225,7 +225,7 @@
 			<AlwaysEnterDiagnosticMode>False</AlwaysEnterDiagnosticMode>     
 			<AlwaysStartKeepAlive>False</AlwaysStartKeepAlive>
 			<BypassPartNumberValidation>False</BypassPartNumberValidation>
-			<ConfigFile>/Configuration/Components/Brake/UdsBoschAbsProtocolConfig.xml</ConfigFile>
+			<ConfigFile>/Configuration/Components/Brake/UdsBoschEspProtocolConfig.xml</ConfigFile>
 			<CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
 			<CurrentForces>/dev/Icm/Block/Force</CurrentForces>
 			<CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
@@ -575,7 +575,11 @@
 			<SecurityUnlockAttempts>5</SecurityUnlockAttempts>
 			<SecurityUnlockDelay>250</SecurityUnlockDelay>
 		</Parameters>
-
+		
+		<IgnoreFaults>
+			<ModuleFault_40204B/>
+			<ModuleFault_401900/>
+		</IgnoreFaults>
 	</Setup>
 
 	<Objectives>
@@ -595,6 +599,10 @@
 			<TestStep045>ClearFaults</TestStep045>            
 			<TestStep050 AltValue="InitialPostClear">ReadFaultsByPhase</TestStep050>  
 			<TestStep055>CheckProcessByte</TestStep055>
+			<!-- New Esp setup teststeps -->
+			<TestStep060>CheckRoutineStatus</TestStep060>
+			<TestStep065>CheckPumpMotorStatus</TestStep065>
+			<TestStep070>CheckStateData</TestStep070>
 			<TestStep095>StartModuleKeepAlive</TestStep095>                      
 		</Setup>
 
@@ -775,6 +783,11 @@
 		<CheckVIN Result="" Timeout="5000" Description="Verify VIN Number" ScanDelay="250"/>
 		<CheckEcuId Result="" Timeout="5000" Description="Verify ECU Software ID" ScanDelay="250"/>
 		<CheckProcessByte Result="" Timeout="5000" Description="Verify Brake Process Byte" ScanDelay="250"/>
+		
+		<CheckRoutineStatus Result="" Timeout="5000" Description="Verify Routine status" ScanDelay="250"/>
+		<CheckPumpMotorStatus Result="" Timeout="5000" Description="Verify Pump Motor Status" ScanDelay="250"/>
+		<CheckStateData Result="" Timeout="5000" Description="Verify State Data" ScanDelay="250"/>
+
 		<CheckBrakeSensorOn Result="" Timeout="5000" Description="Wait until Brake Sensor is On" ScanDelay="250"/>
 		<CheckBrakeSensorOff Result="" Timeout="5000" Description="Wait until Brake Sensor is Off" ScanDelay="250"/>
 

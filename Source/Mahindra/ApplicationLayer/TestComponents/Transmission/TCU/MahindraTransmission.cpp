@@ -141,47 +141,34 @@ string MahindraTransmission<ModuleType>::CheckTpmsStatus(void) {
     bool tpmsStatus = false;
 
     Log(LOG_FN_ENTRY, "Enter MahindraTransmission::CheckTpmsStatus()\n");
+    
+    //Check the TPMS status
+    moduleStatus = m_tpmsModule.ReadModuleData("CheckTpmsStatus", tpmsStatus);
 
-    //Have the vehicle reach the target speed
-    string speedCheck = AccelerateToTestSpeed(GetParameterFloat("TpmsTestSpeed"),
-                                              GetParameter("TpmsTestSpeedRange"),
-                                              GetParameterInt("TpmsTestTargetSpeedScanDelay"), false);
-
-    //Once vehicle has reached speed, maintain it for 1 minute
-    if (speedCheck == testPass)
+    if (moduleStatus == testPass)
     {
-        string maintainCheck = MaintainSpeedForTime(GetParameterInt("TpmsTimeout"), GetParameterInt("TpmsTestSpeed"));
-
-        //If speed was maintained for 1 min
-        if (testPass == maintainCheck)
+        if (tpmsStatus)
         {
-            //Check the TPMS status
-            moduleStatus = m_tpmsModule.ReadModuleData("CheckTpmsStatus", tpmsStatus);
-
-            if (moduleStatus == testPass)
-            {
-                if (tpmsStatus)
-                {
-                    Log(LOG_DEV_DATA, "Tpms status passed.");
-                    testResult = testPass;
-                }
-                else
-                {
-                    Log(LOG_DEV_DATA, "Tpms status failed.");
-                    testResult = testFail;
-                }
-            }
-            else
-            {
-                testResult = testFail;
-                testResultCode = GetFaultCode("CommunicationFailure");
-                testDescription = GetFaultDescription("CommunicationFailure");
-                Log(LOG_ERRORS, "Error reading TPMS status \n");
-            }
+            Log(LOG_DEV_DATA, "Tpms status passed.");
+            testResult = testPass;
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "Tpms status failed.");
+            testDescription = "Tpms status failed";
+            testResult = testFail;
         }
     }
+    else
+    {
+        testResult = testFail;
+        testResultCode = GetFaultCode("CommunicationFailure");
+        testDescription = GetFaultDescription("CommunicationFailure");
+        Log(LOG_ERRORS, "Error reading TPMS status \n");
+    }
 
-    //Fill it out later
+    // Report the results
+    SendTestResultWithDetail(testResult, testDescription, testResultCode);
 
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());

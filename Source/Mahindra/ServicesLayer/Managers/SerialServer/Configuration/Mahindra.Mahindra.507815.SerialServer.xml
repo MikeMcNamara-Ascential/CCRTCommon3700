@@ -320,7 +320,7 @@
                       <Transmission Outgoing="0x7E1" Incoming="0x7E9"/>
                       <BiABS Outgoing="0x7C0" Incoming="0x7C8"/>
                       <BiABS2 Outgoing="0x7E4" Incoming="0x7EC"/>
-					  <Tpms Outgoing="0x7A1" Incoming="0x7A9"/>
+					  <Tpms Outgoing="0x7E5" Incoming="0x7ED"/>
 					  <Ems Outgoing="0x7E0" Incoming="0x7E8"/>
                    </NodePairs>
                    <NodePairSetup>
@@ -328,7 +328,7 @@
                       <Range01 FirstRequestID="0x7D1" FirstResponseID="0x7D9" Offset="0x008" NumberOfPairs="1"/>
                       <Range02 FirstRequestID="0x7E1" FirstResponseID="0x7E9" Offset="0x008" NumberOfPairs="1"/>
                       <Range03 FirstRequestID="0x7E4" FirstResponseID="0x7EC" Offset="0x008" NumberOfPairs="1"/>
-					  <Range04 FirstRequestID="0x7A1" FirstResponseID="0x7A9" Offset="0x008" NumberOfPairs="1"/>
+					  <Range04 FirstRequestID="0x7E5" FirstResponseID="0x7ED" Offset="0x008" NumberOfPairs="1"/>
 					  <Range05 FirstRequestID="0x7E0" FirstResponseID="0x7E8" Offset="0x008" NumberOfPairs="1"/>
                    </NodePairSetup>
                 </Setup>
@@ -380,7 +380,7 @@
                       <Transmission Outgoing="0x7E1" Incoming="0x7E9"/>
                       <BiABS Outgoing="0x7C0" Incoming="0x7C8"/>
                       <BiABS2 Outgoing="0x7E4" Incoming="0x7EC"/>
-					  <Tpms Outgoing="0x7A1" Incoming="0x7A9"/>
+					  <Tpms Outgoing="0x7ED" Incoming="0x7ED"/>
 					  <Ems Outgoing="0x7E0" Incoming="0x7E8"/>
                    </NodePairs>
                    <NodePairSetup>
@@ -388,7 +388,7 @@
                       <Range01 FirstRequestID="0x7D1" FirstResponseID="0x7D9" Offset="0x008" NumberOfPairs="1"/>
                       <Range02 FirstRequestID="0x7E1" FirstResponseID="0x7E9" Offset="0x008" NumberOfPairs="1"/>
                       <Range03 FirstRequestID="0x7E4" FirstResponseID="0x7EC" Offset="0x008" NumberOfPairs="1"/>
-					  <Range04 FirstRequestID="0x7A1" FirstResponseID="0x7A9" Offset="0x008" NumberOfPairs="1"/>
+					  <Range04 FirstRequestID="0x7E5" FirstResponseID="0x7ED" Offset="0x008" NumberOfPairs="1"/>
 					  <Range05 FirstRequestID="0x7E0" FirstResponseID="0x7E8" Offset="0x008" NumberOfPairs="1"/>
                    </NodePairSetup>
                 </Setup>

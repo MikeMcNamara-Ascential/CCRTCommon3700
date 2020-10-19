@@ -143,6 +143,14 @@
 			</ForegroundObjectives>
 		</TestPhase330>
 
+		<TestPhase350 Description="Perform the TPMS test" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="Perform the TPMS test" Result="" Timeout="" Component="Transmission">
+					<CheckTpmsStatus/>
+				</Objective0>
+			</ForegroundObjectives>
+		</TestPhase350>
+
 		<!-- Finishup and set results -->
 		<TestPhase400 Description="Set the result for the brake test" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">

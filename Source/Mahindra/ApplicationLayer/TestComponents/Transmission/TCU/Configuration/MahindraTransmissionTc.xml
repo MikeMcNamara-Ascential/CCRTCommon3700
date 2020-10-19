@@ -269,6 +269,9 @@
 			<TestStep05>CruiseTest</TestStep05>
 			<TestStep10>MisfireTest</TestStep10>
 		</PerformATLearn>
+		<CheckTpmsStatus>
+			<TestStep00>CheckTpmsStatus</TestStep00>
+		</CheckTpmsStatus>
 	</Objectives>
 	<TestSteps>
 		<ATLearnTest Result="Not Tested" Timeout="300000" Description="Perform the AT learn test" ScanDelay="250"/>
@@ -294,5 +297,6 @@
 		<StopModuleKeepAlive Result="" Timeout="10000" Description="Stop the module keep alive" ScanDelay="500"/>
 		<ATLearnTest Result="Not Tested" Timeout="300000" Description="Perform the AT learn test" ScanDelay="500"/>
 		<MisfireTest Result="Not Tested" Timeout="30000" Description="Perform the Misfire Test"/>
+		<CheckTpmsStatus Result="Not Tested" Timeout="30000" Description="Perform the TPMS Test"/>
 	</TestSteps>
 </RwalBrakeTest>

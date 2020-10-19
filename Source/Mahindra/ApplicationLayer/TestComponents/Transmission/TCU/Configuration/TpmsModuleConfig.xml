@@ -7,7 +7,7 @@
 		<EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
 		<AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
 		<ResponsePendingReads>3</ResponsePendingReads>
-		<ModuleRequestID>0x07A1</ModuleRequestID>
+		<ModuleRequestID>0x7E5</ModuleRequestID>
 		<DataByteCountIndex>3</DataByteCountIndex>
 		<DataStartIndex>6</DataStartIndex>
 		<DataHeaderLength>2</DataHeaderLength>
@@ -79,21 +79,16 @@
 			
 		</VehicleMessages>
 		<TransmitMessages>
-			<StopTMU>0x22,0xFD,0x81</StopTMU>
 			<ReadPID>0x22,0x??,0x??</ReadPID>
 		</TransmitMessages>
 		<TransmitInterpretations>
 			<!-- <ReadPartNumber>0x87</ReadPartNumber> -->
-			<TpmsStatus>0x31,0x20</TpmsStatus>
-			<FLTireID>0x0A,0xBA</FLTireID>
-			<FRTireID>0x0A,0xBB</FRTireID>
-			<RLTireID>0x0A,0xBC</RLTireID>
-			<RRTireID>0x0A,0xBD</RRTireID>
+			<TpmsStatus>0x03,0x29</TpmsStatus>
 		</TransmitInterpretations>
 		<ReplyMessages>
 		
 			<TpmsStatus>
-				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x62,0xFD,0x81,0x??</Reply_00>
+				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x62,0x03,0x29,0x??</Reply_00>
 				<Reply_01>0x7F,0x22,0x??</Reply_01>
 			</TpmsStatus>
 			
@@ -102,7 +97,7 @@
 		
 			<StatusByte>
 				<Boolean>
-					<Byte input_index="5" mask="0x8F" compare="0x01"/>
+					<Byte input_index="3" mask="0x8F" compare="0x01"/>
 				</Boolean>
 			</StatusByte>
 			

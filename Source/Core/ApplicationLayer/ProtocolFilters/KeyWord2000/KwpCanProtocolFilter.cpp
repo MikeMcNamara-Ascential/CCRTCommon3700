@@ -892,10 +892,19 @@ inline const bool& KwpCanProtocolFilter::AutomaticallyEnterDiagnosticMode(void)
 inline const SerialString_t KwpCanProtocolFilter::GetModuleRequestID(void)
 {
 	SerialString_t moduleRequestID;
-	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0xFF000000) >> 24));
-	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x00FF0000) >> 16));
-	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x0000FF00) >> 8));
-	moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x000000FF));
+    UINT16 dataHeaderLength = GetDataHeaderLength();
+    if (dataHeaderLength > 2)
+    {
+        moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0xFF000000) >> 24));
+    	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x00FF0000) >> 16));
+    	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x0000FF00) >> 8));
+    	moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x000000FF));
+    }
+    else
+    {
+    	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x0000FF00) >> 8));
+    	moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x000000FF));
+    }
 	return moduleRequestID;
 }
 

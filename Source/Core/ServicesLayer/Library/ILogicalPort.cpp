@@ -2023,6 +2023,7 @@ bool ILogicalPort::ReadMessageMap( const XmlNode *mssgMapNode)
             // Iterate all the nodes and fill in our map
             for( xmlItr=mssgNodes.begin(); xmlItr!=mssgNodes.end() && retVal == true; xmlItr++)
             {
+                xmtString = "";
                 // The first item is the message tag
                 const std::string &mssgTag = xmlItr->first;
                 ComMssgTableEntry   mssgEntry;

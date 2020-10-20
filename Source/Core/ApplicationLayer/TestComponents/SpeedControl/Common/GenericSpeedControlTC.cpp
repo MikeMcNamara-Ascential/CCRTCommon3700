@@ -540,6 +540,8 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckSetEngagement(void)
 					}
 					DisplayPrompt(GetPromptBox("CheckStableSpeed"), GetPrompt("CheckStableSpeed"),
 								  GetPromptPriority("CheckStableSpeed"));
+                    // Delay before checking target speed
+                    BposSleep(GetParameterInt("TargetSpeedCheckDelay"));
 					// Store the target speed
 					status = SetSpeedControlTargetSpeed();
 					// Check the status of the read

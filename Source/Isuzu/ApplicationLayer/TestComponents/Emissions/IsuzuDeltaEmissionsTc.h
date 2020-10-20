@@ -313,11 +313,15 @@ private:
 
     string CheckNeutralRPMOverspeed();
 
-    virtual string ReadFaults(void);
+    virtual string ReadFaultsJ1939(void);
+
+    BEP_STATUS_TYPE ConvertFaultsJ1939(SerialString_t foundFaults, FaultStatusVector_t &moduleFaults);
 
     string ReadFaultsPostMECLock(void);
 
     string ToothErrorCorrectionLearn(void);
+
+    string UnlockModuleSecurity(void);
 
     std::string GetFaultFailureStatusMaskPostMEC(const std::string fault);
 
@@ -422,6 +426,7 @@ private:
     virtual string ConditionalFaultClear(void);
 
     string KeyOffEngineOffKeyOnNoStart(void);
+    string KeyOffEngineOffDelayKeyOnNoStart(void);
     string EngineOffBeforeMAFClear(void);
     string GetSerialNumberFromFile(void);
     string CheckSerialNumber(void);

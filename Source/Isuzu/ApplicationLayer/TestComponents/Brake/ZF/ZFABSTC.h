@@ -150,6 +150,12 @@ protected:
      */ 
     void SetMotorTorque(string lf, string rf, string lr, string rr);
     /**
+     * Apply the speed ref to the rolls.
+     * 
+     * @param speedRef The speed reference to the rolls.
+     */ 
+    void SetSpeedRef(string speedRef);
+    /**
      * Check if a possible runaway roll is present.
      * 
      * @param delay    The amount of time to delay before checking the rolls.

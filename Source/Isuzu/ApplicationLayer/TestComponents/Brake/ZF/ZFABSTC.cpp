@@ -66,6 +66,8 @@ const string ZFABSTC<ModuleType>::CommandTestStep(const string &value)
             // Zero torque the rollers
             else if(!testStep.compare("TorqueZero"))               result = TestStepTorqueZero(value);
 
+            //else if(!testStep.compare("DynamicABSValveFiringTestFront")) result = DynamicABSValveFiringTest("Front");
+            //else if(!testStep.compare("DynamicABSValveFiringTestRear")) result = DynamicABSValveFiringTest("Rear");
             else if(!testStep.compare("DynamicABSValveFiringTest")) result = DynamicABSValveFiringTest();
             else if(!testStep.compare("DisableSpeedLimit"))  result = DisableSpeedLimit();
             else if(!testStep.compare("DisableValveRelayShutdown")) result = DisableValveRelayShutdown();
@@ -534,13 +536,31 @@ template <class ModuleType>
 void ZFABSTC<ModuleType>::SetMotorTorque(string lf, string rf, string lr, string rr)
 {
     // Update MotorMode
-    m_MotorController.Write(MOTOR_MODE,TORQUE_MODE,true);
+    //m_MotorController.Write(COMMAND_SPEED, 0);
+    //m_MotorController.Write(MOTOR_MODE,TORQUE_MODE,true);
+    
+    SystemWrite(COMMAND_SPEED, 0);
+    SystemWrite(MOTOR_MODE, string(TORQUE_MODE));
+
+    SystemWrite(COMMAND_TORQUE, BposReadInt(lf.c_str()));
 
     // Apply Torque
-    m_MotorController.Write("LeftFrontTorqueValue",lf.c_str());
-    m_MotorController.Write("RightFrontTorqueValue",rf.c_str());
-    m_MotorController.Write("LeftRearTorqueValue",lr.c_str());
-    m_MotorController.Write("RightRearTorqueValue",rr.c_str(),true);
+    //m_MotorController.Write("LeftFrontTorqueValue",lf.c_str());
+    //m_MotorController.Write("RightFrontTorqueValue",rf.c_str());
+    //m_MotorController.Write("LeftRearTorqueValue",lr.c_str());
+    //m_MotorController.Write("RightRearTorqueValue",rr.c_str(),true);
+}
+
+
+//-------------------------------------------------------------------------
+template <class ModuleType>
+void ZFABSTC<ModuleType>::SetSpeedRef(string speedRef)
+{
+    // Apply speed ref
+    m_MotorController.Write("LeftFrontSpeedValue",speedRef.c_str());
+    m_MotorController.Write("RightFrontSpeedValue",speedRef.c_str());
+    m_MotorController.Write("LeftRearSpeedValue",speedRef.c_str());
+    m_MotorController.Write("RightRearSpeedValue",speedRef.c_str());
 }
 
 //-------------------------------------------------------------------------
@@ -1345,39 +1365,39 @@ string ZFABSTC<ModuleType>::LFABSTest2(void)
 
     Log(LOG_FN_ENTRY, "Enter ZFABSTC::LFABSTest2()\n");
 
-    m_reduxRecovIndex[wheelIdx].recoveryStart = TagArray("LFABSRecoveryStart");
+    m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("LFABSReductionStart");
     moduleStatus = m_vehicleModule.CommandModule("LFABSRecovery");
-    delay(GetParameterInt("LFRecoveryPulse"));
+    delay(GetParameterInt("LFReductionPulse"));
     // Determine the test result
     testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
     if(testResult == testPass)
     {
         outletResult = testPass;
-        Log(LOG_DEV_DATA,"LF ABS recovery OK\n");
-        m_reduxRecovIndex[wheelIdx].recoveryEnd = TagArray("LFABSRecoveryEnd");
+        Log(LOG_DEV_DATA,"LF ABS reduction OK\n");
+        m_reduxRecovIndex[wheelIdx].reductionEnd = TagArray("LFABSReductionEnd");
         // Determine the test result
         testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
 
         if(testResult == testPass)
         {
         
-            m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("LFABSReductionStart");
+            m_reduxRecovIndex[wheelIdx].recoveryStart = TagArray("LFABSRecoveryStart");
             //Only one command is used to fire the valve, but the delay is still needed for force array tagging
             m_vehicleModule.CommandModule("AllInletValvesOff");
-            delay(GetParameterInt("LFReductionPulse"));
+            delay(GetParameterInt("LFRecoveryPulse"));
 
             // Determine the test result
             testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
             if(testResult == testPass)
             {
                 inletResult = testPass;
-                Log(LOG_DEV_DATA,"LF ABS reduction OK\n");
+                Log(LOG_DEV_DATA,"LF ABS recovery OK\n");
             }
             else
             {
                 inletResult = testFail;
                 SetCommunicationFailure(true);
-                Log(LOG_ERRORS, "Error LF ABS reduction - status: %s\n", 
+                Log(LOG_ERRORS, "Error LF ABS recovery - status: %s\n", 
                     ConvertStatusToResponse(moduleStatus).c_str());
             }
         }
@@ -1393,10 +1413,10 @@ string ZFABSTC<ModuleType>::LFABSTest2(void)
     {
         outletResult = testFail;
         SetCommunicationFailure(true);
-        Log(LOG_ERRORS, "Error LF ABS recovery - status: %s\n", 
+        Log(LOG_ERRORS, "Error LF ABS reduction - status: %s\n", 
             ConvertStatusToResponse(moduleStatus).c_str());
     }
-    m_reduxRecovIndex[wheelIdx].reductionEnd = TagArray("LFABSReductionEnd");
+    m_reduxRecovIndex[wheelIdx].recoveryEnd = TagArray("LFABSRecoveryEnd");
 
     SendSubtestResult(rollerName[wheelIdx] + "InletValveActuation", inletResult, 
                       rollerName[wheelIdx] + "InletValveActuation", "0000");
@@ -1418,39 +1438,39 @@ string ZFABSTC<ModuleType>::RFABSTest2(void)
 
     Log(LOG_FN_ENTRY, "Enter ZFABSTC::RFABSTest2()\n");
 
-    m_reduxRecovIndex[wheelIdx].recoveryStart = TagArray("RFABSRecoveryStart");
+    m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("RFABSReductionStart");
     moduleStatus = m_vehicleModule.CommandModule("RFABSRecovery");    
-    delay(GetParameterInt("RFRecoveryPulse"));
+    delay(GetParameterInt("RFReductionPulse"));
     // Determine the test result
     testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
     if(testResult == testPass)
     {
         outletResult = testPass;
-        Log(LOG_DEV_DATA,"RF ABS recovery OK\n");
-        m_reduxRecovIndex[wheelIdx].recoveryEnd = TagArray("RFABSRecoveryEnd");
+        Log(LOG_DEV_DATA,"RF ABS reduction OK\n");
+        m_reduxRecovIndex[wheelIdx].reductionEnd = TagArray("RFABSReductionEnd");
         // Determine the test result
         testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
 
         if(testResult == testPass)
         {
         
-            m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("RFABSReductionStart");
+            m_reduxRecovIndex[wheelIdx].recoveryStart = TagArray("RFABSRecoveryStart");
             //Only one command is used to fire the valve, but the delay is still needed for force array tagging
             m_vehicleModule.CommandModule("AllInletValvesOff");
-            delay(GetParameterInt("RFReductionPulse"));
+            delay(GetParameterInt("RFRecoveryPulse"));
 
             // Determine the test result
             testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
             if(testResult == testPass)
             {
                 inletResult = testPass;
-                Log(LOG_DEV_DATA,"RF ABS reduction OK\n");
+                Log(LOG_DEV_DATA,"RF ABS recovery OK\n");
             }
             else
             {
                 inletResult = testFail;
                 SetCommunicationFailure(true);
-                Log(LOG_ERRORS, "Error RF ABS reduction - status: %s\n", 
+                Log(LOG_ERRORS, "Error RF ABS recovery - status: %s\n", 
                     ConvertStatusToResponse(moduleStatus).c_str());
             }
         }
@@ -1466,10 +1486,10 @@ string ZFABSTC<ModuleType>::RFABSTest2(void)
     {
         outletResult = testFail;
         SetCommunicationFailure(true);
-        Log(LOG_ERRORS, "Error RF ABS recovery - status: %s\n", 
+        Log(LOG_ERRORS, "Error RF ABS reduction - status: %s\n", 
             ConvertStatusToResponse(moduleStatus).c_str());
     }
-    m_reduxRecovIndex[wheelIdx].reductionEnd = TagArray("RFABSReductionEnd");
+    m_reduxRecovIndex[wheelIdx].recoveryEnd = TagArray("RFABSRecoveryEnd");
 
     SendSubtestResult(rollerName[wheelIdx] + "InletValveActuation", inletResult, 
                       rollerName[wheelIdx] + "InletValveActuation", "0000");
@@ -1491,38 +1511,38 @@ string ZFABSTC<ModuleType>::LRABSTest2(void)
 
     Log(LOG_FN_ENTRY, "Enter ZFABSTC::LRABSTest2()\n");
 
-    m_reduxRecovIndex[wheelIdx].recoveryStart = TagArray("LRABSRecoveryStart");
+    m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("LRABSReductionStart");
     moduleStatus = m_vehicleModule.CommandModule("LRABSRecovery");
-    delay(GetParameterInt("LRRecoveryPulse"));
+    delay(GetParameterInt("LRReductionPulse"));
     // Determine the test result
     testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
     if(testResult == testPass)
     {
         outletResult = testPass;
-        Log(LOG_DEV_DATA,"LR ABS recovery OK\n");
-        m_reduxRecovIndex[wheelIdx].recoveryEnd = TagArray("LRABSRecoveryEnd");
+        Log(LOG_DEV_DATA,"LR ABS reduction OK\n");
+        m_reduxRecovIndex[wheelIdx].reductionEnd = TagArray("LRABSReductionEnd");
         // Determine the test result
         testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
         if(testResult == testPass)
         {
         
-            m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("LRABSReductionStart");
+            m_reduxRecovIndex[wheelIdx].recoveryStart = TagArray("LRABSRecoveryStart");
             //Rear ABS Valves are normally open, so they must be closed deliberately for the reduction
             m_vehicleModule.CommandModule("AllInletValvesOff");
-            delay(GetParameterInt("LRReductionPulse"));
+            delay(GetParameterInt("LRRecoveryPulse"));
 
             // Determine the test result
             testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
             if(testResult == testPass)
             {
                 inletResult = testPass;
-                Log(LOG_DEV_DATA,"LR ABS reduction OK\n");
+                Log(LOG_DEV_DATA,"LR ABS recovery OK\n");
             }
             else
             {
                 inletResult = testFail;
                 SetCommunicationFailure(true);
-                Log(LOG_ERRORS, "Error LR ABS reduction - status: %s\n", 
+                Log(LOG_ERRORS, "Error LR ABS recovery - status: %s\n", 
                     ConvertStatusToResponse(moduleStatus).c_str());
             }
         }
@@ -1538,10 +1558,10 @@ string ZFABSTC<ModuleType>::LRABSTest2(void)
     {
         outletResult = testFail;
         SetCommunicationFailure(true);
-        Log(LOG_ERRORS, "Error LR ABS recovery - status: %s\n", 
+        Log(LOG_ERRORS, "Error LR ABS reduction - status: %s\n", 
             ConvertStatusToResponse(moduleStatus).c_str());
     }
-    m_reduxRecovIndex[wheelIdx].reductionEnd = TagArray("LRABSReductionEnd");
+    m_reduxRecovIndex[wheelIdx].recoveryEnd = TagArray("LRABSRecoveryEnd");
 
     SendSubtestResult(rollerName[wheelIdx] + "InletValveActuation", inletResult, 
                       rollerName[wheelIdx] + "InletValveActuation", "0000");
@@ -1563,38 +1583,38 @@ string ZFABSTC<ModuleType>::RRABSTest2(void)
 
     Log(LOG_FN_ENTRY, "Enter ZFABSTC::RRABSTest2()\n");
 
-    m_reduxRecovIndex[wheelIdx].recoveryStart = TagArray("RRABSRecoveryStart");
+    m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("RRABSReductionStart");
     moduleStatus = m_vehicleModule.CommandModule("RRABSRecovery");    
-    delay(GetParameterInt("RRRecoveryPulse"));
+    delay(GetParameterInt("RRReductionPulse"));
     // Determine the test result
     testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
     if(testResult == testPass)
     {
         outletResult = testPass;
-        Log(LOG_DEV_DATA,"RR ABS recovery OK\n");
-        m_reduxRecovIndex[wheelIdx].recoveryEnd = TagArray("RRABSRecoveryEnd");
+        Log(LOG_DEV_DATA,"RR ABS reduction OK\n");
+        m_reduxRecovIndex[wheelIdx].reductionEnd = TagArray("RRABSReductionEnd");
         // Determine the test result
         testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
         if(testResult == testPass)
         {
         
-            m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("RRABSReductionStart");
+            m_reduxRecovIndex[wheelIdx].recoveryStart = TagArray("RRABSRecoveryStart");
             //Rear ABS Valves are normally open, so they must be closed deliberately for the reduction
             m_vehicleModule.CommandModule("AllInletValvesOff");
-            delay(GetParameterInt("RRReductionPulse"));
+            delay(GetParameterInt("RRRecoveryPulse"));
 
             // Determine the test result
             testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
             if(testResult == testPass)
             {
                 inletResult = testPass;
-                Log(LOG_DEV_DATA,"RR ABS reduction OK\n");
+                Log(LOG_DEV_DATA,"RR ABS recovery OK\n");
             }
             else
             {
                 inletResult = testFail;
                 SetCommunicationFailure(true);
-                Log(LOG_ERRORS, "Error RR ABS reduction - status: %s\n", 
+                Log(LOG_ERRORS, "Error RR ABS recovery - status: %s\n", 
                     ConvertStatusToResponse(moduleStatus).c_str());
             }
         }
@@ -1610,10 +1630,10 @@ string ZFABSTC<ModuleType>::RRABSTest2(void)
     {
         outletResult = testFail;
         SetCommunicationFailure(true);
-        Log(LOG_ERRORS, "Error RR ABS recovery - status: %s\n", 
+        Log(LOG_ERRORS, "Error RR ABS reduction - status: %s\n", 
             ConvertStatusToResponse(moduleStatus).c_str());
     }
-    m_reduxRecovIndex[wheelIdx].reductionEnd = TagArray("RRABSReductionEnd");
+    m_reduxRecovIndex[wheelIdx].recoveryEnd = TagArray("RRABSRecoveryEnd");
 
     SendSubtestResult(rollerName[wheelIdx] + "InletValveActuation", inletResult, 
                       rollerName[wheelIdx] + "InletValveActuation", "0000");
@@ -1625,7 +1645,7 @@ string ZFABSTC<ModuleType>::RRABSTest2(void)
 }
 
 template <class ModuleType>
-string ZFABSTC<ModuleType>::DynamicABSValveFiringTest(void)
+string ZFABSTC<ModuleType>::DynamicABSValveFiringTest()
 {
     string testResult = BEP_TESTING_STATUS;
     string testResultCode("0000");
@@ -1636,21 +1656,30 @@ string ZFABSTC<ModuleType>::DynamicABSValveFiringTest(void)
     {
         try
         {
-            m_absStartIndex = TagArray("ABSStart");
+            string startTag = "ABSStart";
+            string endTag = "ABSEnd";
+            m_absStartIndex = TagArray(startTag);
             UpdatePrompts();
             m_baseBrakeTool->UpdateTarget(true);
             //Give operator time to press the brake pedal
             delay(GetParameterInt("ABSInitialHoldDelay"));
             //Required to put fluid in the ABS system
-            m_vehicleModule.CommandModule("RunPumpMotor");
-            delay(GetParameterInt("PostPumpRunDelay"));
+            m_vehicleModule.CommandModule("EnterDiagnosticMode");
+            //m_vehicleModule.CommandModule("RunPumpMotor");
+            //m_vehicleModule.CommandModule("ModuleKeepAlive");
+            //delay(GetParameterInt("PostPumpRunDelay"));
+
             // run the individual wheel ABS tests
+            m_vehicleModule.CommandModule("ModuleKeepAlive");
             testResult = LRABSTest2();
+            m_vehicleModule.CommandModule("ModuleKeepAlive");
             if(testResult == testPass) testResult = RRABSTest2();
+            m_vehicleModule.CommandModule("ModuleKeepAlive");
             if(testResult == testPass) testResult = LFABSTest2();
+            m_vehicleModule.CommandModule("ModuleKeepAlive");
             if(testResult == testPass) testResult = RFABSTest2();
 
-            m_absEndIndex = TagArray("ABSEnd");
+            m_absEndIndex = TagArray(endTag);
           
             // Determine the description and code to report
             if(GetCommunicationFailure() == true)

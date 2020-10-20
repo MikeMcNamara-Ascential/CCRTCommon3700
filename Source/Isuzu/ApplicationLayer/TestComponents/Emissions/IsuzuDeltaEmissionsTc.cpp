@@ -117,6 +117,7 @@ const string IsuzuDeltaEmissionsTc<ModuleType>::CommandTestStep(const string &va
             else if (!GetTestStepName().compare("CheckOxygenSensors"))                  testResult = CheckOxygenSensors();
             else if (!GetTestStepName().compare("KeyOffEngineOffKeyOn"))                testResult = KeyOffEngineOffKeyOn();
             else if (!GetTestStepName().compare("KeyOffEngineOffKeyOnNoStart"))         testResult = KeyOffEngineOffKeyOnNoStart();
+            else if (!GetTestStepName().compare("KeyOffEngineOffDelayKeyOnNoStart"))    testResult = KeyOffEngineOffDelayKeyOnNoStart();
             else if (!GetTestStepName().compare("ClearFaultsFinal"))                    testResult = ClearFaults();
             else if (!GetTestStepName().compare("CheckSerialNumber"))                   testResult = CheckSerialNumber();
             else if (!GetTestStepName().compare("EnterNormalMode"))                     testResult = EnterNormalMode();
@@ -137,6 +138,10 @@ const string IsuzuDeltaEmissionsTc<ModuleType>::CommandTestStep(const string &va
             else if (!GetTestStepName().compare("EngineOffBeforeMAFClear"))             testResult = EngineOffBeforeMAFClear();
             else if (!GetTestStepName().compare("ReadFaultsPostMECLock"))               testResult = ReadFaultsPostMECLock();
             else if (!GetTestStepName().compare("ToothErrorCorrection"))           testResult = ToothErrorCorrectionLearn();
+
+            else if (!GetTestStepName().compare("UnlockModuleSecurity"))                testResult = UnlockModuleSecurity();
+
+            else if (!GetTestStepName().compare("ReadFaultsJ1939"))                testResult = ReadFaultsJ1939();
 
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
@@ -364,7 +369,7 @@ string IsuzuDeltaEmissionsTc<ModuleType>::CheckSensorRangeInt(const string &sens
     string testResult(BEP_TESTING_RESPONSE);
     if (!ShortCircuitTestStep())
     {   // Read the sensor from the module
-        INT32 sensorValue = 0;
+        UINT32 sensorValue = 0;
         INT32 minValue = GetParameterInt("Minimum" + sensorName);
         INT32 maxValue = GetParameterInt("Maximum" + sensorName);
         BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName + "Sensor", sensorValue);
@@ -670,7 +675,13 @@ template<class ModuleType>
 BEP_STATUS_TYPE IsuzuDeltaEmissionsTc<ModuleType>::ReadEngineTemperature(INT32 &engineTemp)
 {   // Reset the engine temperature to -1 if there is an error reading the data
     engineTemp = -1;
-    BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("ReadEngineTemperature", engineTemp);
+    UINT16 engineTempUnsigned = 0;
+    BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("ReadEngineTemperature", engineTempUnsigned);
+
+    if (status == BEP_STATUS_SUCCESS) 
+    { // TODO: Unsure if this is the best way to convert incoming unsiged to signed. 
+        engineTemp = engineTempUnsigned - 40;
+    }
 
     return status;
 }
@@ -1674,21 +1685,29 @@ string IsuzuDeltaEmissionsTc<ModuleType>::CheckNeutralRPMOverspeed()
 
 //-----------------------------------------------------------------------------
 template <class ModuleType>
-string IsuzuDeltaEmissionsTc<ModuleType>::ReadFaults(void)
+string IsuzuDeltaEmissionsTc<ModuleType>::ReadFaultsJ1939(void)
 {
     string testResult = BEP_TESTING_STATUS;
     string testResultCode("0000");
     string testDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     FaultStatusVector_t moduleFaults;
-    string foundFaults;
+    SerialString_t rawData;
     // Check if this step needs to be performed
     Log(LOG_FN_ENTRY, "Enter IsuzuDeltaEmissionsTc::ReadFaults()\n");
     if (!ShortCircuitTestStep())
     {   // Do not need to skip this step
         try
         {   // Try to read the module faults
-            moduleStatus = m_vehicleModule.ReadFaults(moduleFaults);
+            string command = "ReadFaultsJ1939";
+            moduleStatus = m_vehicleModule.CommandModule(command, NULL, &rawData);
+            if (BEP_STATUS_SUCCESS == moduleStatus) 
+            {
+                if (BEP_STATUS_SUCCESS != ConvertFaultsJ1939(rawData, moduleFaults))
+                {
+                    moduleStatus = BEP_STATUS_SOFTWARE;
+                }
+            }
             // Check the status of the operation
             if (BEP_STATUS_SUCCESS == moduleStatus)
             {   // Good read, evaluate the data
@@ -1814,6 +1833,66 @@ string IsuzuDeltaEmissionsTc<ModuleType>::ReadFaults(void)
     // Return the test result
     Log(LOG_FN_ENTRY, "Exit IsuzuDeltaEmissionsTc::ReadFaults()\n");
     return testResult;
+}
+
+//-----------------------------------------------------------------------------
+// Convert Fault message per the J1939 spec
+template <class ModuleType>
+BEP_STATUS_TYPE IsuzuDeltaEmissionsTc<ModuleType>::ConvertFaultsJ1939(SerialString_t rawResponse, FaultStatusVector_t &moduleFaults)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
+
+    try
+    {
+        UINT16 lampResponse = m_vehicleModule.ParseUnsignedShortResponse("ReadFaultsJ1939Lamps", rawResponse);
+
+        char buffer[15];
+        FaultCodeStatus_t dtc("","");
+
+        if ((lampResponse & 0x0001 == 0x0001) && (lampResponse & 0x0003 != 0x0003)) 
+        {   //Protect Indicator Lamp
+            Log(LOG_DEV_DATA, "Found Protect Lamp Fault\n"); 
+            dtc.m_code = CreateMessage(buffer, (UINT32)sizeof(buffer), "%s", "ProtectLamp"); 
+            moduleFaults.push_back(dtc);
+        }
+        if ((lampResponse & 0x0004 == 0x0004) && (lampResponse & 0x000C != 0x000C))
+        {   //Amber Indicator Lamp
+            Log(LOG_DEV_DATA, "Found Amber Lamp Fault\n");
+            dtc.m_code = CreateMessage(buffer, (UINT32)sizeof(buffer), "%s", "AmberLamp"); 
+            moduleFaults.push_back(dtc);
+        }
+        if ((lampResponse & 0x0010 == 0x0010) && (lampResponse & 0x0030 != 0x0030))
+        {   //Red Stop Indicator Lamp
+            Log(LOG_DEV_DATA, "Found Red Stop Lamp Fault\n");
+            dtc.m_code = CreateMessage(buffer, (UINT32)sizeof(buffer), "%s", "RedStopLamp");
+            moduleFaults.push_back(dtc);
+        }
+        if ((lampResponse & 0x0040 == 0x0040) && (lampResponse & 0x00C0 != 0x00C0))
+        {   //Malfunction Indicator Lamp
+            Log(LOG_DEV_DATA, "Found Malfunction Lamp Fault\n");
+            dtc.m_code = CreateMessage(buffer, (UINT32)sizeof(buffer), "%s", "MalfunctionLamp");
+            moduleFaults.push_back(dtc);
+        }
+
+        UINT32 spnResponse = m_vehicleModule.ParseUnsignedIntegerResponse("ReadFaultsJ1939SPNFault", rawResponse);
+        if (spnResponse != 0) 
+        {
+            Log(LOG_DEV_DATA, "Found SPN Fault\n");
+            spnResponse = (spnResponse & 0x0000FFFF) + ((spnResponse & 0x00E00000) >> 5);
+
+            Log(LOG_DEV_DATA, "Found SPN Fault: %d\n", spnResponse);
+
+            dtc.m_code = CreateMessage(buffer, (UINT32)sizeof(buffer), "%04X", spnResponse);
+            moduleFaults.push_back(dtc);
+        }
+        status = BEP_STATUS_SUCCESS;
+    }
+    catch (...) 
+    {
+        Log(LOG_ERRORS, "Exception in ConvertFaultsJ1939\n");
+        status = BEP_STATUS_SOFTWARE;
+    }
+    return status;
 }
 
 //-----------------------------------------------------------------------------
@@ -2637,6 +2716,88 @@ string IsuzuDeltaEmissionsTc<ModuleType>::KeyOffEngineOffKeyOnNoStart(void)
 			{						   // Reset the adaptive memory
 				Log(LOG_DEV_DATA, "EngineOffIgnitionOff: %s", testResult.c_str());
 				SetStartTime();
+				testResult = WaitForEngineOffIgnitionOn();
+				if(!testResult.compare(testPass))
+				{					   // Reset the adaptive memory
+					Log(LOG_DEV_DATA, "EngineOffIgnitionOn: %s", testResult.c_str());
+				}
+				else if(!testResult.compare(testTimeout))
+				{					   // Timeout waiting for conditions
+					testResult = testTimeout;
+					testResultCode = GetFaultCode("EngineOffIgnitionOnTimeoutFailure");
+					testDescription = GetFaultDescription("EngineOffIgnitionOnTimeoutFailure");
+					Log(LOG_ERRORS, "Timeout waiting engine off, ignition on");
+				}
+				else
+				{					   // Bad system status
+					testResult = testAbort;
+					testResultCode = GetFaultCode("StatusCheckFailure");
+					testDescription = GetFaultCode("StatusCheckFailure");
+					Log(LOG_ERRORS, "Bad system status while waiting for engine off, ignition on - status: %s\n", 
+						ConvertStatusToResponse(StatusCheck()).c_str());
+				}
+
+			}
+			else if(!testResult.compare(testTimeout))
+			{						   // Timeout waiting for conditions
+				testResult = testTimeout;
+				testResultCode = GetFaultCode("EngineOffIgnitionOffTimeoutFailure");
+				testDescription = GetFaultDescription("EngineOffIgnitionOffTimeoutFailure");
+				Log(LOG_ERRORS, "Timeout waiting engine off, ignition off");
+			}
+			else
+			{						   // Bad system status
+				testResult = testAbort;
+				testResultCode = GetFaultCode("StatusCheckFailure");
+				testDescription = GetFaultCode("StatusCheckFailure");
+				Log(LOG_ERRORS, "Bad system status while waiting for engine off, ignition off - status: %s\n", 
+					ConvertStatusToResponse(StatusCheck()).c_str());
+			}
+		}
+		catch(ModuleException &e)
+		{
+			Log(LOG_ERRORS, "Error commanding module to reset adaptive memory - %s", e.GetReason());
+			testResult = testSoftwareFail;
+			testResultCode = GetFaultCode("SoftwareFailure");
+			testDescription = GetFaultDescription("SoftwareFailure");
+		}
+
+		// Report the result
+		SendTestResult(testResult, testDescription, testResultCode);    
+	}
+	else
+	{								   // Need to skip this test step
+		Log(LOG_FN_ENTRY, "Skipping test step - %s", GetTestStepName().c_str());
+		testResult = testSkip;
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "%s::%s - Enter", GetComponentName().c_str(), GetTestStepName().c_str());
+	return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuDeltaEmissionsTc<ModuleType>::KeyOffEngineOffDelayKeyOnNoStart(void)
+{
+	string testResult = BEP_TESTING_STATUS;
+	string testResultCode = "0000";
+	string testDescription = GetTestStepInfo("Description");
+	Log(LOG_FN_ENTRY, "%s::%s - Enter", GetComponentName().c_str(), GetTestStepName().c_str());
+	// Do not need to perform this step if previous pass
+	if(!ShortCircuitTestStep() || GetParameterBool("AlwaysPerformKeyOffEngineOff"))
+	{
+		try
+		{							   //Wait for the engine to be off and ignition to be off
+			testResult = WaitForEngineOffIgnitionOff();
+			if(!testResult.compare(testPass))
+			{						   // Reset the adaptive memory
+				Log(LOG_DEV_DATA, "EngineOffIgnitionOff: %s", testResult.c_str());
+				SetStartTime();
+
+                DisplayPrompt(GetPromptBox("DelayBeforeKeyOn"), GetPrompt("DelayBeforeKeyOn"), GetPromptPriority("DelayBeforeKeyOn"));
+                BposSleep(GetParameterInt("DelayBeforeKeyOn"));
+                RemovePrompt(GetPromptBox("DelayBeforeKeyOn"), GetPrompt("DelayBeforeKeyOn"), GetPromptPriority("DelayBeforeKeyOn"));
+            
 				testResult = WaitForEngineOffIgnitionOn();
 				if(!testResult.compare(testPass))
 				{					   // Reset the adaptive memory
@@ -3702,11 +3863,11 @@ string IsuzuDeltaEmissionsTc<ModuleType>::EngineOffBeforeMAFClear(void)
 
     if (!ShortCircuitTestStep())
     {
-        INT32 engineRPM = 100;
+        UINT32 engineRPM = 100;
         BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
         SetStartTime();
         while ((engineRPM>10) && (BEP_STATUS_SUCCESS == moduleStatus) && TimeRemaining()) {
-            moduleStatus = m_vehicleModule.GetInfo(GetDataTag("EngineRunningMessage"), engineRPM);
+            moduleStatus = m_vehicleModule.ReadModuleData(GetDataTag("EngineRunningMessage"), engineRPM);
             BposSleep(GetTestStepInfoInt("ScanDelay"));
         }
         Log(LOG_DEV_DATA, "Engine At Idle Speed: %d", engineRPM);
@@ -3919,6 +4080,7 @@ string IsuzuDeltaEmissionsTc<ModuleType>::ToothErrorCorrectionLearn(void)
             {
                 bool preconditionsMet = false;
                 bool TECLearned = false;
+                DisplayPrompt(GetPromptBox("PushAcceleratorPedalToFloor"), GetPrompt("PushAcceleratorPedalToFloor"), GetPromptPriority("PushAcceleratorPedalToFloor"));
                 while (TimeRemaining() && !preconditionsMet && (moduleStatus == BEP_STATUS_SUCCESS))
                 {
                     moduleStatus = m_vehicleModule.ReadModuleData("PreTECL", preconditionsMet);
@@ -3956,6 +4118,7 @@ string IsuzuDeltaEmissionsTc<ModuleType>::ToothErrorCorrectionLearn(void)
                 testResult = testFail;
             }
             RemovePrompt(GetPromptBox("ShiftToN"), GetPrompt("ShiftToN"), GetPromptPriority("ShiftToN"));
+            RemovePrompt(GetPromptBox("PushAcceleratorPedalToFloor"), GetPrompt("PushAcceleratorPedalToFloor"), GetPromptPriority("PushAcceleratorPedalToFloor"));
         }
         catch (ModuleException &moduleException)
         {
@@ -3979,3 +4142,81 @@ string IsuzuDeltaEmissionsTc<ModuleType>::ToothErrorCorrectionLearn(void)
     return testResult;
 }
 
+//=============================================================================
+
+template <class ModuleType>
+string IsuzuDeltaEmissionsTc<ModuleType>::UnlockModuleSecurity()
+{
+    Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::UnlockModuleSecurity() - Enter");
+    string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    //BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    if(!ShortCircuitTestStep())
+    {
+
+        UINT32 Key = 0x0000;
+        UINT32 seed = 0x0000;
+        try
+        {  
+            Log(LOG_DEV_DATA, "Unlocking Module with Constant Key\n");
+            if (m_vehicleModule.ReadModuleData("ReadSeed", seed) == BEP_STATUS_SUCCESS)
+            {
+                Log(LOG_DEV_DATA,"Read Security Seed: 0x%X",seed);
+                Key = 0xBBBBBBB;
+                Log(LOG_DEV_DATA,"Calcuated Key: 0x%X",Key);
+                
+                //Key is now calculated.  Get ready to send it!
+                union _keyData
+                {
+                    UINT32 fullKey;
+                    struct
+                    {
+                        UINT8 key_0;
+                        UINT8 key_1;
+                        UINT8 key_2;
+                        UINT8 key_3;
+                    } keyChars;
+                } keyData;
+                keyData.keyChars.key_0 = (Key & 0x000000FF);
+        		keyData.keyChars.key_1 = ((Key & 0x0000FF00) >> 8);
+        		keyData.keyChars.key_2 = ((Key & 0x00FF0000) >> 16);
+        		keyData.keyChars.key_3 = ((Key & 0xFF000000) >> 24);
+        		keyData.fullKey = Key;
+        		Log(LOG_DEV_DATA, "Calcualted key: 0x%08X  ($%02X $%02X $%02X $%02X)", keyData.fullKey, keyData.keyChars.key_3, keyData.keyChars.key_2, keyData.keyChars.key_1, keyData.keyChars.key_0);
+
+
+                SerialArgs_t keyArgs;
+        		//keyArgs.push_back(keyData.keyChars.key_3);
+        		//keyArgs.push_back(keyData.keyChars.key_2);
+        		keyArgs.push_back(keyData.keyChars.key_1);
+        		keyArgs.push_back(keyData.keyChars.key_0);
+
+        		// Write the key to the module
+        		 if(m_vehicleModule.CommandModule("UnlockSecurity", &keyArgs) == BEP_STATUS_SUCCESS){
+                    Log(LOG_FN_ENTRY, "Delta Module Unlocked.");
+                    testResult = testPass;
+                 } 
+                 else 
+                 {
+                    Log(LOG_FN_ENTRY, "Key Not Correct, Delta Module not Unlocked.");
+                    testResult = testFail;
+                 }
+            }
+            else
+            {
+                Log(LOG_FN_ENTRY, "Error reading the Security Seed from the Module.");
+                testResult = testFail;
+            }
+
+        }
+        catch (ModuleException &exception)
+        {   // Exception reading data
+            Log(LOG_ERRORS, "Module exception in UnlockModuleSecurity() while reading security seed - %s\n", exception.message().c_str());
+            seed = 0x0000;
+            testResult = testFail;
+        }
+    }
+    Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::UnlockModuleSecurity() - Exit");
+    return testResult;
+}

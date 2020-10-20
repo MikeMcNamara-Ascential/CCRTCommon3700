@@ -3,6 +3,10 @@
 # Define the name of executable we will create
 #------------------------------------------------------------------------------------------
 SET(EXE_NAME IsuzuSpeedControlTc)
+#------------------------------------------------------------------------------------------
+# Define the name of executable we will create
+#------------------------------------------------------------------------------------------
+SET(EXE_NAME IsuzuDeltaSpeedControlTc)
 
 #------------------------------------------------------------------------------------------
 # Define the default file where our QNX use message is located

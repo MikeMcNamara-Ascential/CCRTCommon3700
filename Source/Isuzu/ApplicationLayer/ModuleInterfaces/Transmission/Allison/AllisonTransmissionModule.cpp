@@ -87,7 +87,7 @@ BEP_STATUS_TYPE AllisonTransmissionModule<ProtocolFilterType>::MonitorTransmissi
     {
         Log(LOG_DEV_DATA, "Entering AllisonTransmissionModule::MonitorTransmissionGear");
         BEP_STATUS_TYPE status    = BEP_STATUS_ERROR;
-        string currentGear        = "Unknown";
+        string currentState       = "Unknown";
         DataAnalysis analyze;
         static bool initializedObservedGears = false;
         if(!initializedObservedGears)
@@ -99,11 +99,12 @@ BEP_STATUS_TYPE AllisonTransmissionModule<ProtocolFilterType>::MonitorTransmissi
         if(!AllGearsObserved())
         {   // Read the current gear from the module
             //status = ReadModuleData("ReadCurrentGear", currentGear, NULL, NULL, filter);
-            SerialString_t msg;
-            std::string temp = "ReadShiftLeverPosition";
+            string msg;
+            std::string temp = "ReadCurrentGear";
             try
             {
-                status = m_protocolFilter->GetBusBroadcastMessage(temp, (long)500, msg);
+                //status = m_protocolFilter->GetBusBroadcastMessage(temp, (long)500, msg);
+                status = ReadModuleData("ReadCurrentGear", msg);
             }
             catch (exception e)
             {
@@ -117,30 +118,21 @@ BEP_STATUS_TYPE AllisonTransmissionModule<ProtocolFilterType>::MonitorTransmissi
             if(status == BEP_STATUS_SUCCESS)
         	{   // Valid message, extract the data
                 Log(LOG_DEV_DATA,"Message is valid, parsing gear data\n");
-                UINT8 gear = (UINT8) ParseUnsignedIntegerResponse("InterpShiftLeverPosition", msg); 
-                Log(LOG_DEV_DATA,"Parsed response:: gear = %d", gear);
+                //int gear = (int) ParseUnsignedIntegerResponse("InterpShiftLeverPosition", msg); 
+                //Log(LOG_DEV_DATA,"Parsed response:: gear = %d", gear);
+                if (msg == "125") currentState = "N";     //neutral
+                else if (msg == "126") currentState = "1"; //first state
+                else if (msg == "127") currentState = "2"; //second state
+                else if (msg == "128") currentState = "3"; //third state
+                else if (msg == "129") currentState = "4"; //fourth state
+                else if (msg == "130") currentState = "5"; //fifth state
+                else if (msg == "131") currentState = "6"; //sixth state
+                else if (msg == "124") currentState = "R"; //reverse
+                else if (msg == "251") currentState = "P"; //park
+                else if (msg == "254") currentState = "E"; //error
+                else Log(LOG_ERRORS, "Message could not be parsed, state '%s' found", msg.c_str());
 
-                if (gear == 125) currentGear = "N";     //neutral
-                else if (gear == 126) currentGear = "1"; //first gear
-                else if (gear == 127) currentGear = "2"; //second gear
-                else if (gear == 128) currentGear = "3"; //third gear
-                else if (gear == 129) currentGear = "4"; //fourth gear
-                else if (gear == 130) currentGear = "5"; //fifth gear
-                else if (gear == 131) currentGear = "6"; //sixth gear
-                else if (gear == 124) currentGear = "R"; //reverse
-                else if (gear == 251) currentGear = "P"; //park
-                else if (gear == 254) 
-                {
-                    currentGear = "E"; //error
-                    status = BEP_STATUS_FAILURE;
-                }
-                else 
-                {
-                    Log(LOG_ERRORS, "Message could not be parsed, gear '%d' found", gear);
-                    status = BEP_STATUS_FAILURE;
-                }
-                
-                Log(LOG_DEV_DATA,"Found gear:: gear: %d, currentGear: %s", gear, currentGear.c_str());
+                Log(LOG_DEV_DATA,"Parsed response:: state: '%s', currentState: '%s'", msg.c_str(), currentState.c_str());
             }
         	else
         	{   // Could not find a matching message, give up on it
@@ -157,41 +149,41 @@ BEP_STATUS_TYPE AllisonTransmissionModule<ProtocolFilterType>::MonitorTransmissi
             {   // Pick the gear out of the responses
                 try
                 {
-                    Log(LOG_DEV_DATA, "Current Gear: %s", currentGear.c_str());
+                    Log(LOG_DEV_DATA, "Current Gear: %s", currentState.c_str());
                     // Check for first gear
                     if(!Gear1Observed())
                     {   // First gear was not observed, check if it just was
-                        SetObservedGear1(analyze.CompareData(currentGear, GetGear1String(), EQUAL));
+                        SetObservedGear1(analyze.CompareData(currentState, GetGear1String(), EQUAL));
                         if(Gear1Observed()) Log(LOG_DEV_DATA, "Saw First Gear\n");
                     }
                     // Check for second gear
                     if(!Gear2Observed())
                     {   // Second gear was not observed, check if it just was
-                        SetObservedGear2(analyze.CompareData(currentGear, GetGear2String(), EQUAL));
+                        SetObservedGear2(analyze.CompareData(currentState, GetGear2String(), EQUAL));
                         if(Gear2Observed()) Log(LOG_DEV_DATA, "Saw Second Gear\n");
                     }
                     // Check for third gear
                     if(!Gear3Observed())
                     {   // Third gear was not observed, check if it just was
-                        SetObservedGear3(analyze.CompareData(currentGear, GetGear3String(), EQUAL));
+                        SetObservedGear3(analyze.CompareData(currentState, GetGear3String(), EQUAL));
                         if(Gear3Observed()) Log(LOG_DEV_DATA, "Saw Third Gear\n");
                     }
                     // Check for fourth gear
                     if(!Gear4Observed())
                     {   // Fourth gear was not observed, check if it just was
-                        SetObservedGear4(analyze.CompareData(currentGear, GetGear4String(), EQUAL));
+                        SetObservedGear4(analyze.CompareData(currentState, GetGear4String(), EQUAL));
                         if(Gear4Observed()) Log(LOG_DEV_DATA, "Saw Fourth Gear\n");
                     }
                     // Check for fifth gear
                     if(!Gear5Observed())
                     {   // Fifth gear was not observed, check if it just was
-                        SetObservedGear5(analyze.CompareData(currentGear, GetGear5String(), EQUAL));
+                        SetObservedGear5(analyze.CompareData(currentState, GetGear5String(), EQUAL));
                         if(Gear5Observed()) Log(LOG_DEV_DATA, "Saw Fifth Gear\n");
                     }
                     // Check for sixth gear
                     if(!Gear6Observed())
                     {   // Sixth gear was not observed, check if it just was
-                        SetObservedGear6(analyze.CompareData(currentGear, GetGear6String(), EQUAL));
+                        SetObservedGear6(analyze.CompareData(currentState, GetGear6String(), EQUAL));
                         if(Gear6Observed()) Log(LOG_DEV_DATA, "Saw Sixth Gear\n");
                     }
                 }
@@ -360,13 +352,14 @@ const string AllisonTransmissionModule<ProtocolFilterType>::GetCurrentState(void
     //Get the current state from the module
     //moduleStatus = m_vehicleModule.GetInfo(GetDataTag(currentStateTag), currentState);
 
-    SerialString_t msg;
+    string msg;
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_FAILURE;  // Used to store return result for module read
     std::string temp = "ReadShiftLeverPosition";
     string currentState(BEP_NO_DATA);                   // Used to store current state from module read
     try 
     {
-        moduleStatus = m_protocolFilter->GetBusBroadcastMessage(temp, (long)500, msg);
+        //moduleStatus = m_protocolFilter->GetBusBroadcastMessage(temp, (long)500, msg);
+        moduleStatus = ReadModuleData("ReadShiftLeverPosition", msg);
     }
     catch (exception e)
     {
@@ -378,21 +371,20 @@ const string AllisonTransmissionModule<ProtocolFilterType>::GetCurrentState(void
     }
     if (moduleStatus == BEP_STATUS_SUCCESS)
     {   // Valid message, extract the data
-        UINT8 state = (UINT8) ParseUnsignedIntegerResponse("InterpShiftLeverPosition", msg);
+        //UINT8 state = (UINT8) ParseUnsignedIntegerResponse("InterpShiftLeverPosition", msg);
+        if (msg == "078") currentState = "N";     //neutral
+        else if (msg == "049") currentState = "1"; //first state
+        else if (msg == "050") currentState = "2"; //second state
+        else if (msg == "051") currentState = "3"; //third state
+        else if (msg == "052") currentState = "4"; //fourth state
+        else if (msg == "053") currentState = "5"; //fifth state
+        else if (msg == "054") currentState = "6"; //sixth state
+        else if (msg == "082") currentState = "R"; //reverse
+        else if (msg == "080") currentState = "P"; //park
+        else if (msg == "255") currentState = "E"; //error
+        else Log(LOG_ERRORS, "Message could not be parsed, state '%s' found", msg.c_str());
 
-        if (state == 125) currentState = "N";     //neutral
-        else if (state == 126) currentState = "1"; //first state
-        else if (state == 127) currentState = "2"; //second state
-        else if (state == 128) currentState = "3"; //third state
-        else if (state == 129) currentState = "4"; //fourth state
-        else if (state == 130) currentState = "5"; //fifth state
-        else if (state == 131) currentState = "6"; //sixth state
-        else if (state == 124) currentState = "R"; //reverse
-        else if (state == 251) currentState = "P"; //park
-        else if (state == 254) currentState = "E"; //error
-        else Log(LOG_ERRORS, "Message could not be parsed, state '%d' found", state);
-
-        Log(LOG_DEV_DATA,"Parsed response:: state: '%d', currentState: '%s'", state, currentState.c_str());
+        Log(LOG_DEV_DATA,"Parsed response:: state: '%s', currentState: '%s'", msg.c_str(), currentState.c_str());
     }
     else
     {   // Could not find a matching message, give up on it

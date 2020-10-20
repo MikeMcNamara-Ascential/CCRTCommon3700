@@ -9,4 +9,5 @@ INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Emissions FILES
 	IsuzuPIM.xml
         IsuzuSingleAxleEngineControllerModule.xml
         My18IsuzuEngineControllerModule.xml
+		My20BIsuzuEngineControllerModule.xml
 )

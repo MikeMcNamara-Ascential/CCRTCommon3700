@@ -24,7 +24,7 @@
 #include "AllisonTransmissionTC.cpp"
 #include "CmdLineProcessor.h"
 #include "AllisonTransmissionModule.cpp"
-#include "UDSCanProtocolFilter.h"
+#include "KwpCanProtocolFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 		string commProtocol = config->getChild("Setup/CommunicationProtocol")->getValue();
 		if (commProtocol == "KeywordProtocol2000") 
 		{	// Create a test component
-			transmissionTest = new AllisonTransmissionTC<AllisonTransmissionModule<UDSCanProtocolFilter> >;
+			transmissionTest = new AllisonTransmissionTC<AllisonTransmissionModule<KwpCanProtocolFilter> >;
 		}
 		else
 		{   // Unknown protocol type

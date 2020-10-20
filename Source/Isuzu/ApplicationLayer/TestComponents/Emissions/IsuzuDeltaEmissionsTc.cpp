@@ -4220,3 +4220,144 @@ string IsuzuDeltaEmissionsTc<ModuleType>::UnlockModuleSecurity()
     Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::UnlockModuleSecurity() - Exit");
     return testResult;
 }
+
+//-------------------------------------------------------------------------------------------------
+template <class ModuleType>
+const bool IsuzuDeltaEmissionsTc<ModuleType>::IsIdleRPM(void)
+{
+	bool engineAtIdle = false;
+	UINT32 engineRPM = 0;
+	// Attempt to read the engine RPM from the module
+	try
+	{	// Read the engine RPM from the module
+		BEP_STATUS_TYPE moduleStatus = m_vehicleModule.ReadModuleData(GetDataTag("EngineRunningMessage"), engineRPM);
+        INT32 engineRPMActual = engineRPM;
+		// Determine if the engine is running
+		engineAtIdle = ((BEP_STATUS_SUCCESS == moduleStatus) &&
+						m_analyze.CompareData(engineRPMActual, GetParameterInt("MaximumIdleRPM"), LESS_EQUAL) &&
+						m_analyze.CompareData(engineRPMActual, GetParameterInt("MinimumIdleRPM"), GREATER_EQUAL));
+		Log(LOG_DEV_DATA, "GenericEmissionsTCTemplate::IsIdleRPM() - Min = %d, Max = %d, Actual = %d\n",
+			GetParameterInt("MinimumIdleRPM"),GetParameterInt("MaximumIdleRPM"),engineRPM);
+	}
+	catch(ModuleException &exception)
+	{	// Exception reading data
+		Log(LOG_ERRORS, "Module exception in IsIdleRPM() - %s\n", exception.message().c_str());
+		engineAtIdle = false;
+	}
+	// Return the status
+	return engineAtIdle;
+}
+
+//-------------------------------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuDeltaEmissionsTc<ModuleType>::CheckIdleSpeed(void)
+{
+	string testResult = BEP_TESTING_STATUS, moduleResult = BEP_TESTING_STATUS;
+	string testDescription = "Test in progress", moduleDescription = "Test in progress";
+	string testResultCode = "0000", moduleCode = "0000";
+	UINT16 engineIdleRPM = 0;
+	bool preconditionsMet = false;
+	// Check if vehicle is previous pass
+	Log(LOG_FN_ENTRY, "Enter GenericEmissionsTCTemplate::CheckIdleSpeed()\n");
+	if(!IsPreviousPass() && !ShortCircuitTestStep())
+	{	// All precondition satisfied, read the engine Idle RPM
+		if(!IsThrottleClosed())
+		{	//The throttle needs to be at the closed "foot off" position.
+			testResult = testFail;
+			Log(LOG_DEV_DATA, "GenericEmissionsTCTemplate::CheckIdleSpeed() - Failed because Throttle not in range\n");
+			testDescription = GetFaultDescription("IdleSpeedThrotlleNotCorrect");
+			testResultCode = GetFaultCode("IdleSpeedThrotlleNotCorrect");
+			preconditionsMet = false;
+		}
+		else
+		{// determine if neutral check is required
+			if(GetParameterBool("CheckIdleSpeedNRequired") && !IsManualTransmission())
+			{//prompt and verify vehicle is in neutral
+				preconditionsMet = IsTransmissionInNeutral();
+			}
+			else preconditionsMet = true;
+			if(GetParameterBool("IdleRPMCheckEngineRunning") && preconditionsMet)
+			{
+				preconditionsMet = CheckEngineRunning();
+			}
+			if(preconditionsMet)
+			{
+				try
+				{	// Read the engine Idle RPM
+					BEP_STATUS_TYPE moduleStatus = m_vehicleModule.ReadModuleData("ReadEngineIdleRPM", engineIdleRPM);
+					// Check the status of the read
+					if(BEP_STATUS_SUCCESS == moduleStatus)
+					{	// Good data from the module, verify against parameters
+                        //TODO: CCRT is so dumb, WHYYYYYYYYYYY???????????
+                        INT32 engineRPM = engineIdleRPM;
+						if(m_analyze.CompareData(engineRPM, GetParameterInt("MinimumIdleRPM"), GREATER_EQUAL) &&
+						   m_analyze.CompareData(engineRPM, GetParameterInt("MaximumIdleRPM"), LESS_EQUAL))
+						{	// Idle RPM in range
+							Log(LOG_DEV_DATA, "Engine Idle RPM Pass - %d [%d %d]\n", engineIdleRPM,
+								GetParameterInt("MinimumIdleRPM"), GetParameterInt("MaximumIdleRPM"));
+							testResult = testPass;
+						}
+						else
+						{	// Idle rpm out of range
+							Log(LOG_ERRORS, "Engine Idle RPM out of range - %d [%d %d]\n", engineIdleRPM,
+								GetParameterInt("MinimumIdleRPM"), GetParameterInt("MaximumIdleRPM"));
+							testResult = testFail;
+						}
+						// Set the result code and description
+						testResultCode = (testResult == testPass ? "0000" : GetFaultCode("EngineIdleRPMOutOfRange"));
+						testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("EngineIdleRPMOutOfRange"));
+						// Update the result in the module
+						UINT16 eolStatusRegister = (UINT16)atoh(GetParameter(GetDataTag("EOLIdleRPMResultRegister")).c_str());
+						UINT16 idleRPMTestBit = GetParameterInt("IdleRPMResultBit");
+						moduleResult = UpdateEOLStatusRegister(eolStatusRegister, idleRPMTestBit, testResult);
+						// Check the status of the update
+						moduleCode = moduleResult == testPass ? "0000" : GetFaultCode("ModuleUpdateCommunicationFailure");
+						moduleDescription = 
+						moduleResult == testPass ? "Update Module Idle Speed Result" : GetFaultDescription("ModuleUpdateCommunicationFailure");
+						Log(LOG_DEV_DATA, "Module Update: %s\n", moduleResult.c_str());
+					}
+					else
+					{	// Error getting data from the module
+						Log(LOG_ERRORS, "Error getting idle RPM from the module - status: %s\n",
+							ConvertStatusToResponse(moduleStatus).c_str());
+						testResult = testFail;
+						testResultCode = GetFaultCode("CommunicationFailure");
+						testDescription = GetFaultDescription("CommunicationFailure");
+					}
+				}
+				catch(ModuleException &moduleException)
+				{
+					Log(LOG_ERRORS, "Module Exception in CheckIdleSpeed - %s\n", moduleException.message().c_str());
+					testResult = testSoftwareFail;
+					testResultCode = GetFaultCode("SoftwareFailure");
+					testDescription = GetFaultDescription("SoftwareFailure");
+				}
+			}
+			else
+			{//preconditions not met
+				Log(LOG_DEV_DATA, "GenericEmissionsTCTemplate::CheckIdleSpeed() - Failed because Transmission not in neutral\n");
+				testDescription = GetFaultDescription("IdleSpeedGearNotCorrect");
+				testResultCode = GetFaultCode("IdleSpeedGearNotCorrect");
+			}
+		}
+		// Report the results
+		char temp[16];
+		SendTestResultWithDetail(testResult, testDescription, testResultCode,
+								 "EngineRPM", CreateMessage(temp, sizeof(temp), "%04d", engineIdleRPM), "RPM",
+								 "MinimumIdleRPM", GetParameter("MinimumIdleRPM"), "RPM",
+								 "MaximumIdleRPM", GetParameter("MaximumIdleRPM"), "RPM",
+								 "PreconditionsMet", (preconditionsMet ? "True" : "False"), "bool");
+		SendSubtestResult("IdleSpeedModuleUpdate", moduleResult, moduleDescription, moduleCode);
+		// Determine the overall result
+		if((testResult == testPass) && (moduleResult != testPass))	 testResult = moduleResult;
+	}
+	else
+	{	// Vehicle is previous pass, do not test
+		Log(LOG_DEV_DATA, "Emissions Previous Pass, not performing CheckIdleSpeed test\n");
+		testResult = testSkip;
+	}
+	// Return the test result
+	Log(LOG_FN_ENTRY, "Exit GenericEmissionsTCTemplate::CheckIdleSpeed(%s)\n", testResult.c_str());
+	return testResult;
+}
+

@@ -132,8 +132,15 @@ BEP_STATUS_TYPE IsuzuDeltaEngineControlModule<ProtocolFilterType>::GetInfo(strin
 //-------------------------------------------------------------------------------------------------
 template <class ProtocolFilterType>
 BEP_STATUS_TYPE IsuzuDeltaEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, UINT16 &value) throw(ModuleException)
-{   // Nothing special to do, just pass to base class for evaluation
-    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+{   
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+
+    // Read the idle engine rpm from the module
+    if (methodName == "ReadEngineIdleRPM")     status = ReadModuleData(methodName, value);
+    // Nothing special to do, just pass to base class for evaluation
+    else status = GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+
+    return status;
 }
 
 
@@ -414,6 +421,28 @@ BEP_STATUS_TYPE IsuzuDeltaEngineControlModule<ProtocolFilterType>::GetMAFLearnin
     Log(LOG_FN_ENTRY, "IsuzuDeltaEngineControlModule::GetMAFLearningValue() - Exit:%d", status);
     return(status);
 
+}
+
+template <class ProtocolFilterType>
+bool IsuzuDeltaEngineControlModule<ProtocolFilterType>::IsEngineRunning(const INT32 &minimumEngineRPM)
+{
+    bool engineRunning = false;
+    //TODO: Why is CCRT dumb? 
+    UINT32 engineRPM = 0;
+    // Read the engine rpm from the module
+    if(ReadModuleData("ReadEngineRPMActual", engineRPM) == BEP_STATUS_SUCCESS)
+    {   // Good read, evaluate the data
+        Log(LOG_DEV_DATA, "Read engine RPM from the module: %d, minimum: %d\n", engineRPM, minimumEngineRPM);
+        // Determine if the RPM is sufficient
+        engineRunning = engineRPM > minimumEngineRPM;
+    }
+    else
+    {   // Error reading engine rpm, default to engine off
+        Log(LOG_ERRORS, "Error reading the engine rpm\n");
+        engineRunning = false;
+    }
+    // Return the status
+    return(engineRunning);
 }
 
 

@@ -450,6 +450,99 @@ private:
      */ 
     string AdjustCruiseMass(void);
 
+    /**
+     * Determine if the engine is at idle speed.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description:</b><br>
+     * The engine RPM will be read from the module.  The RPM will then be checked against the idle limits set in the
+     * parameters to determine if the engine is at idle.
+     * <p>
+     * <b>Test Component Parameters:</b>
+     *      <ul>
+     *      <li> MaximumIdleRPM - Maximum allowable idle RPM. </li>
+     *      <li> MinimumIdleRPM - Minimum allowable idle RPM. </li>
+     *      </ul>
+     * 
+     * <b>Data Tags:</b>
+     *      <ul>
+     *      <li> EngineRunningMessage - Message tag to use for reading the engine RPM from the module. </li>
+     *      </ul>
+     * 
+     * <b>Module Interface Functions:</b>
+     *      <ul>
+     *      <li> GetInfo() - Data items: EngineRunningMessage </li>
+     *      </ul>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> GetDataTag() </li>
+     *      <li> GetParameterInt() </li>
+     *      </ul>
+     *
+     * @return Flag indicating if the engine is at idle RPM.
+     */
+    virtual const bool IsIdleRPM(void);
+
+    /**
+     * Verify the idle speed on the vehicle is set properly.
+     * <p><b>Category:</b> Test Step
+     * <p><b>Description:</b><br>
+     * The throttle will first be checked to ensure it is closed.  If the throttle is not closed, the operator will be
+     * instructed to remove their foot from the throttle.  The engine RPM will then be checked to ensure it falls
+     * within idle parameters.
+     * <p>
+     * <b>Test Step Info:</b>
+     *      <ul>
+     *      <li> Description - Description of the test step. </li>
+     *      </ul>
+     * 
+     * <b>Test Component Parameters:</b>
+     *      <ul>
+     *      <li> MinimumIdleRPM - Minimum acceptable idle RPM. </li>
+     *      <li> MaximumIdleRPM - Maximum acceptable idle RPM. </li>
+     *      <li> IdleRPMResultBit - Bit to use for recording the result of the idle RPM test. </li>
+     *      </ul>
+     * 
+     * <b>Data Tags:</b>
+     *      <ul>
+     *      <li> EOLIdleRPMResultRegister - Parameter to use for Idle RPM result register. </li>
+     *      </ul>
+     * 
+     * <b>Fault Tags:</b>
+     *      <ul>
+     *      <li> IdleSpeedThrotlleNotCorrect - Timeout waiting for the throttle to be closed. </li>
+     *      <li> EngineIdleRPMOutOfRange - Idle RPM is out of range. </li>
+     *      <li> ModuleUpdateCommunicationFailure - Could not record the result in the module. </li>
+     *      <li> CommunicationFailure - Could not read the engine RPM from the module. </li>
+     *      <li> SoftwareFailure - A ModuleException occurred while checking the idle RPM. </li>
+     *      </ul>
+     * 
+     * <b>Module Interface Functions:</b>
+     *      <ul>
+     *      <li> GetInfo() - Message tags: ReadEngineIdleRPM </li>
+     *      </ul>
+     *
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> IsPreviousPass() </li>
+     *      <li> ShortCircuitTestStep() </li>
+     *      <li> GetTestStepResult() </li>
+     *      <li> IsThrottleClosed() </li>
+     *      <li> GetFaultDescription() </li>
+     *      <li> GetFaultCode() </li>
+     *      <li> GetParameter() </li>
+     *      <li> GetParameterInt() </li>
+     *      <li> GetDataTag() </li>
+     *      <li> UpdateEOLStatusRegister() </li>
+     *      <li> SendSubtestResult() </li>
+     *      <li> SendTestResultWithDetail() </li>
+     *      <li> GetTestStepInfo() </li>
+     *      </ul>
+     * 
+     * @return Result of verifying the engine idle RPM falls within parameters.
+     */
+    virtual string CheckIdleSpeed(void);
+
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;
     typedef vector<BackgroundRangeCheckMonitor *>                 BackgroundRangeCheckMonitorVector;

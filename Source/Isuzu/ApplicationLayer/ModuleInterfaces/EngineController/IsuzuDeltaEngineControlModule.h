@@ -281,6 +281,28 @@ public:
     virtual BEP_STATUS_TYPE GetInfo(string methodName, float &value) throw(ModuleException);
 
     /**
+     * Determine if the engine is running.
+     * <p><b>Description:</b><br>
+     * The engine RPM will be read from the module.  If the RPM read from the module is greater than <i>minimumEngineRPM</i>
+     * the engine is considered to be running.
+     * <p>
+     * <b>Message Tags:</b>
+     *      <ul>
+     *      <li> ReadEngineRPMActual </li>
+     *      </ul>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> ReadModuleData() </li>
+     *      </ul>
+     *
+     * @param minimumEngineRPM
+     *               Minimum engine RPM to determine if the engine is running.
+     * @return Flag indicating if the engine is running.
+     */
+    virtual bool IsEngineRunning(const INT32 &minimumEngineRPM);
+
+    /**
      * Read the part number.
      * <p><b>Description:</b><br>
      * Read the part number from the module.

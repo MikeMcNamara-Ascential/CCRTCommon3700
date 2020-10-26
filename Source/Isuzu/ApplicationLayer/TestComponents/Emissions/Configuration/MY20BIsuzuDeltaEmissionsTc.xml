@@ -10,7 +10,7 @@
             <Comm>IPC</Comm>
             <Name>component/IsuzuEmissions</Name>
             <BufferSize>1024</BufferSize>
-            <Timeout>2000</Timeout>
+            <Timeout>2000</Timeout> 
         </Communication>
         <TagList>
             <SubscribeTags>
@@ -87,7 +87,8 @@
             <AbortOnTestStepFailure>True</AbortOnTestStepFailure>
             <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
-            <DelayBeforeDtcRead>20000</DelayBeforeDtcRead>
+            <DelayBeforeDtcRead>8000</DelayBeforeDtcRead>
+            <DelayBeforeKeyOn>20000</DelayBeforeKeyOn>
             <DelayModuleInitialization>Yes</DelayModuleInitialization>
             <DeveloperTest>0</DeveloperTest>
             <ICMName>mgr/ICM</ICMName>
@@ -97,7 +98,7 @@
             <!-- Module Parameters -->
             <ConfigFile>/Configuration/Components/Emissions/My20BIsuzuEngineControllerModule.xml</ConfigFile>
             <!-- Diagnostic Mode Parameters -->
-            <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">False</AlwaysEnterDiagnosticMode>
+            <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">True</AlwaysEnterDiagnosticMode>
             <!-- DTC Parameters -->
             <AbortIfDTCPresent TestSteps="ReadFaultCount" Comment="Flag to determine if the test sequence will be aborted it DTCs are detected">False</AbortIfDTCPresent>
             <DtcStatusActiveBit>1</DtcStatusActiveBit>
@@ -121,7 +122,7 @@
             <EngineCoolantTempOffset Units="C" Comment="Offset for engine temperature reading" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature">-40</EngineCoolantTempOffset>
             <EngineCoolantTemperatureUnits>C</EngineCoolantTemperatureUnits>
             <MinimumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Minimum operating engine coolant temperature">70</MinimumEngineCoolantTemperature>
-            <MaximumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Maximum operating engine coolant temperature">115</MaximumEngineCoolantTemperature>
+            <MaximumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Maximum operating engine coolant temperature">140</MaximumEngineCoolantTemperature>
             <!-- Engine Oil Temperature Parameters -->
             <EngineOilTemperatureUnits>C</EngineOilTemperatureUnits>
             <MinimumEngineOilTemperature Units="C" TestSteps="CheckEngineOilTemperature" Comment="Minimum operating engine oil temperature">0</MinimumEngineOilTemperature>
@@ -152,8 +153,8 @@
             <MaximumManifoldAbsolutePressure Units="kPa" TestSteps="CheckManifoldAbsolutePressureAtIdle" Comment="Maximum operating ManifoldAbsolutePressure">50</MaximumManifoldAbsolutePressure>
             <!-- MassAirFlow Parameters -->
             <MassAirFlowUnits>g/s</MassAirFlowUnits>
-            <MinimumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Minimum operating MassAirFlow">1.5</MinimumMassAirFlow>
-            <MaximumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Maximum operating MassAirFlow">20</MaximumMassAirFlow>
+            <MinimumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Minimum operating MassAirFlow">10</MinimumMassAirFlow>
+            <MaximumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Maximum operating MassAirFlow">30</MaximumMassAirFlow>
             <!-- Fan Speed Parameters -->
             <EngineFanUnits>RPM</EngineFanUnits>
             <MinimumActualFanSpeed Units="RPM" TestSteps="CheckEngineFan" Comment="Minimum actual fan speed">100</MinimumActualFanSpeed>
@@ -162,8 +163,8 @@
             <MaximumDesiredFanSpeed Units="RPM" TestSteps="CheckEngineFan" Comment="Maximum Desired fan speed">2000</MaximumDesiredFanSpeed>
             <FanSpeedToleranceRPM Units="RPM" TestSteps="CheckEngineFan" Comment="fan speed tolerance to compare actual to desired">100</FanSpeedToleranceRPM>
             <!-- WOT Testing Parameters -->
-            <AcceleratorPedalWOTTestMin>38.43</AcceleratorPedalWOTTestMin>
-            <AcceleratorPedalWOTTestMax>78.4314</AcceleratorPedalWOTTestMax>
+            <AcceleratorPedalWOTTestMin>80.0</AcceleratorPedalWOTTestMin>
+            <AcceleratorPedalWOTTestMax>105.0</AcceleratorPedalWOTTestMax>
             <!-- EGR Parameters -->
             <MinimumEgrError Units="%">0</MinimumEgrError>
             <MaximumEgrError Units="%">99</MaximumEgrError>
@@ -229,10 +230,10 @@
             <OxygenSensor1Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank2OBandLowLimit>
             <OxygenSensor1Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank2OBandHighLimit>
             <OxygenSensor1Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank2HBandLimit>
-            <OxygenSensor1Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor1Bank2MaxPercentLow>
+            <OxygenSensor1Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor1Bank2MaxPercentLow>
             <OxygenSensor1Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank2MaxPercentOpen>
-            <OxygenSensor1Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor1Bank2MaxPercentHigh>
-            <OxygenSensor1Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor1Bank2MinBandSwitches>
+            <OxygenSensor1Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor1Bank2MaxPercentHigh>
+            <OxygenSensor1Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor1Bank2MinBandSwitches>
             <OxygenSensor2Bank1Units>V</OxygenSensor2Bank1Units>
             <OxygenSensor2Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank1LBandLimit>
             <OxygenSensor2Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank1OBandLowLimit>
@@ -241,7 +242,7 @@
             <OxygenSensor2Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">90</OxygenSensor2Bank1MaxPercentLow>
             <OxygenSensor2Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank1MaxPercentOpen>
             <OxygenSensor2Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor2Bank1MaxPercentHigh>
-            <OxygenSensor2Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank1MinBandSwitches>
+            <OxygenSensor2Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor2Bank1MinBandSwitches>
             <OxygenSensor2Bank1TestDelta>False</OxygenSensor2Bank1TestDelta>
             <OxygenSensor2Bank1MinDeltaPercent>-50</OxygenSensor2Bank1MinDeltaPercent>
             <OxygenSensor2Bank1MaxDeltaPercent>-2</OxygenSensor2Bank1MaxDeltaPercent>
@@ -250,9 +251,9 @@
             <OxygenSensor2Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank2OBandLowLimit>
             <OxygenSensor2Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank2OBandHighLimit>
             <OxygenSensor2Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank2HBandLimit>
-            <OxygenSensor2Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor2Bank2MaxPercentLow>
+            <OxygenSensor2Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor2Bank2MaxPercentLow>
             <OxygenSensor2Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank2MaxPercentOpen>
-            <OxygenSensor2Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor2Bank2MaxPercentHigh>
+            <OxygenSensor2Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor2Bank2MaxPercentHigh>
             <OxygenSensor2Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank2MinBandSwitches>
             <OxygenSensor2Bank2TestDelta>False</OxygenSensor2Bank2TestDelta>
             <OxygenSensor2Bank2MinDeltaPercent>-50</OxygenSensor2Bank2MinDeltaPercent>
@@ -262,7 +263,7 @@
             <BypassPartNumberValidation TestSteps="CheckPartNumbers" Comment="Flag to determine if part number varification should be skipped">False</BypassPartNumberValidation>
             <SkipPartNumberResultUpdate TestSteps="CheckPartNumbers" Comment="Flag to determine if a result bit should not be updated in the module">True</SkipPartNumberResultUpdate>
             <ValidatePartNumberList TestSteps="CheckPartNumbers" Comment="Flag to determine if the part number should be looked up in a list">False</ValidatePartNumberList>
-            <ModifyBroadCastPN TestSteps="CheckPartNumbers" Comment="Flag to determine if broadcast to module part number should be modified">True</ModifyBroadCastPN>
+            <ModifyBroadCastPN TestSteps="CheckPartNumbers" Comment="Flag to determine if broadcast to module part number should be modified">False</ModifyBroadCastPN>
             <PNCheckFirstCharacterComparisonValue TestSteps="CheckPartNumbers" Comment="Comparison character to check to determine how to modify bcast pn">8</PNCheckFirstCharacterComparisonValue>
             <PNCheckCompareEqualStartIndex TestSteps="CheckPartNumbers" Comment="pn start index if char value comparison is equal">1</PNCheckCompareEqualStartIndex>
             <PNCheckCompareEqualLength TestSteps="CheckPartNumbers" Comment="pn length if char value comparison is equal">8</PNCheckCompareEqualLength>
@@ -271,14 +272,14 @@
             <PartNumbersToCheck TestSteps="CheckPartNumbers" Comment="Partnumbers to be verified">
                 <PCMPartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">ReadPartNumber</PCMPartNo>
                 <!-- EndModelPartNumber -->
-                <PCMSoftwareModule06PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule06PartNo</PCMSoftwareModule06PartNo>
+                <!-- <PCMSoftwareModule06PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule06PartNo</PCMSoftwareModule06PartNo>
                 <PCMSoftwareModule10PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule10PartNo</PCMSoftwareModule10PartNo>
                 <PCMSoftwareModule05PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule05PartNo</PCMSoftwareModule05PartNo>
                 <PCMSoftwareModule03PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule03PartNo</PCMSoftwareModule03PartNo>
                 <PCMSoftwareModule02PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule02PartNo</PCMSoftwareModule02PartNo>
                 <PCMSoftwareModule04PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule04PartNo</PCMSoftwareModule04PartNo>
                 <PCMSoftwareModule01PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule01PartNo</PCMSoftwareModule01PartNo>
-                <PCMSoftwareModule09PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule09PartNo</PCMSoftwareModule09PartNo>
+                <PCMSoftwareModule09PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule09PartNo</PCMSoftwareModule09PartNo> -->
                 <!-- PCMUtilityFilePartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">UtilityFileConstantPartNumber</PCMUtilityFilePartNo -->
             </PartNumbersToCheck>
             <UtilityFileConstantPartNumber TestSteps="CheckPartNumbers" Comment="Utility File Part Number From Static test station">12631684</UtilityFileConstantPartNumber>
@@ -335,10 +336,10 @@
             <!-- CheckSerialNumber parameters -->
          <SerialNumberDirectory TestSteps="CheckSerialNumber" Comment="Directory containing Scanned Serial numbers sent by Spartan">/home/CCRT/Rewrite/TestResults/ESN/</SerialNumberDirectory>
             <AbortOnSerialMismatch  TestSteps="CheckSerialNumber" Comment="Flag which determines if test should be aborted on serial number mismatch">True</AbortOnSerialMismatch>
-            <EngineCodeStartLocation_1D TestSteps="CheckSerialNumber" Comment="Location in the 1-D serial number to find the engine code">2</EngineCodeStartLocation_1D>
-            <EngineCodeStartLocation_2D TestSteps="CheckSerialNumber" Comment="Location in the 2-D serial number to find the engine code">8</EngineCodeStartLocation_2D>
-            <ESNLength1D>16</ESNLength1D>
-            <ESNLength2D>16</ESNLength2D>
+            <EngineCodeStartLocation_1D TestSteps="CheckSerialNumber" Comment="Location in the 1-D serial number to find the engine code">0</EngineCodeStartLocation_1D>
+            <EngineCodeStartLocation_2D TestSteps="CheckSerialNumber" Comment="Location in the 2-D serial number to find the engine code">0</EngineCodeStartLocation_2D>
+            <ESNLength1D>10</ESNLength1D>
+            <ESNLength2D>10</ESNLength2D>
             <EsnFileNameExtension>.ESN</EsnFileNameExtension>
         </Parameters>
         <Prompts>
@@ -347,6 +348,7 @@
             <CaseLearnInProgress PromptBox="1" Priority="0" TestSteps="CheckCASELearn">CaseLearnInProgress</CaseLearnInProgress>
             <CheckingO2Sensors PromptBox="1" Priority="0" TestSteps="CheckOxygenSensors">CheckingO2Sensors</CheckingO2Sensors>
             <DelayBeforeDtcRead PromptBox="1" Priority="0" TestSteps="DelayBeforeDtcRead">DelayBeforeDtcRead</DelayBeforeDtcRead>
+            <DelayBeforeKeyOn PromptBox="1" Priority="0" TestSteps="DelayBeforeKeyOn">DelayBeforeKeyOn</DelayBeforeKeyOn>
             <EngineRunning PromptBox="1" Priority="0" TestSteps="WaitForEngineRunning">StartVehicle</EngineRunning>
             <EngineMustIdle PromptBox="2" Priority="0" TestSteps="CheckOxygenSensors">EngineMustIdle</EngineMustIdle>
             <LeftFootOnBrake PromptBox="2" Priority="0" TestSteps="CheckCASELearn,CheckBrakeSensorOn,CheckBrakeSensorOff">LeftFootOnBrake</LeftFootOnBrake>
@@ -364,7 +366,7 @@
             <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <IgnoreFaults/>
-      <FaultList>/Configuration/Components/Emissions/My20iEmissionsFaults.xml</FaultList>
+      <FaultList>/Configuration/Components/Emissions/EmissionsFaultsPSI.xml</FaultList>
 	  <ClearFaults>
 		<ModuleFault_C101/>
 	  </ClearFaults>
@@ -374,24 +376,31 @@
             <TestStep00>Setup</TestStep00>
             <TestStep05>EnterDiagnosticMode</TestStep05>
             <TestStep15>CheckPartNumbers</TestStep15>
-            <TestStep25>ReadFaultCount</TestStep25>
-            <TestStep30>ReadFaults</TestStep30>
-            <TestStep45>CheckPartNumbers</TestStep45>
+            <TestStep20>CheckSerialNumber</TestStep20>
+            <!--TestStep25>ReadFaultCount</TestStep25-->
+            <!--TestStep30>ReadFaults</TestStep30-->
+            <!--TestStep45>CheckPartNumbers</TestStep45-->
         </Test>
         <EngineRunning>
             <TestStep00>Setup</TestStep00>
-            <!--TestStep05>WaitForEngineRunning</TestStep05-->
+            <TestStep05>WaitForEngineRunning</TestStep05>
+            <TestStep08>StartModuleKeepAlive</TestStep08>
             <TestStep10>EnterDiagnosticMode</TestStep10>
-            <!-- TestStep15>CheckVIN</TestStep15 -->
-            <TestStep065 AltValue="EngineCoolantTemperature">CheckEngineCoolantTemperature</TestStep065>
-            <!--TestStep15>ConditionalFaultClear</TestStep15-->
+            <!--TestStep15>CheckVIN</TestStep15-->
         </EngineRunning>
         <KeyOffEngineOffKeyOn>
             <TestStep00>KeyOffEngineOffKeyOnNoStart</TestStep00>
             <TestStep05>WaitForEngineRunning</TestStep05>
+            <TestStep08>StartModuleKeepAlive</TestStep08>
             <TestStep10>EnterDiagnosticMode</TestStep10>
-            <TestStep15>StartModuleKeepAlive</TestStep15>
+            <!-- <TestStep15>StartModuleKeepAlive</TestStep15> -->
         </KeyOffEngineOffKeyOn>
+        <KeyOffEngineOffDelayKeyOn>
+            <TestStep00>KeyOffEngineOffDelayKeyOnNoStart</TestStep00>
+            <TestStep05>WaitForEngineRunning</TestStep05>
+            <TestStep08>StartModuleKeepAlive</TestStep08>
+            <TestStep10>EnterDiagnosticMode</TestStep10>
+        </KeyOffEngineOffDelayKeyOn>
 		<KeyOffEngineOffKeyOnNoStart>
             <TestStep00>KeyOffEngineOffKeyOnNoStart</TestStep00>
             <TestStep10>EnterDiagnosticMode</TestStep10>
@@ -402,9 +411,11 @@
             <TestStep15>CheckPartNumbers</TestStep15>
             <TestStep20>CheckSerialNumber</TestStep20>
             <TestStep25>WaitForEngineTemperature</TestStep25>
-            <TestStep30>CheckCASELearn</TestStep30>
-            <TestStep35>AdjustCruiseMass</TestStep35>
-            <TestStep40>StartSwitchMonitors</TestStep40>
+            <TestStep27>EnterDiagnosticMode</TestStep27>
+			<TestStep28>UnlockModuleSecurity</TestStep28>
+            <TestStep30>ToothErrorCorrection</TestStep30>
+            <!--TestStep35>AdjustCruiseMass</TestStep35-->
+            <!--TestStep40>StartSwitchMonitors</TestStep40-->
         </EngineWarmUp>
         <PreFinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
@@ -436,10 +447,11 @@
             <TestStep100>CheckIdleFuelTrim</TestStep100>
             <TestStep105 AltValue="MassAirFlow">CheckMassAirFlowAtIdle</TestStep105>
             <TestStep110 AltValue="ManifoldAbsolutePressure">CheckManifoldAbsolutePressureAtIdle</TestStep110>
-            <TestStep115 AltValue="KnockSensor1">CheckKnockSensor1Status</TestStep115>
-            <TestStep120 AltValue="KnockSensor2">CheckKnockSensor2Status</TestStep120>
-            <TestStep135 AltValue="EgrError">CheckEgrError</TestStep135>
-            <TestStep139>ReadFaults</TestStep139>
+            <!--TestStep115 AltValue="KnockSensor1">CheckKnockSensor1Status</TestStep115-->
+            <!--TestStep120 AltValue="KnockSensor2">CheckKnockSensor2Status</TestStep120-->
+            <!--TestStep135 AltValue="EgrError">CheckEgrError</TestStep135-->
+            <!--TestStep120>EnterDiagnosticMode</TestStep120-->
+            <TestStep139>ReadFaultsJ1939</TestStep139>
             <TestStep140>AcceleratorPedalWOTTest</TestStep140>
             <TestStep145>StopSwitchMonitors</TestStep145>
         </HotIdle>
@@ -462,20 +474,21 @@
 			<TestStep05>CheckBrakeSensorOn</TestStep05>
 		</CheckBrakeSensorOffOn>
 		<ToothErrorCorrection>
-			<TestStep00>ToothErrorCorrection</TestStep00>
+			<TestStep00>UnlockModuleSecurity</TestStep00>
+			<TestStep05>ToothErrorCorrection</TestStep05>
 		</ToothErrorCorrection>
     </Objectives>
     <TestSteps>
-        <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
+        <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="False"/>
         <AcceleratorPedalWOTTest Result="" Timeout="30000" Description="Verify the read of a full accelerator pedal" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
         <AdjustCruiseMass Result="" Timeout="3000" AlwaysPerform="False" AbortIfFailed="False" Description="Change the mass value used by the Cruise for calculations" ScanDelay="250"/>
         <CheckAcStatus Result="" Timeout="10000" Description="Verify A/C is functional" ScanDelay="500" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckBarometricPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the barometric pressure sensor is in range"/>
         <CheckBatteryVoltage Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify battery voltage is in operating range"/>
-        <CheckBASLearnComplete Result="" Timeout="500" Description="Check if Brake Apply Sensor Learn happened at the Flash Station" AbortIfFailed="True"/>
+        <CheckBASLearnComplete Result="" Timeout="500" Description="Check if Brake Apply Sensor Learn happened at the Flash Station" AbortIfFailed="False"/>
 		<CheckBrakeSensorOn Result="" Timeout="5000" AlwaysPerform="False" AbortIfFailed="False" Description="Wait until Brake Sensor is On" ScanDelay="250"/>
 		<CheckBrakeSensorOff Result="" Timeout="5000" AlwaysPerform="False" AbortIfFailed="False" Description="Wait until Brake Sensor is Off" ScanDelay="250"/>
-        <CheckCASELearn Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="True" Description="Verify the CASE Learn was successful" ScanDelay="250"/>
+        <CheckCASELearn Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the CASE Learn was successful" ScanDelay="250"/>
         <CheckEgrError Result="" Timeout="500" Description="Check the EGR sensor for errors" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckEngineCoolantTemperature Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine coolant temp is in operating range"/>
         <CheckEngineFan Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the acutal to the desired fan speed"/>
@@ -503,20 +516,23 @@
         <CheckPartNumbers Result="" Timeout="500" Description="Verify the module part number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckSerialNumber Result="" Timeout="500" Description="Verify the module serial number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckSteadySpeedFuelTrim Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Check fuel trim values at steady speed"/>
-        <CheckVehicleSpeedSensor Result="" AlwaysPerform="False" AbortIfFailed="True" Timeout="500" Description="Validate vehicle speed sensor reading"/>
+        <CheckVehicleSpeedSensor Result="" AlwaysPerform="False" AbortIfFailed="False" Timeout="500" Description="Validate vehicle speed sensor reading"/>
         <CheckVIN Result="" Timeout="500" Description="Verify the module VIN matches the scanned VIN" AlwaysPerform="False" AbortIfFailed="False"/>
         <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
         <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
         <ConditionalFaultClear Result="" Timeout="5000" Description="Read faults and clear if only specified faults exist"/>
 		<DelayBeforeDtcRead Result="" Timeout="65000" Description="Delay before reading DTCs"/>
-        <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
+		<DelayBeforeKeyOn Result="" Timeout="65000" Description="Delay before key on"/>
+        <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
         <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" Prompt2="ShiftToPark" AlwaysPerform="True" AbortIfFailed="False"/>
 		<KeyOffEngineOffKeyOnNoStart Result="" Timeout="30000" Description="Key Cycle" Prompt2="ShiftToPark" AlwaysPerform="True" AbortIfFailed="False"/>
+		<KeyOffEngineOffDelayKeyOnNoStart Result="" Timeout="45000" Description="Key Cycle" Prompt2="ShiftToPark" AlwaysPerform="True" AbortIfFailed="False"/>
         <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
         <LockModuleIfPass Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
         <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
+        <ReadFaultsJ1939 Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <Setup Result="" Timeout="500" Description="Setup conditions for testing" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
         <StartModuleKeepAlive Result="" Timeout="5000" Messages="ModuleKeepAlive" AlwaysPerform="True" AbortIfFailed="False" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
         <StartRangeCheckMonitors Result="" Timeout="500" Description="Start background sensor monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
@@ -525,7 +541,8 @@
         <StopRangeCheckMonitors Result="" Timeout="500" Description="Stop background sensor monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
         <StopSwitchMonitors Result="" Timeout="500" Description="Stop background switch monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
         <ToothErrorCorrection Result="" Timeout="50000" Description="Learn Tooth Error Correction" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
-        <WaitForEngineRunning Result="" Timeout="20000" Description="Wait for the engine to be running" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="True"/>
-        <WaitForEngineTemperature Result="" Timeout="-1" Messages="ReadEngineTemperature" AlwaysPerform="True" Description="Wait for engine coolant temperature to be in operating range" ScanDelay="500" AbortIfFailed="True"/>
+        <UnlockModuleSecurity Result="" Timeout="50000" Description="Unlock Module Security" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
+        <WaitForEngineRunning Result="" Timeout="20000" Description="Wait for the engine to be running" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
+        <WaitForEngineTemperature Result="" Timeout="-1" Messages="ReadEngineTemperature" AlwaysPerform="True" Description="Wait for engine coolant temperature to be in operating range" ScanDelay="500" AbortIfFailed="False"/>
     </TestSteps>
 </IsuzuEmissionsTc>

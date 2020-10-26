@@ -21,4 +21,22 @@
        <BrakeType>Advics</BrakeType>
        <ModelYear>180</ModelYear>
    </My18AbsDriveCurve>
+   <My19AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19Isuzu.DriveCurve.xml">
+       <BrakeType>Advics</BrakeType>
+       <ModelYear>190</ModelYear>
+   </My19AbsDriveCurve>
+   <My19_2AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19_2_Isuzu.DriveCurve.xml">
+       <BrakeType>Advics</BrakeType>
+       <ModelYear>190</ModelYear>
+	   <VIN>???B?????????????</VIN>
+   </My19_2AbsDriveCurve>
+   <My20AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19Isuzu.DriveCurve.xml">
+       <BrakeType>Advics</BrakeType>
+       <ModelYear>200</ModelYear>
+   </My20AbsDriveCurve>
+   <My20ibAbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My20iIsuzu.DriveCurve.xml">
+       <BrakeType>Advics</BrakeType>
+       <ModelYear>205</ModelYear>
+   </My20ibAbsDriveCurve>
+   
 </SelectionTable>

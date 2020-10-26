@@ -5,4 +5,5 @@
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Transmission FILES
 	AllisonTransmissionModule.xml	
+	MY20BAllisonTransmissionModule.xml
 )

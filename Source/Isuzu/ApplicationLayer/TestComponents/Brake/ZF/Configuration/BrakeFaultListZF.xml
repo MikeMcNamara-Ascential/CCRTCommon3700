@@ -1,0 +1,405 @@
+<BrakeTestFaults>
+    <!-- System Status -->
+    <SystemStatus Code="4000" Description="System status not correct to perform test"/>
+    <StatusCheckFailure Code="4000" Description="System status not correct to perform test"/>
+    <NoABSData Code="4001" Description="Can not evaluate ABS results, no data was sampled"/>
+    <MotorMode Code="4002" Description="Can not set motor mode"/>
+    <!-- Test Step Preconditions -->
+    <CableConnectTimeout Code="4010" Description="Timeout waiting for cable connect"/>
+    <ZeroSpeedTimeout Code="4011" Description="Timeout waiting for zero speed"/>
+    <MaintainSpeedTimeoutFailure Code="4012" Description="Timeout waiting for steady speed"/>
+    <InvalidBroadcastTireSize Code="4013" Description="Invalid tire size provided by broadcast"/>
+    <!-- Communication Failures -->
+    <SystemCommunication Code="4040" Description="Communication failure reading system data"/>
+    <CommunicationFailure Code="4041" Description="Module communication failure"/>
+    <WheelForceDataReadError Code="4042" Description="System error reading wheel force data array"/>
+    <LowSpeedSensorTestSystemCommFailure Code="4043" Description="Failure reading roller speeds during low speed sensor test"/>
+    <HighSpeedSensorTestSystemCommFailure Code="4044" Description="Failure reading roller speeds during high speed sensor test"/>
+    <DumpAllValvesFail Code="4045" Description="Communication failure dumping all ABS valves"/>
+    <DumpFrontValvesFail Code="4046" Description="Communication failure dumping front ABS valves"/>
+    <DumpRearValvesFail Code="4047" Description="Communication failure dumping rear ABS valves"/>
+    <HoldAllValvesFail Code="4050" Description="Communication failure holding all ABS valves"/>
+    <RecoverAllValvesFail Code="4060" Description="Communication failure recovering brake force at all valves"/>
+    <StopRollTestModeFail Code="4070" Description="Communication failure taking module out of roll test mode"/>
+    <!-- Test Failures -->
+    <ABSFailure Code="4080" Description="ABS Test failed"/>
+    <SoftwareFailure Code="4081" Description="Software failure detected - Please notify BEP!"/>
+    <UplineTestsIncomplete Code="4082" Description="Upline tests not complete prior to rolls testing"/>
+    <TimeoutFailure Code="4090" Description="Test step timeout"/>
+    <TestTimeout Code="4090" Description="Test step timeout"/>
+    <TargetSpeedTimeout Code="4091" Description="Timeout waiting for vehicle to be in speed range"/>
+    <BrakeSwitchTimeout Code="4092" Description="Timeout waiting for brake switch to be in position"/>
+    <MaintainSpeedFailure Code="4093" Description="Failed to maintain constant speed"/>
+    <BrakeSwitchStatesNotSeen Code="4094" Description="Failed to see brake switch in both ON and OFF position"/>
+    <StartModuleKeepAliveFail Code="40A0" Description="Failed to start module keep alive thread"/>
+    <StopModuleKeepAliveFail Code="40A1" Description="Failed to stop module keep alive thread"/>
+    <PartNumberMismatch Code="40A2" Description="Module part number does not match broadcast"/>
+    <VINMismatch Code="40A3" Description="Module VIN does not match broadcast"/>
+    <EvacAndFillIncomplete Code="40A4" Description="Evac and fill procedure not completed prior to rolls testing"/>
+    <CalibrateGSensorFail Code="40A5" Description="Failed to calibrate G-Sensor"/>
+    <GSwitchMissing Code="40A6" Description="Module missing G-Switch"/>
+    <FluidFillSwitchOn Code="40A7" Description="Fluid Fill Switch is ON - Check Brake fluid level\n"/>
+    <LowSpeedSensorTestFail Code="40B0" Description="Low speed wheel sensor test failed"/>
+    <LeftFrontLowSpeedSensorTestSensorHigh Code="40B1" Description="Low Speed: Left Front wheel speed sensor reading high"/>
+    <RightFrontLowSpeedSensorTestSensorHigh Code="40B2" Description="Low Speed: Right Front wheel speed sensor reading high"/>
+    <LeftRearLowSpeedSensorTestSensorHigh Code="40B3" Description="Low Speed: Left Rear wheel speed sensor reading high"/>
+    <RightRearLowSpeedSensorTestSensorHigh Code="40B4" Description="Low Speed: Right Rear wheel speed sensor reading high"/>
+    <LeftFrontLowSpeedSensorTestSensorLow Code="40B5" Description="Low Speed: Left Front wheel speed sensor reading low"/>
+    <RightFrontLowSpeedSensorTestSensorLow Code="40B6" Description="Low Speed: Right Front wheel speed sensor reading low"/>
+    <LeftRearLowSpeedSensorTestSensorLow Code="40B7" Description="Low Speed: Left Rear wheel speed sensor reading low"/>
+    <RightRearLowSpeedSensorTestSensorLow Code="40B8" Description="Low Speed: Right Rear wheel speed sensor reading low"/>
+    <HighSpeedSensorTestFail Code="40C0" Description="High speed wheel sensor test failed"/>
+    <LeftFrontHighSpeedSensorTestSensorHigh Code="40C1" Description="High Speed: Left Front wheel speed sensor reading high"/>
+    <RightFrontHighSpeedSensorTestSensorHigh Code="40C2" Description="High Speed: Right Front wheel speed sensor reading high"/>
+    <LeftRearHighSpeedSensorTestSensorHigh Code="40C3" Description="High Speed: Left Rear wheel speed sensor reading high"/>
+    <RightRearHighSpeedSensorTestSensorHigh Code="40C4" Description="High Speed: Right Rear wheel speed sensor reading high"/>
+    <LeftFrontHighSpeedSensorTestSensorLow Code="40C5" Description="High Speed: Left Front wheel speed sensor reading low"/>
+    <RightFrontHighSpeedSensorTestSensorLow Code="40C6" Description="High Speed: Right Front wheel speed sensor reading low"/>
+    <LeftRearHighSpeedSensorTestSensorLow Code="40C7" Description="High Speed: Left Rear wheel speed sensor reading low"/>
+    <RightRearHighSpeedSensorTestSensorLow Code="40C8" Description="High Speed: Right Rear wheel speed sensor reading low"/>
+    <ExcessiveBrakeForce Code="40D0" Description="Excessive brake force used to stop vehicle, inspect tires for damage"/>
+    <LeftFrontDragFault Code="40E0" Description="Left Front drag too high"/>
+    <RightFrontDragFault Code="40E1" Description="Right Front drag too high"/>
+    <LeftRearDragFault Code="40E2" Description="Left Rear drag too high"/>
+    <RightRearDragFault Code="40E3" Description="Right Rear drag too high"/>
+    <LeftFrontForceFault Code="40E4" Description="Left Front brake force too low"/>
+    <RightFrontForceFault Code="40E5" Description="Right Front brake force too low"/>
+    <LeftRearForceFault Code="40E6" Description="Left Rear brake force too low"/>
+    <RightRearForceFault Code="40E7" Description="Right Rear brake force too low"/>
+    <FrontBalanceFault Code="40E8" Description="Front side to side brake balance out of limits"/>
+    <RearBalanceFault Code="40E9" Description="Rear side to side brake balance out of limits"/>
+    <FrontToRearBalanceFault Code="40EA" Description="Front to rear brake balance out of limits"/>
+    <ReduxRecovSequenceFail Code="40F0" Description="Failure performing reduction/recovery sequence"/>
+    <LeftFrontReductionFail Code="40F1" Description="Left front reduction not sufficient"/>
+    <RightFrontReductionFail Code="40F2" Description="Right front reduction not sufficient"/>
+    <LeftRearReductionFail Code="40F3" Description="Left rear reduction not sufficient"/>
+    <RightRearReductionFail Code="40F4" Description="Right rear reduction not sufficient"/>
+    <LeftFrontRecoveryFail Code="40F5" Description="Left front recovery not sufficient"/>
+    <RightFrontRecoveryFail Code="40F6" Description="Right front recovery not sufficient"/>
+    <LeftRearRecoveryFail Code="40F7" Description="Left rear recovery not sufficient"/>
+    <RightRearRecoveryFail Code="40F8" Description="Right rear recovery not sufficient"/>
+    <LeftFrontValveCrossedWithRightFront Code="4100" Description="Left Front valve crossed with Right Front valve"/>
+    <LeftFrontValveCrossedWithRightRear Code="4101" Description="Left Front valve crossed with Right Rear valve"/>
+    <LeftFrontValveCrossedWithLeftRear Code="4102" Description="Left Front valve crossed with Left Rear valve"/>
+    <LeftRearValveCrossedWithLeftFront Code="4103" Description="Left Rear valve crossed with Left Front valve"/>
+    <LeftRearValveCrossedWithRightFront Code="4104" Description="Left Rear valve crossed with Right Front valve"/>
+    <LeftRearValveCrossedWithRightRear Code="4105" Description="Left Rear valve crossed with Right Rear valve"/>
+    <RightFrontValveCrossedWithLeftFront Code="4106" Description="Right Front valve crossed with Left Front valve"/>
+    <RightFrontValveCrossedWithRightRear Code="4107" Description="Right Front valve crossed with Right Rear valve"/>
+    <RightFrontValveCrossedWithLeftRear Code="4108" Description="Right Front valve crossed with Left Rear valve"/>
+    <RightRearValveCrossedWithLeftFront Code="4109" Description="Right Rear valve crossed with Left Front valve"/>
+    <RightRearValveCrossedWithRightFront Code="410A" Description="Right Rear valve crossed with Right Front valve"/>
+    <RightRearValveCrossedWithLeftRear Code="410B" Description="Right Rear valve crossed with Left Rear valve"/>
+    <LeftFrontSensorCrossedWithRightFront Code="4110" Description="Left Front wheel speed sensor crossed with Right Front"/>
+    <LeftFrontSensorCrossedWithRightRear Code="4111" Description="Left Front wheel speed sensor crossed with Right Rear"/>
+    <LeftFrontSensorCrossedWithLeftRear Code="4112" Description="Left Front wheel speed sensor crossed with Left Rear"/>
+    <LeftRearSensorCrossedWithLeftFront Code="4113" Description="Left Rear wheel speed sensor crossed with Left Front"/>
+    <LeftRearSensorCrossedWithRightFront Code="4114" Description="Left Rear wheel speed sensor crossed with Right Front"/>
+    <LeftRearSensorCrossedWithRightRear Code="4115" Description="Left Rear wheel speed sensor crossed with Right Rear"/>
+    <RightFrontSensorCrossedWithLeftFront Code="4116" Description="Right Front wheel speed sensor crossed with Left Front"/>
+    <RightFrontSensorCrossedWithRightRear Code="4117" Description="Right Front wheel speed sensor crossed with Right Rear"/>
+    <RightFrontSensorCrossedWithLeftRear Code="4118" Description="Right Front wheel speed sensor crossed with Left Rear"/>
+    <RightRearSensorCrossedWithLeftFront Code="4119" Description="Right Rear wheel speed sensor crossed with Left Front"/>
+    <RightRearSensorCrossedWithRightFront Code="411A" Description="Right Rear wheel speed sensor crossed with Right Front"/>
+    <RightRearSensorCrossedWithLeftRear Code="411B" Description="Right Rear wheel speed sensor crossed with Left Rear"/>
+    <RearSensorCrossedWithLeftFront Code="411C" Description="Rear wheel speed sensor crossed with Left Front"/>
+    <RearSensorCrossedWithRightFront Code="411D" Description="Rear wheel speed sensor crossed with Right Front"/>
+    <GSensorCrossedWithLeftFront Code="4120" Description="G-Sensor crossed with Left Front"/>
+    <GSensorCrossedWithRightFront Code="4121" Description="G-Sensor crossed with Right Front"/>
+    <GSensorCrossedWithLeftRear Code="4122" Description="G-Sensor crossed with Left Rear"/>
+    <GSensorCrossedWithRightRear Code="4123" Description="G-Sensor crossed with Right Rear"/>
+    <DriveTestNotComplete Code="4124" Description="Drive Test Not Completed"/>
+    <ExcessiveParkBrakeForce Code="4125" Description="Excessive park brake force"/>
+    <InsufficientParkBrakeForce Code="4126" Description="Insufficient park brake force"/>
+    <OperatorFailure Code="4127" Description="Operator failed the test"/>
+    <CommandDriveModeFail Code="4127" Description="DTCM Module failed to change drive mode"/>
+    <!-- Module Faults -->
+    <ModuleFault_40311D Code="40311D" Description="Left Front Wheel Speed Sensor-Circuit Current Out of Range"/>
+	<ModuleFault_40341D Code="40341D" Description="Right Front Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_40371D Code="40371D" Description="Left Rear Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_403A1D Code="403A1D" Description="Right Rear Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_40311D Code="40311D" Description="Left Front Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_40341D Code="40341D" Description="Right Front Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_40371D Code="40371D" Description="Left Rear Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_403A1D Code="403A1D" Description="Right Rear Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_403162 Code="403162" Description="Left Front Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403462 Code="403462" Description="Right Front Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403762 Code="403762" Description="Left Rear Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403A62 Code="403A62" Description="Right Rear Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_40312F Code="40312F" Description="Left Front Wheel Speed Sensor-Signal Erratic"/>   
+	<ModuleFault_40342F Code="40342F" Description="Right Front Wheel Speed Sensor-Signal Erratic"/>   
+	<ModuleFault_40372F Code="40372F" Description="Left Rear Wheel Speed Sensor-Signal Erratic"/>   
+	<ModuleFault_403A2F Code="403A2F" Description="Right Rear Wheel Speed Sensor-Signal Erratic"/>   
+	<ModuleFault_403162 Code="403162" Description="Left Front Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403462 Code="403462" Description="Right Front Wheel Speed Sensor-Signal Compare Failure"/>  
+	<ModuleFault_403762 Code="403762" Description="Left Rear Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403A62 Code="403A62" Description="Right Rear Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403162 Code="403162" Description="Left Front Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403462 Code="403462" Description="Right Front Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403762 Code="403762" Description="Left Rear Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_403A62 Code="403A62" Description="Right Rear Wheel Speed Sensor-Signal Compare Failure"/>   
+	<ModuleFault_40311D Code="40311D" Description="Left Front Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_40341D Code="40341D" Description="Right Front Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_40371D Code="40371D" Description="Left Rear Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_403A1D Code="403A1D" Description="Right Rear Wheel Speed Sensor-Circuit Current Out of Range"/>   
+	<ModuleFault_40314A Code="40314A" Description="Left Front Wheel Speed Sensor-Incorrect Component Installed"/>   
+	<ModuleFault_40344A Code="40344A" Description="Right Front Wheel Speed Sensor-Incorrect Component Installed"/>   
+	<ModuleFault_40374A Code="40374A" Description="Left Rear Wheel Speed Sensor-Incorrect Component Installed"/>   
+	<ModuleFault_403A4A Code="403A4A" Description="Right Rear Wheel Speed Sensor-Incorrect Component Installed"/>   
+	<ModuleFault_507B62 Code="507B62" Description="Wheel Speed Comparative Performance-Signal Compare Failure"/>   
+	<ModuleFault_40314A Code="40314A" Description="Left Front Wheel Speed Sensor-Incorrect Component Installed"/>   
+	<ModuleFault_40344A Code="40344A" Description="Right Front Wheel Speed Sensor-Incorrect Component Installed"/>   
+	<ModuleFault_40374A Code="40374A" Description="Left Rear Wheel Speed Sensor-Incorrect Component Installed"/>   
+	<ModuleFault_403A4A Code="403A4A" Description="Right Rear Wheel Speed Sensor-Incorrect Component Installed"/>   
+	<ModuleFault_408B12 Code="408B12" Description="Wheel Speed Sensor Supply-Circuit Short to Battery"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>  
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620045 Code="620045" Description="Anti-lock Brake Module Internal-Program Memory Failure"/>   
+	<ModuleFault_620045 Code="620045" Description="Anti-lock Brake Module Internal-Program Memory Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_610016 Code="610016" Description="Battery Voltage Low-Circuit Voltage Below Threshold"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_40312F Code="40312F" Description="Left Front Wheel Speed Sensor-Signal Erratic"/>   
+	<ModuleFault_40342F Code="40342F" Description="Right Front Wheel Speed Sensor-Signal Erratic"/>   
+	<ModuleFault_40372F Code="40372F" Description="Left Rear Wheel Speed Sensor-Signal Erratic"/>   
+	<ModuleFault_403A2F Code="403A2F" Description="Right Rear Wheel Speed Sensor-Signal Erratic"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620041 Code="620041" Description="Anti-lock Brake Module Internal-General Checksum Failure"/>   
+	<ModuleFault_620045 Code="620045" Description="Anti-lock Brake Module Internal-Program Memory Failure"/>   
+	<ModuleFault_620045 Code="620045" Description="Anti-lock Brake Module Internal-Program Memory Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620045 Code="620045" Description="Anti-lock Brake Module Internal-Program Memory Failure"/>   
+	<ModuleFault_620044 Code="620044" Description="Anti-lock Brake Module Internal-Data Memory Failure"/>   
+	<ModuleFault_620045 Code="620045" Description="Anti-lock Brake Module Internal-Program Memory Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620047 Code="620047" Description="Anti-lock Brake Module Internal-Watchdog / Safety ÂµC Failure"/>   
+	<ModuleFault_620045 Code="620045" Description="Anti-lock Brake Module Internal-Program Memory Failure"/>   
+	<ModuleFault_40201C Code="40201C" Description="ABS Pump Motor Control-Circuit Voltage Out of Range"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_4020F1 Code="4020F1" Description="ABS Pump Motor Control - TBD"/>   
+	<ModuleFault_402001 Code="402001" Description="ABS Pump Motor Control-General Electrical Failure"/>   
+	<ModuleFault_40200A Code="40200A" Description="ABS Pump Motor Control-General Electrical Failures - 2"/>   
+	<ModuleFault_610016 Code="610016" Description="Battery Voltage Low-Circuit Voltage Below Threshold"/>   
+	<ModuleFault_40497B Code="40497B" Description="Brake Fluid-Low Fluid Level"/>   
+	<ModuleFault_404264 Code="404264" Description="Brake Pedal Position Sensor-Signal Plausibility Failure"/>   
+	<ModuleFault_404262 Code="404262" Description="Brake Pedal Position Sensor-Signal Compare Failure"/>   
+	<ModuleFault_404462 Code="404462" Description="Brake Pressure Sensor 1-Signal Compare Failure"/>   
+	<ModuleFault_404464 Code="404464" Description="Brake Pressure Sensor 1-Signal Plausibility Failure"/>   
+	<ModuleFault_404464 Code="404464" Description="Brake Pressure Sensor 1-Signal Plausibility Failure"/>   
+	<ModuleFault_404464 Code="404464" Description="Brake Pressure Sensor 1-Signal Plausibility Failure"/>   
+	<ModuleFault_404462 Code="404462" Description="Brake Pressure Sensor 1-Signal Compare Failure"/>   
+	<ModuleFault_404462 Code="404462" Description="Brake Pressure Sensor 1-Signal Compare Failure"/>   
+	<ModuleFault_404462 Code="404462" Description="Brake Pressure Sensor 1-Signal Compare Failure"/>   
+	<ModuleFault_404462 Code="404462" Description="Brake Pressure Sensor 1-Signal Compare Failure"/>   
+	<ModuleFault_404462 Code="404462" Description="Brake Pressure Sensor 1-Signal Compare Failure"/>   
+	<ModuleFault_508211 Code="508211" Description="Vacuum Pressure Sensor-Circuit Short to Ground"/>   
+	<ModuleFault_508212 Code="508212" Description="Vacuum Pressure Sensor-Circuit Short to Battery"/>   
+	<ModuleFault_50822F Code="50822F" Description="Vacuum Pressure Sensor-Signal Erratic"/>   
+	<ModuleFault_50832F Code="50832F" Description="Vacuum Pressure Sensor 2 -Signal Erratic"/>   
+	<ModuleFault_508202 Code="508202" Description="Vacuum Pressure Sensor-General Signal Failure"/>   
+	<ModuleFault_508202 Code="508202" Description="Vacuum Pressure Sensor-General Signal Failure"/>   
+	<ModuleFault_402102 Code="402102" Description="Brake Booster-General Signal Failure"/>   
+	<ModuleFault_402102 Code="402102" Description="Brake Booster-General Signal Failure"/>   
+	<ModuleFault_52461C Code="52461C" Description="Vacuum Pressure Sensor Supply-Circuit Voltage Out of Range"/>   
+	<ModuleFault_405162 Code="405162" Description="Steering Wheel Position Sensor-Signal Compare Failure"/>   
+	<ModuleFault_405128 Code="405128" Description="Steering Wheel Position Sensor-Signal Bias Level Out of Range / Zero Adjustment failure"/>   
+	<ModuleFault_405128 Code="405128" Description="Steering Wheel Position Sensor-Signal Bias Level Out of Range / Zero Adjustment failure"/>   
+	<ModuleFault_405122 Code="405122" Description="Steering Wheel Position Sensor-Signal Amplitude > Maximum"/>   
+	<ModuleFault_405162 Code="405162" Description="Steering Wheel Position Sensor-Signal Compare Failure"/>   
+	<ModuleFault_40512F Code="40512F" Description="Steering Wheel Position Sensor-Signal Erratic"/>   
+	<ModuleFault_40514B Code="40514B" Description="Steering Wheel Position Sensor-Missing Calibration"/>   
+	<ModuleFault_406A62 Code="406A62" Description="Multi-axis Acceleration Sensor-Signal Compare Failure"/>   
+	<ModuleFault_406A2F Code="406A2F" Description="Multi-axis Acceleration Sensor-Signal Erratic"/>   
+	<ModuleFault_406A28 Code="406A28" Description="Multi-axis Acceleration Sensor-Signal Bias Level Out of Range / Zero Adjustment failure"/>   
+	<ModuleFault_406A09 Code="406A09" Description="Multi-axis Acceleration Sensor - Component Failure"/>   
+	<ModuleFault_406A62 Code="406A62" Description="Multi-axis Acceleration Sensor-Signal Compare Failure"/>   
+	<ModuleFault_406A02 Code="406A02" Description="Multi-axis Acceleration Sensor - General Signal Failure"/>   
+	<ModuleFault_406A62 Code="406A62" Description="Multi-axis Acceleration Sensor-Signal Compare Failure"/>   
+	<ModuleFault_406A2F Code="406A2F" Description="Multi-axis Acceleration Sensor-Signal Erratic"/>   
+	<ModuleFault_406A28 Code="406A28" Description="Multi-axis Acceleration Sensor-Signal Bias Level Out of Range / Zero Adjustment failure"/>   
+	<ModuleFault_406A28 Code="406A28" Description="Multi-axis Acceleration Sensor-Signal Bias Level Out of Range / Zero Adjustment failure"/>   
+	<ModuleFault_406A62 Code="406A62" Description="Multi-axis Acceleration Sensor-Signal Compare Failure"/>   
+	<ModuleFault_406A62 Code="406A62" Description="Multi-axis Acceleration Sensor-Signal Compare Failure"/>   
+	<ModuleFault_406A2F Code="406A2F" Description="Multi-axis Acceleration Sensor-Signal Erratic"/>   
+	<ModuleFault_406A28 Code="406A28" Description="Multi-axis Acceleration Sensor-Signal Bias Level Out of Range / Zero Adjustment failure"/>   
+	<ModuleFault_406A28 Code="406A28" Description="Multi-axis Acceleration Sensor-Signal Bias Level Out of Range / Zero Adjustment failure"/>   
+	<ModuleFault_406A62 Code="406A62" Description="Multi-axis Acceleration Sensor-Signal Compare Failure"/>   
+	<ModuleFault_978301 Code="978301" Description="Stop Lamp Control-General Electrical Failure"/>   
+	<ModuleFault_97830A Code="97830A" Description="Stop Lamp Control-General Electrical Failure-2"/>   
+	<ModuleFault_610016 Code="610016" Description="Battery Voltage Low-Circuit Voltage Below Threshold"/>   
+	<ModuleFault_610016 Code="610016" Description="Battery Voltage Low-Circuit Voltage Below Threshold"/>   
+	<ModuleFault_610117 Code="610117" Description="Battery Voltage High-Circuit Voltage Above Threshold"/>   
+	<ModuleFault_610117 Code="610117" Description="Battery Voltage High-Circuit Voltage Above Threshold"/>   
+	<ModuleFault_610117 Code="610117" Description="Battery Voltage High-Circuit Voltage Above Threshold"/>   
+	<ModuleFault_620048 Code="620048" Description="Anti-lock Brake Module Internal-Supervision Software Failure"/>   
+	<ModuleFault_610016 Code="610016" Description="Battery Voltage Low-Circuit Voltage Below Threshold"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_526000 Code="526000" Description="ABS/ESC Dynamic Controls Disabled-"/>  
+	<ModuleFault_526000 Code="526000" Description="ABS/ESC Dynamic Controls Disabled-"/>   
+	<ModuleFault_526000 Code="526000" Description="ABS/ESC Dynamic Controls Disabled-"/>   
+	<ModuleFault_C00100 Code="C00100" Description="CAN1 C Bus Off Performance"/>   
+	<ModuleFault_C00200 Code="C00200" Description="CAN2 C Bus Off Performance-"/>   
+	<ModuleFault_C10000 Code="C10000" Description="Lost Communication With ECM/PCM-"/>   
+	<ModuleFault_C14000 Code="C14000" Description="Lost Communication With Body Control Module-"/>   
+	<ModuleFault_D00100 Code="D00100" Description="Lost Communication with ADAS MAM"/>  
+	<ModuleFault_C10000 Code="C10000" Description="Lost Communication With ECM/PCM-"/>   
+	<ModuleFault_C10000 Code="C10000" Description="Lost Communication With ECM/PCM-"/>   
+	<ModuleFault_C40100 Code="C40100" Description="Implausible Data Received From ECM/PCM-"/>   
+	<ModuleFault_C10000 Code="C10000" Description="Lost Communication With ECM/PCM-"/>   
+	<ModuleFault_C10100 Code="C10100" Description="Lost Communication with TCM-"/>   
+	<ModuleFault_C40200 Code="C40200" Description="Implausible Data Received From TCM"/>
+	<ModuleFault_C21200 Code="C21200" Description="Lost Communication With Steering Column Control Module-"/>   
+	<ModuleFault_C42900 Code="C42900" Description="Implausible Data Received from Steering Column Control Module-"/>   
+	<ModuleFault_C42900 Code="C42900" Description="Implausible Data Received from Steering Column Control Module-"/>   
+	<ModuleFault_D00300 Code="D00300" Description="Lost Communication with HSA"/>   
+	<ModuleFault_D20300 Code="D20300" Description="Implausible Data Received from HSA"/>   
+	<ModuleFault_D20300 Code="D20300" Description="Implausible Data Received from HSA"/>   
+	<ModuleFault_D00100 Code="D00100" Description="Lost Communication with ADAS MAM"/>   
+	<ModuleFault_D21600 Code="D21600" Description="Lost Communication with Driver Assistance System Module-"/>   
+	<ModuleFault_D21600 Code="D21600" Description="Lost Communication with Driver Assistance System Module-"/>   
+	<ModuleFault_C40200 Code="C40200" Description="Implausible Data Received From TCM-"/>   
+	<ModuleFault_C40200 Code="C40200" Description="Implausible Data Received From TCM-"/>   
+	<ModuleFault_C40200 Code="C40200" Description="Implausible Data Received From TCM-"/>   
+	<ModuleFault_C40100 Code="C40100" Description="Implausible Data Received From ECM/PCM-"/>   
+	<ModuleFault_C14000 Code="C14000" Description="Lost Communication With Body Control Module-"/>   
+	<ModuleFault_C42200 Code="C42200" Description="Implausible Data Received From Body Control Module-"/>   
+	<ModuleFault_C42200 Code="C42200" Description="Implausible Data Received From Body Control Module-"/>   
+	<ModuleFault_C40100 Code="C40100" Description="Implausible Data Received From ECM/PCM-"/>   
+	<ModuleFault_C40100 Code="C40100" Description="Implausible Data Received From ECM/PCM-"/>   
+	<ModuleFault_C40100 Code="C40100" Description="Implausible Data Received From ECM/PCM-"/>   
+	<ModuleFault_406A49 Code="406A49" Description="Multi-axis Acceleration Sensor-Internal Electronic Failure"/>   
+	<ModuleFault_406A49 Code="406A49" Description="Multi-axis Acceleration Sensor-Internal Electronic Failure"/>   
+	<ModuleFault_406A49 Code="406A49" Description="Multi-axis Acceleration Sensor-Internal Electronic Failure"/>   
+	<ModuleFault_C12500 Code="C12500" Description="Lost Communication With Dynamics Sensor-"/>   
+	<ModuleFault_C45200 Code="C45200" Description="Implausible Data Received From Restraints Control Module-"/>   
+	<ModuleFault_406A49 Code="406A49" Description="Multi-axis Acceleration Sensor-Internal Electronic Failure"/>   
+	<ModuleFault_406A49 Code="406A49" Description="Multi-axis Acceleration Sensor-Internal Electronic Failure"/>   
+	<ModuleFault_406A49 Code="406A49" Description="Multi-axis Acceleration Sensor-Internal Electronic Failure"/>   
+	<ModuleFault_C42900 Code="C42900" Description="Implausible Data Received from Steering Column Control Module-"/>   
+	<ModuleFault_620600 Code="620600" Description="Vehicle Configuration Mismatch-"/>   
+	<ModuleFault_620654 Code="620654" Description="Vehicle Configuration Mismatch - Missing Calibration"/>   
+	<ModuleFault_406C9A Code="406C9A" Description="Stability System-Component or System Operating Conditions"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_620049 Code="620049" Description="Anti-lock Brake Module Internal-Internal Electronic Failure"/>   
+	<ModuleFault_526000 Code="526000" Description="ABS/ESC Dynamic Controls Disabled-"/>   
+</BrakeTestFaults>
+

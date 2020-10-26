@@ -5,7 +5,6 @@
       <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
       <CommunicationBus>CAN</CommunicationBus>
       <!-- From Advics \/-->
-      <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
       <KeepAlivePriority>10</KeepAlivePriority>
       <SwitchMonitorDelay>500</SwitchMonitorDelay>
       <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
@@ -22,20 +21,20 @@
       <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
       <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
       <NegativeResponseValue>0x7F</NegativeResponseValue>
-      <ModuleResponseDelay>550</ModuleResponseDelay>
-      <ModuleResponseEndDelay>150</ModuleResponseEndDelay>
-      <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+      <ModuleResponseDelay>1000</ModuleResponseDelay>
+      <ModuleResponseEndDelay>1000</ModuleResponseEndDelay>
+      <ModuleKeepAliveTime>2000</ModuleKeepAliveTime>
       <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
       <SwitchMonitorDelay>50</SwitchMonitorDelay>
       <BaudRate>10400</BaudRate>
       <MessageData>
           <NumberOfPartNumberMessages>1</NumberOfPartNumberMessages>
       </MessageData> 
-      <DtcData>
-         <DTCCountIndex>4</DTCCountIndex>
-         <BytesPerDtc>3</BytesPerDtc>
-         <DtcStartIndex>5</DtcStartIndex>
-      </DtcData>
+      <DTCData>
+         <DTCCountIndex>-1</DTCCountIndex>
+         <BytesPerDTC>4</BytesPerDTC>
+         <FirstDTCByteIndex>3</FirstDTCByteIndex>
+      </DTCData>
       <ValidPartNumbers>
           <TrialAPG>MADE APGZHU</TrialAPG>
       </ValidPartNumbers>
@@ -133,9 +132,9 @@
             <TransmitMessage>ClearFaults</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>ClearFaults</ReplyMessage>
-            <ReplyInterpretation>ClearFaultsDone</ReplyInterpretation>
+            <ReplyInterpretation/>
          </ClearFaults>
-         <ReadPartNumber Status="works">
+         <ReadPartNumber Status="Works">
             <TransmitMessage>ReadPartNumber</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>ReadPartNumber</ReplyMessage>
@@ -423,9 +422,9 @@
             <ReplyInterpretation/>
          </StopPumpMotor>
          <AllInletValvesOff>
-            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitMessage>ABSValveActuationOff</TransmitMessage>
             <TransmitInterpretation>AllInletValvesOff</TransmitInterpretation>
-            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyMessage>ABSValveActuationOff</ReplyMessage>
             <ReplyInterpretation/>
          </AllInletValvesOff>
          <AllInletValvesOn>
@@ -500,33 +499,20 @@
             <!-- <ReplyMessage>ModuleWakeUp</ReplyMessage> -->
             <!-- <ReplyInterpretation/> -->
          <!-- </ModuleWakeUp> -->
-         <EnterRollsMode>
-            <TransmitMessage>EnterRollsMode<TransmitMessage>
-            <TransmitInterpretation></TransmitInterpretation>
-            <ReplyMessage>RollsMode</ReplyMessage>
-            <ReplyInterpretation/>
-         </EnterRollsMode>
-         <ExitRollsMode>
-            <TransmitMessage>ExitRollsMode</TransmitMessage>
-            <TransmitInterpretation></TransmitInterpretation>
-            <ReplyMessage>RollsMode</ReplyMessage>
-            <ReplyInterpretation/>
-         </ExitRollsMode>
       </VehicleMessages>
       <TransmitMessages>
          <ABSValveActuation>0x2F,0xDA,0x81,0x03,0x??,0x??</ABSValveActuation>
+         <ABSValveActuationOff>0x2F,0xDA,0x81,0x00,0x??,0x??</ABSValveActuationOff>
          <PumpMotor>0x2F,0xDA,0x81,0x03,0x??,0x??</PumpMotor>
-         <ModuleKeepAlive>0x3E</ModuleKeepAlive>
+         <ModuleKeepAlive>0x3E,0x00</ModuleKeepAlive>
          <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
-         <ReadFaults>0x19,0x02,0xFF</ReadFaults>
+         <ReadFaults>0x19,0x02,0x08</ReadFaults>
          <EnterDiagnosticMode>0x10,0x03</EnterDiagnosticMode>
          <ReadPartNumber>0x22,0xDA,0x14</ReadPartNumber>
          <ExitDiagnosticMode>0x10,0x01</ExitDiagnosticMode>
          <ReadLid>0x22,0x??,0x??,0x??,0x??</ReadLid>
 		 <ReadPid>0x22,0x??,0x??</ReadPid>
          <WriteLid>0x2E,0x??,0x??,0x??,0x??,0x??,0x??</WriteLid>
-         <EnterRollsMode>0x02,0x10,0x40</EnterRollsMode>
-         <ExitRollsMode>0x02,0x10,0x01</ExitRollsMode>
          <!--ReadVacuumFillingEndFlag>0x82,0x28,0xF1,0x1A,0x9E</ReadVacuumFillingEndFlag-->
          <!-- <EnableSafety>0x82,0x28,0xF1,0xA1,0x00</EnableSafety> -->
          <!-- <DisableSafety>0x82,0x28,0xF1,0xA1,0x01</DisableSafety> -->
@@ -566,20 +552,22 @@
          <RunPumpMotor>0x00,0x08</RunPumpMotor>
          <StopPumpMotor>0x00,0x00</StopPumpMotor>
          <!-- ABS Test -->
-		 <AllInletValvesOff>0xAA,0x00</AllInletValvesOff>
+		 <AllInletValvesOff>0x00,0x00</AllInletValvesOff>
          <AllInletValvesOn>0x00,0x00</AllInletValvesOn>
          <LFABSReduction>0x20,0x00</LFABSReduction>
          <LFABSHold>0x30,0x00</LFABSHold>
-         <LFABSRecovery>0x10,0x00</LFABSRecovery>
+         <LFABSRecovery>0x30,0x80</LFABSRecovery>
          <RFABSReduction>0x80,0x00</RFABSReduction>
          <RFABSHold>0xC0,0x00</RFABSHold>
-         <RFABSRecovery>0x40,0x00</RFABSRecovery>
+         <RFABSRecovery>0xC0,0x80</RFABSRecovery>
          <LRABSReduction>0x02,0x00</LRABSReduction>
          <LRABSHold>0x03,0x00</LRABSHold>
-         <LRABSRecovery>0x01,0x00</LRABSRecovery>
+         <!--LRABSRecovery>0x03,0x08</LRABSRecovery-->
+         <LRABSRecovery>0x0F,0x08</LRABSRecovery>
          <RRABSReduction>0x08,0x00</RRABSReduction>
          <RRABSHold>0x0C,0x00</RRABSHold>
-         <RRABSRecovery>0x04,0x00</RRABSRecovery>         
+         <!--RRABSRecovery>0x0C,0x08</RRABSRecovery-->
+         <RRABSRecovery>0x0F,0x08</RRABSRecovery>         
          <ABSPressureRelease>0xFF,0x00</ABSPressureRelease>
          <ABSRecovery>0x44,0x00</ABSRecovery>
       </TransmitInterpretations>
@@ -588,11 +576,6 @@
 			<Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x50,0x??</Reply_00>
             <Reply_01>0x7F,0x10,0x??</Reply_01>
          </EnterDiagnosticMode>
-         <RollsMode>
-            <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x42,0x??</Reply_00>
-            <Reply_01>0x7F,0x02,0x??</Reply_01>
-         </RollsMode>
-
          <StartDiagnosticSession>
             <Reply_00>0x82,0xF1,0x28,0x50,0x83,0x??</Reply_00>
             <Reply_01>0x83,0xF1,0x28,0x7F,0x10,0x??</Reply_01>
@@ -610,8 +593,8 @@
             <Reply_01>0x83,0xF1,0x28,0x7F,0x1A,0x??</Reply_01>
          </ReadVacuumFillingEndFlag>
          <ClearFaults>
-            <Reply_00>0x81,0xF1,0x28,0x54,0x??</Reply_00>
-            <Reply_01>0x83,0xF1,0x28,0x7F,0x14,0x??</Reply_01>
+            <Reply_00>0x54</Reply_00>
+            <Reply_01>0x7F,0x14,0x??</Reply_01>
          </ClearFaults>
          <ServiceData>
             <Reply_00>0xA1,0xF1,0x28,0x61,0x01,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
@@ -649,10 +632,14 @@
             <Reply_01>0x7F,0x2F,0x??</Reply_01>
             <!-- <Reply_02>0x83,0xF1,0x28,0x7F,0x30,0x??,0x??</Reply_02> -->
          </ABSValveActuation>
+         <ABSValveActuationOff>
+            <Reply_00>0x6F,0xDA,0x81,0x00,0x??,0x??</Reply_00>
+            <Reply_01>0x7F,0x2F,0x??</Reply_01>
+            <!-- <Reply_02>0x83,0xF1,0x28,0x7F,0x30,0x??,0x??</Reply_02> -->
+         </ABSValveActuationOff>
          <ReadFaults>
-            <Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x??,0xF1,0x28,0x58,0x??</Reply_00>
-            <Reply_01>0x82,0xF1,0x28,0x58,0x??</Reply_01>
-            <Reply_02>0x83,0xF1,0x28,0x7F,0x18,0x??</Reply_02>
+            <Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x7F,0x19,0x??</Reply_00>
+            <Reply_01 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x59,0x02,0x??</Reply_01>
          </ReadFaults>
          <ModuleKeepAlive>
             <Reply_00>0x81,0xF1,0x28,0x7E,0x??</Reply_00>
@@ -695,8 +682,8 @@
       <ReplyInterpretations>
          <ReadFaults>
             <String>
-                <Substring format="%24s">
-                  <Chars input_index="0" mask="0xFF" length="24"/>
+                <Substring format="%12s">
+                  <Chars input_index="2" mask="0xFF" length="12"/>
                </Substring>
             </String>
          </ReadFaults>

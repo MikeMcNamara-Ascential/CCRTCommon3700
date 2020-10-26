@@ -9,20 +9,20 @@
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
-         <DeveloperTest>0</DeveloperTest>
+         <DeveloperTest>1</DeveloperTest>
          <Port>ISOK</Port>
          <UseFastInitLinkup>True</UseFastInitLinkup>
          <DelayModuleInitialization>0</DelayModuleInitialization>
          <DisableMeterForValveFiring>0</DisableMeterForValveFiring>
          <DisplayBrakeMeterUntilZeroSpeed>1</DisplayBrakeMeterUntilZeroSpeed>
          <ForceZeroSpeed>0</ForceZeroSpeed>
-         <HoldReduction>0</HoldReduction>
          <IcmForceArray>/dev/ArrayForce</IcmForceArray>
          <SkipValveCrossAnalysis>0</SkipValveCrossAnalysis>
          <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
          <SecurityUnlockAttempts>3</SecurityUnlockAttempts>
          <SecurityUnlockDelay>1000</SecurityUnlockDelay>
-         <ModulePartNumber>98369588</ModulePartNumber>
+		 <!-- TODO: What is the part number if any? -->
+         <ModulePartNumber> </ModulePartNumber>
          <!-- Park Brake Paramaters -->
          <ParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">35</ParkBrakeArmSpeed>
          <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">35</DynamicParkBrakeArmSpeed>
@@ -110,21 +110,19 @@
             <Wheel_2>RightFront</Wheel_2>
             <Wheel_3>Rear</Wheel_3>
          </ABS3ChannelFiringSequence>
-         <CollectSensorSpeedData Description="Sample sensor speeds during ABS valve firing to check for sensor/valve cross">0</CollectSensorSpeedData>
-         <PerformReductionBeforeRecovery>0</PerformReductionBeforeRecovery>
          <HoldReduction>0</HoldReduction>
          <HoldRecovery>0</HoldRecovery>
-         <PostPumpRunDelay>0</PostPumpRunDelay>
+         <PostPumpRunDelay>3000</PostPumpRunDelay>
          <ABSInitialHoldDelay>2000</ABSInitialHoldDelay>
          <InterWheelGapDelay Units="ms">0</InterWheelGapDelay>       
-         <LFRecoveryPulse>350</LFRecoveryPulse>
-         <RFRecoveryPulse>350</RFRecoveryPulse>
-         <LRRecoveryPulse>370</LRRecoveryPulse>
-         <RRRecoveryPulse>350</RRRecoveryPulse>
-		 <LFReductionPulse>700</LFReductionPulse>
-         <RFReductionPulse>500</RFReductionPulse>
-         <LRReductionPulse>750</LRReductionPulse>
-         <RRReductionPulse>650</RRReductionPulse>
+         <LFRecoveryPulse>1000</LFRecoveryPulse>
+         <RFRecoveryPulse>1000</RFRecoveryPulse>
+         <LRRecoveryPulse>1000</LRRecoveryPulse>
+         <RRRecoveryPulse>1000</RRRecoveryPulse>
+		 <LFReductionPulse>1500</LFReductionPulse>
+         <RFReductionPulse>1500</RFReductionPulse>
+         <LRReductionPulse>1500</LRReductionPulse>
+         <RRReductionPulse>1500</RRReductionPulse>
 		 <LeftFrontMinRecoveryPercent>60.0</LeftFrontMinRecoveryPercent>
          <LeftRearMinRecoveryPercent>50.0</LeftRearMinRecoveryPercent>
          <RightFrontMinRecoveryPercent>60.0</RightFrontMinRecoveryPercent>
@@ -144,6 +142,30 @@
          <PerformReductionBeforeRecovery>1</PerformReductionBeforeRecovery>
          <AbsPrimeCycles>3</AbsPrimeCycles>
          <PrimeAbsStartDelay>3000</PrimeAbsStartDelay>
+		 <!-- Diagnostic Mode Parameters -->
+		 <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">True</AlwaysEnterDiagnosticMode>
+		 <LeftFrontReductionPulseLength>480</LeftFrontReductionPulseLength>
+		 <RightFrontReductionPulseLength>480</RightFrontReductionPulseLength>
+		 <LeftRearReductionPulseLength>480</LeftRearReductionPulseLength>
+		 <RightRearReductionPulseLength>480</RightRearReductionPulseLength>
+		 <RearReductionPulseLength>240</RearReductionPulseLength>
+		 <LeftFrontRecoveryPulseLength>200</LeftFrontRecoveryPulseLength>
+		 <RightFrontRecoveryPulseLength>200</RightFrontRecoveryPulseLength>
+		 <LeftRearRecoveryPulseLength>200</LeftRearRecoveryPulseLength>
+		 <RightRearRecoveryPulseLength>200</RightRearRecoveryPulseLength>
+		 <RearRecoveryPulseLength>200</RearRecoveryPulseLength>
+		 <RearReductionRegister>0x4001</RearReductionRegister>
+		 <RearReductionTime>150</RearReductionTime>
+		 <RearRecoveryRegister>0x4003</RearRecoveryRegister>
+		 <RearRecoveryTime>150</RearRecoveryTime>
+		 <SendKeepAliveDurringValveFire>1</SendKeepAliveDurringValveFire>
+		 <LowSpeedAbs_LeftFrontTorque>-500</LowSpeedAbs_LeftFrontTorque>
+		 <LowSpeedAbs_RightFrontTorque>-500</LowSpeedAbs_RightFrontTorque>
+		 <LowSpeedAbs_LeftRearTorque>-400</LowSpeedAbs_LeftRearTorque>
+		 <LowSpeedAbs_RightRearTorque>-400</LowSpeedAbs_RightRearTorque>
+		 <LowSpeedAbs_SafetyDelay>3000</LowSpeedAbs_SafetyDelay>
+		 <LowSpeedAbs_SafetyMaxSpeed>20</LowSpeedAbs_SafetyMaxSpeed>
+		 <LowSpeedAbs_TestSpeed>-4</LowSpeedAbs_TestSpeed>
       </Parameters>
       <Prompts>
          <AbsPrime PromptBox="1" Priority="0">AbsPrime</AbsPrime>
@@ -160,13 +182,18 @@
          <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
          <ShiftToReverse PromptBox="1" Priority="0">ApplyBrakeShiftToReverse</ShiftToReverse>
          <ShiftPFootOffBrk PromptBox="1" Priority="0">ShiftPFootOffBrk</ShiftPFootOffBrk>
+         <ShiftToNeutralMaintainBrake PromptBox="2" Priority="0">ShiftToNeutralMaintainBrake</ShiftToNeutralMaintainBrake>
+         <TestingAbs PromptBox="1" Priority="0">TestingAbs</TestingAbs>
       </Prompts>
       <StatusCheckItems>
          <CableConnect Comment="Must have cable connect to do ABS testing">1</CableConnect>
          <RollsUpElevDown Comment="Must have retainers up to test anything">1</RollsUpElevDown>
          <StopCurrentTest>0</StopCurrentTest>
       </StatusCheckItems>
-      <FaultList>/Configuration/Components/Common/BrakeFaultList.xml</FaultList>
+      <FaultList>/Configuration/Components/Brake/BrakeFaultListZF.xml</FaultList>
+		<IgnoreFaults>
+			<ModuleFault_C10000/>
+		</IgnoreFaults>
       <Name>Brake</Name>
       <Debug>Off</Debug>
       <ICMName>mgr/ICM</ICMName>
@@ -334,7 +361,7 @@
          <ReadBrakeSwitch>ReadBrakeSwitch</ReadBrakeSwitch>
          <ReadEngineSpeed>ReadEngineSpeed</ReadEngineSpeed>
          <ReadFaults>ReadFaults</ReadFaults>
-         <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+         <ReadModuleFaults>UDSReadFaults</ReadModuleFaults>
          <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
          <ReadPartNumber>ReadPartNumber</ReadPartNumber>
          <ReadRelayState>ReadRelayState</ReadRelayState>
@@ -484,14 +511,15 @@
    <Objectives>
       <Setup>
          <TestStep10>Setup</TestStep10>
+         <TestStep13>StartModuleKeepAlive</TestStep13>
+         <TestStep14>ClearFaults</TestStep14>
          <TestStep15>EnterDiagnosticMode</TestStep15>
-         <TestStep20>StartModuleKeepAlive</TestStep20>
       </Setup>
       <FinishUp>
          <!--TestStep10>StopModuleKeepAlive</TestStep10-->
          <TestStep11>ReadFaults</TestStep11>
-         <TestStep12>WriteVacuumFillingEndFlag</TestStep12>
-         <TestStep13>ExitDiagnosticMode</TestStep13>
+         <!--TestStep12>WriteVacuumFillingEndFlag</TestStep12-->
+         <!--TestStep13>ExitDiagnosticMode</TestStep13-->
          <TestStep99>FinishUp</TestStep99>
       </FinishUp>
       <EnterDiagnosticMode>
@@ -525,13 +553,24 @@
 	  <PreValveFiringTest>
 		<TestStep00>AccelerateToABSSpeed</TestStep00>
 	  </PreValveFiringTest>
-	  <ValveFiringTestSensor>
-         <!-- <TestStep15>ExitDiagnosticMode</TestStep15> -->
-         <TestStep20>DynamicABSValveFiringTest</TestStep20>
+	  <ValveFiringTestSensorRear>
+         <TestStep15>EnterDiagnosticMode</TestStep15>
+         <TestStep20>DynamicABSValveFiringTestRear</TestStep20>
+         <TestStep50>BrakeToStop</TestStep50>
+      </ValveFiringTestSensorRear>
+	  <ValveFiringTestSensorFront>
+         <TestStep15>EnterDiagnosticMode</TestStep15>
+         <TestStep20>DynamicABSValveFiringTestFront</TestStep20>
          <TestStep50>BrakeToStop</TestStep50>
          <TestStep65>EvaluateABS</TestStep65>
          <TestStep75>StopPumpMotor</TestStep75>
-      </ValveFiringTestSensor>
+      </ValveFiringTestSensorFront>
+	  <ValveFiringTest>
+		 <TestStep00>ApplyTorqueToAllRollers</TestStep00>
+		 <TestStep05>DynamicABSValveFiringTest</TestStep05>
+		 <TestStep06>TorqueZero</TestStep06>
+         <TestStep10>EvaluateABS</TestStep10>
+	  </ValveFiringTest>
       <LowSpeedSensorTest>
          <TestStep10>LowSpeedSensorTest</TestStep10>
       </LowSpeedSensorTest>
@@ -684,7 +723,7 @@
       <!-- From BaseBrake -->
       <Initialize Result="" Timeout="10000" Description="Initialize Test Step" Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
       <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="35 40" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0" AbortIfFailed="True"/>
-      <AccelerateToBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Brake Speed" Prompt1="AccelerateToTargetSpeed" ArmSpeed="70" SpeedTarget="60 70" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
+      <AccelerateToBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Brake Speed" Prompt1="AccelerateToTargetSpeed" ArmSpeed="70" SpeedTarget="70 80" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
       <NeutralCheck Result="" Timeout="10000" Description="Wait for shift to neutral after arm speed" Prompt1="ReleaseThrottleShiftNeutral" ScanDelay="100"/>
       <DragTest Result="" Timeout="20000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt2="RemoveFootFromAccelerator" DragSpeed="68" DragDelay="1000" DragSamples="10"/>
       <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2=""/>
@@ -728,8 +767,14 @@
       <UnlockModuleSecurity Result="" Timeout="500" Description="Unlock Module Security"/>
       <CommandSecurityUnlock Result="" Timeout="500" Description="Unlock Module Security"/>
       <AllInletValvesOn Result="" Timeout="500" Description="AllInletValvesOn"/>
-	  <DynamicABSValveFiringTest Result="" Timeout="90000" Description="Fire ABS Valves" Prompt1="BrakeModeratelyInGreenBand" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="Blank" BrakeDomain="0 1000" BrakeTarget="50 200"/>
-      <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="30" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="20 25" ScanDelay="250" AbortIfFailed="True"/>
-      <PrimeAbs Result="" Timeout="30000" Description="Prime ABS system" ScanDelay="250"/>
+	  <DynamicABSValveFiringTest Result="" Timeout="90000" Description="Fire ABS Valves Rear" Prompt1="BrakeModeratelyInGreenBand" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="Blank" BrakeDomain="0 1000" BrakeTarget="50 200"/>
+	  <DynamicABSValveFiringTestRear Result="" Timeout="90000" Description="Fire ABS Valves Rear" Prompt1="BrakeModeratelyInGreenBand" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="Blank" BrakeDomain="0 1000" BrakeTarget="50 200"/>
+	  <DynamicABSValveFiringTestFront Result="" Timeout="90000" Description="Fire ABS Valves Front" Prompt1="BrakeModeratelyInGreenBand" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="Blank" BrakeDomain="0 1000" BrakeTarget="50 200"/>
+      <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="7" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="7 9" ScanDelay="250" AbortIfFailed="True"/>
+      <PrimeAbs Result="" Timeout="30000" Description="Prime ABS system" ScanDelay="250"/>	  
+      <ValveFiringTest Result="" Timeout="30000" Description="Cycle the valves to perform reduction recovery testing" Prompt1="MaintainBrake" BrakeDomain="0 500" BrakeTarget="300 450" ScanDelay="250"/>
+      <LowSpeedValveFiringTest Result="" Timeout="30000" Description="Cycle the valves to perform reduction recovery testing" Prompt1="MaintainBrake" BrakeDomain="0 500" BrakeTarget="300 450" ScanDelay="250"/>
+      <ApplyTorqueToAllRollers Result="" Timeout="30000" Description="Apply torque to rollers"/>
+      <TorqueZero Result="" Timeout="30000" Description="Apply torque to rollers"/>
    </TestSteps>
 </ZFABS>

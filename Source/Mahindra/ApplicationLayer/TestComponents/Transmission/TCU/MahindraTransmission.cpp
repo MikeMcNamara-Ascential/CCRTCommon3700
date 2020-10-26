@@ -112,6 +112,9 @@ const string MahindraTransmission<ModuleType>::CommandTestStep(const string &val
         else if (!GetTestStepName().compare("MisfireTest"))
             result = MisfireTest();
 
+        else if (!GetTestStepName().compare("MaintainSpeed"))
+            result = MaintainSpeed();
+
         //Run the base class function
         else
             result = GenericTransmissionTCTemplate<ModuleType>::CommandTestStep(value);
@@ -137,7 +140,7 @@ string MahindraTransmission<ModuleType>::CheckTpmsStatus(void) {
     string testResult = testFail;
     string testResultCode("0000");
     string testDescription = GetTestStepInfo("Description");
-    string moduleStatus = BEP_TESTING_STATUS;
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_FAILURE;
     bool tpmsStatus = false;
 
     Log(LOG_FN_ENTRY, "Enter MahindraTransmission::CheckTpmsStatus()\n");
@@ -145,7 +148,7 @@ string MahindraTransmission<ModuleType>::CheckTpmsStatus(void) {
     //Check the TPMS status
     moduleStatus = m_tpmsModule.ReadModuleData("CheckTpmsStatus", tpmsStatus);
 
-    if (moduleStatus == testPass)
+    if (moduleStatus == BEP_STATUS_SUCCESS)
     {
         if (tpmsStatus)
         {
@@ -392,11 +395,11 @@ string MahindraTransmission<ModuleType>::ATLearnTest(void) {
                                                         (INT32)newMinPedalPos, (INT32)newMaxPedalPos);
                         SystemWrite(GetDataTag("TPSTarget"), ATThrottleRange);
                         inGreenBand = true;
-                        Log(LOG_DEV_DATA, "Pedal In Initial Range, nextGear %f", nextGear);
+                        Log(LOG_DEV_DATA, "Pedal In Initial Range, nextGear %d", nextGear);
                     }
                     else
                     {
-                        Log(LOG_DEV_DATA, "Pedal NOT In Initial Range, nextGear %f", nextGear);
+                        Log(LOG_DEV_DATA, "Pedal NOT In Initial Range, nextGear %d", nextGear);
                     }
                 }
                 // Display prompt for pedal out of range
@@ -421,7 +424,7 @@ string MahindraTransmission<ModuleType>::ATLearnTest(void) {
                     Log(LOG_DEV_DATA, "Gear transition spotted, prevGear %d - currentGear %d", prevGear, currentGear);
                     prevGear = currentGear;
 
-                    //IF the vehicle is in Gear 3 or above then check clutch status
+                    //IF the vehicle is in Gear 4 or above then check clutch status
                     if (prevGear >= 3)
                     {
                         //moduleStatus2 = m_vehicleModule.ReadModuleData("ConverterStatus", converterStatus);
@@ -483,7 +486,7 @@ string MahindraTransmission<ModuleType>::ATLearnTest(void) {
         }
         else
         {
-            Log(LOG_DEV_DATA, "AT Learn Exit IDFK");
+            Log(LOG_DEV_DATA, "AT Learn Did not reach Target Gear");
         }
     } catch (ModuleException &e)
     {   // Module exception
@@ -596,3 +599,31 @@ string MahindraTransmission<ModuleType>::MisfireTest(void) {
     Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
     return testResult;
 }
+
+
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+string MahindraTransmission<ModuleType>::MaintainSpeed(void) {
+
+    string testResult = testPass;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    int delaytime = 5000;
+
+    Log(LOG_FN_ENTRY, "Enter MahindraTransmission::MaintainSpeed()\n");
+    
+    //get time to wait
+    delaytime = (GetTestStepInfo("Delay",delaytime) > 0)?GetTestStepInfo("Delay",delaytime):5000;
+
+    //prompt Driver to maintain speed
+    DisplayPrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
+    //wait
+    BposSleep(delaytime);
+    //Remove prompt
+    RemovePrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
+
+    return testResult;
+}
+

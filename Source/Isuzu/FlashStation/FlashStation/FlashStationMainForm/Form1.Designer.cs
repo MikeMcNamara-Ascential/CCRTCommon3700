@@ -119,7 +119,7 @@
             this.configurationToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1252, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1276, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -227,45 +227,47 @@
             // 
             // flashTCMToolStripMenuItem
             // 
-            this.flashTCMToolStripMenuItem.Checked = false;
+            this.flashTCMToolStripMenuItem.Checked = true;
             this.flashTCMToolStripMenuItem.CheckOnClick = true;
             this.flashTCMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashTCMToolStripMenuItem.Name = "flashTCMToolStripMenuItem";
             this.flashTCMToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.flashTCMToolStripMenuItem.Text = "Flash TCM";
+            this.flashTCMToolStripMenuItem.Visible = true;
             this.flashTCMToolStripMenuItem.Click += new System.EventHandler(this.flashTCMToolStripMenuItem_Click);
-            this.flashTCMToolStripMenuItem.Visible = false;
             // 
             // flashDCUToolStripMenuItem
             // 
             this.flashDCUToolStripMenuItem.Checked = true;
             this.flashDCUToolStripMenuItem.CheckOnClick = true;
+            this.flashDCUToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashDCUToolStripMenuItem.Name = "flashDCUToolStripMenuItem";
             this.flashDCUToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.flashDCUToolStripMenuItem.Text = "Flash DCU";
-            //this.flashDCUToolStripMenuItem.Visible = false;
+            this.flashDCUToolStripMenuItem.Visible = false;
             this.flashDCUToolStripMenuItem.Click += new System.EventHandler(this.flashDCUToolStripMenuItem_Click);
             // 
             // flashMimamoriToolStripMenuItem
             // 
             this.flashMimamoriToolStripMenuItem.Checked = true;
             this.flashMimamoriToolStripMenuItem.CheckOnClick = true;
+            this.flashMimamoriToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashMimamoriToolStripMenuItem.Name = "flashMimamoriToolStripMenuItem";
             this.flashMimamoriToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.flashMimamoriToolStripMenuItem.Text = "Flash Mimamori";
-            //this.flashMimamoriToolStripMenuItem.Visible = false;
+            this.flashMimamoriToolStripMenuItem.Visible = false;
             this.flashMimamoriToolStripMenuItem.Click += new System.EventHandler(this.flashMimamoriToolStripMenuItem_Click);
             // 
             // bASLearnToolStripMenuItem
             // 
-            this.bASLearnToolStripMenuItem.Checked = false;
+            this.bASLearnToolStripMenuItem.Checked = true;
             this.bASLearnToolStripMenuItem.CheckOnClick = true;
             this.bASLearnToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.bASLearnToolStripMenuItem.Name = "bASLearnToolStripMenuItem";
             this.bASLearnToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.bASLearnToolStripMenuItem.Text = "BAS Learn";
+            this.bASLearnToolStripMenuItem.Visible = true;
             this.bASLearnToolStripMenuItem.Click += new System.EventHandler(this.bASLearnToolStripMenuItem_Click);
-            this.bASLearnToolStripMenuItem.Visible = false;
             // 
             // m_vinLabel
             // 
@@ -473,6 +475,7 @@
             this.m_brakeApplySensorResultBox.AutoSize = true;
             this.m_brakeApplySensorResultBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_brakeApplySensorResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_brakeApplySensorResultBox.Enabled = false;
             this.m_brakeApplySensorResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_brakeApplySensorResultBox.Location = new System.Drawing.Point(437, 57);
             this.m_brakeApplySensorResultBox.Name = "m_brakeApplySensorResultBox";
@@ -480,16 +483,12 @@
             this.m_brakeApplySensorResultBox.TabIndex = 14;
             this.m_brakeApplySensorResultBox.Text = "BAS";
             this.m_brakeApplySensorResultBox.UseWaitCursor = true;
-            this.m_brakeApplySensorResultBox.Enabled = false;
-            this.m_brakeApplySensorResultBox.Visible = false;
-
-
+            this.m_brakeApplySensorResultBox.Visible = true;
             // 
             // m_mimaResultBox
             // 
             this.m_mimaResultBox.AutoSize = true;
             this.m_mimaResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            //this.m_mimaResultBox.Enabled = false;
             this.m_mimaResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_mimaResultBox.Location = new System.Drawing.Point(155, 10);
             this.m_mimaResultBox.Name = "m_mimaResultBox";
@@ -497,21 +496,20 @@
             this.m_mimaResultBox.TabIndex = 13;
             this.m_mimaResultBox.Text = "Mimamori";
             this.m_mimaResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.m_mimaResultBox.Visible = true;
+            this.m_mimaResultBox.Visible = false;
             // 
             // m_dcuResultBox
             // 
             this.m_dcuResultBox.AutoSize = true;
             this.m_dcuResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            //this.m_dcuResultBox.Enabled = false;
             this.m_dcuResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_dcuResultBox.Location = new System.Drawing.Point(309, 10);
             this.m_dcuResultBox.Name = "m_dcuResultBox";
             this.m_dcuResultBox.Size = new System.Drawing.Size(88, 39);
             this.m_dcuResultBox.TabIndex = 12;
             this.m_dcuResultBox.Text = "DCU";
+            this.m_dcuResultBox.Visible = false;
             this.m_dcuResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.m_dcuResultBox.Visible = true;
             // 
             // m_tcmResultBox
             // 
@@ -523,7 +521,7 @@
             this.m_tcmResultBox.Size = new System.Drawing.Size(229, 39);
             this.m_tcmResultBox.TabIndex = 11;
             this.m_tcmResultBox.Text = " Transmission ";
-            this.m_tcmResultBox.Visible = false;
+            this.m_tcmResultBox.Visible = true;
             // 
             // m_ecmResultBox
             // 
@@ -597,7 +595,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1264, 851);
+            this.ClientSize = new System.Drawing.Size(1276, 878);
             this.Controls.Add(this.m_esnDataPB);
             this.Controls.Add(this.m_esnDataLabel);
             this.Controls.Add(this.groupBox3);

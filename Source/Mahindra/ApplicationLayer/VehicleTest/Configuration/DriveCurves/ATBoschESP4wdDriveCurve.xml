@@ -81,6 +81,16 @@
 			</ForegroundObjectives>
 		</TestPhase100>
 
+		<TestPhase110 Description="Maintain Speed for TPMS" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="Maintain Speed for TPMS" Result="" Timeout="" Component="Transmission">
+					<MaintainSpeed/>
+				</Objective0>
+			</ForegroundObjectives>
+		</TestPhase110>
+		
+		
+
 		<!-- Perform the brake test -->
 		<TestPhase200 Description="Perform the brake test" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">

@@ -272,6 +272,9 @@
 		<CheckTpmsStatus>
 			<TestStep00>CheckTpmsStatus</TestStep00>
 		</CheckTpmsStatus>
+		<MaintainSpeed>
+			<TestStep00>MaintainSpeed</TestStep00>
+		</MaintainSpeed>
 	</Objectives>
 	<TestSteps>
 		<ATLearnTest Result="Not Tested" Timeout="300000" Description="Perform the AT learn test" ScanDelay="250"/>
@@ -298,5 +301,6 @@
 		<ATLearnTest Result="Not Tested" Timeout="300000" Description="Perform the AT learn test" ScanDelay="500"/>
 		<MisfireTest Result="Not Tested" Timeout="30000" Description="Perform the Misfire Test"/>
 		<CheckTpmsStatus Result="Not Tested" Timeout="30000" Description="Perform the TPMS Test"/>
+		<MaintainSpeed Result="Not Tested" Timeout="30000" Description="Maintain Speed for TPMS Test" Delay="10000"/>
 	</TestSteps>
 </RwalBrakeTest>

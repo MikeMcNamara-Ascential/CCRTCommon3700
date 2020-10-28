@@ -1,4 +1,5 @@
 <UdsBIAbsConfig>
+
     <Setup>
         <FaultList>/Configuration/Components/Brake/Tata.BrakeFaultList.xml</FaultList>
 
@@ -254,7 +255,7 @@
             <MaximumSensorSpeed Descritpion="Maximum allowable sensor speed" Units="MPH">7.0</MaximumSensorSpeed>
             <MaxWheelSensorVoltageRatio>2.0</MaxWheelSensorVoltageRatio>
             <MinimumSensorSpeed Description="Minimum allowable sensor speed" Units="MPH">3.0</MinimumSensorSpeed>
-            <SensorTestStartDelay Description="Amount of time to delay before starting the rolls for the sensor test" Units="mSec">3000</SensorTestStartDelay>
+            <SensorTestStartDelay Description="Amount of time to delay before starting the rolls for the sensor test" Units="mSec">2000</SensorTestStartDelay>
             <SensorTestSpeed Description="Roll speed for the sensor test" Units="MPH">5</SensorTestSpeed>
 			<WSSSteadySpeedSamples>5</WSSSteadySpeedSamples>
 			<WSSSteadySpeedTimeout>20000</WSSSteadySpeedTimeout>
@@ -383,21 +384,21 @@
                 <Command0060 ArrayTag="LFESPBuildStart" Delay="500" RollerIndex="0" TagType="BuildStart">Deactivate_ISOFR_DUMPFL</Command0060>
 				<Command0065 CommandType="ABS Sensor" RollerIndex="0" MaxForce="-10" Final="True"/>
                 <Command0070 ArrayTag="LFESPBuildEnd" RollerIndex="0" TagType="BuildEnd"/>
-				<Command0075 CommandType="ABS Sensor" RollerIndex="0" MinForce="20" />
+				<Command0075 CommandType="ABS Sensor" RollerIndex="0" MinForce="10" />
                 <!-- Right Front -->
                 <Command0090 ArrayTag="RFESPReductionStart" Delay="200" RollerIndex="1" TagType="ReductionStart">Activate_ISOFR_DUMPFR</Command0090>
-                <Command0095 CommandType="ABS Sensor" RollerIndex="0" MinForce="20"/>
+                <Command0095 CommandType="ABS Sensor" RollerIndex="0" MinForce="10"/>
 				<Command0110 ArrayTag="RFESPReductionEnd" RollerIndex="1" TagType="ReductionEnd"/>
 				<Command0115 CommandType="ABS Sensor" RollerIndex="1" MaxForce="-10" />
                 <Command0120 ArrayTag="RFESPBuildStart" Delay="600" RollerIndex="1" TagType="BuildStart">Deactivate_DUMPFR</Command0120>
 				<Command0125 CommandType="ABS Sensor" RollerIndex="1" MaxForce="-10" Final="True"/>
                 <Command0130 ArrayTag="RFESPBuildEnd" Delay="500" RollerIndex="1" TagType="BuildEnd"/>
 				<Command0133 CommandType="ABS Sensor" Delay="500" RollerIndex="0" MinForce="20"/>
-				<Command0134 CommandType="ABS Sensor" RollerIndex="0" MinForce="20" />
+				<Command0134 CommandType="ABS Sensor" RollerIndex="0" MinForce="10" />
 				<Command0135 CommandType="ABS Sensor" Delay="500" RollerIndex="1" MinForce="20"/>
-				<Command0136 CommandType="ABS Sensor" RollerIndex="0" MinForce="20"  Final="True"/>
+				<Command0136 CommandType="ABS Sensor" RollerIndex="0" MinForce="10"  Final="True"/>
 				<Command0138 CommandType="ABS Sensor" Delay="500" RollerIndex="1" MinForce="20"/>
-                <Command0140 CommandType="ABS Sensor" RollerIndex="1" MinForce="20" Final="True"/>
+                <Command0140 CommandType="ABS Sensor" RollerIndex="1" MinForce="10" Final="True"/>
 				<Command0144 Delay="500" >Deactivate_ALL_VALVES</Command0144>
 				
 				
@@ -419,19 +420,19 @@
                 <Command0190 ArrayTag="LRESPBuildEnd" RollerIndex="2" TagType="BuildEnd"/>
                 <!-- Right Rear -->
                 <Command0210 ArrayTag="RRESPReductionStart" Delay="200" RollerIndex="3" TagType="ReductionStart">Activate_ISORR_DUMPRR</Command0210>
-				<Command0215 CommandType="ABS Sensor" RollerIndex="2" MinForce="20" />
+				<Command0215 CommandType="ABS Sensor" RollerIndex="2" MinForce="10" />
                 <Command0230 ArrayTag="RRESPReductionEnd" RollerIndex="3" TagType="ReductionEnd"/>
 				<Command0235 CommandType="ABS Sensor" RollerIndex="3" MaxForce="-10" />
-				<Command0238 CommandType="ABS Sensor" RollerIndex="2" MinForce="20" />
+				<Command0238 CommandType="ABS Sensor" RollerIndex="2" MinForce="10" />
                 <Command0240 ArrayTag="RRESPBuildStart" Delay="700" RollerIndex="3" TagType="BuildStart">Deactivate_DUMP_RR</Command0240>
 				
 				<Command0245 CommandType="ABS Sensor" RollerIndex="3" MaxForce="-10" Final="True"/>
                 <Command0250 ArrayTag="RRESPBuildEnd" Delay="1000" RollerIndex="3" TagType="BuildEnd"/>
-				<Command0255 CommandType="ABS Sensor" RollerIndex="2" MinForce="20"/>
-				<Command0260 CommandType="ABS Sensor" Delay="500" RollerIndex="3" MinForce="20" />
-				<Command0263 CommandType="ABS Sensor" RollerIndex="2" MinForce="20" Final="True"/>
-				<Command0265 CommandType="ABS Sensor" Delay="500" RollerIndex="3" MinForce="20"/>
-				<Command0270 CommandType="ABS Sensor" RollerIndex="3" MinForce="20" Final="True"/>
+				<Command0255 CommandType="ABS Sensor" RollerIndex="2" MinForce="10"/>
+				<Command0260 CommandType="ABS Sensor" Delay="1000" RollerIndex="3" MinForce="10" />
+				<Command0263 CommandType="ABS Sensor" RollerIndex="2" MinForce="10" Final="True"/>
+				<Command0265 CommandType="ABS Sensor" Delay="1000" RollerIndex="3" MinForce="10"/>
+				<Command0270 CommandType="ABS Sensor" RollerIndex="3" MinForce="10" Final="True"/>
 				
                 <Command0275 Delay="1000" >Activate_ALL_ISO</Command0275>
                 <Command0280 Delay="1000" >Deactivate_ALL_VALVES</Command0280>
@@ -484,7 +485,7 @@
             <TestStep010>Setup</TestStep010>
             <!--TestStep015 AltValue="CAN">SetupCommBus</TestStep015-->
             <TestStep012>EnterDiagnosticMode</TestStep012>
-            <!-- <TestStep013>CommandSecurityUnlock</TestStep013> -->
+            <TestStep013>UnlockModuleSecurity</TestStep013>
             <!--TestStep019>StartModuleKeepAlive</TestStep019--> 
             <TestStep020>CheckVIN</TestStep020>
 			<TestStep021>CheckEcuId</TestStep021>
@@ -518,7 +519,6 @@
             <TestStep25>AnalyzeBrakeTest</TestStep25>
             <TestStep30>AnalyzeBalance</TestStep30 -->
         </BrakeTest>
-		
         <AnalyzeBrakeTest>
             <TestStep00>AnalyzeBrakeTest</TestStep00>
             <TestStep05>AnalyzeBalance</TestStep05>
@@ -545,7 +545,7 @@
         </SensorTest>
 
         <FinishUp>
-			<TestStep000>EnterDiagnosticMode</TestStep000>
+			<!-- <TestStep000>EnterDiagnosticMode</TestStep000> -->
             <!-- <TestStep001>CommandSecurityUnlock</TestStep001> -->
             <TestStep005 AltValue="FinalPreClear">ReadFaultsByPhase</TestStep005>  
             <!-- <TestStep010>ClearFaults</TestStep010>             -->

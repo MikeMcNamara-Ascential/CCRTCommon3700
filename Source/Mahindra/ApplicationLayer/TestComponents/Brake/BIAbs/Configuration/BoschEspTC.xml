@@ -254,7 +254,7 @@
 			<MaximumSensorSpeed Descritpion="Maximum allowable sensor speed" Units="MPH">7.0</MaximumSensorSpeed>
 			<MaxWheelSensorVoltageRatio>2.0</MaxWheelSensorVoltageRatio>
 			<MinimumSensorSpeed Description="Minimum allowable sensor speed" Units="MPH">3.0</MinimumSensorSpeed>
-			<SensorTestStartDelay Description="Amount of time to delay before starting the rolls for the sensor test" Units="mSec">3000</SensorTestStartDelay>
+			<SensorTestStartDelay Description="Amount of time to delay before starting the rolls for the sensor test" Units="mSec">2000</SensorTestStartDelay>
 			<SensorTestSpeed Description="Roll speed for the sensor test" Units="MPH">5</SensorTestSpeed>
 			<WSSSteadySpeedSamples>5</WSSSteadySpeedSamples>
 			<WSSSteadySpeedTimeout>20000</WSSSteadySpeedTimeout>
@@ -428,9 +428,9 @@
 				<Command0245 CommandType="ABS Sensor" RollerIndex="3" MaxForce="-10" Final="True"/>
 				<Command0250 ArrayTag="RRESPBuildEnd" Delay="1000" RollerIndex="3" TagType="BuildEnd"/>
 				<Command0255 CommandType="ABS Sensor" RollerIndex="2" MinForce="20"/>
-				<Command0260 CommandType="ABS Sensor" Delay="500" RollerIndex="3" MinForce="20" />
+				<Command0260 CommandType="ABS Sensor" Delay="1000" RollerIndex="3" MinForce="20" />
 				<Command0263 CommandType="ABS Sensor" RollerIndex="2" MinForce="20" Final="True"/>
-				<Command0265 CommandType="ABS Sensor" Delay="500" RollerIndex="3" MinForce="20"/>
+				<Command0265 CommandType="ABS Sensor" Delay="1000" RollerIndex="3" MinForce="20"/>
 				<Command0270 CommandType="ABS Sensor" RollerIndex="3" MinForce="20" Final="True"/>
 
 				<Command0275 Delay="1000" >Activate_ALL_ISO</Command0275>
@@ -579,6 +579,7 @@
 		<IgnoreFaults>
 			<ModuleFault_40204B/>
 			<ModuleFault_401900/>
+			<ModuleFault_405164/>
 		</IgnoreFaults>
 	</Setup>
 

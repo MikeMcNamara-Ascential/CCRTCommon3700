@@ -225,6 +225,12 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
             status = CheckBrakeSensor(true);
         else if (step == "CheckBrakeSensorOff")
             status = CheckBrakeSensor(false);
+        else if (step == "CheckRoutineStatus")
+            status = CheckRoutineStatus();
+        else if (step == "CheckPumpMotorStatus")
+            status = CheckPumpMotorStatus();
+        else if (step == "CheckStateData")
+            status = CheckStateData();
         else if (step.find("FlexibleValveFiringTest") != string::npos)
             status = FlexibleValveFiringTest(value);
         else

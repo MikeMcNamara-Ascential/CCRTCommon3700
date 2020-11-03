@@ -1098,9 +1098,9 @@ BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::CalculateSecurityKey(const Ser
         0x9BDC06A7,
         0xC19BF174
     };
-
+    Log(LOG_DEV_DATA,"Security Unlock Type: %s",m_securityUnlockType.c_str());
     //If the Abs module is 9.1 or newer then use new lookup table values
-    if (m_securityUnlockType == "Abs91")
+    if (m_securityUnlockType.compare("Abs91") == 0)
     {
         dataMask = lookupTableAbs91[dataMaskIndex];
     }

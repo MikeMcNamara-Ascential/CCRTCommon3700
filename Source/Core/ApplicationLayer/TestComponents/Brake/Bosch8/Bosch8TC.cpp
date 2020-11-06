@@ -225,6 +225,18 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
             status = CheckBrakeSensor(true);
         else if (step == "CheckBrakeSensorOff")
             status = CheckBrakeSensor(false);
+        else if (step == "CheckHDSSwitchOn")
+            status = CheckHDSSwitch(true);
+        else if (step == "CheckHDSSwitchOff")
+            status = CheckHDSSwitch(false);
+        else if (step == "CheckESPSwitchOn")
+            status = CheckESPSwitch(true);
+        else if (step == "CheckESPSwitchOff")
+            status = CheckESPSwitch(false);
+        else if (step == "CheckPressureSwitchesOn")
+            status = CheckPressureSwitches(true);
+        else if (step == "CheckPressureSwitchesOff")
+            status = CheckPressureSwitches(false);
         else if (step == "CheckRoutineStatus")
             status = CheckRoutineStatus();
         else if (step == "CheckPumpMotorStatus")
@@ -2242,10 +2254,69 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle) {
                     }
                 }
             }
+            else if (GetParameterBool("ReadWSSWithRoutine"))
+            {
+                Log(LOG_DEV_DATA, "Reading WSS sensorSpeeds using routine");
+                moduleStatus = m_vehicleModule.CommandModule("WssRoutineStart");
+                if (BEP_STATUS_SUCCESS == moduleStatus)
+                {
+                    string routineStatus = "ERROR";
+                    string RoutineRunning = "Running";
+                    string RoutineStarted = "Started";
+                    string RoutineStopped = "Stopped";
+                    string RoutineStoppedAbnormally = "StoppedAbnormally";
+                    bool routineFinished = false;
+                    while (!routineFinished && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+                    {    
+                        moduleStatus = m_vehicleModule.ReadModuleData("WssRoutineStatus", routineStatus);
+                        if (moduleStatus == BEP_STATUS_SUCCESS)
+                        {
+                            routineFinished = !routineStatus.compare(RoutineStopped) || !routineStatus.compare(RoutineStoppedAbnormally);
+                        }
+                        if (!routineFinished)
+                        {
+                            BposSleep(GetTestStepInfoInt("ScanDelay"));
+                        }
+                    }
+
+                    Log(LOG_DEV_DATA, "done checking WSS routine status, final routineStatus: %s, == RoutineStopped: %s", routineStatus.c_str(), RoutineStopped.c_str());
+
+                    if (!routineStatus.compare(RoutineStopped))
+                    {
+                        moduleStatus = m_vehicleModule.ReadModuleData("WssRoutineResults", sensorSpeeds);
+                        if (BEP_STATUS_SUCCESS == moduleStatus)
+                        {
+                            BposSleep(300);
+                            moduleStatus = m_vehicleModule.CommandModule("WssRoutineStop");
+                            if (moduleStatus != BEP_STATUS_SUCCESS)
+                            {
+                                result = testFail;
+                                Log(LOG_ERRORS, "Failure to stop WSS routine");
+                            }
+                        }
+                        else
+                        {
+                            result = testFail;
+                            Log(LOG_ERRORS, "Failure to read results from WSS routine");
+                        }
+                    }
+                    else
+                    {
+                            result = testFail;
+                            Log(LOG_ERRORS, "Failure to see STOPPED from WSS routine status"); 
+                    }
+                }
+                else
+                {
+                    result = testFail;
+                    Log(LOG_ERRORS, "Failure to start WSS routine");
+                }
+            }
             else
             {
                 moduleStatus = m_vehicleModule.ReadModuleData("ReadSensorSpeeds", sensorSpeeds);
             }
+
             if (BEP_STATUS_SUCCESS == moduleStatus)
             {
                 if (BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
@@ -2309,19 +2380,19 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle) {
                 else
                 {
                     result = testFail;
-                    Log(LOG_DEV_DATA, "Failed to read roller speeds from the system");
+                    Log(LOG_ERRORS, "Failed to read roller speeds from the system");
                 }
             }
             else
             {
                 result = testFail;
-                Log(LOG_DEV_DATA, "Failure reading wheel speed sensors from the module");
+                Log(LOG_ERRORS, "Failure reading wheel speed sensors from the module");
             }
         }
         else
         {
             result = testTimeout;
-            Log(LOG_DEV_DATA, "Timeout waiting for motors to reach target speeds");
+            Log(LOG_ERRORS, "Timeout waiting for motors to reach target speeds");
         }
         m_MotorController.Write(leftTag, string("0"), true);
         m_MotorController.Write(rightTag, string("0"), true);
@@ -4460,6 +4531,275 @@ string Bosch8TC<ModuleType>::CheckBrakeSensor(bool onPosition) {
     return testResult;
 }
 
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string Bosch8TC<ModuleType>::CheckHDSSwitch(bool onPosition) {
+    string testResult = testError;
+    string testCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckHDSSwitch()\n");
+    if (!ShortCircuitTestStep())
+    {
+        Log(LOG_DEV_DATA, "Looking for HDS Switch %s", (onPosition ? "On" : "Off"));
+        bool hdsSwitchOn = false;
+        BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+
+        if (onPosition)
+        {
+            DisplayPrompt(GetPromptBox("HDSSwitchOn"), GetPrompt("HDSSwitchOn"), GetPromptPriority("HDSSwitchOn"));
+            while (!hdsSwitchOn && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {
+                moduleStatus = m_vehicleModule.ReadModuleData("HDSSwitch", hdsSwitchOn);
+                if (!hdsSwitchOn)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+
+            RemovePrompt(GetPromptBox("HDSSwitchOn"), GetPrompt("HDSSwitchOn"), GetPromptPriority("HDSSwitchOn"));
+        }
+        else
+        {
+            hdsSwitchOn = true;
+            DisplayPrompt(GetPromptBox("HDSSwitchOff"), GetPrompt("HDSSwitchOff"), GetPromptPriority("HDSSwitchOff"));
+            while (hdsSwitchOn && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {
+                moduleStatus = m_vehicleModule.ReadModuleData("HDSSwitch", hdsSwitchOn);
+                if (hdsSwitchOn)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+
+            RemovePrompt(GetPromptBox("HDSSwitchOff"), GetPrompt("HDSSwitchOff"), GetPromptPriority("HDSSwitchOff"));
+        }
+        //test finished, find out why.
+        if (!TimeRemaining())
+        {
+            testResult = testFail;
+            testDescription = "Failure reading HDS Switch Status";
+            testCode = GetFaultCode("TimeoutFailure");
+            Log(LOG_DEV_DATA, "Error: Timeout while reading HDSSwitchStatus from the module.");
+        }
+        else if (moduleStatus != BEP_STATUS_SUCCESS)
+        {   // Could not read data from the module
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testCode = GetFaultCode("CommunicationFailure");
+            Log(LOG_DEV_DATA, "Error reading HDSSwitch from the module - %s", ConvertStatusToResponse(status).c_str());
+        }
+        else if (StatusCheck() != BEP_STATUS_SUCCESS)
+        {
+            testResult = testFail;
+            testDescription = GetFaultDescription("SystemStatus");
+            testCode = GetFaultCode("SystemStatus");
+            Log(LOG_DEV_DATA, "Error with Machine State while trying to read HDSSwitch.");
+        }
+        else if (hdsSwitchOn == onPosition)
+        {
+            testResult = testPass;
+        }
+        Log(LOG_DEV_DATA, "Looked for HDS Switch %s, Got HDS Switch %s", (onPosition ? "On" : "Off"), (hdsSwitchOn ? "On" : "Off"));
+        //testResult = status;
+        SendTestResult(testResult, testDescription, testCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
+    Log(LOG_FN_ENTRY, "Exiting Bosch8TC::CheckHDSSwitch()\n");
+    return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string Bosch8TC<ModuleType>::CheckESPSwitch(bool onPosition) {
+    string testResult = testError;
+    string testCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckESPSwitch()\n");
+    if (!ShortCircuitTestStep())
+    {
+        Log(LOG_DEV_DATA, "Looking for ESP Switch %s", (onPosition ? "On" : "Off"));
+        bool espSwitchOn = false;
+        BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+
+        if (onPosition)
+        {
+            DisplayPrompt(GetPromptBox("ESPSwitchOn"), GetPrompt("ESPSwitchOn"), GetPromptPriority("ESPSwitchOn"));
+            while (!espSwitchOn && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {
+                moduleStatus = m_vehicleModule.ReadModuleData("ESPSwitch", espSwitchOn);
+                if (!espSwitchOn)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+
+            RemovePrompt(GetPromptBox("ESPSwitchOn"), GetPrompt("ESPSwitchOn"), GetPromptPriority("ESPSwitchOn"));
+        }
+        else
+        {
+            espSwitchOn = true;
+            DisplayPrompt(GetPromptBox("ESPSwitchOff"), GetPrompt("ESPSwitchOff"), GetPromptPriority("ESPSwitchOff"));
+            while (espSwitchOn && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {
+                moduleStatus = m_vehicleModule.ReadModuleData("ESPSwitch", espSwitchOn);
+                if (espSwitchOn)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+
+            RemovePrompt(GetPromptBox("ESPSwitchOff"), GetPrompt("ESPSwitchOff"), GetPromptPriority("ESPSwitchOff"));
+        }
+        //test finished, find out why.
+        if (!TimeRemaining())
+        {
+            testResult = testFail;
+            testDescription = "Failure reading ESP Switch Status";
+            testCode = GetFaultCode("TimeoutFailure");
+            Log(LOG_DEV_DATA, "Error: Timeout while reading ESPSwitchStatus from the module.");
+        }
+        else if (moduleStatus != BEP_STATUS_SUCCESS)
+        {   // Could not read data from the module
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testCode = GetFaultCode("CommunicationFailure");
+            Log(LOG_DEV_DATA, "Error reading ESPSwitch from the module - %s", ConvertStatusToResponse(status).c_str());
+        }
+        else if (StatusCheck() != BEP_STATUS_SUCCESS)
+        {
+            testResult = testFail;
+            testDescription = GetFaultDescription("SystemStatus");
+            testCode = GetFaultCode("SystemStatus");
+            Log(LOG_DEV_DATA, "Error with Machine State while trying to read ESPSwitch.");
+        }
+        else if (espSwitchOn == onPosition)
+        {
+            testResult = testPass;
+        }
+        Log(LOG_DEV_DATA, "Looked for ESP Switch %s, Got ESP Switch %s", (onPosition ? "On" : "Off"), (espSwitchOn ? "On" : "Off"));
+        //testResult = status;
+        SendTestResult(testResult, testDescription, testCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
+    Log(LOG_FN_ENTRY, "Exiting Bosch8TC::CheckESPSwitch()\n");
+    return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string Bosch8TC<ModuleType>::CheckPressureSwitches(bool onPosition) {
+    string testResult = testError;
+    string testCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckPressureSwitches()\n");
+    if (!ShortCircuitTestStep())
+    {
+        Log(LOG_DEV_DATA, "Looking for Pressure Switches %s", (onPosition ? "On" : "Off"));
+        bool allConditionsPass = false;
+        bool actuationStateOn = false;
+        float cylinderPressure = 0.0;
+
+        float minPressureOn = GetParameterFloat("MinPressureOn");
+        float minPressureOff = GetParameterFloat("MinPressureOff");
+        float maxPressureOff = GetParameterFloat("MaxPressureOff");
+        BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+
+        if (onPosition)
+        {
+            DisplayPrompt(GetPromptBox("FootOnBrake"), GetPrompt("FootOnBrake"), GetPromptPriority("FootOnBrake"));
+            while (!allConditionsPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {
+                moduleStatus = m_vehicleModule.ReadModuleData("ActuationStateData", actuationStateOn);
+                if (moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    moduleStatus = m_vehicleModule.ReadModuleData("CylinderPressure", cylinderPressure);
+                    if (actuationStateOn && minPressureOn < cylinderPressure)
+                    {
+                        allConditionsPass = true;
+                    }
+                    else
+                    {
+                        BposSleep(GetTestStepInfoInt("ScanDelay"));
+                    }
+                }
+            }
+            Log(LOG_DEV_DATA, "Looked for Pressure Switches %s, actuationStateOn: %s, min: %f < pressure: %f", (onPosition ? "On" : "Off"), (actuationStateOn ? "On" : "Off"), minPressureOn, cylinderPressure);
+            RemovePrompt(GetPromptBox("FootOnBrake"), GetPrompt("FootOnBrake"), GetPromptPriority("FootOnBrake"));
+        }
+        else
+        {
+            actuationStateOn = true;
+            DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+            while (!allConditionsPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {
+                moduleStatus = m_vehicleModule.ReadModuleData("ActuationStateData", actuationStateOn);
+                if (moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    moduleStatus = m_vehicleModule.ReadModuleData("CylinderPressure", cylinderPressure);
+                    if (!actuationStateOn && minPressureOff < cylinderPressure && cylinderPressure < maxPressureOff)
+                    {
+                        allConditionsPass = true;
+                    }
+                    else
+                    {
+                        BposSleep(GetTestStepInfoInt("ScanDelay"));
+                    }
+                }
+            }
+
+            Log(LOG_DEV_DATA, "Looked for Pressure Switches %s, actuationStateOn: %s, min: %f < pressure: %f < max: %f", (onPosition ? "On" : "Off"), (actuationStateOn ? "On" : "Off"), minPressureOff, cylinderPressure, maxPressureOff);
+            RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+        }
+        //test finished, find out why.
+        if (!TimeRemaining())
+        {
+            testResult = testFail;
+            testDescription = "Failure reading Pressure Switch Status";
+            testCode = GetFaultCode("TimeoutFailure");
+            Log(LOG_DEV_DATA, "Error: Timeout while reading Pressure Switches from the module.");
+        }
+        else if (moduleStatus != BEP_STATUS_SUCCESS)
+        {   // Could not read data from the module
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testCode = GetFaultCode("CommunicationFailure");
+            Log(LOG_DEV_DATA, "Error reading Pressure Switches from the module - %s", ConvertStatusToResponse(status).c_str());
+        }
+        else if (StatusCheck() != BEP_STATUS_SUCCESS)
+        {
+            testResult = testFail;
+            testDescription = GetFaultDescription("SystemStatus");
+            testCode = GetFaultCode("SystemStatus");
+            Log(LOG_DEV_DATA, "Error with Machine State while trying to read Pressure Switches.");
+        }
+        else if (allConditionsPass)
+        {
+            testResult = testPass;
+        }
+        //testResult = status;
+        Log(LOG_DEV_DATA, "Looked for Pressure Switches %s, testResult: %s", (onPosition ? "On" : "Off"), testResult.c_str());
+        SendTestResult(testResult, testDescription, testCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
+    Log(LOG_FN_ENTRY, "Exiting Bosch8TC::CheckPressureSwitches()\n");
+    return testResult;
+}
+
 template<class ModuleType>
 string Bosch8TC<ModuleType>::CheckStateData(void) {
     string testResult = BEP_TESTING_STATUS;
@@ -4537,75 +4877,6 @@ string Bosch8TC<ModuleType>::CheckStateData(void) {
             Log(LOG_ERRORS, "Error reading state data - status: %s\n",
                 ConvertStatusToResponse(moduleStatus).c_str());
         }
-
-        // Check Actuation State Data
-        moduleStatus = m_vehicleModule.CommandModule("ActuationStateData");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Actuation information recieved\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading Actuation data - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-
-        // Check Actuation State Data
-        moduleStatus = m_vehicleModule.CommandModule("ActuationStateData");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Actuation information recieved\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading Actuation data - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-
-        // Check Cylinder Pressure
-        moduleStatus = m_vehicleModule.CommandModule("CylinderPressure");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Cylinder Pressure information recieved\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading Cylinder Pressure data - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-
-        // Check Actuation State Data
-        moduleStatus = m_vehicleModule.CommandModule("ActuationStateData");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Actuation information recieved\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading Actuation data - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-
 
         Log(LOG_DEV_DATA, "Reading State Data Status: %s - status: %s\n",
             testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
@@ -4749,13 +5020,31 @@ string Bosch8TC<ModuleType>::CheckRoutineStatus(void) {
                 ConvertStatusToResponse(moduleStatus).c_str());
         }
 
-        // Send Routine status message
-        moduleStatus = m_vehicleModule.CommandModule("RoutineStatus");
+        string routineStatus = "ERROR";
+        string RoutineRunning = "Running";
+        string RoutineStarted = "Started";
+        string RoutineStopped = "Stopped";
+        string RoutineStoppedAbnormally = "StoppedAbnormally";
+        bool routineFinished = false;
+        while (!routineFinished && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+        {    
+            moduleStatus = m_vehicleModule.ReadModuleData("RoutineStatus", routineStatus);
+            if (moduleStatus == BEP_STATUS_SUCCESS)
+            {
+                routineFinished = !routineStatus.compare(RoutineStopped) || !routineStatus.compare(RoutineStoppedAbnormally);
+            }
+            if (!routineFinished)
+            {
+                BposSleep(GetTestStepInfoInt("ScanDelay"));
+            }
+        }
+
+        Log(LOG_DEV_DATA, "done checking status, final routineStatus: %s, == RoutineStopped: %s", routineStatus.c_str(), RoutineStopped.c_str());
 
         // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+        testResult = !routineStatus.compare(RoutineStopped) ? testPass : testFail;
         if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Send routine status message\n");
+            Log(LOG_DEV_DATA, "Sent routine status message and routine Complete\n");
         else
         {
             testResult = testFail;

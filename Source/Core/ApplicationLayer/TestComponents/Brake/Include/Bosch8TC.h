@@ -574,6 +574,9 @@ private:
     string CheckEcuId();
     string CheckBrakeProcessByte();
     string CheckBrakeSensor(bool onPosition);
+    string CheckHDSSwitch(bool onPosition);
+    string CheckESPSwitch(bool onPosition);
+    string CheckPressureSwitches(bool onPosition);
 
 };
 

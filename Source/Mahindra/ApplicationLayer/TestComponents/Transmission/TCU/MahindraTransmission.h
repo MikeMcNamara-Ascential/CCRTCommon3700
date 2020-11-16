@@ -80,6 +80,14 @@ protected:
 	string MisfireTest(void);
 
 
+    /**
+    * MaintainSpeed
+    * 
+    * @return Result of maintaining speed
+    */
+	string MaintainSpeed(void);
+
+
 
 private:
 

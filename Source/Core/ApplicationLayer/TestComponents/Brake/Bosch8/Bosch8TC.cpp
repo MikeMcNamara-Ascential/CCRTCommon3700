@@ -4860,26 +4860,6 @@ string Bosch8TC<ModuleType>::CheckStateData(void) {
             Log(LOG_ERRORS, "Error reading Accel data - status: %s\n",
                 ConvertStatusToResponse(moduleStatus).c_str());
         }
-
-        // Check sensor information
-        moduleStatus = m_vehicleModule.CommandModule("SensorInformation");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Sensor information recieved\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading state data - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-
-        Log(LOG_DEV_DATA, "Reading State Data Status: %s - status: %s\n",
-            testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
     } catch (ModuleException &moduleException)
     {
         Log(LOG_ERRORS, "Module Exception in Bosch8TC::CheckStateData() - %s\n",

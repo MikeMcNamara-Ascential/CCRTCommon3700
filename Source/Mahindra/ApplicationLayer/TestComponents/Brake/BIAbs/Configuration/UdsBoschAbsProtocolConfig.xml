@@ -30,8 +30,6 @@
 			<FirstDTCByteIndex>3</FirstDTCByteIndex>
 			<NumberOfFaultRegisters>0</NumberOfFaultRegisters>
 		</DTCData>
-		
-		<!-- Abs 9.1 -->
 		<SecurityUnlockType>Abs91</SecurityUnlockType>
 
 		<!-- Message Settings -->
@@ -296,6 +294,13 @@
 				<ReplyMessage>ValveControl</ReplyMessage>
 				<ReplyInterpretation/>
 			</StopPumpMotor>
+
+			<DynamicRoutineResults>
+				<TransmitMessage>DynamicRoutineResults</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>DynamicRoutineResults</ReplyMessage>
+				<ReplyInterpretation/>
+			</DynamicRoutineResults>
 
 			<RecoverAllValves>
 				<TransmitMessage>ValveControl</TransmitMessage>
@@ -618,6 +623,13 @@
 				<ReplyInterpretation/>
 			</RRESPAllInletOff>
 
+			<SoftwareIDIdentifier>
+				<TransmitMessage>ReadPID</TransmitMessage>
+				<TransmitInterpretation>SoftwareIDIdentifier</TransmitInterpretation>
+				<ReplyMessage>ReadPID</ReplyMessage>
+				<ReplyInterpretation/>
+			</SoftwareIDIdentifier>
+
 			<DisableSpeedLimit>
 				<TransmitMessage>DisableSpeedLimit</TransmitMessage>
 				<TransmitInterpretation/>
@@ -625,6 +637,68 @@
 				<ReplyInterpretation/>
 			</DisableSpeedLimit>
 
+			<PumpMotorOn>
+				<TransmitMessage>PumpMotorOn</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>PumpMotorState</ReplyMessage>
+				<ReplyInterpretation/>
+			</PumpMotorOn>
+
+			<PumpMotorOff>
+				<TransmitMessage>PumpMotorOff</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>PumpMotorState</ReplyMessage>
+				<ReplyInterpretation/>
+			</PumpMotorOff>
+
+			<PumpMotorRelay>
+				<TransmitMessage>ReadPID</TransmitMessage>
+				<TransmitInterpretation>PumpMotorRelay</TransmitInterpretation>
+				<ReplyMessage>SystemData</ReplyMessage>
+				<ReplyInterpretation/>
+			</PumpMotorRelay>
+
+			<StaticTest>
+				<TransmitMessage>StaticTest</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>StaticTest</ReplyMessage>
+				<ReplyInterpretation/>
+			</StaticTest>
+
+			<RoutineStatus>
+				<TransmitMessage>RoutineStatus</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>RoutineStatus</ReplyMessage>
+				<ReplyInterpretation>RoutineStatus</ReplyInterpretation>
+			</RoutineStatus>
+
+			<WssRoutineStart>
+				<TransmitMessage>WssRoutineStart</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>WssRoutineStart</ReplyMessage>
+				<ReplyInterpretation/>
+			</WssRoutineStart>
+
+			<WssRoutineStop>
+				<TransmitMessage>WssRoutineStop</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>WssRoutineStop</ReplyMessage>
+				<ReplyInterpretation/>
+			</WssRoutineStop>
+
+			<WssRoutineResults>
+				<TransmitMessage>WssRoutineResults</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>WssRoutineResults</ReplyMessage>
+				<ReplyInterpretation>WssRoutineResults</ReplyInterpretation>
+			</WssRoutineResults>
+
+			<WssRoutineStatus>
+				<TransmitMessage>WssRoutineResults</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>WssRoutineResults</ReplyMessage>
+				<ReplyInterpretation>RoutineStatus</ReplyInterpretation>
+			</WssRoutineStatus>
 
 		</VehicleMessages>
 
@@ -643,11 +717,21 @@
 			<RoutineControl>0x31,0x01,0x??,0x??,0x??,0x??</RoutineControl>
 			<DisableSpeedLimit>0x2F,0xE8,0x4F,0x03,0x00</DisableSpeedLimit>
 			<!-- <AbsValveControl>0x31,0x01,0x02,0xB9,0x??,0x??</AbsValveControl> -->
+			<PumpMotorOn>0x31,0x01,0x02,0xAC,0xFF,0xFF</PumpMotorOn>
+			<PumpMotorOff>0x31,0x01,0x02,0xAC,0x00,0x00</PumpMotorOff>
+			<StaticTest>0x31,0x01,0x02,0xBA</StaticTest>
+			<RoutineStatus>0x31,0x03,0x02,0xBA</RoutineStatus>
+			<DynamicRoutineResults>0x31,0x03,0x02,0xB9</DynamicRoutineResults>
+
+			<WssRoutineStart>0x31,0x01,0x02,0xB7,0x00,0xFF</WssRoutineStart>
+			<WssRoutineStop>0x31,0x02,0x02,0xB7</WssRoutineStop>
+			<WssRoutineResults>0x31,0x03,0x02,0xB7</WssRoutineResults>
 		</TransmitMessages>
 
 		<TransmitInterpretations>
 			<VIN>0xF1,0x90</VIN>
 			<EcuSoftwareId>0xF1,0x95</EcuSoftwareId>
+			<SoftwareIDIdentifier>0xF1,0x81</SoftwareIDIdentifier>
 			<!-- <EcuSerialNumber>0xF1,0x8C</EcuSerialNumber> -->
 			<PartNumber>0xF1,0x87</PartNumber>
 			<TraceData>0xF1,0x8C</TraceData>
@@ -669,6 +753,8 @@
 			<DectivateDumpValves>0x10,0x00,0x00,0x00</DectivateDumpValves>
 			<AllInletValvesOff>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x3C,0x00,0x00</AllInletValvesOff>
 			<StopPumpMotor>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xC8,0x00,0x00,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00</StopPumpMotor>
+
+			<PumpMotorRelay>0x09,0xC0</PumpMotorRelay>
 
 			<!-- All inlet on -->
 			<Activate_ALL_ISO>0xFF,0xFF,0x00,0x30,0xFF,0xFF,0x00,0x34,0x00,0x00,0xFF,0xFF,0x00,0x38,0xFF,0xFF,0x00,0x3C,0x00,0x00</Activate_ALL_ISO>
@@ -731,7 +817,7 @@
 			<!-- USV1, USV2 on HSV1, HSV2 on-->
 			<LFStep2>0xFF,0xFF,0x00,0x4E,0xFF,0xFF,0x00,0x50,0x00,0x00,0xFF,0xFF,0x00,0x52,0xFF,0xFF,0x00,0x54,0x00,0x00</LFStep2>
 			<!-- Pressure Increase FL-->
-			<LFStep3>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x0C,0xFF,0xFF,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x00</LFStep3>
+			<LFStep3>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x06,0xFF,0xFF,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x00</LFStep3>
 			<!--  Pulse FL  -->
 			<LFStep3a>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x02,0xFF,0xFF,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x00</LFStep3a>
 			<!-- HSV1, HSV2 off -->
@@ -743,7 +829,7 @@
 			<!-- HSV1, HSV2 on -->
 			<RFStep1>0xFF,0xFF,0x00,0x52,0xFF,0xFF,0x00,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</RFStep1>
 			<!-- Pressure Increase FR-->
-			<RFStep2>0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x0C,0xFF,0xFF,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00</RFStep2>
+			<RFStep2>0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x06,0xFF,0xFF,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00</RFStep2>
 			<!--  Pulse FR  -->
 			<RFStep2a>0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x02,0xFF,0xFF,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00</RFStep2a>
 			<!-- HSV1, HSV2 off -->
@@ -755,7 +841,7 @@
 			<!-- HSV1, HSV2 on -->
 			<LRStep1>0xFF,0xFF,0x00,0x52,0xFF,0xFF,0x00,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</LRStep1>
 			<!-- Pressure Increase RL-->
-			<LRStep2>0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x08,0xFF,0xFF,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00</LRStep2>
+			<LRStep2>0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x04,0xFF,0xFF,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00</LRStep2>
 			<!--  Pulse RL  -->
 			<LRStep2a>0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x02,0xFF,0xFF,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00</LRStep2a>
 			<!-- HSV1, HSV2 off -->
@@ -767,7 +853,7 @@
 			<!-- HSV1, HSV2 on -->
 			<RRStep1>0xFF,0xFF,0x00,0x52,0xFF,0xFF,0x00,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</RRStep1>
 			<!-- Pressure Increase RR-->
-			<RRStep2>0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x08,0xFF,0xFF,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x00</RRStep2>
+			<RRStep2>0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x04,0xFF,0xFF,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x00</RRStep2>
 			<!--  Pulse RR -->
 			<RRStep2a>0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x02,0xFF,0xFF,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x00</RRStep2a>
 			<!-- HSV1, HSV2 off -->
@@ -790,7 +876,7 @@
 
 			<SpeedLimit>
 				<Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x6F,0xE8,0x4F,0x03,0x??</Reply_00>
-				<Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x7F,0x31,0x??</Reply_01>
+				<Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x7F,0x2F,0x??</Reply_01>
 			</SpeedLimit>
 
 			<TesterPresent>
@@ -838,6 +924,41 @@
 				<Reply_00 lengthType="Variable" ReplyTimeout="100" endGapTime="0">0x67,0x02,0x??</Reply_00>
 				<Reply_02>0x7F,0x27,0x??</Reply_02>
 			</SendAccessKey>
+
+			<PumpMotorState>
+				<Reply_00 lengthType="Variable" ReplyTimeout="100" endGapTime="0">0x71,0x01,0x02,0xAC,0x??</Reply_00>
+				<Reply_02>0x7F,0x27,0x??</Reply_02>
+			</PumpMotorState>
+
+			<StaticTest>
+				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="0">0x71,0x01,0x02,0xBA,0x??</Reply_00>
+				<Reply_01>0x7F,0x31,0x??</Reply_01>
+			</StaticTest>
+
+			<RoutineStatus>
+				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="0">0x71,0x03,0x02,0xBA,0x??</Reply_00>
+				<Reply_01>0x7F,0x31,0x??</Reply_01>
+			</RoutineStatus>
+
+			<DynamicRoutineResults>
+				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="0">0x71,0x03,0x02,0xB9,0x??</Reply_00>
+				<Reply_01>0x7F,0x31,0x??</Reply_01>
+			</DynamicRoutineResults>
+
+			<WssRoutineStart>
+				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="0">0x71,0x01,0x02,0xB7</Reply_00>
+				<Reply_01>0x7F,0x31,0x??</Reply_01>
+			</WssRoutineStart>
+
+			<WssRoutineStop>
+				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="0">0x71,0x02,0x02,0xB7</Reply_00>
+				<Reply_01>0x7F,0x31,0x??</Reply_01>
+			</WssRoutineStop>
+
+			<WssRoutineResults>
+				<Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="0">0x71,0x03,0x02,0xB7</Reply_00>
+				<Reply_01>0x7F,0x31,0x??</Reply_01>
+			</WssRoutineResults>
 
 		</ReplyMessages>
 
@@ -952,6 +1073,7 @@
 					</Integer>
 				</Float>
 			</SensorSpeed>
+
 			<ReadLFSensor>
 				<Float scale="0.05625" offset="0.0">
 					<Integer type="unsigned" scale="1.0" offset="0.0">
@@ -980,6 +1102,47 @@
 					</Integer>
 				</Float>
 			</ReadRRSensor>
+
+			<WssRoutineResults>
+				<Vector type="fixed">
+					<Subvector00 Description="Front Left Speed">
+						<Float scale="0.05625" offset="0">
+							<!--km/h-->
+							<Integer type="unsigned" bits="16" scale="1" offset="0">
+								<Byte1 input_index="21" mask="0xFF" output_index="1"/>
+								<Byte2 input_index="22" mask="0xFF" output_index="0"/>
+							</Integer>
+						</Float>
+					</Subvector00>
+					<Subvector01 Description="Front Right Speed">
+						<Float scale="0.05625" offset="0">
+							<!--km/h-->
+							<Integer type="unsigned" bits="16" scale="1" offset="0">
+								<Byte1 input_index="23" mask="0xFF" output_index="1"/>
+								<Byte2 input_index="24" mask="0xFF" output_index="0"/>
+							</Integer>
+						</Float>
+					</Subvector01>
+					<Subvector02 Description="Rear Left Speed">
+						<Float scale="0.05625" offset="0">
+							<!--km/h-->
+							<Integer type="unsigned" bits="16" scale="1" offset="0">
+								<Byte1 input_index="25" mask="0xFF" output_index="1"/>
+								<Byte2 input_index="26" mask="0xFF" output_index="0"/>
+							</Integer>
+						</Float>
+					</Subvector02>
+					<Subvector03 Description="Rear Right Speed">
+						<Float scale="0.05625" offset="0">
+							<!--km/h-->
+							<Integer type="unsigned" bits="16" scale="1" offset="0">
+								<Byte1 input_index="27" mask="0xFF" output_index="1"/>
+								<Byte2 input_index="28" mask="0xFF" output_index="0"/>
+							</Integer>
+						</Float>
+					</Subvector03>
+				</Vector>
+			</WssRoutineResults>
 
 			<SensorSpeeds>
 				<Vector type="fixed">
@@ -1052,6 +1215,19 @@
 					</Subvector03>
 				</Vector>
 			</ReadSecuritySeed>
+
+			<RoutineStatus>
+				<String>
+					<Substring>
+						<Chars input_index="4" mask="0xFF" length="1">
+							<StringSubstitute01 condition="equals" compare="0x01" replace="Stopped"/>
+							<StringSubstitute02 condition="equals" compare="0x02" replace="Running"/>
+							<StringSubstitute03 condition="equals" compare="0x03" replace="StoppedAbnormally"/>
+							<StringSubstitute04 condition="equals" compare="0x04" replace="StoppedAbnormally"/>
+						</Chars>
+					</Substring>
+				</String>
+			</RoutineStatus>
 
 		</ReplyInterpretations>
 

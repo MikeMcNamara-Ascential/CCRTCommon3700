@@ -7,6 +7,10 @@
 			<DepressBrake PromptBox="1" Priority="0">FootOnBrake</DepressBrake>
 			<FootOnBrake PromptBox="1" Priority="0">FootOnBrake</FootOnBrake>
 			<FootOffBrake PromptBox="1" Priority="0">FootOffBrake</FootOffBrake>
+			<HDSSwitchOn PromptBox="1" Priority="0">HDSSwitchOn</HDSSwitchOn>
+			<HDSSwitchOff PromptBox="1" Priority="0">HDSSwitchOff</HDSSwitchOff>
+			<ESPSwitchOn PromptBox="1" Priority="0">ESPSwitchOn</ESPSwitchOn>
+			<ESPSwitchOff PromptBox="1" Priority="0">ESPSwitchOff</ESPSwitchOff>
 			<ApplyBrake PromptBox="2" Priority="0">ApplyBrake</ApplyBrake>
 			<RemoveFootFromBrake PromptBox="2" Priority="0">FootOffBrake</RemoveFootFromBrake>
 			<ShiftToNeutralMaintainBrake PromptBox="2" Priority="0">ShiftToNeutralMaintainBrake</ShiftToNeutralMaintainBrake>
@@ -225,6 +229,7 @@
 			<AlwaysEnterDiagnosticMode>False</AlwaysEnterDiagnosticMode>     
 			<AlwaysStartKeepAlive>False</AlwaysStartKeepAlive>
 			<BypassPartNumberValidation>False</BypassPartNumberValidation>
+			<ReadWSSWithRoutine>True</ReadWSSWithRoutine>
 			<ConfigFile>/Configuration/Components/Brake/UdsBoschEspProtocolConfig.xml</ConfigFile>
 			<CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
 			<CurrentForces>/dev/Icm/Block/Force</CurrentForces>
@@ -308,6 +313,11 @@
 			<MaxBrakePedalForce Units="LBF">10000</MaxBrakePedalForce>
 			<MinBrakePedalForce Units="LBF">0</MinBrakePedalForce>
 			<StoreBrakePedalForce>False</StoreBrakePedalForce>
+
+			<!-- Brake State Pressure Params-->
+			<MinPressureOn>30.0</MinPressureOn>
+			<MinPressureOff>-7.7</MinPressureOff>
+			<MaxPressureOff>7.7</MaxPressureOff>
 
 			<!-- Brake Balance Parameters -->
 			<BalanceFrontToRearMax Units="%">95</BalanceFrontToRearMax>
@@ -444,26 +454,26 @@
 			<ValveFiringCommands>
 				<!-- Actually ABS -->
 				<Command0002 CommandType="Machine" Torque="-350" Delay="2000">TorqueFrontAxle</Command0002>
-				<Command0005 Precondition="MinSpeed" MinSpeed="4.5">LFESPInit</Command0005>
+				<Command0005 Precondition="MinSpeed" MinSpeed="4.5">ESPPumpOn1</Command0005>
 				<!-- <Command0010 CommandType="Prompt" Prompt2="ApplyBrake" Delay="1000"/> -->
-				<Command0020 ArrayTag="MotorOn" Delay="3000">Turn_MOTOR_ON</Command0020>
+				<Command0020 ArrayTag="MotorOn" Delay="3000">RunPumpMotor</Command0020>
 				<!-- Left Front -->
 				<Command0025 ArrayTag="LFPressure" Delay="500">ESPPrimaryValve1On</Command0025>
 				<Command0030 ArrayTag="LFESPBuildStart" Delay="500" RollerIndex="0" TagType="BuildStart">LFESPStart</Command0030>
 				<Command0040 Delay="1000">LFESPPulse</Command0040>
-				<Command0050 ArrayTag="LFESPBuildEnd" RollerIndex="0" TagType="BuildEnd">ESPPrimaryValve1Off</Command0050>
+				<Command0050 ArrayTag="LFESPBuildEnd" RollerIndex="0" TagType="BuildEnd">LFESPInit</Command0050>
 				<!-- <Command0055 CommandType="ABS Sensor" RollerIndex="0" MinForce="-10" /> -->
-				<Command0060 ArrayTag="LFESPReductionStart" Delay="200" RollerIndex="0" TagType="ReductionStart">LFESPEnd</Command0060>  
-				<Command0070 ArrayTag="LFESPReductionEnd" RollerIndex="0" TagType="ReductionEnd">LFESPFinalize</Command0070>
+				<Command0060 ArrayTag="LFESPReductionStart" Delay="200" RollerIndex="0" TagType="ReductionStart">ESPPrimaryValve1Off</Command0060>  
+				<Command0070 ArrayTag="LFESPReductionEnd" RollerIndex="0" TagType="ReductionEnd">LFESPEnd</Command0070>
 				<Command0075 CommandType="ABS Sensor" RollerIndex="0" MaxForce="-10" Final="True"/>
 
 				<!-- Right Front -->
 				<Command0080 Delay="1000">ESPPrimaryValve2On</Command0080>
 				<Command0090 ArrayTag="RFESPBuildStart" Delay="600" RollerIndex="1" TagType="BuildStart">RFESPStart</Command0090>
 				<Command0100 Delay="1000">RFESPPulse</Command0100>
-				<Command0110 ArrayTag="RFESPBuildEnd" Delay="500" RollerIndex="1" TagType="BuildEnd">ESPPrimaryValve2Off</Command0110>
-				<Command0120 ArrayTag="RFESPReductionStart" Delay="200" RollerIndex="1" TagType="ReductionStart">RFESPEnd</Command0120>
-				<Command0130 ArrayTag="RFESPReductionEnd" RollerIndex="1" TagType="ReductionEnd">RFESPFinalize</Command0130>
+				<Command0110 ArrayTag="RFESPBuildEnd" Delay="500" RollerIndex="1" TagType="BuildEnd">RFESPInit</Command0110>
+				<Command0120 ArrayTag="RFESPReductionStart" Delay="200" RollerIndex="1" TagType="ReductionStart">ESPPrimaryValve2Off</Command0120>
+				<Command0130 ArrayTag="RFESPReductionEnd" RollerIndex="1" TagType="ReductionEnd">RFESPEnd</Command0130>
 				<Command0133 CommandType="ABS Sensor" Delay="500" RollerIndex="0" MaxForce="20"/>
 				<Command0134 CommandType="ABS Sensor" RollerIndex="0" MaxForce="20" />
 				<Command0136 CommandType="ABS Sensor" RollerIndex="0" MaxForce="20"  Final="True"/>
@@ -480,29 +490,32 @@
 
 				<Command0150 ArrayTag="LRESPBuildStart" Delay="600" RollerIndex="2" TagType="BuildStart">LRESPStart</Command0150>
 				<Command0160 Delay="1000">LRESPPulse</Command0160>
-				<Command0170 ArrayTag="LRESPBuildEnd" Delay="500" RollerIndex="2" TagType="BuildEnd">ESPPrimaryValve3Off</Command0170>
+				<Command0170 ArrayTag="LRESPBuildEnd" Delay="500" RollerIndex="2" TagType="BuildEnd">LRESPInit</Command0170>
 				<Command0175 CommandType="ABS Sensor" RollerIndex="2" MaxForce="-10" />
-				<Command0180 ArrayTag="LRESPReductionStart" Delay="200" RollerIndex="2" TagType="ReductionStart">LRESPEnd</Command0180>
+				<Command0180 ArrayTag="LRESPReductionStart" Delay="200" RollerIndex="2" TagType="ReductionStart">ESPPrimaryValve3Off</Command0180>
 				<Command0185 CommandType="ABS Sensor" RollerIndex="2" MaxForce="-10" Final="True"/>
-				<Command0190 ArrayTag="LRESPReductionEnd" RollerIndex="2" TagType="ReductionEnd">LRESPFinalize</Command0190>
+				<Command0190 ArrayTag="LRESPReductionEnd" RollerIndex="2" TagType="ReductionEnd">LRESPEnd</Command0190>
 
 				<!-- Right Rear -->
 				<Command0200 Delay="1000" >ESPPrimaryValve4On</Command0200>
 				<Command0210 ArrayTag="RRESPBuildStart" Delay="600" RollerIndex="3" TagType="BuildStart">RRESPStart</Command0210>
 				<Command0212 Delay="1000">RRESPPulse</Command0212>
 				<Command0215 CommandType="ABS Sensor" RollerIndex="2" MaxForce="20" />
-				<Command0230 ArrayTag="RRESPBuildEnd" Delay="500" RollerIndex="3" TagType="BuildEnd">ESPPrimaryValve4Off</Command0230>
+				<Command0230 ArrayTag="RRESPBuildEnd" Delay="500" RollerIndex="3" TagType="BuildEnd">RRESPInit</Command0230>
 				<Command0235 CommandType="ABS Sensor" RollerIndex="3" MaxForce="-10" />
 				<Command0238 CommandType="ABS Sensor" RollerIndex="2" MaxForce="20" />
-				<Command0240 ArrayTag="RRESPReductionStart" Delay="200" RollerIndex="3" TagType="ReductionStart">RRESPEnd</Command0240>
-				<Command0250 ArrayTag="RRESPReductionEnd" RollerIndex="3" TagType="ReductionEnd">RRESPFinalize</Command0250>
+				<Command0240 ArrayTag="RRESPReductionStart" Delay="200" RollerIndex="3" TagType="ReductionStart">ESPPrimaryValve4Off</Command0240>
+				<Command0250 ArrayTag="RRESPReductionEnd" RollerIndex="3" TagType="ReductionEnd">RRESPEnd</Command0250>
 				<Command0255 CommandType="ABS Sensor" RollerIndex="2" MaxForce="20"/>
 				<Command0260 CommandType="ABS Sensor" Delay="500" RollerIndex="3" MaxForce="20" />
 				<Command0263 CommandType="ABS Sensor" RollerIndex="2" MaxForce="20" Final="True"/>
 				<Command0265 CommandType="ABS Sensor" Delay="500" RollerIndex="3" MaxForce="20"/>
 				<Command0270 CommandType="ABS Sensor" RollerIndex="3" MaxForce="20" Final="True"/>
-				<Command0275 Delay="1000" >RRESPAllInletOff</Command0275>
-				<Command0280 Delay="1000" >Deactivate_ALL_VALVES</Command0280>
+				<Command0275 Delay="1000" >RRESPFinalize</Command0275>
+				<Command0280 Delay="1000" >AllInletValvesOff</Command0280>
+				<Command0285 Delay="500" >StopPumpMotor</Command0285>
+				<Command0290 Delay="500" >DynamicRoutineResults</Command0290>
+				<Command0295 Delay="500" >DynamicRoutineStop</Command0295>
 				<Command0300 CommandType="Prompt" Prompt2="Blank" Delay="10"/>
 				<Command0945 CommandType="Machine" Torque="0">RemoveTorque</Command0945>
 			</ValveFiringCommands>
@@ -575,7 +588,7 @@
 			<SecurityUnlockAttempts>5</SecurityUnlockAttempts>
 			<SecurityUnlockDelay>250</SecurityUnlockDelay>
 		</Parameters>
-		
+
 		<IgnoreFaults>
 			<ModuleFault_40204B/>
 			<ModuleFault_401900/>
@@ -603,7 +616,11 @@
 			<!-- New Esp setup teststeps -->
 			<TestStep060>CheckRoutineStatus</TestStep060>
 			<TestStep065>CheckPumpMotorStatus</TestStep065>
-			<TestStep070>CheckStateData</TestStep070>
+			<TestStep070>CheckHDSSwitchOn</TestStep070>
+			<TestStep075>CheckStateData</TestStep075>
+			<TestStep080>CheckESPSwitchOn</TestStep080>
+			<TestStep085>CheckPressureSwitchesOn</TestStep085>
+			<TestStep090>CheckPressureSwitchesOff</TestStep090>
 			<TestStep095>StartModuleKeepAlive</TestStep095>                      
 		</Setup>
 
@@ -693,6 +710,7 @@
 			<TestStep10 AltValue="Front">TwoMotorWssTest</TestStep10>
 			<TestStep15>BrakeToStop</TestStep15>
 		</WheelSpeedSensorTest>
+		
 		<SensorTest>
 			<TestStep000>LFSensorTest</TestStep000>
 			<TestStep010>RFSensorTest</TestStep010>
@@ -702,8 +720,8 @@
 		</SensorTest>
 
 		<FinishUp>
-			<TestStep000>EnterDiagnosticMode</TestStep000>
-			<TestStep001>CommandSecurityUnlock</TestStep001>
+			<!-- <TestStep000>EnterDiagnosticMode</TestStep000> -->
+			<!-- <TestStep001>CommandSecurityUnlock</TestStep001> -->
 			<TestStep005 AltValue="FinalPreClear">ReadFaultsByPhase</TestStep005>  
 			<TestStep010>ClearFaults</TestStep010>            
 			<TestStep015 AltValue="FinalPostClear">ReadFaultsByPhase</TestStep015> 
@@ -720,17 +738,20 @@
 
 		<LowSpeedValveFiringTest>
 			<TestStep005>CheckBrakeSensorOn</TestStep005>
-			<TestStep010>EnterDiagnosticMode</TestStep010>
-			<TestStep015>CommandSecurityUnlock</TestStep015>
+			<TestStep010>CheckBrakeSensorOff</TestStep010>
+			<!-- <TestStep015>EnterDiagnosticMode</TestStep015> -->
+			<!-- <TestStep020>CommandSecurityUnlock</TestStep020> -->
 			<TestStep025 AltValue="LowSpeed">FlexibleValveFiringTest</TestStep025>
-			<TestStep030>CheckBrakeSensorOff</TestStep030>
+			<!-- <TestStep030>CheckBrakeSensorOff</TestStep030> -->
+			<TestStep050 AltValue="InitialPostClear">ReadFaultsByPhase</TestStep050>  
 		</LowSpeedValveFiringTest>
 
 		<StaticValveFiringTest>
-			<!-- <TestStep005>CheckBrakeSensorOn</TestStep005> -->
+			<TestStep005>CheckBrakeSensorOn</TestStep005>
+			<TestStep010>CheckBrakeSensorOff</TestStep010>
 			<TestStep025>FlexibleValveFiringTest</TestStep025>
-			<!-- <TestStep030>CheckBrakeSensorOff</TestStep030> -->
-			<!-- <TestStep035>BrakeToStop</TestStep035> -->
+			<TestStep035>BrakeToStop</TestStep035>
+			<TestStep050 AltValue="InitialPostClear">ReadFaultsByPhase</TestStep050>  
 		</StaticValveFiringTest>
 
 		<LowSpeedEspValveFiringTest>
@@ -784,13 +805,22 @@
 		<CheckVIN Result="" Timeout="5000" Description="Verify VIN Number" ScanDelay="250"/>
 		<CheckEcuId Result="" Timeout="5000" Description="Verify ECU Software ID" ScanDelay="250"/>
 		<CheckProcessByte Result="" Timeout="5000" Description="Verify Brake Process Byte" ScanDelay="250"/>
-		
+
 		<CheckRoutineStatus Result="" Timeout="5000" Description="Verify Routine status" ScanDelay="250"/>
 		<CheckPumpMotorStatus Result="" Timeout="5000" Description="Verify Pump Motor Status" ScanDelay="250"/>
 		<CheckStateData Result="" Timeout="5000" Description="Verify State Data" ScanDelay="250"/>
 
 		<CheckBrakeSensorOn Result="" Timeout="5000" Description="Wait until Brake Sensor is On" ScanDelay="250"/>
 		<CheckBrakeSensorOff Result="" Timeout="5000" Description="Wait until Brake Sensor is Off" ScanDelay="250"/>
+
+		<CheckHDSSwitchOn Result="" Timeout="10000" Description="Wait until HDS Switch is On" ScanDelay="250"/>
+		<CheckHDSSwitchOff Result="" Timeout="10000" Description="Wait until HDS Switch is Off" ScanDelay="250"/>
+
+		<CheckESPSwitchOn Result="" Timeout="10000" Description="Wait until ESP Switch is On" ScanDelay="250"/>
+		<CheckESPSwitchOff Result="" Timeout="10000" Description="Wait until ESP Switch is Off" ScanDelay="250"/>
+
+		<CheckPressureSwitchesOn Result="" Timeout="10000" Description="Wait until Pressure Switches is On" ScanDelay="250"/>
+		<CheckPressureSwitchesOff Result="" Timeout="10000" Description="Wait until Pressure Switches is Off" ScanDelay="250"/>
 
 		<ClearFaultsInitial Result="" Timeout="10000" Description="Clear ABS Fault Codes" 
             Promt1="ClearingABSFaults" Prompt2="PleaseWait"/>

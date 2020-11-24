@@ -1,5 +1,6 @@
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
-ADD_SUBDIRECTORY(Brake)
-ADD_SUBDIRECTORY(TirePressureMonitor)
+INSTALL_FILES(${COMPONENT_CONFIG_DIR}/TPMS FILES
+	TpmsModule.xml
+	) 

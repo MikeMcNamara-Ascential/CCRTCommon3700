@@ -66,14 +66,13 @@ void MahindraTransmission<ModuleType>::InitializeHook(const XmlNode *config) {
             Log(LOG_ERRORS, "BepException during MahindraTransmission():InitializeHook TPMS Module - %s\n", err.GetReason());
         }
 
+    } catch (XmlException &ex)
+    {
+        Log(LOG_ERRORS, "xml Exception during initialization: %s\n", ex.GetReason());
     } catch (BepException &err)
     {
         Log(LOG_ERRORS, "Exception during initialization: %s\n", err.GetReason());
         //throw;
-    } catch (XmlException &ex)
-    {
-        Log(LOG_ERRORS, "xml Exception during initialization: %s\n", ex.GetReason());
-
     } catch (...)
     {
 
@@ -616,13 +615,17 @@ string MahindraTransmission<ModuleType>::MaintainSpeed(void) {
     delaytime = (GetTestStepInfo("Delay",delaytime) > 0)?GetTestStepInfo("Delay",delaytime):5000;
 
     //prompt Driver to maintain speed
+
+    string speedRange = GetTestStepInfo("SpeedTarget");
+    Log(LOG_DEV_DATA, "MahindraTransmission::MaintainSpeed() setting speed range: %s\n", speedRange.c_str());
+    SystemWrite(GetDataTag("SpeedTarget"), speedRange);
     DisplayPrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
     //wait
     BposSleep(delaytime);
     //Remove prompt
     RemovePrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
     // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    Log(LOG_FN_ENTRY, "MahindraTransmission::MaintainSpeed - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
 
     return testResult;
 }

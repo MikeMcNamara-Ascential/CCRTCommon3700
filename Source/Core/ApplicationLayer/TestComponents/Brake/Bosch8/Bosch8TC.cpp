@@ -243,6 +243,8 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
             status = CheckPumpMotorStatus();
         else if (step == "CheckStateData")
             status = CheckStateData();
+        else if (step == "CheckSteeringAngle")
+            status = CheckSteeringAngleSensor();
         else if (step.find("FlexibleValveFiringTest") != string::npos)
             status = FlexibleValveFiringTest(value);
         else
@@ -4706,6 +4708,7 @@ string Bosch8TC<ModuleType>::CheckPressureSwitches(bool onPosition) {
     if (!ShortCircuitTestStep())
     {
         Log(LOG_DEV_DATA, "Looking for Pressure Switches %s", (onPosition ? "On" : "Off"));
+        bool brakeConditionPass = false;
         bool allConditionsPass = false;
         bool actuationStateOn = false;
         float cylinderPressure = 0.0;
@@ -4718,15 +4721,29 @@ string Bosch8TC<ModuleType>::CheckPressureSwitches(bool onPosition) {
         if (onPosition)
         {
             DisplayPrompt(GetPromptBox("FootOnBrake"), GetPrompt("FootOnBrake"), GetPromptPriority("FootOnBrake"));
-            while (!allConditionsPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            while (!brakeConditionPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
             {
                 moduleStatus = m_vehicleModule.ReadModuleData("ActuationStateData", actuationStateOn);
                 if (moduleStatus == BEP_STATUS_SUCCESS)
                 {
-                    moduleStatus = m_vehicleModule.ReadModuleData("CylinderPressure", cylinderPressure);
-                    if (actuationStateOn && minPressureOn < cylinderPressure)
+                    if (actuationStateOn)
                     {
-                        allConditionsPass = true;
+                        brakeConditionPass = true;
+                        while (!allConditionsPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+                        {
+                            moduleStatus = m_vehicleModule.ReadModuleData("CylinderPressure", cylinderPressure);
+                            if (moduleStatus == BEP_STATUS_SUCCESS)
+                            {
+                                if (minPressureOn < cylinderPressure)
+                                {
+                                    allConditionsPass = true;
+                                }
+                                else
+                                {
+                                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -4741,15 +4758,29 @@ string Bosch8TC<ModuleType>::CheckPressureSwitches(bool onPosition) {
         {
             actuationStateOn = true;
             DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
-            while (!allConditionsPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            while (!brakeConditionPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
             {
                 moduleStatus = m_vehicleModule.ReadModuleData("ActuationStateData", actuationStateOn);
                 if (moduleStatus == BEP_STATUS_SUCCESS)
                 {
-                    moduleStatus = m_vehicleModule.ReadModuleData("CylinderPressure", cylinderPressure);
-                    if (!actuationStateOn && minPressureOff < cylinderPressure && cylinderPressure < maxPressureOff)
+                    if (!actuationStateOn)
                     {
-                        allConditionsPass = true;
+                        brakeConditionPass = true;
+                        while (!allConditionsPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+                        {
+                            moduleStatus = m_vehicleModule.ReadModuleData("CylinderPressure", cylinderPressure);
+                            if (moduleStatus == BEP_STATUS_SUCCESS)
+                            {
+                                if (minPressureOff < cylinderPressure && cylinderPressure < maxPressureOff)
+                                {
+                                    allConditionsPass = true;
+                                }
+                                else
+                                {
+                                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -4966,22 +4997,6 @@ string Bosch8TC<ModuleType>::CheckRoutineStatus(void) {
     Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckRoutineStatus()\n");
     try
     {
-        // Send Software ID data identifier message
-        moduleStatus = m_vehicleModule.CommandModule("SoftwareIDIdentifier");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Recieved software ID successfully\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error sending Software ID message - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
 
         // Send Static Test message
         moduleStatus = m_vehicleModule.CommandModule("StaticTest");
@@ -5054,4 +5069,80 @@ string Bosch8TC<ModuleType>::CheckRoutineStatus(void) {
     return (testResult);
 }
 
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+string Bosch8TC<ModuleType>::CheckSteeringAngleSensor()
+{   // Log the entry and determine if the test should be performed
+    Log(LOG_FN_ENTRY, "Bosch8Tc::CheckSteeringAngleSensor() - Enter");
+    string testResult = testError;
+    string testCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    if (!ShortCircuitTestStep())
+    {
+        bool sasPass = false;
+        BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+        float angle = -99.9;
+        float minSteeringAngle = GetParameterFloat("MinimumSteeringAngle");
+        float maxSteeringAngle = GetParameterFloat("MaximumSteeringAngle");
 
+        DisplayPrompt(GetPromptBox("TurnSteeringWheelToCenter"), GetPrompt("TurnSteeringWheelToCenter"), GetPromptPriority("TurnSteeringWheelToCenter"));
+        while (!sasPass && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+        {
+            moduleStatus = m_vehicleModule.ReadModuleData("ReadSteeringAngleSensor", angle);
+            if (minSteeringAngle <= angle && angle <= maxSteeringAngle)
+            {
+                sasPass = true;
+            }
+            else
+            {
+                BposSleep(GetTestStepInfoInt("ScanDelay"));
+            }
+        }
+
+        RemovePrompt(GetPromptBox("TurnSteeringWheelToCenter"), GetPrompt("TurnSteeringWheelToCenter"), GetPromptPriority("TurnSteeringWheelToCenter"));
+
+        //test finished, find out why.
+        if (!TimeRemaining())
+        {
+            testResult = testFail;
+            testDescription = "Failure reading SAS Status";
+            testCode = GetFaultCode("TimeoutFailure");
+            Log(LOG_DEV_DATA, "Error: Timeout while reading ReadSteeringAngleSensor from the module.");
+        }
+        else if (moduleStatus != BEP_STATUS_SUCCESS)
+        {   // Could not read data from the module
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testCode = GetFaultCode("CommunicationFailure");
+            Log(LOG_DEV_DATA, "Error reading ReadSteeringAngleSensor from the module - %s", ConvertStatusToResponse(status).c_str());
+        }
+        else if (StatusCheck() != BEP_STATUS_SUCCESS)
+        {
+            testResult = testFail;
+            testDescription = GetFaultDescription("SystemStatus");
+            testCode = GetFaultCode("SystemStatus");
+            Log(LOG_DEV_DATA, "Error with Machine State while trying to read ReadSteeringAngleSensor.");
+        }
+        else if (sasPass)
+        {
+            testResult = testPass;
+        }
+
+        Log(LOG_DEV_DATA, "Steering angle: %f [%f %f] - %s", angle, minSteeringAngle,
+                maxSteeringAngle, testResult.c_str());
+        // Report the results
+        char buff[16];
+        SendTestResultWithDetail(testResult, testDescription, testCode,
+                                 "Angle", CreateMessage(buff, sizeof(buff), "%.2f", angle), "degrees",
+                                 "MinAngle", CreateMessage(buff, sizeof(buff), "%.2f", minSteeringAngle), "degrees",
+                                 "MaxAngle", CreateMessage(buff, sizeof(buff), "%.2f", maxSteeringAngle), "degrees");
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
+    Log(LOG_FN_ENTRY, "Exiting Bosch8TC::CheckESPSwitch()\n");
+    return testResult;
+}

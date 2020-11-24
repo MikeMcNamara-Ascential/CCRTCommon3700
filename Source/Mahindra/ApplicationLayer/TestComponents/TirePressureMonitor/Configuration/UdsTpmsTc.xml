@@ -1,0 +1,167 @@
+<TpmsConfig>
+
+    <Setup>
+        <Name>Tpms</Name>
+        <Debug>Off</Debug>
+        <DebugLevel>0</DebugLevel>
+        <ProcessPriority>11</ProcessPriority>
+        <TestDomain>Foreground</TestDomain>
+        <CommunicationBus>CAN</CommunicationBus>
+
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/Tpms</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+
+        <Logging>
+            <Debug>Off</Debug>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+            <Status>Enabled</Status>
+            <ProcessName>component/Tpms</ProcessName>
+            <AdditionalLogFile>/Components/Tpms.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <DriveAxle/>
+                <Zerospeed/>
+            </SubscribeTags>
+        </TagList>
+
+        <DataTags>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+            <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <Rear>Rear</Rear>
+            <ReadModuleFaults>UDSReadFaults</ReadModuleFaults>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+            <RightRearSpeed>RRSpeed</RightRearSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <TpmsBuildItem>TPMS</TpmsBuildItem>
+            <TPmsEquipped>Yes</TPmsEquipped>
+        </DataTags>
+
+        <Parameters>
+            <!-- Component Behavior Parameters -->
+            <AlwaysClearFaults>No</AlwaysClearFaults>
+            <AlwaysEnterDiagnosticMode>No</AlwaysEnterDiagnosticMode>
+            <AlwaysReadFaults>False</AlwaysReadFaults>
+            <AlwaysStartKeepAlive>No</AlwaysStartKeepAlive>
+            <ConfigFile>/Configuration/Components/TPMS/TpmsModule.xml</ConfigFile>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <ICMName>mgr/ICM</ICMName>
+            <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+            <UsePlcYesNoButtons>True</UsePlcYesNoButtons>
+
+            <!-- TPM Parameters -->
+            <RequiredTimeAboveSpeed Units="seconds">90</RequiredTimeAboveSpeed>
+            <TpmSpeedTarget Units="mph">59 65</TpmSpeedTarget>
+            <TpmSpeedThreshold Units="mph">24.85</TpmSpeedThreshold>
+            <VehicleSpeedMonitorTimeDelay Units="ms">250</VehicleSpeedMonitorTimeDelay>
+        </Parameters>
+
+        <SystemTagsToReset>
+            <LeftFrontTpmsCount>0</LeftFrontTpmsCount>
+            <LeftFrontTpmsCountBgColor>white</LeftFrontTpmsCountBgColor>
+            <LeftRearTpmsCount>0</LeftRearTpmsCount>
+            <LeftRearTpmsCountBgColor>white</LeftRearTpmsCountBgColor>
+            <RightFrontTpmsCount>0</RightFrontTpmsCount>
+            <RightFrontTpmsCountBgColor>white</RightFrontTpmsCountBgColor>
+            <RightRearTpmsCount>0</RightRearTpmsCount>
+            <RightRearTpmsCountBgColor>white</RightRearTpmsCountBgColor>
+        </SystemTagsToReset>
+
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <MaintainSpeed PromptBox="1" PromptPriority="0">MaintainSpeed</MaintainSpeed>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+        </Prompts>
+
+        <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
+
+    </Setup>
+
+
+
+
+    <Objectives>
+
+        <FinishUp>
+            <TestStep99>FinishUp</TestStep99>
+        </FinishUp>
+
+        <StartSpeedMonitor>
+            <TestStep20>StartSpeedMonitor</TestStep20>
+        </StartSpeedMonitor>
+
+        <WaitForTimeAboveSpeed>
+            <TestStep00>WaitForTimeAboveSpeed</TestStep00>
+            <TestStep20>CheckTpmsResults</TestStep20>
+        </WaitForTimeAboveSpeed>
+
+    </Objectives>
+
+
+
+
+    <TestSteps>
+
+        <ClearFaults Result="" Timeout="5000" Description="Clear faults from the module" ScanDelay="250"/>
+
+        <CheckTpmsResults Result="" Timeout="2000" Description="Check TPMS Counters"/>
+
+        <EnterDiagnosticMode Result="" Timeout="1000" Description="Place TPMS in Diagnostic Mode" ScanDelay="250"/>
+
+        <FinishUp Result="" Timeout="3000" Description="Brake test finishup"/>
+
+        <ReadFaults Result="" Timeout="5000" Description="Read faults from the module" ScanDelay="250"/>
+
+        <StartModuleKeepAlive Result="" Timeout="1000" ScanDelay="250" 
+            Description="Start sending tester present message to the module"/>
+
+        <StartSpeedMonitor Result="" Timeout="1000" 
+            Description="Start timer for monitoring vehicle speed above threshold"/>
+
+        <StopModuleKeepAlive Result="" Timeout="1000" ScanDelay="250" 
+            Description="Stop sending tester present message to the module"/>
+
+        <WaitForTimeAboveSpeed Result="" Timeout="90000" ScanDelay="250"
+            Description="Wait for required time above speed to complete"/>
+    </TestSteps>
+
+</TpmsConfig>

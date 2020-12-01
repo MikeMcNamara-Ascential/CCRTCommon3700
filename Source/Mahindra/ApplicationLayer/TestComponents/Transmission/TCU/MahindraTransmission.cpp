@@ -191,62 +191,40 @@ string MahindraTransmission<ModuleType>::CruiseTest(void) {
 
     Log(LOG_FN_ENTRY, "Enter MahindraTransmission::CruiseTest()\n");
 
-    try
+    if (!ShortCircuitTestStep())
     {
-        vehicleModel = GetVehicleParameter("VehicleModel", vehicleModel.c_str());
-    } catch (...)
-    {
-        Log(LOG_ERRORS, "Could not find parameter in build record.. defaulting to Diesel");
-        vehicleModel = "Diesel";
-    }
-
-    //Have the vehicle reach the target speed
-    string speedCheck = AccelerateToTestSpeed(GetParameterFloat("CruiseControlTestSpeed"),
-                                              GetParameter("CruiseControlTestSpeedRange"),
-                                              GetParameterInt("CruiseControlSpeedScanDelay"), false);
-
-
-    //Once vehicle has reached speed, maintain it for 1 minute
-    if (speedCheck == testPass)
-    {
-        Log(LOG_DEV_DATA, "Speed has been reached. Performing Cruise Control Test");
-
-        //Enter Diagnostic mode prior to reading cruise status
-        status = m_cruiseModule.CommandModule("EnterDiagnosticMode");
-
-        //Prompt driver to press cruise button
-        DisplayPrompt(GetPromptBox("CruiseEngage"), GetPrompt("CruiseEngage"), GetPromptPriority("CruiseEngage"));
-
-        //Set the timeout
-        INT32 preconditionTimeout = GetTestStepInfoInt("PreconditionTimeout") > 0 ? GetTestStepInfoInt("PreconditionTimeout") : 18000;
-        SetSecondaryStartTime();
-
-        do
+        try
         {
-            //If the vehicle model is gasoline type then use a different command
-            // else just default to diesel
-            if (vehicleModel == "Gasoline")
-            {
-                status = m_cruiseModule.ReadModuleData("CruiseState", cruiseStatus); //Gasoline command
-            }
-            else
-                status = m_cruiseModule.ReadModuleData("CruiseStatus", cruiseStatus); //Diesel command
-
-        } while ((SecondaryTimeRemaining(&preconditionTimeout)) && (cruiseStatus != "Engaged") && (BEP_STATUS_SUCCESS == StatusCheck()));
-
-        if (cruiseStatus == "Engaged")
+            vehicleModel = GetVehicleParameter("VehicleModel", vehicleModel.c_str());
+        } catch (...)
         {
-            Log(LOG_DEV_DATA, "Cruise has been engaged.. Check off state");
+            Log(LOG_ERRORS, "Could not find parameter in build record.. defaulting to Diesel");
+            vehicleModel = "Diesel";
+        }
 
-            //Remove cruise prompts
-            RemovePrompt(GetPromptBox("CruiseEngage"), GetPrompt("CruiseEngage"), GetPromptPriority("CruiseEngage"));
+        //Have the vehicle reach the target speed
+        string speedCheck = AccelerateToTestSpeed(GetParameterFloat("CruiseControlTestSpeed"),
+                                                  GetParameter("CruiseControlTestSpeedRange"),
+                                                  GetParameterInt("CruiseControlSpeedScanDelay"), false);
 
-            //Display Cruise off prompt
-            DisplayPrompt(GetPromptBox("CruiseOff"), GetPrompt("CruiseOff"), GetPromptPriority("CruiseOff"));
+
+        //Once vehicle has reached speed, maintain it for 1 minute
+        if (speedCheck == testPass)
+        {
+            Log(LOG_DEV_DATA, "Speed has been reached. Performing Cruise Control Test");
+
+            //Enter Diagnostic mode prior to reading cruise status
+            status = m_cruiseModule.CommandModule("EnterDiagnosticMode");
+
+            //Prompt driver to press cruise button
+            DisplayPrompt(GetPromptBox("CruiseEngage"), GetPrompt("CruiseEngage"), GetPromptPriority("CruiseEngage"));
+
+            //Set the timeout
+            INT32 preconditionTimeout = GetTestStepInfoInt("PreconditionTimeout") > 0 ? GetTestStepInfoInt("PreconditionTimeout") : 18000;
+            SetSecondaryStartTime();
 
             do
             {
-                //Look for off state
                 //If the vehicle model is gasoline type then use a different command
                 // else just default to diesel
                 if (vehicleModel == "Gasoline")
@@ -255,44 +233,73 @@ string MahindraTransmission<ModuleType>::CruiseTest(void) {
                 }
                 else
                     status = m_cruiseModule.ReadModuleData("CruiseStatus", cruiseStatus); //Diesel command
-            } while ((SecondaryTimeRemaining(&preconditionTimeout)) && (cruiseStatus != "Off") && (BEP_STATUS_SUCCESS == StatusCheck()));
 
-            if (cruiseStatus == "Off")
+            } while ((SecondaryTimeRemaining(&preconditionTimeout)) && (cruiseStatus != "Engaged") && (BEP_STATUS_SUCCESS == StatusCheck()));
+
+            if (cruiseStatus == "Engaged")
             {
-                Log(LOG_DEV_DATA, "Cruise has been turned off. Pass Test");
-                testResult = testPass;
+                Log(LOG_DEV_DATA, "Cruise has been engaged.. Check off state");
+
+                //Remove cruise prompts
+                RemovePrompt(GetPromptBox("CruiseEngage"), GetPrompt("CruiseEngage"), GetPromptPriority("CruiseEngage"));
+
+                //Display Cruise off prompt
+                DisplayPrompt(GetPromptBox("CruiseOff"), GetPrompt("CruiseOff"), GetPromptPriority("CruiseOff"));
+
+                do
+                {
+                    //Look for off state
+                    //If the vehicle model is gasoline type then use a different command
+                    // else just default to diesel
+                    if (vehicleModel == "Gasoline")
+                    {
+                        status = m_cruiseModule.ReadModuleData("CruiseState", cruiseStatus); //Gasoline command
+                    }
+                    else
+                        status = m_cruiseModule.ReadModuleData("CruiseStatus", cruiseStatus); //Diesel command
+                } while ((SecondaryTimeRemaining(&preconditionTimeout)) && (cruiseStatus != "Off") && (BEP_STATUS_SUCCESS == StatusCheck()));
+
+                if (cruiseStatus == "Off")
+                {
+                    Log(LOG_DEV_DATA, "Cruise has been turned off. Pass Test");
+                    testResult = testPass;
+                }
+                else
+                {
+                    testResult = testFail;
+                    testResultCode = GetFaultCode("CommunicationFailure");
+                    testDescription = GetFaultDescription("CommunicationFailure");
+                    Log(LOG_ERRORS, "Failed to turn off cruise control\n");
+                }
+
             }
             else
             {
                 testResult = testFail;
                 testResultCode = GetFaultCode("CommunicationFailure");
                 testDescription = GetFaultDescription("CommunicationFailure");
-                Log(LOG_ERRORS, "Failed to turn off cruise control\n");
+                Log(LOG_ERRORS, "Failed to press cruise control button \n");
+
             }
-
         }
-        else
+
+        //Remove cruise prompts
+        RemovePrompt(GetPromptBox("CruiseOff"), GetPrompt("CruiseOff"), GetPromptPriority("CruiseOff"));
+
+        //Brake to stop.. Brake test should be after cruise test so parameterize this
+        if (GetParameterBool("CruiseControlBrakeAtEnd"))
         {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            Log(LOG_ERRORS, "Failed to press cruise control button \n");
-
+            CheckZeroSpeed();
         }
+
+        // Report the results
+        SendTestResultWithDetail(testResult, testDescription, testResultCode);
     }
-
-    //Remove cruise prompts
-    RemovePrompt(GetPromptBox("CruiseOff"), GetPrompt("CruiseOff"), GetPromptPriority("CruiseOff"));
-
-    //Brake to stop.. Brake test should be after cruise test so parameterize this
-    if (GetParameterBool("CruiseControlBrakeAtEnd"))
-    {
-        CheckZeroSpeed();
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
     }
-
-    // Report the results
-    SendTestResultWithDetail(testResult, testDescription, testResultCode);
-
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
     return testResult;
@@ -308,210 +315,217 @@ string MahindraTransmission<ModuleType>::ATLearnTest(void) {
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     BEP_STATUS_TYPE moduleStatus2 = BEP_STATUS_ERROR;
 
-    //Speed & Throttle pedal posision range
-    float AtLearnTargetSpeed = GetParameterFloat("ATLearnTargetSpeed");
-    int minPedalPos = GetParameterInt("ATMinAccelPos");
-    int maxPedalPos = GetParameterInt("ATMaxAccelPos");
-    int newMinPedalPos;
-    int newMaxPedalPos;
-    char buff[16];
-    string ATThrottleRange = CreateMessage(buff, sizeof(buff), "%d %d",
-                                           (INT32)minPedalPos, (INT32)maxPedalPos);
+    if (!ShortCircuitTestStep())
+    {
+        //Speed & Throttle pedal posision range
+        float AtLearnTargetSpeed = GetParameterFloat("ATLearnTargetSpeed");
+        int minPedalPos = GetParameterInt("ATMinAccelPos");
+        int maxPedalPos = GetParameterInt("ATMaxAccelPos");
+        int newMinPedalPos;
+        int newMaxPedalPos;
+        char buff[16];
+        string ATThrottleRange = CreateMessage(buff, sizeof(buff), "%d %d",
+                                               (INT32)minPedalPos, (INT32)maxPedalPos);
 
-    //AT learn item variables
-    int ATCycleTimout = GetParameterInt("ATLearnTimeout");
-    int targetGear = GetParameterInt("ATLearnTargetGear");
-    bool inGreenBand = false;
-    bool beyondGreenBand = false;
-    string converterStatus = "", gearResponse;
-    float accelPedalPos;  //in %
-    int currentGear, nextGear;
-    int prevGear = 1;
-    string vehicleSwitchPosition;
-    bool promptDisplayed = false;
+        //AT learn item variables
+        int ATCycleTimout = GetParameterInt("ATLearnTimeout");
+        int targetGear = GetParameterInt("ATLearnTargetGear");
+        bool inGreenBand = false;
+        bool beyondGreenBand = false;
+        string converterStatus = "", gearResponse;
+        float accelPedalPos;  //in %
+        int currentGear, nextGear;
+        int prevGear = 1;
+        string vehicleSwitchPosition;
+        bool promptDisplayed = false;
 
 
-    Log(LOG_FN_ENTRY, "Enter MahindraTransmission::ATLearnTest()\n");
+        Log(LOG_FN_ENTRY, "Enter MahindraTransmission::ATLearnTest()\n");
 
-    //Have operator shift to Drive first
-    do
-    {    // Get the brake switch on status
-        moduleStatus = m_vehicleModule.ReadModuleData("CurrentGear", vehicleSwitchPosition);
+        //Have operator shift to Drive first
+        do
+        {    // Get the brake switch on status
+            moduleStatus = m_vehicleModule.ReadModuleData("CurrentGear", vehicleSwitchPosition);
 
-        // Determine if the operator should be prompted
-        if ((vehicleSwitchPosition == "Neutral") && !promptDisplayed)
-        {                              // Instruct operator to shift to Park
-            DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-            promptDisplayed = true;
-        }
-        else if ((vehicleSwitchPosition != "Neutral") && promptDisplayed)
-        {                              // Remove the prompt
+            // Determine if the operator should be prompted
+            if ((vehicleSwitchPosition == "Neutral") && !promptDisplayed)
+            {                              // Instruct operator to shift to Park
+                DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+                promptDisplayed = true;
+            }
+            else if ((vehicleSwitchPosition != "Neutral") && promptDisplayed)
+            {                              // Remove the prompt
+                RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+                promptDisplayed = false;
+            }
+            // If the switch is not on, delay before checking again
+            if (vehicleSwitchPosition == "Neutral")
+                BposSleep(GetTestStepInfoInt("ScanDelay"));
+
+            // Keep checking while good system status, time remaining and switch not on
+        } while ((BEP_STATUS_SUCCESS == StatusCheck()) && (vehicleSwitchPosition != "Neutral") && TimeRemaining());
+
+        // Check if prompt must be removed
+        if (promptDisplayed)
+        {   // Remove the prompt
             RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
             promptDisplayed = false;
         }
-        // If the switch is not on, delay before checking again
-        if (vehicleSwitchPosition == "Neutral")
-            BposSleep(GetTestStepInfoInt("ScanDelay"));
 
-        // Keep checking while good system status, time remaining and switch not on
-    } while ((BEP_STATUS_SUCCESS == StatusCheck()) && (vehicleSwitchPosition != "Neutral") && TimeRemaining());
+        //Start AT learn test
+        SetStartTime();
+        SystemWrite(GetDataTag("TPSTarget"), ATThrottleRange);
+        SystemWrite(GetDataTag("TPSActive"), true);
+        DisplayPrompt(GetPromptBox("AccelerateThrottleInGreen"), GetPrompt("AccelerateThrottleInGreen"), GetPromptPriority("AccelerateThrottleInGreen"));
 
-    // Check if prompt must be removed
-    if (promptDisplayed)
-    {   // Remove the prompt
-        RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-        promptDisplayed = false;
-    }
-
-    //Start AT learn test
-    SetStartTime();
-    SystemWrite(GetDataTag("TPSTarget"), ATThrottleRange);
-    SystemWrite(GetDataTag("TPSActive"), true);
-    DisplayPrompt(GetPromptBox("AccelerateThrottleInGreen"), GetPrompt("AccelerateThrottleInGreen"), GetPromptPriority("AccelerateThrottleInGreen"));
-
-    try
-    {
-        do
-        {   // Wait for throttle in target speed range until first shift request
-            moduleStatus = m_vehicleModule.MonitorATLearnData(accelPedalPos, converterStatus, gearResponse);
-            if (moduleStatus == BEP_STATUS_SUCCESS)
-            {
-                //Get the current gear of the vehicle
-                currentGear = atoi(gearResponse.c_str());
-
-                //Update GUI with throttle position
-                SystemWrite(GetDataTag("TPSValue"), (int)accelPedalPos);
-
-                //Check if throttle gauge needs to be updated
-                if (inGreenBand == false && nextGear != prevGear)
+        try
+        {
+            do
+            {   // Wait for throttle in target speed range until first shift request
+                moduleStatus = m_vehicleModule.MonitorATLearnData(accelPedalPos, converterStatus, gearResponse);
+                if (moduleStatus == BEP_STATUS_SUCCESS)
                 {
-                    if (accelPedalPos > minPedalPos && accelPedalPos < maxPedalPos)
+                    //Get the current gear of the vehicle
+                    currentGear = atoi(gearResponse.c_str());
+
+                    //Update GUI with throttle position
+                    SystemWrite(GetDataTag("TPSValue"), (int)accelPedalPos);
+
+                    //Check if throttle gauge needs to be updated
+                    if (inGreenBand == false && nextGear != prevGear)
                     {
-                        int tolerence = GetParameterInt("ATLearnAccelTolerence");
-                        newMinPedalPos = (int)accelPedalPos - tolerence;
-                        newMaxPedalPos = (int)accelPedalPos + tolerence;
-                        ATThrottleRange = CreateMessage(buff, sizeof(buff), "%d %d",
-                                                        (INT32)newMinPedalPos, (INT32)newMaxPedalPos);
-                        SystemWrite(GetDataTag("TPSTarget"), ATThrottleRange);
-                        inGreenBand = true;
-                        Log(LOG_DEV_DATA, "Pedal In Initial Range, nextGear %d", nextGear);
-                    }
-                    else
-                    {
-                        Log(LOG_DEV_DATA, "Pedal NOT In Initial Range, nextGear %d", nextGear);
-                    }
-                }
-                // Display prompt for pedal out of range
-                if ((accelPedalPos < newMinPedalPos || accelPedalPos > newMaxPedalPos) && !promptDisplayed && currentGear > 1)
-                {
-                    DisplayPrompt(GetPromptBox("AccelNotInRange"), GetPrompt("AccelNotInRange"), GetPromptPriority("AccelNotInRange"));
-                    promptDisplayed = true;
-                    Log(LOG_DEV_DATA, "Pedal not in Range, promptDisplayed = true");
-                }
-                // Remove propmpt when pedal is back in range
-                if (accelPedalPos > newMinPedalPos && accelPedalPos < newMaxPedalPos)
-                {
-                    RemovePrompt(GetPromptBox("AccelNotInRange"), GetPrompt("AccelNotInRange"), GetPromptPriority("AccelNotInRange"));
-                    promptDisplayed = false;
-                    Log(LOG_DEV_DATA, "Pedal in Range, promptDisplayed = false");
-                    DisplayPrompt(GetPromptBox("AccelerateThrottleInGreen"), GetPrompt("AccelerateThrottleInGreen"), GetPromptPriority("AccelerateThrottleInGreen"));
-                }
-
-                //Check if the vehicle changed gears
-                if (prevGear < currentGear)
-                {
-                    Log(LOG_DEV_DATA, "Gear transition spotted, prevGear %d - currentGear %d", prevGear, currentGear);
-                    prevGear = currentGear;
-
-                    //IF the vehicle is in Gear 4 or above then check clutch status
-                    if (prevGear >= 3)
-                    {
-                        //moduleStatus2 = m_vehicleModule.ReadModuleData("ConverterStatus", converterStatus);
-                        Log(LOG_DEV_DATA, "Checking Clutch Coverter status");
-                        if (converterStatus == "Locked")
+                        if (accelPedalPos > minPedalPos && accelPedalPos < maxPedalPos)
                         {
-                            Log(LOG_DEV_DATA, "Converter is locked");
+                            int tolerence = GetParameterInt("ATLearnAccelTolerence");
+                            newMinPedalPos = (int)accelPedalPos - tolerence;
+                            newMaxPedalPos = (int)accelPedalPos + tolerence;
+                            ATThrottleRange = CreateMessage(buff, sizeof(buff), "%d %d",
+                                                            (INT32)newMinPedalPos, (INT32)newMaxPedalPos);
+                            SystemWrite(GetDataTag("TPSTarget"), ATThrottleRange);
+                            inGreenBand = true;
+                            Log(LOG_DEV_DATA, "Pedal In Initial Range, nextGear %d", nextGear);
                         }
                         else
-                            Log(LOG_DEV_DATA, "Clutch Coverter status: %s", converterStatus.c_str());
+                        {
+                            Log(LOG_DEV_DATA, "Pedal NOT In Initial Range, nextGear %d", nextGear);
+                        }
                     }
+                    // Display prompt for pedal out of range
+                    if ((accelPedalPos < newMinPedalPos || accelPedalPos > newMaxPedalPos) && !promptDisplayed && currentGear > 1)
+                    {
+                        DisplayPrompt(GetPromptBox("AccelNotInRange"), GetPrompt("AccelNotInRange"), GetPromptPriority("AccelNotInRange"));
+                        promptDisplayed = true;
+                        Log(LOG_DEV_DATA, "Pedal not in Range, promptDisplayed = true");
+                    }
+                    // Remove propmpt when pedal is back in range
+                    if (accelPedalPos > newMinPedalPos && accelPedalPos < newMaxPedalPos)
+                    {
+                        RemovePrompt(GetPromptBox("AccelNotInRange"), GetPrompt("AccelNotInRange"), GetPromptPriority("AccelNotInRange"));
+                        promptDisplayed = false;
+                        Log(LOG_DEV_DATA, "Pedal in Range, promptDisplayed = false");
+                        DisplayPrompt(GetPromptBox("AccelerateThrottleInGreen"), GetPrompt("AccelerateThrottleInGreen"), GetPromptPriority("AccelerateThrottleInGreen"));
+                    }
+
+                    //Check if the vehicle changed gears
+                    if (prevGear < currentGear)
+                    {
+                        Log(LOG_DEV_DATA, "Gear transition spotted, prevGear %d - currentGear %d", prevGear, currentGear);
+                        prevGear = currentGear;
+
+                        //IF the vehicle is in Gear 4 or above then check clutch status
+                        if (prevGear >= 3)
+                        {
+                            //moduleStatus2 = m_vehicleModule.ReadModuleData("ConverterStatus", converterStatus);
+                            Log(LOG_DEV_DATA, "Checking Clutch Coverter status");
+                            if (converterStatus == "Locked")
+                            {
+                                Log(LOG_DEV_DATA, "Converter is locked");
+                            }
+                            else
+                                Log(LOG_DEV_DATA, "Clutch Coverter status: %s", converterStatus.c_str());
+                        }
+                    }
+
+                }
+                else
+                {
+                    // Module communication failure.
+                    DisplayPrompt(GetPromptBox("ModuleCommFail"), GetPrompt("ModuleCommFail"), GetPromptPriority("ModuleCommFail"));
+                    Log(LOG_ERRORS, "Module Communicaiton failure");
                 }
 
-            }
-            else
-            {
-                // Module communication failure.
-                DisplayPrompt(GetPromptBox("ModuleCommFail"), GetPrompt("ModuleCommFail"), GetPromptPriority("ModuleCommFail"));
-                Log(LOG_ERRORS, "Module Communicaiton failure");
-            }
-
-            BposSleep(GetTestStepInfoInt("ScanDelay"));
-        } while (moduleStatus == BEP_STATUS_SUCCESS && (currentGear < targetGear) && TimeRemaining(&ATCycleTimout) && StatusCheck() == BEP_STATUS_SUCCESS &&
-                 (GetRollSpeed() < AtLearnTargetSpeed));
+                BposSleep(GetTestStepInfoInt("ScanDelay"));
+            } while (moduleStatus == BEP_STATUS_SUCCESS && (currentGear < targetGear) && TimeRemaining(&ATCycleTimout) && StatusCheck() == BEP_STATUS_SUCCESS &&
+                     (GetRollSpeed() < AtLearnTargetSpeed));
 
 
-        BposSleep(1000); // Kill 1 second after 3-4 shift to allow learn time
+            BposSleep(1000); // Kill 1 second after 3-4 shift to allow learn time
 
-        if (moduleStatus != BEP_STATUS_SUCCESS)
-        {
-            testResult = testFail;
-            Log(LOG_DEV_DATA, "Module Comm Failure");
-        }
-        else if (!TimeRemaining(&ATCycleTimout))
-        {
-            DisplayPrompt(GetPromptBox("TimeoutOnTargetGear"), GetPrompt("TimeoutOnTargetGear"), GetPromptPriority("TimeoutOnTargetGear"));
-            testResult = testTimeout;
-            testDescription = "Timeout waiting for target gear";
-            Log(LOG_DEV_DATA, "LTIExit TimeoutOnTargetGear");
-        }
-        else if (StatusCheck() != BEP_STATUS_SUCCESS)
-        {
-            Log(LOG_DEV_DATA, "AT Learn Bad StatusCheck");
-            if (StatusCheck() == BEP_STATUS_ABORT)
-            {
-                testResult = testAbort;
-                testDescription = "Test Aborted by Operator";
-            }
-            else
+            if (moduleStatus != BEP_STATUS_SUCCESS)
             {
                 testResult = testFail;
-                testDescription = "Bad machine status";
+                Log(LOG_DEV_DATA, "Module Comm Failure");
             }
+            else if (!TimeRemaining(&ATCycleTimout))
+            {
+                DisplayPrompt(GetPromptBox("TimeoutOnTargetGear"), GetPrompt("TimeoutOnTargetGear"), GetPromptPriority("TimeoutOnTargetGear"));
+                testResult = testTimeout;
+                testDescription = "Timeout waiting for target gear";
+                Log(LOG_DEV_DATA, "LTIExit TimeoutOnTargetGear");
+            }
+            else if (StatusCheck() != BEP_STATUS_SUCCESS)
+            {
+                Log(LOG_DEV_DATA, "AT Learn Bad StatusCheck");
+                if (StatusCheck() == BEP_STATUS_ABORT)
+                {
+                    testResult = testAbort;
+                    testDescription = "Test Aborted by Operator";
+                }
+                else
+                {
+                    testResult = testFail;
+                    testDescription = "Bad machine status";
+                }
+            }
+            else if (currentGear >= targetGear)
+            {
+                Log(LOG_DEV_DATA, "Vehicle successfully went through gear sequence");
+                testResult = testPass;
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "AT Learn Did not reach Target Gear");
+            }
+        } catch (ModuleException &e)
+        {   // Module exception
+            Log(LOG_ERRORS, "Module Exception in %s - %s\n", GetTestStepName().c_str(), e.message().c_str());
+            testResult = testAbort;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
         }
-        else if (currentGear >= targetGear)
+
+        // Turn off throttle gauge for brake to stop.
+        SystemWrite(GetDataTag("TPSTarget"), string("0 0"));
+        SystemWrite(GetDataTag("TPSActive"), false);
+
+        //Remove prompts
+        RemovePrompts();
+        DisplayPrompt(2, "Blank", 0);
+
+        //Brake to stop.. Brake test should be after AT test so parameterize this
+        if (GetParameterBool("ATLearnBrakeAtEnd"))
         {
-            Log(LOG_DEV_DATA, "Vehicle successfully went through gear sequence");
-            testResult = testPass;
+            CheckZeroSpeed();
         }
-        else
-        {
-            Log(LOG_DEV_DATA, "AT Learn Did not reach Target Gear");
-        }
-    } catch (ModuleException &e)
-    {   // Module exception
-        Log(LOG_ERRORS, "Module Exception in %s - %s\n", GetTestStepName().c_str(), e.message().c_str());
-        testResult = testAbort;
-        testResultCode = GetFaultCode("SoftwareFailure");
-        testDescription = GetFaultDescription("SoftwareFailure");
+
+        // Report the results
+        SendTestResultWithDetail(testResult, testDescription, testResultCode);
     }
-
-    // Turn off throttle gauge for brake to stop.
-    SystemWrite(GetDataTag("TPSTarget"), string("0 0"));
-    SystemWrite(GetDataTag("TPSActive"), false);
-
-    //Remove prompts
-    RemovePrompts();
-    DisplayPrompt(2, "Blank", 0);
-
-    //Brake to stop.. Brake test should be after AT test so parameterize this
-    if (GetParameterBool("ATLearnBrakeAtEnd"))
-    {
-        CheckZeroSpeed();
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
     }
-
-    // Report the results
-    SendTestResultWithDetail(testResult, testDescription, testResultCode);
-
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
     return testResult;
@@ -530,70 +544,90 @@ string MahindraTransmission<ModuleType>::MisfireTest(void) {
 
     Log(LOG_FN_ENTRY, "Enter MahindraTransmission::MisfireTest()\n");
 
-    try
+    if (!ShortCircuitTestStep())
     {
-        vehicleModel = GetVehicleParameter("VehicleModel", vehicleModel.c_str());
-    } catch (...)
-    {
-        Log(LOG_ERRORS, "Could not find parameter in build record.. defaulting to Diesel");
-        vehicleModel = "Diesel";
-    }
-
-    if (vehicleModel != "Gasoline")
-    {
-        Log(LOG_DEV_DATA, "Only check misfire if the vehicle model is gasoline type.. Skip for now");
-        testResult = testSkip;
-    }
-    else
-    {
-        //Have the vehicle reach the target speed
-        string speedCheck = AccelerateToTestSpeed(GetParameterFloat("MisfireTestSpeed"),
-                                                  GetParameter("MisfireTestSpeedRange"),
-                                                  GetParameterInt("MisfireSpeedScanDelay"), false);
-
-        //Once vehicle has reached speed, maintain it for 1 minute
-        if (speedCheck == testPass)
+        try
         {
-            //have vehicle decelerate to 40 kph ( ~25 mph)
+            vehicleModel = GetVehicleParameter("VehicleModel", vehicleModel.c_str());
+        } catch (...)
+        {
+            Log(LOG_ERRORS, "Could not find parameter in build record.. defaulting to Diesel");
+            vehicleModel = "Diesel";
+        }
+
+        if (vehicleModel != "Gasoline")
+        {
+            Log(LOG_DEV_DATA, "Only check misfire if the vehicle model is gasoline type.. Skip for now");
+            testResult = testSkip;
+        }
+        else
+        {
+            //Have the vehicle reach the target speed
+            string speedCheck = AccelerateToTestSpeed(GetParameterFloat("MisfireTestSpeed"),
+                                                      GetParameter("MisfireTestSpeedRange"),
+                                                      GetParameterInt("MisfireSpeedScanDelay"), false);
+
+            //Once vehicle has reached speed, maintain it for 1 minute
             //string maintainCheck = MaintainSpeedForTime(GetParameterInt("TpmsTimeout"), GetParameterInt("TpmsTestSpeed"));
-
-            //If decel speed was reached
-            //Check the Misfire results status
-            moduleStatus = m_cruiseModule.ReadModuleData("MisfireStatus", misfireStatus);
-
-            if (moduleStatus == BEP_STATUS_SUCCESS)
+            if (speedCheck == testPass)
             {
-                if (misfireStatus)
+                //have vehicle decelerate to 40 kph ( ~25 mph)
+
+                DisplayPrompt(GetPromptBox("DecelToSpeed"), GetPrompt("DecelToSpeed"), GetPromptPriority("DecelToSpeed"));
+                SystemWrite(GetDataTag("SpeedTarget"), GetParameter("MisfireTestDecelSpeedRange"));
+
+                if (WaitForTargetSpeed(GetParameterFloat("MisfireTestDecelSpeed") + 5.0, DOWN, GetTestStepInfoInt("ScanDelay")) == BEP_STATUS_SUCCESS)
                 {
-                    Log(LOG_DEV_DATA, "Misfire status passed.");
-                    testResult = testPass;
+                    Log(LOG_DEV_DATA, "decelerate speed reached.");
+                    //If decel speed was reached
+                    //Check the Misfire results status
+                    moduleStatus = m_cruiseModule.ReadModuleData("MisfireStatus", misfireStatus);
+
+                    if (moduleStatus == BEP_STATUS_SUCCESS)
+                    {
+                        if (misfireStatus)
+                        {
+                            Log(LOG_DEV_DATA, "Misfire status passed.");
+                            testResult = testPass;
+                        }
+                        else
+                        {
+                            Log(LOG_ERRORS, "Misfire status failed. \n");
+                            testDescription = "Misfire status read as failed";
+                            testResult = testFail;
+                        }
+                    }
+                    else
+                    {
+                        testResult = testFail;
+                        testResultCode = GetFaultCode("CommunicationFailure");
+                        testDescription = GetFaultDescription("CommunicationFailure");
+                        Log(LOG_ERRORS, "Error reading Misfire status \n");
+                    }
                 }
                 else
                 {
-                    Log(LOG_ERRORS, "Misfire status failed. \n");
-                    testDescription = "Misfire status read as failed";
+                    //Did not reach speed
+                    Log(LOG_ERRORS, "Error getting down to speed for Misfire\n");
                     testResult = testFail;
                 }
             }
             else
             {
+                //Did not reach speed
+                Log(LOG_ERRORS, "Error getting up to speed for Misfire\n");
                 testResult = testFail;
-                testResultCode = GetFaultCode("CommunicationFailure");
-                testDescription = GetFaultDescription("CommunicationFailure");
-                Log(LOG_ERRORS, "Error reading Misfire status \n");
             }
-        }
-        else
-        {
-            //Did not reach speed
-            Log(LOG_ERRORS, "Error getting up to speed for Misfire\n");
-            testResult = testFail;
-        }
 
+        }
+        // Report the results
+        SendTestResultWithDetail(testResult, testDescription, testResultCode);
     }
-    // Report the results
-    SendTestResultWithDetail(testResult, testDescription, testResultCode);
-
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
     return testResult;

@@ -1560,34 +1560,42 @@ string Bosch8TC<ModuleType>::DisableSpeedLimit(void) {
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 
     Log(LOG_FN_ENTRY, "Enter Bosch8TC::DisableSpeedLimit()\n");
-    try
+    if (!ShortCircuitTestStep())
     {
-        // Try to disable the speed limit
-        moduleStatus = m_vehicleModule.GetInfo("DisableSpeedLimit");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Speed Limit disabled\n");
-        else
+        try
         {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error disabling speed limit - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
+            // Try to disable the speed limit
+            moduleStatus = m_vehicleModule.GetInfo("DisableSpeedLimit");
 
-        Log(LOG_DEV_DATA, "Disable Speed Limit Status: %s - status: %s\n",
-            testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
-    } catch (ModuleException &moduleException)
-    {
-        Log(LOG_ERRORS, "Module Exception in Bosch8TC::DisableSpeedLimit() - %s\n",
-            moduleException.message().c_str());
-        testResult = testSoftwareFail;
-        testResultCode = GetFaultCode("SoftwareFailure");
-        testDescription = GetFaultDescription("SoftwareFailure");
+            // Determine the test result
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Speed Limit disabled\n");
+            else
+            {
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error disabling speed limit - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+
+            Log(LOG_DEV_DATA, "Disable Speed Limit Status: %s - status: %s\n",
+                testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+        } catch (ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in Bosch8TC::DisableSpeedLimit() - %s\n",
+                moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+    }
+    else
+    {   // Need to skip this test step
+       testResult = testSkip;
+       Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
     }
 
     // Send the test result
@@ -3611,7 +3619,7 @@ string Bosch8TC<ModuleType>::FlexibleValveFiringTest(string testType) {
         (testType == "LowSpeed" && performHsTest))
         testDisabled = true;
 
-    if ((!ShortCircuitTestStep() || GetESPTestResult() != testPass) &&
+    if (!ShortCircuitTestStep() &&
         ((hsStat != BEP_STATUS_ABORT && !testDisabled) || GetTestStepInfoBool("AlwaysPerform" + testType)))
     {
         if (testType != "Static")
@@ -4839,69 +4847,78 @@ string Bosch8TC<ModuleType>::CheckStateData(void) {
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 
     Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckStateData()\n");
-    try
+
+    if (!ShortCircuitTestStep())
     {
-        // Check sensor information
-        moduleStatus = m_vehicleModule.CommandModule("SensorInformation");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Sensor information recieved\n");
-        else
+        try
         {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading state data - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
+            // Check sensor information
+            moduleStatus = m_vehicleModule.CommandModule("SensorInformation");
+
+            // Determine the test result
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Sensor information recieved\n");
+            else
+            {
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error reading state data - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+
+            // Check Acceleration Data
+            moduleStatus = m_vehicleModule.CommandModule("AccelerationData");
+
+            // Determine the test result
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Acceleration Data recieved\n");
+            else
+            {
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error reading Accel data - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+
+            // Check Acceleration Data
+            moduleStatus = m_vehicleModule.CommandModule("AccelerationData");
+
+            // Determine the test result
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Acceleration Data recieved\n");
+            else
+            {
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error reading Accel data - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+        } catch (ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in Bosch8TC::CheckStateData() - %s\n",
+                moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
         }
 
-        // Check Acceleration Data
-        moduleStatus = m_vehicleModule.CommandModule("AccelerationData");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Acceleration Data recieved\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading Accel data - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-
-        // Check Acceleration Data
-        moduleStatus = m_vehicleModule.CommandModule("AccelerationData");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Acceleration Data recieved\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading Accel data - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-    } catch (ModuleException &moduleException)
-    {
-        Log(LOG_ERRORS, "Module Exception in Bosch8TC::CheckStateData() - %s\n",
-            moduleException.message().c_str());
-        testResult = testSoftwareFail;
-        testResultCode = GetFaultCode("SoftwareFailure");
-        testDescription = GetFaultDescription("SoftwareFailure");
+        // Send the test result
+        SendTestResult(testResult, testDescription, testResultCode);
     }
-
-    // Send the test result
-    SendTestResult(testResult, testDescription, testResultCode);
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
     // Return the test result
     Log(LOG_FN_ENTRY, "Exit Bosch8TC::CheckStateData()\n");
     return (testResult);
@@ -4915,73 +4932,81 @@ string Bosch8TC<ModuleType>::CheckPumpMotorStatus(void) {
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 
     Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckPumpMotorStatus()\n");
-    try
+    if (!ShortCircuitTestStep())
     {
-        // Turn on pump motor
-        moduleStatus = m_vehicleModule.CommandModule("PumpMotorOn");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Turned pump motor on\n");
-        else
+        try
         {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error turning on pump motor - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
+            // Turn on pump motor
+            moduleStatus = m_vehicleModule.CommandModule("PumpMotorOn");
+
+            // Determine the test result
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Turned pump motor on\n");
+            else
+            {
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error turning on pump motor - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+
+            // Check pump motor status
+            moduleStatus = m_vehicleModule.CommandModule("PumpMotorRelay");
+
+            // Determine the test result
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Pump Motor Status recieved\n");
+            else
+            {
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error reading Pump Motor Status - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+
+            // Turn off pump motor
+            moduleStatus = m_vehicleModule.CommandModule("PumpMotorOff");
+
+            // Determine the test result
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Turned off pump motor\n");
+            else
+            {
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error turning off pump motor - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+
+
+            Log(LOG_DEV_DATA, "Overall Pump Motor Relay Status: %s - status: %s\n",
+                testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+        } catch (ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in Bosch8TC::CheckPumpMotorStatus() - %s\n",
+                moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
         }
 
-        // Check pump motor status
-        moduleStatus = m_vehicleModule.CommandModule("PumpMotorRelay");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Pump Motor Status recieved\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error reading Pump Motor Status - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-
-        // Turn off pump motor
-        moduleStatus = m_vehicleModule.CommandModule("PumpMotorOff");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Turned off pump motor\n");
-        else
-        {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error turning off pump motor - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
-
-
-        Log(LOG_DEV_DATA, "Overall Pump Motor Relay Status: %s - status: %s\n",
-            testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
-    } catch (ModuleException &moduleException)
-    {
-        Log(LOG_ERRORS, "Module Exception in Bosch8TC::CheckPumpMotorStatus() - %s\n",
-            moduleException.message().c_str());
-        testResult = testSoftwareFail;
-        testResultCode = GetFaultCode("SoftwareFailure");
-        testDescription = GetFaultDescription("SoftwareFailure");
+        // Send the test result
+        SendTestResult(testResult, testDescription, testResultCode);
     }
-
-    // Send the test result
-    SendTestResult(testResult, testDescription, testResultCode);
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
     // Return the test result
     Log(LOG_FN_ENTRY, "Exit Bosch8TC::CheckPumpMotorStatus()\n");
     return (testResult);
@@ -4995,75 +5020,83 @@ string Bosch8TC<ModuleType>::CheckRoutineStatus(void) {
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 
     Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckRoutineStatus()\n");
-    try
+    if (!ShortCircuitTestStep())
     {
-
-        // Send Static Test message
-        moduleStatus = m_vehicleModule.CommandModule("StaticTest");
-
-        // Determine the test result
-        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Sent Status test message\n");
-        else
+        try
         {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error sending static test message- status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
-        }
 
-        string routineStatus = "ERROR";
-        string RoutineRunning = "Running";
-        string RoutineStarted = "Started";
-        string RoutineStopped = "Stopped";
-        string RoutineStoppedAbnormally = "StoppedAbnormally";
-        bool routineFinished = false;
-        while (!routineFinished && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
-        {    
-            moduleStatus = m_vehicleModule.ReadModuleData("RoutineStatus", routineStatus);
-            if (moduleStatus == BEP_STATUS_SUCCESS)
+            // Send Static Test message
+            moduleStatus = m_vehicleModule.CommandModule("StaticTest");
+
+            // Determine the test result
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Sent Status test message\n");
+            else
             {
-                routineFinished = !routineStatus.compare(RoutineStopped) || !routineStatus.compare(RoutineStoppedAbnormally);
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error sending static test message- status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
             }
-            if (!routineFinished)
+
+            string routineStatus = "ERROR";
+            string RoutineRunning = "Running";
+            string RoutineStarted = "Started";
+            string RoutineStopped = "Stopped";
+            string RoutineStoppedAbnormally = "StoppedAbnormally";
+            bool routineFinished = false;
+            while (!routineFinished && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {    
+                moduleStatus = m_vehicleModule.ReadModuleData("RoutineStatus", routineStatus);
+                if (moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    routineFinished = !routineStatus.compare(RoutineStopped) || !routineStatus.compare(RoutineStoppedAbnormally);
+                }
+                if (!routineFinished)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+
+            Log(LOG_DEV_DATA, "done checking status, final routineStatus: %s, == RoutineStopped: %s", routineStatus.c_str(), RoutineStopped.c_str());
+
+            // Determine the test result
+            testResult = !routineStatus.compare(RoutineStopped) ? testPass : testFail;
+            if (testResult == testPass)
+                Log(LOG_DEV_DATA, "Sent routine status message and routine Complete\n");
+            else
             {
-                BposSleep(GetTestStepInfoInt("ScanDelay"));
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error sending routine status message - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
             }
-        }
 
-        Log(LOG_DEV_DATA, "done checking status, final routineStatus: %s, == RoutineStopped: %s", routineStatus.c_str(), RoutineStopped.c_str());
 
-        // Determine the test result
-        testResult = !routineStatus.compare(RoutineStopped) ? testPass : testFail;
-        if (testResult == testPass)
-            Log(LOG_DEV_DATA, "Sent routine status message and routine Complete\n");
-        else
+            Log(LOG_DEV_DATA, "Overall routine status: %s - status: %s\n",
+                testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+        } catch (ModuleException &moduleException)
         {
-            testResult = testFail;
-            testResultCode = GetFaultCode("CommunicationFailure");
-            testDescription = GetFaultDescription("CommunicationFailure");
-            SetCommunicationFailure(true);
-            Log(LOG_ERRORS, "Error sending routine status message - status: %s\n",
-                ConvertStatusToResponse(moduleStatus).c_str());
+            Log(LOG_ERRORS, "Module Exception in Bosch8TC::CheckRoutineStatus() - %s\n",
+                moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
         }
 
-
-        Log(LOG_DEV_DATA, "Overall routine status: %s - status: %s\n",
-            testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
-    } catch (ModuleException &moduleException)
-    {
-        Log(LOG_ERRORS, "Module Exception in Bosch8TC::CheckRoutineStatus() - %s\n",
-            moduleException.message().c_str());
-        testResult = testSoftwareFail;
-        testResultCode = GetFaultCode("SoftwareFailure");
-        testDescription = GetFaultDescription("SoftwareFailure");
+        // Send the test result
+        SendTestResult(testResult, testDescription, testResultCode);
     }
-
-    // Send the test result
-    SendTestResult(testResult, testDescription, testResultCode);
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
     // Return the test result
     Log(LOG_FN_ENTRY, "Exit Bosch8TC::CheckRoutineStatus()\n");
     return (testResult);

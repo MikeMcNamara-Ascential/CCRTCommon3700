@@ -24,6 +24,7 @@ TpmsTc<ModuleType>::TpmsTc() : GenericTCTemplate<ModuleType>(),
 template <class ModuleType> 
 TpmsTc<ModuleType>::~TpmsTc()
 {   // Nothing special to do here
+    m_speedCheckTimer.Stop();
 }
 
 //-------------------------------------------------------------------------------------------------

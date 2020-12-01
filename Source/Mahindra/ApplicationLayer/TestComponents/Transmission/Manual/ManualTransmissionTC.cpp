@@ -362,75 +362,84 @@ const string ManualTransmissionTC::TestStepSpeedBasedShiftTest(const string &val
 
     Log(LOG_FN_ENTRY, "Enter ManualTransmissionTC::TestStepSpeedBasedShiftTest(), NumberOfFwdGears=%d\n", numberOfGears);
 
-    // Set speed target to be a proportional to the current gear
-    if ( scanDelay <= 0) scanDelay = 250;
-    if ( numberOfGears <= 0) numberOfGears = 1;
-    targetSpeed = GetParameterFloat(CreateMessage( buff, sizeof( buff), "MaxSpeedTarget_Gear%d", targetGear));
-    targetSpeedTolerance = GetParameterFloat(CreateMessage( buff, sizeof( buff), "MaxSpeedTolerance_Gear%d", targetGear));
-    targetSpeedMin = targetSpeed - targetSpeedTolerance;
-    targetSpeedMax = targetSpeed + targetSpeedTolerance;
-    int maxSpeedDelay = GetParameterInt(CreateMessage( buff, sizeof( buff), "MaxSpeedDelay_Gear%d", targetGear));
-            
-    //Get Parameters from build record
-    SetSpeedBasedShiftTestParameters(targetGear, targetSpeed, targetSpeedTolerance, targetSpeedMin, 
-                                     targetSpeedMax, scanDelay, numberOfGears, maxSpeedDelay);
-
-    if (numberOfGears >= targetGear)
+    if (!ShortCircuitTestStep())
     {
-        UpdatePrompts();
-        sprintf( buff, "%.02f %.02f", targetSpeed - targetSpeedTolerance, targetSpeed + targetSpeedTolerance);
-        string speedRange = buff;
-        SystemWrite( "SpeedTarget", speedRange);
-        Log(LOG_DEV_DATA, "SpeedTarget = %s, speedRange = %s\n", buff, speedRange.c_str());
 
-        topSpeed = GetRollSpeed();
-        while ( (TimeRemaining()) && (BEP_STATUS_SUCCESS == status) && topSpeed < targetSpeedMin)
-        {
-            status = StatusSleep( scanDelay);
-            topSpeed = GetRollSpeed();
-            Log( LOG_DEV_DATA, "Gear: %d, Speed=%.02f\n", targetGear, topSpeed);
-        }
+        // Set speed target to be a proportional to the current gear
+        if ( scanDelay <= 0) scanDelay = 250;
+        if ( numberOfGears <= 0) numberOfGears = 1;
+        targetSpeed = GetParameterFloat(CreateMessage( buff, sizeof( buff), "MaxSpeedTarget_Gear%d", targetGear));
+        targetSpeedTolerance = GetParameterFloat(CreateMessage( buff, sizeof( buff), "MaxSpeedTolerance_Gear%d", targetGear));
+        targetSpeedMin = targetSpeed - targetSpeedTolerance;
+        targetSpeedMax = targetSpeed + targetSpeedTolerance;
+        int maxSpeedDelay = GetParameterInt(CreateMessage( buff, sizeof( buff), "MaxSpeedDelay_Gear%d", targetGear));
+                
+        //Get Parameters from build record
+        SetSpeedBasedShiftTestParameters(targetGear, targetSpeed, targetSpeedTolerance, targetSpeedMin, 
+                                         targetSpeedMax, scanDelay, numberOfGears, maxSpeedDelay);
 
-        if (!TimeRemaining())
+        if (numberOfGears >= targetGear)
         {
-            testStatus = testTimeout;
-        }
-        else if (BEP_STATUS_SUCCESS != status)
-        {
-            testStatus = testFail;
-        }
-        else
-        {
-            // Delay for a moment to allow vehicle to accelerate further, then take max speed sample
-            BposSleep(maxSpeedDelay);
+            UpdatePrompts();
+            sprintf( buff, "%.02f %.02f", targetSpeed - targetSpeedTolerance, targetSpeed + targetSpeedTolerance);
+            string speedRange = buff;
+            SystemWrite( "SpeedTarget", speedRange);
+            Log(LOG_DEV_DATA, "SpeedTarget = %s, speedRange = %s\n", buff, speedRange.c_str());
+
             topSpeed = GetRollSpeed();
-            if (topSpeed > targetSpeedMin && topSpeed < targetSpeedMax)
+            while ( (TimeRemaining()) && (BEP_STATUS_SUCCESS == status) && topSpeed < targetSpeedMin)
             {
-                testStatus = testPass;
+                status = StatusSleep( scanDelay);
+                topSpeed = GetRollSpeed();
+                Log( LOG_DEV_DATA, "Gear: %d, Speed=%.02f\n", targetGear, topSpeed);
             }
-            else
+
+            if (!TimeRemaining())
+            {
+                testStatus = testTimeout;
+            }
+            else if (BEP_STATUS_SUCCESS != status)
             {
                 testStatus = testFail;
             }
+            else
+            {
+                // Delay for a moment to allow vehicle to accelerate further, then take max speed sample
+                BposSleep(maxSpeedDelay);
+                topSpeed = GetRollSpeed();
+                if (topSpeed > targetSpeedMin && topSpeed < targetSpeedMax)
+                {
+                    testStatus = testPass;
+                }
+                else
+                {
+                    testStatus = testFail;
+                }
+            }
+
+            RemovePrompts();
+    		SystemWrite( "SpeedTarget", string("0 0"));
+
+            string testResultName(GetTestStepName());
+            if(!SystemReadBool("FrontAxleTestSelected") && SystemReadBool("LiftAxleTestSelected"))
+            {
+                testResultName = GetDataTag("SecondaryRearAxleTag") + testResultName;
+            }
+            SendSubtestResultWithDetail(testResultName, testStatus, GetTestStepInfo( "Description"), "0000",
+                                        "Gear", CreateMessage( buff, sizeof( buff), "%d", targetGear), "",
+                                        "TopSpeed", CreateMessage( buff, sizeof( buff), "%.02f", topSpeed), unitsMPH,
+                                        "Min", CreateMessage( buff, sizeof( buff), "%.02f", targetSpeedMin), unitsMPH,
+                                        "Max", CreateMessage( buff, sizeof( buff), "%.02f", targetSpeedMax), unitsMPH);
         }
-
-        RemovePrompts();
-		SystemWrite( "SpeedTarget", string("0 0"));
-
-        string testResultName(GetTestStepName());
-        if(!SystemReadBool("FrontAxleTestSelected") && SystemReadBool("LiftAxleTestSelected"))
+        else
         {
-            testResultName = GetDataTag("SecondaryRearAxleTag") + testResultName;
+            testStatus = testSkip;
         }
-        SendSubtestResultWithDetail(testResultName, testStatus, GetTestStepInfo( "Description"), "0000",
-                                    "Gear", CreateMessage( buff, sizeof( buff), "%d", targetGear), "",
-                                    "TopSpeed", CreateMessage( buff, sizeof( buff), "%.02f", topSpeed), unitsMPH,
-                                    "Min", CreateMessage( buff, sizeof( buff), "%.02f", targetSpeedMin), unitsMPH,
-                                    "Max", CreateMessage( buff, sizeof( buff), "%.02f", targetSpeedMax), unitsMPH);
     }
     else
-    {
-        testStatus = testSkip;
+    {   // Need to skip this test step
+       testStatus = testSkip;
+       Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
     }
 
     Log(LOG_FN_ENTRY, "Exit ManualTransmissionTC::TestStepSpeedBasedShiftTest(%d), status=%s\n", 

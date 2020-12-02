@@ -4005,11 +4005,14 @@ string Bosch8TC<ModuleType>::FlexibleValveFiringTest(string testType) {
                                             forceResult = testPass;
                                         }
 
-                                        Log(LOG_DEV_DATA, "ABS Check - %s: %f, Wheel Idx: %d, Force: %f, Result: %s",
-                                            (maxForce ? "MaxForce" : "MinForce"), compareForce, rollerIndex, rollerForces[rollerIndex], forceResult.c_str());
-                                        if (iter->second->hasAttribute("Final") && atob(iter->second->getAttribute("Final")->getValue().c_str()))
+                                        bool isFinal = iter->second->hasAttribute("Final") && atob(iter->second->getAttribute("Final")->getValue().c_str());
+                                        Log(LOG_DEV_DATA, "ABS Check - %s: %f, Wheel Idx: %d, Force: %f, Result: %s, Final: %s",
+                                            (maxForce ? "MaxForce" : "MinForce"), compareForce, rollerIndex, rollerForces[rollerIndex], forceResult.c_str(), isFinal ? "True" : "False");
+                                        if (isFinal)
                                         {
-                                            SendSubtestResult(rollerName[rollerIndex] + "LowSpeedAbs" + (maxForce ? "MaxForce" : "MinForce"), maxAndMinPass[rollerIndex * 2 + (maxForce ? 0 : 1)] ? testPass : testFail, rollerName[rollerIndex] + "LowSpeedAbs" + (maxForce ? "Reduction" : "Recovery") + " Not Sufficient");
+                                            SendSubtestResult(rollerName[rollerIndex] + "LowSpeedAbs" + (maxForce ? "MaxForce" : "MinForce"),
+                                                              maxAndMinPass[rollerIndex * 2 + (maxForce ? 0 : 1)] ? testPass : testFail,
+                                                              rollerName[rollerIndex] + "LowSpeedAbs" + (maxForce ? "Reduction" : "Recovery") + " Not Sufficient");
                                         }
                                         //UpdateResult(wssResult, result);
                                     }

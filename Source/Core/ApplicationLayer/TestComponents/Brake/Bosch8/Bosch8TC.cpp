@@ -1560,7 +1560,7 @@ string Bosch8TC<ModuleType>::DisableSpeedLimit(void) {
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 
     Log(LOG_FN_ENTRY, "Enter Bosch8TC::DisableSpeedLimit()\n");
-    if (!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep() || GetParameterBool("AlwaysDisableSpeedLimit"))
     {
         try
         {

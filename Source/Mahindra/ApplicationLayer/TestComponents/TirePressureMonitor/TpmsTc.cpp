@@ -141,36 +141,44 @@ string TpmsTc<ModuleType>::CheckTpmsResults(void)
 
     Log(LOG_FN_ENTRY, "Enter MahindraTransmission::CheckTpmsStatus()\n");
     
-    //Check the TPMS status
-    moduleStatus = m_vehicleModule.ReadModuleData("CheckTpmsStatus", tpmsStatus);
-
-    if (moduleStatus == BEP_STATUS_SUCCESS)
+    if ((!ShortCircuitTestStep()))
     {
-        if (tpmsStatus)
+        //Check the TPMS status
+        moduleStatus = m_vehicleModule.ReadModuleData("CheckTpmsStatus", tpmsStatus);
+
+        if (moduleStatus == BEP_STATUS_SUCCESS)
         {
-            Log(LOG_DEV_DATA, "Tpms status passed.");
-            testResult = testPass;
+            if (tpmsStatus)
+            {
+                Log(LOG_DEV_DATA, "Tpms status passed.");
+                testResult = testPass;
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "Tpms status failed.");
+                testDescription = "Tpms status failed";
+                testResult = testFail;
+            }
         }
         else
         {
-            Log(LOG_DEV_DATA, "Tpms status failed.");
-            testDescription = "Tpms status failed";
             testResult = testFail;
+            testResultCode = GetFaultCode("CommunicationFailure");
+            testDescription = GetFaultDescription("CommunicationFailure");
+            Log(LOG_ERRORS, "Error reading TPMS status \n");
         }
-    }
-    else
-    {
-        testResult = testFail;
-        testResultCode = GetFaultCode("CommunicationFailure");
-        testDescription = GetFaultDescription("CommunicationFailure");
-        Log(LOG_ERRORS, "Error reading TPMS status \n");
-    }
 
-    // Report the results
-    SendTestResultWithDetail(testResult, testDescription, testResultCode);
+        // Report the results
+        SendTestResultWithDetail(testResult, testDescription, testResultCode);
+    }
+	else
+	{
+		Log(LOG_DEV_DATA, "Not starting speed above threshold timer");
+		testResult = testSkip;
+	}
 
     // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    Log(LOG_FN_ENTRY, "TpmsTc::CheckTpmsResults - Exit\n");
 
     return testResult;
 }
@@ -183,6 +191,8 @@ string TpmsTc<ModuleType>::StartSpeedTimer(void)
 	Log(LOG_DEV_DATA, "Mahindra TpmsTc::StartSpeedTimer() - Enter");
 	if(!ShortCircuitTestStep())
     {
+        m_timeAtSpeedDone = false;
+		Log(LOG_DEV_DATA, "reset m_timeAtSpeedDone to false");
 		// Setup and start the timer
         UINT64 timerDelay = GetParameterInt("VehicleSpeedMonitorTimeDelay");
 		if(timerDelay == 0)

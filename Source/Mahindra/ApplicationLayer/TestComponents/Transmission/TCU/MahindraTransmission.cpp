@@ -266,20 +266,37 @@ string MahindraTransmission<ModuleType>::CruiseTest(void) {
                 }
                 else
                 {
-                    testResult = testFail;
-                    testResultCode = GetFaultCode("CommunicationFailure");
-                    testDescription = GetFaultDescription("CommunicationFailure");
-                    Log(LOG_ERRORS, "Failed to turn off cruise control\n");
+                    if (status != BEP_STATUS_SUCCESS)
+                    {
+                        testResult = testFail;
+                        testResultCode = GetFaultCode("CommunicationFailure");
+                        testDescription = GetFaultDescription("CommunicationFailure");
+                        Log(LOG_ERRORS, "Failed to read CruiseState from module\n");
+                    }
+                    else
+                    {
+                        testResult = testFail;
+                        testDescription = "Cruise Control Off Fail";
+                        Log(LOG_ERRORS, "Failed to turn off cruise control cruiseStatus: %s\n", cruiseStatus.c_str());
+                    }
                 }
 
             }
             else
             {
-                testResult = testFail;
-                testResultCode = GetFaultCode("CommunicationFailure");
-                testDescription = GetFaultDescription("CommunicationFailure");
-                Log(LOG_ERRORS, "Failed to press cruise control button \n");
-
+                if (status != BEP_STATUS_SUCCESS)
+                {
+                    testResult = testFail;
+                    testResultCode = GetFaultCode("CommunicationFailure");
+                    testDescription = GetFaultDescription("CommunicationFailure");
+                    Log(LOG_ERRORS, "Failed to read CruiseState from module\n");
+                }
+                else
+                {
+                    testResult = testFail;
+                    testDescription = "Cruise Control On Fail";
+                    Log(LOG_ERRORS, "Failed to turn on cruise control cruiseStatus: %s\n", cruiseStatus.c_str());
+                }
             }
         }
 

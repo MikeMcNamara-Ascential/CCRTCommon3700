@@ -1204,42 +1204,34 @@ string GenericTCTemplate<ModuleType>::CommandSecurityUnlock(void)
    string testResult = BEP_TESTING_STATUS;
    string testResultCode = "0000";
    string testDescription = "Test in progress";
-   if (!ShortCircuitTestStep())
-   {
-       BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
-       Log(LOG_FN_ENTRY, "Enter GenericTCTemplate::CommandSecurityUnlock()\n");
-       // Vehicle is connected, unlock security
-       for (INT32 unlockAttempt = 0; (unlockAttempt < GetParameterInt("SecurityUnlockAttempts")) &&
-            (moduleStatus != BEP_STATUS_SUCCESS); unlockAttempt++)
-       {   // Command the module to unlock security
-          try
-          {
-             moduleStatus = m_vehicleModule.UnlockModuleSecurity();
-             // If unlock was not successful, wait before attempting again
-             if (BEP_STATUS_SUCCESS != moduleStatus) BposSleep(GetParameterInt("SecurityUnlockDelay"));
-          }
-          catch (ModuleException& exception)
-          {   // Exception during security unlock
-             Log(LOG_ERRORS, "Module Exception during CommandSecurityUnlock() - %s\n", exception.message().c_str());
-             moduleStatus = BEP_STATUS_SOFTWARE;
-          }
-       }
-       // Determine the test result
-       testResult = (BEP_STATUS_SUCCESS == moduleStatus ? testPass : testAbort);
-       testResultCode = (testResult == testPass ? "0000" : GetFaultCode("SecurityUnlockFailed"));
-       testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("SecurityUnlockFailed"));
-       // Log the status
-       Log(LOG_DEV_DATA, "Module Security Unlocked - %s\n", testResult.c_str());
-       // Send the test result
-       SendTestResult(testResult, testDescription, testResultCode);
-       // Return the test result
-       Log(LOG_FN_ENTRY, "Exit GenericTCTemplate::CommandSecurityUnlock()\n");
+   BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+   Log(LOG_FN_ENTRY, "Enter GenericTCTemplate::CommandSecurityUnlock()\n");
+   // Vehicle is connected, unlock security
+   for (INT32 unlockAttempt = 0; (unlockAttempt < GetParameterInt("SecurityUnlockAttempts")) &&
+        (moduleStatus != BEP_STATUS_SUCCESS); unlockAttempt++)
+   {   // Command the module to unlock security
+      try
+      {
+         moduleStatus = m_vehicleModule.UnlockModuleSecurity();
+         // If unlock was not successful, wait before attempting again
+         if (BEP_STATUS_SUCCESS != moduleStatus) BposSleep(GetParameterInt("SecurityUnlockDelay"));
+      }
+      catch (ModuleException& exception)
+      {   // Exception during security unlock
+         Log(LOG_ERRORS, "Module Exception during CommandSecurityUnlock() - %s\n", exception.message().c_str());
+         moduleStatus = BEP_STATUS_SOFTWARE;
+      }
    }
-   else
-   {   // Need to skip this test step
-      testResult = testSkip;
-      Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
-   }
+   // Determine the test result
+   testResult = (BEP_STATUS_SUCCESS == moduleStatus ? testPass : testAbort);
+   testResultCode = (testResult == testPass ? "0000" : GetFaultCode("SecurityUnlockFailed"));
+   testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("SecurityUnlockFailed"));
+   // Log the status
+   Log(LOG_DEV_DATA, "Module Security Unlocked - %s\n", testResult.c_str());
+   // Send the test result
+   SendTestResult(testResult, testDescription, testResultCode);
+   // Return the test result
+   Log(LOG_FN_ENTRY, "Exit GenericTCTemplate::CommandSecurityUnlock()\n");
    return testResult;
 }
 

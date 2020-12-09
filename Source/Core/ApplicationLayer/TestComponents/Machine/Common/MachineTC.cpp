@@ -304,6 +304,8 @@ const std::string MachineTC::CommandTestStep(const std::string &value)
                 status = TestStepAccelerateToSpeed(value);
             else if(step == "BrakeToStop")              // else if "BrakeToStop" sequenced
                 status = TestStepBrakeToStop(value);
+            else if(step == "ModerateBrakeToStop")      // else if "ModerateBrakeToStop" sequenced
+                status = TestStepModerateBrakeToStop(value);
             else if(step == "QuickStop")                // else if "QuickStop" sequenced
                 status = TestStepQuickStop(value);
             else if(step == "ConnectCable")             // else if "ConnectCable" sequenced
@@ -808,6 +810,69 @@ const std::string MachineTC::TestStepBrakeToStop(const std::string &value)
     if(SendTestResult(status, GetTestStepInfo("Description")) != BEP_STATUS_SUCCESS)
     {
         Log(LOG_ERRORS, "MachineTC::TestStepBrakeToStop Could Not Send Test Result: %s, %s\n",
+            GetTestStepName().c_str(), status.c_str());
+    }
+
+    RemovePrompts();    // remove the prompts from the screen
+
+    return(status);     // return the status
+}
+
+//=============================================================================
+const std::string MachineTC::TestStepModerateBrakeToStop(const std::string &value)
+{
+    Log(LOG_FN_ENTRY, "MachineTC::TestStepModerateBrakeToStop()\n");
+    std::string status = BEP_NONE;  // set test step status to no response
+
+    try
+    {   // if the conditions are correct to perform the task
+        if(StatusCheck() == BEP_STATUS_SUCCESS)
+        {
+            //remove any speed bands
+            SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+            // check if at zerospeed
+            if(ReadSubscribeData(GetDataTag("Zerospeed")) != "1")
+            {
+                if(UpdatePrompts() != BEP_STATUS_SUCCESS)
+                    Log(LOG_ERRORS, "Unable to Update Prompts\n");
+                // Set the start time
+                SetStartTime();
+                bool success = WaitForTargetSpeed(GetTestStepInfoFloat("TargetSpeed"), DOWN, 100) == BEP_STATUS_SUCCESS;
+                if (success)
+                {
+                    status = BEP_PASS_STATUS;
+                }
+                else
+                {
+                    status = BEP_FAIL_STATUS;
+                }
+            }
+            // else flag done
+            else
+            {
+                status = BEP_PASS_STATUS;
+            }
+
+            //if successful, ensure that the motor mode is Boost mode
+            if(status == BEP_PASS_STATUS)
+                SystemWrite(MOTOR_MODE, string(BOOST_MODE));
+        }
+        // else the conditions are not correct, indicate not started
+        else
+        {
+            status = BEP_TEST_NOT_STARTED;
+        }
+    }
+    catch(BepException &e)
+    {
+        Log(LOG_ERRORS, "MachineTC::TestStepModerateBrakeToStop Exception: %s\n", e.what());
+        status = BEP_SOFTWAREFAIL_STATUS;
+    }
+
+    // update the test result
+    if(SendTestResult(status, GetTestStepInfo("Description")) != BEP_STATUS_SUCCESS)
+    {
+        Log(LOG_ERRORS, "MachineTC::TestStepModerateBrakeToStop Could Not Send Test Result: %s, %s\n",
             GetTestStepName().c_str(), status.c_str());
     }
 

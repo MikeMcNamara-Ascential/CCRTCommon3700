@@ -122,138 +122,140 @@ Bosch8TC<ModuleType>::~Bosch8TC() {
 }
 
 template<class ModuleType>
-const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const string &value) {
-    string status;
-    try
+const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const string &value)
+{
+    string status = testFail;
+    BEP_STATUS_TYPE statusCheck = (BEP_STATUS_TYPE)StatusCheck();
+    if (statusCheck == BEP_STATUS_SUCCESS)
     {
-        string step = GetTestStepName(); // Get the name of the test step
-        Log(LOG_DEV_DATA, "Bosch8TC::CommandTestStep(%s): Entering test step %s\n",
-            value.c_str(), step.c_str());
+        try
+        {
+            string step = GetTestStepName(); // Get the name of the test step
+            Log(LOG_DEV_DATA, "Bosch8TC::CommandTestStep(%s): Entering test step %s\n",
+                value.c_str(), step.c_str());
 
-        // make sure it is OK to test
-        if (StatusCheck() != BEP_STATUS_SUCCESS)
+            if (step == "CheckRelayState")
+                status = CheckRelayState();
+            else if (step == "CheckSupplyVoltage")
+                status = CheckSupplyVoltage();
+            else if (step == "CheckPumpMotor")
+                status = CheckPumpMotor();
+            else if (step == "CheckParkBrakeSignal")
+                status = CheckParkBrakeSignal();
+            else if (step == "CheckEngineSpeed")
+                status = CheckEngineSpeed();
+            else if (step == "CheckThrottlePosition")
+                status = CheckThrottlePosition();
+            else if (step == "CheckShiftLeverPosition")
+                status = CheckShiftLeverPosition();
+            else if (step == "CheckPassiveSwitch")
+                status = CheckPassiveSwitch();
+            else if (step == "CheckSteeringWheelAngle")
+                status = CheckSteeringWheelAngle();
+            else if (step == "CheckLateralAcceleration")
+                status = CheckLateralAcceleration();
+            else if (step == "CheckYawRate")
+                status = CheckYawRate();
+            else if (step == "CheckPressureSensor")
+                status = CheckPressureSensor();
+            else if (step == "CheckAYSensorStatus")
+                status = CheckAYSensorStatus();
+            else if (step == "Delay")
+            {
+                BposSleep(GetTestStepInfoInt("Timeout"));
+                status = testPass;
+            }
+            else if (step == "SensorQualityTest")
+                status = SensorQualityTest();
+            else if (step == "ESPValveFiringTest")
+                status = ESPValveFiringTest();
+            else if (step == "ABSValveFiringTest")
+                status = ABSValveFiringTest();
+            else if (step == "CMABSValveFiringTest")
+                status = CMABSValveFiringTest();
+            else if (step == "DisableSpeedLimit")
+                status = DisableSpeedLimit();
+            else if (step == "DisableValveRelayShutdown")
+                status = DisableValveRelayShutdown();
+            else if (step == "EnableSpeedLimit")
+                status = EnableSpeedLimit();
+            else if (step == "EnableValveRelayShutdown")
+                status = EnableValveRelayShutdown();
+            else if (step == "FlexibleEspValveFiringTest")
+                status = FlexibleEspValveFiringTest();
+            else if (step == "CheckUplineProcessByte")
+                status = CheckUplineProcessByte();
+            else if (step == "ReadSensorSpeeds")
+                status = ReadSensorSpeeds();
+            else if (step == "IgnitionOff")
+                status = IgnitionOff();
+            else if (step == "IgnitionOn")
+                status = IgnitionOn();
+            else if (step == "EvaluateSensorCross")
+                status = EvaluateSensorCross();
+            else if (step == "ReadSpeedDeltas")
+                status = ReadSpeedDeltas();
+            else if (step == "RunEspPumpMotor")
+                status = RunEspPumpMotor();
+            else if (step == "StopESPPumpMotor")
+                status = StopPumpMotor();
+            else if (step == "TwoMotorWssTest")
+                status = TwoMotorWheelSpeedSensorTest(value);
+            else if (step == "InitializeEolStatus")
+                status = SetEolStatus(BEP_TESTING_RESPONSE);
+            else if (step == "WriteFinalEolStatus")
+                status = SetEolStatus(GetOverallResult());
+            else if (step == "UnlockModuleSecurity")
+                status = UnlockModuleSecurity();
+            else if (step == "EnterDiagModeAtSpeed")
+                status = GenericTCTemplate<ModuleType>::EnterDiagnosticMode();
+            else if (step == "CheckVariantCode")
+                status = CheckVariantCode();
+            else if (step == "WriteVariantCode")
+                status = WriteVariantCode();
+            else if (step == "CheckEcuId")
+                status = CheckEcuId();
+            else if (step == "CheckProcessByte")
+                status = CheckBrakeProcessByte();
+            else if (step == "CheckBrakeSensorOn")
+                status = CheckBrakeSensor(true);
+            else if (step == "CheckBrakeSensorOff")
+                status = CheckBrakeSensor(false);
+            else if (step == "CheckHDSSwitchOn")
+                status = CheckHDSSwitch(true);
+            else if (step == "CheckHDSSwitchOff")
+                status = CheckHDSSwitch(false);
+            else if (step == "CheckESPSwitchOn")
+                status = CheckESPSwitch(true);
+            else if (step == "CheckESPSwitchOff")
+                status = CheckESPSwitch(false);
+            else if (step == "CheckPressureSwitchesOn")
+                status = CheckPressureSwitches(true);
+            else if (step == "CheckPressureSwitchesOff")
+                status = CheckPressureSwitches(false);
+            else if (step == "CheckRoutineStatus")
+                status = CheckRoutineStatus();
+            else if (step == "CheckPumpMotorStatus")
+                status = CheckPumpMotorStatus();
+            else if (step == "CheckStateData")
+                status = CheckStateData();
+            else if (step == "CheckSteeringAngle")
+                status = CheckSteeringAngleSensor();
+            else if (step.find("FlexibleValveFiringTest") != string::npos)
+                status = FlexibleValveFiringTest(value);
+            else
+                status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
+        } catch (BepException &err)
         {
-            status = ConvertStatusToResponse(StatusCheck());
-            Log(LOG_ERRORS, "Bosch8TC::CommandTestStep: StatusCheck() failed: %s\n",
-                status.c_str());
-            SendTestResult(status, GetTestStepInfo("Description"));
+            Log("Bosch8::CommandTestStep %s BepException: %s\n",
+                GetTestStepName().c_str(), err.what());
+            status = BEP_ERROR_RESPONSE;
         }
-        else if (step == "CheckRelayState")
-            status = CheckRelayState();
-        else if (step == "CheckSupplyVoltage")
-            status = CheckSupplyVoltage();
-        else if (step == "CheckPumpMotor")
-            status = CheckPumpMotor();
-        else if (step == "CheckParkBrakeSignal")
-            status = CheckParkBrakeSignal();
-        else if (step == "CheckEngineSpeed")
-            status = CheckEngineSpeed();
-        else if (step == "CheckThrottlePosition")
-            status = CheckThrottlePosition();
-        else if (step == "CheckShiftLeverPosition")
-            status = CheckShiftLeverPosition();
-        else if (step == "CheckPassiveSwitch")
-            status = CheckPassiveSwitch();
-        else if (step == "CheckSteeringWheelAngle")
-            status = CheckSteeringWheelAngle();
-        else if (step == "CheckLateralAcceleration")
-            status = CheckLateralAcceleration();
-        else if (step == "CheckYawRate")
-            status = CheckYawRate();
-        else if (step == "CheckPressureSensor")
-            status = CheckPressureSensor();
-        else if (step == "CheckAYSensorStatus")
-            status = CheckAYSensorStatus();
-        else if (step == "Delay")
-        {
-            BposSleep(GetTestStepInfoInt("Timeout"));
-            status = testPass;
-        }
-        else if (step == "SensorQualityTest")
-            status = SensorQualityTest();
-        else if (step == "ESPValveFiringTest")
-            status = ESPValveFiringTest();
-        else if (step == "ABSValveFiringTest")
-            status = ABSValveFiringTest();
-        else if (step == "CMABSValveFiringTest")
-            status = CMABSValveFiringTest();
-        else if (step == "DisableSpeedLimit")
-            status = DisableSpeedLimit();
-        else if (step == "DisableValveRelayShutdown")
-            status = DisableValveRelayShutdown();
-        else if (step == "EnableSpeedLimit")
-            status = EnableSpeedLimit();
-        else if (step == "EnableValveRelayShutdown")
-            status = EnableValveRelayShutdown();
-        else if (step == "FlexibleEspValveFiringTest")
-            status = FlexibleEspValveFiringTest();
-        else if (step == "CheckUplineProcessByte")
-            status = CheckUplineProcessByte();
-        else if (step == "ReadSensorSpeeds")
-            status = ReadSensorSpeeds();
-        else if (step == "IgnitionOff")
-            status = IgnitionOff();
-        else if (step == "IgnitionOn")
-            status = IgnitionOn();
-        else if (step == "EvaluateSensorCross")
-            status = EvaluateSensorCross();
-        else if (step == "ReadSpeedDeltas")
-            status = ReadSpeedDeltas();
-        else if (step == "RunEspPumpMotor")
-            status = RunEspPumpMotor();
-        else if (step == "StopESPPumpMotor")
-            status = StopPumpMotor();
-        else if (step == "TwoMotorWssTest")
-            status = TwoMotorWheelSpeedSensorTest(value);
-        else if (step == "InitializeEolStatus")
-            status = SetEolStatus(BEP_TESTING_RESPONSE);
-        else if (step == "WriteFinalEolStatus")
-            status = SetEolStatus(GetOverallResult());
-        else if (step == "UnlockModuleSecurity")
-            status = UnlockModuleSecurity();
-        else if (step == "EnterDiagModeAtSpeed")
-            status = GenericTCTemplate<ModuleType>::EnterDiagnosticMode();
-        else if (step == "CheckVariantCode")
-            status = CheckVariantCode();
-        else if (step == "WriteVariantCode")
-            status = WriteVariantCode();
-        else if (step == "CheckEcuId")
-            status = CheckEcuId();
-        else if (step == "CheckProcessByte")
-            status = CheckBrakeProcessByte();
-        else if (step == "CheckBrakeSensorOn")
-            status = CheckBrakeSensor(true);
-        else if (step == "CheckBrakeSensorOff")
-            status = CheckBrakeSensor(false);
-        else if (step == "CheckHDSSwitchOn")
-            status = CheckHDSSwitch(true);
-        else if (step == "CheckHDSSwitchOff")
-            status = CheckHDSSwitch(false);
-        else if (step == "CheckESPSwitchOn")
-            status = CheckESPSwitch(true);
-        else if (step == "CheckESPSwitchOff")
-            status = CheckESPSwitch(false);
-        else if (step == "CheckPressureSwitchesOn")
-            status = CheckPressureSwitches(true);
-        else if (step == "CheckPressureSwitchesOff")
-            status = CheckPressureSwitches(false);
-        else if (step == "CheckRoutineStatus")
-            status = CheckRoutineStatus();
-        else if (step == "CheckPumpMotorStatus")
-            status = CheckPumpMotorStatus();
-        else if (step == "CheckStateData")
-            status = CheckStateData();
-        else if (step == "CheckSteeringAngle")
-            status = CheckSteeringAngleSensor();
-        else if (step.find("FlexibleValveFiringTest") != string::npos)
-            status = FlexibleValveFiringTest(value);
-        else
-            status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
-    } catch (BepException &err)
-    {
-        Log("Bosch8::CommandTestStep %s BepException: %s\n",
-            GetTestStepName().c_str(), err.what());
-        status = BEP_ERROR_RESPONSE;
+    }
+    else
+    {	// Status of the system is not right to continue testing
+        status = ConvertStatusToResponse(statusCheck);
+        Log(LOG_ERRORS, "Cannot continue testing - StatusCheck(): %s\n", status.c_str());
     }
     Log(LOG_DEV_DATA, "Bosch8TC::CommandTestStep(%s) returning %s\n",
         value.c_str(), status.c_str());
@@ -2209,7 +2211,7 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle) {
         {
             startRollerIndex = LFWHEEL;
             reportAxle = "Front";
-            //Front axel is tested first, set m_WSSResult
+            //Front axle is tested first, set m_WSSResult
             m_WSSResult = true;
         }
         // Store the original drive axle so it can be restored after we are done
@@ -2244,163 +2246,163 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle) {
                                          GetParameterFloat("WSSMinSteadyWheelSpeed"),
                                          GetParameterFloat("WSSMaxSteadyWheelSpeed"),
                                          reportAxle);  // Wait for motors to reach final speed
-            vector<float> sensorSpeeds;
-            BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
-            if (GetParameterBool("ReadWheelSensorsIndividually"))
-            {
-                moduleStatus = BEP_STATUS_NA;
-                for (char wheel = LFWHEEL;
-                     (wheel <= RRWHEEL) && (BEP_STATUS_SUCCESS == moduleStatus || moduleStatus == BEP_STATUS_NA); wheel++)
+                vector<float> sensorSpeeds;
+                BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+                if (GetParameterBool("ReadWheelSensorsIndividually"))
                 {
-                    float wssReading = 0.0;
-                    moduleStatus = m_vehicleModule.ReadModuleData("Read" + rollerName[wheel] + "SensorSpeed", wssReading);
-                    if (BEP_STATUS_SUCCESS == moduleStatus)
+                    moduleStatus = BEP_STATUS_NA;
+                    for (char wheel = LFWHEEL;
+                         (wheel <= RRWHEEL) && (BEP_STATUS_SUCCESS == moduleStatus || moduleStatus == BEP_STATUS_NA); wheel++)
                     {
-                        sensorSpeeds.push_back(wssReading);
-                    }
-                    else
-                    {
-                        Log(LOG_ERRORS, "Failed to read %s wheel speed sensor from module", rollerName[wheel].c_str());
-                    }
-                }
-            }
-            else if (GetParameterBool("ReadWSSWithRoutine"))
-            {
-                Log(LOG_DEV_DATA, "Reading WSS sensorSpeeds using routine");
-                moduleStatus = m_vehicleModule.CommandModule("WssRoutineStart");
-                if (BEP_STATUS_SUCCESS == moduleStatus)
-                {
-                    string routineStatus = "ERROR";
-                    string RoutineRunning = "Running";
-                    string RoutineStarted = "Started";
-                    string RoutineStopped = "Stopped";
-                    string RoutineStoppedAbnormally = "StoppedAbnormally";
-                    bool routineFinished = false;
-                    while (!routineFinished && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
-                    {    
-                        moduleStatus = m_vehicleModule.ReadModuleData("WssRoutineStatus", routineStatus);
-                        if (moduleStatus == BEP_STATUS_SUCCESS)
-                        {
-                            routineFinished = !routineStatus.compare(RoutineStopped) || !routineStatus.compare(RoutineStoppedAbnormally);
-                        }
-                        if (!routineFinished)
-                        {
-                            BposSleep(GetTestStepInfoInt("ScanDelay"));
-                        }
-                    }
-
-                    Log(LOG_DEV_DATA, "done checking WSS routine status, final routineStatus: %s, == RoutineStopped: %s", routineStatus.c_str(), RoutineStopped.c_str());
-
-                    if (!routineStatus.compare(RoutineStopped))
-                    {
-                        moduleStatus = m_vehicleModule.ReadModuleData("WssRoutineResults", sensorSpeeds);
+                        float wssReading = 0.0;
+                        moduleStatus = m_vehicleModule.ReadModuleData("Read" + rollerName[wheel] + "SensorSpeed", wssReading);
                         if (BEP_STATUS_SUCCESS == moduleStatus)
                         {
-                            BposSleep(300);
-                            moduleStatus = m_vehicleModule.CommandModule("WssRoutineStop");
-                            if (moduleStatus != BEP_STATUS_SUCCESS)
+                            sensorSpeeds.push_back(wssReading);
+                        }
+                        else
+                        {
+                            Log(LOG_ERRORS, "Failed to read %s wheel speed sensor from module", rollerName[wheel].c_str());
+                        }
+                    }
+                }
+                else if (GetParameterBool("ReadWSSWithRoutine"))
+                {
+                    Log(LOG_DEV_DATA, "Reading WSS sensorSpeeds using routine");
+                    moduleStatus = m_vehicleModule.CommandModule("WssRoutineStart");
+                    if (BEP_STATUS_SUCCESS == moduleStatus)
+                    {
+                        string routineStatus = "ERROR";
+                        string RoutineRunning = "Running";
+                        string RoutineStarted = "Started";
+                        string RoutineStopped = "Stopped";
+                        string RoutineStoppedAbnormally = "StoppedAbnormally";
+                        bool routineFinished = false;
+                        while (!routineFinished && TimeRemaining() && (BEP_STATUS_SUCCESS == moduleStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+                        {    
+                            moduleStatus = m_vehicleModule.ReadModuleData("WssRoutineStatus", routineStatus);
+                            if (moduleStatus == BEP_STATUS_SUCCESS)
+                            {
+                                routineFinished = !routineStatus.compare(RoutineStopped) || !routineStatus.compare(RoutineStoppedAbnormally);
+                            }
+                            if (!routineFinished)
+                            {
+                                BposSleep(GetTestStepInfoInt("ScanDelay"));
+                            }
+                        }
+
+                        Log(LOG_DEV_DATA, "done checking WSS routine status, final routineStatus: %s, == RoutineStopped: %s", routineStatus.c_str(), RoutineStopped.c_str());
+
+                        if (!routineStatus.compare(RoutineStopped))
+                        {
+                            moduleStatus = m_vehicleModule.ReadModuleData("WssRoutineResults", sensorSpeeds);
+                            if (BEP_STATUS_SUCCESS == moduleStatus)
+                            {
+                                BposSleep(300);
+                                moduleStatus = m_vehicleModule.CommandModule("WssRoutineStop");
+                                if (moduleStatus != BEP_STATUS_SUCCESS)
+                                {
+                                    result = testFail;
+                                    Log(LOG_ERRORS, "Failure to stop WSS routine");
+                                }
+                            }
+                            else
                             {
                                 result = testFail;
-                                Log(LOG_ERRORS, "Failure to stop WSS routine");
+                                Log(LOG_ERRORS, "Failure to read results from WSS routine");
                             }
                         }
                         else
                         {
-                            result = testFail;
-                            Log(LOG_ERRORS, "Failure to read results from WSS routine");
+                                result = testFail;
+                                Log(LOG_ERRORS, "Failure to see STOPPED from WSS routine status"); 
                         }
                     }
                     else
                     {
-                            result = testFail;
-                            Log(LOG_ERRORS, "Failure to see STOPPED from WSS routine status"); 
+                        result = testFail;
+                        Log(LOG_ERRORS, "Failure to start WSS routine");
                     }
                 }
                 else
                 {
-                    result = testFail;
-                    Log(LOG_ERRORS, "Failure to start WSS routine");
+                    moduleStatus = m_vehicleModule.ReadModuleData("ReadSensorSpeeds", sensorSpeeds);
                 }
-            }
-            else
-            {
-                moduleStatus = m_vehicleModule.ReadModuleData("ReadSensorSpeeds", sensorSpeeds);
-            }
 
-            if (BEP_STATUS_SUCCESS == moduleStatus)
-            {
-                if (BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
+                if (BEP_STATUS_SUCCESS == moduleStatus)
                 {
-                    if (GetTestStepInfoBool("ConvertRollerSpeedToKPH"))
+                    if (BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
                     {
-                        for (int n = 0; n < GetRollerCount(); n++)
+                        if (GetTestStepInfoBool("ConvertRollerSpeedToKPH"))
                         {
-                            rollerSpeeds[n] *= KPH_MPH;
-                            Log(LOG_DEV_DATA, "Converted %s roller speed to KPH - %d",
-                                rollerName[n].c_str(), rollerSpeeds[n]);
+                            for (int n = 0; n < GetRollerCount(); n++)
+                            {
+                                rollerSpeeds[n] *= KPH_MPH;
+                                Log(LOG_DEV_DATA, "Converted %s roller speed to KPH - %d",
+                                    rollerName[n].c_str(), rollerSpeeds[n]);
+                            }
                         }
-                    }
-                    float tolerance = GetParameterFloat("SensorSpeedTolerance");
-                    float leftMin = rollerSpeeds[startRollerIndex] * (1.0 - (tolerance / 100.0));
-                    float leftMax = rollerSpeeds[startRollerIndex] * (1.0 + (tolerance / 100.0));
-                    float rightMin = rollerSpeeds[startRollerIndex + 1] * (1.0 - (tolerance / 100.0));
-                    float rightMax = rollerSpeeds[startRollerIndex + 1] * (1.0 + (tolerance / 100.0));
-                    char buff[32];
-                    string leftResult, rightResult;
-                    if ((leftMin <= sensorSpeeds[startRollerIndex]) && (sensorSpeeds[startRollerIndex] <= leftMax))
-                    {
-                        leftResult = testPass;
+                        float tolerance = GetParameterFloat("SensorSpeedTolerance");
+                        float leftMin = rollerSpeeds[startRollerIndex] * (1.0 - (tolerance / 100.0));
+                        float leftMax = rollerSpeeds[startRollerIndex] * (1.0 + (tolerance / 100.0));
+                        float rightMin = rollerSpeeds[startRollerIndex + 1] * (1.0 - (tolerance / 100.0));
+                        float rightMax = rollerSpeeds[startRollerIndex + 1] * (1.0 + (tolerance / 100.0));
+                        char buff[32];
+                        string leftResult, rightResult;
+                        if ((leftMin <= sensorSpeeds[startRollerIndex]) && (sensorSpeeds[startRollerIndex] <= leftMax))
+                        {
+                            leftResult = testPass;
+                        }
+                        else
+                        {
+                            leftResult = testFail;
+                            description = "Left " + reportAxle + " WSS Error";
+                        }
+                        if ((rightMin <= sensorSpeeds[startRollerIndex + 1]) && (sensorSpeeds[startRollerIndex + 1] <= rightMax))
+                        {
+                            rightResult = testPass;
+                        }
+                        else
+                        {
+                            rightResult = testFail;
+                            description = "Right " + reportAxle + " WSS Error";
+                        }
+                        result = ((leftResult == testPass) && (rightResult == testPass)) ? testPass : testFail;
+                        Log(LOG_DEV_DATA, "Left %s: %s - %.2f [%.2f  %.2f]",
+                            reportAxle.c_str(), leftResult.c_str(), sensorSpeeds[startRollerIndex], leftMin, leftMax);
+                        Log(LOG_DEV_DATA, "Right %s: %s - %.2f [%.2f  %.2f]",
+                            reportAxle.c_str(), rightResult.c_str(), sensorSpeeds[startRollerIndex + 1], rightMin, rightMax);
+                        SendSubtestResultWithDetail(rollerName[startRollerIndex] + "WssTest", leftResult,
+                                                    description, "0000",
+                                                    "Min", CreateMessage(buff, sizeof(buff), "%.2f", leftMin), unitsMPH,
+                                                    "Max", CreateMessage(buff, sizeof(buff), "%.2f", leftMax), unitsMPH,
+                                                    "Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex]), unitsMPH);
+                        SendSubtestResultWithDetail(rollerName[startRollerIndex + 1] + "WssTest", rightResult,
+                                                    description, "0000",
+                                                    "Min", CreateMessage(buff, sizeof(buff), "%.2f", rightMin), unitsMPH,
+                                                    "Max", CreateMessage(buff, sizeof(buff), "%.2f", rightMax), unitsMPH,
+                                                    "Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex + 1]), unitsMPH);
+                        SystemWrite(rollerName[startRollerIndex] + "WssValue", sensorSpeeds[startRollerIndex]);
+                        SystemWrite(rollerName[startRollerIndex + 1] + "WssValue", sensorSpeeds[startRollerIndex + 1]);
+                        SystemWrite(rollerName[startRollerIndex] + "WssValueBgColor",
+                                    string(!leftResult.compare(testPass) ? "green" : "red"));
+                        SystemWrite(rollerName[startRollerIndex + 1] + "WssValueBgColor",
+                                    string(!rightResult.compare(testPass) ? "green" : "red"));
                     }
                     else
                     {
-                        leftResult = testFail;
-                        description = "Left " + reportAxle + " WSS Error";
+                        result = testFail;
+                        Log(LOG_ERRORS, "Failed to read roller speeds from the system");
                     }
-                    if ((rightMin <= sensorSpeeds[startRollerIndex + 1]) && (sensorSpeeds[startRollerIndex + 1] <= rightMax))
-                    {
-                        rightResult = testPass;
-                    }
-                    else
-                    {
-                        rightResult = testFail;
-                        description = "Right " + reportAxle + " WSS Error";
-                    }
-                    result = ((leftResult == testPass) && (rightResult == testPass)) ? testPass : testFail;
-                    Log(LOG_DEV_DATA, "Left %s: %s - %.2f [%.2f  %.2f]",
-                        reportAxle.c_str(), leftResult.c_str(), sensorSpeeds[startRollerIndex], leftMin, leftMax);
-                    Log(LOG_DEV_DATA, "Right %s: %s - %.2f [%.2f  %.2f]",
-                        reportAxle.c_str(), rightResult.c_str(), sensorSpeeds[startRollerIndex + 1], rightMin, rightMax);
-                    SendSubtestResultWithDetail(rollerName[startRollerIndex] + "WssTest", leftResult,
-                                                description, "0000",
-                                                "Min", CreateMessage(buff, sizeof(buff), "%.2f", leftMin), unitsMPH,
-                                                "Max", CreateMessage(buff, sizeof(buff), "%.2f", leftMax), unitsMPH,
-                                                "Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex]), unitsMPH);
-                    SendSubtestResultWithDetail(rollerName[startRollerIndex + 1] + "WssTest", rightResult,
-                                                description, "0000",
-                                                "Min", CreateMessage(buff, sizeof(buff), "%.2f", rightMin), unitsMPH,
-                                                "Max", CreateMessage(buff, sizeof(buff), "%.2f", rightMax), unitsMPH,
-                                                "Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex + 1]), unitsMPH);
-                    SystemWrite(rollerName[startRollerIndex] + "WssValue", sensorSpeeds[startRollerIndex]);
-                    SystemWrite(rollerName[startRollerIndex + 1] + "WssValue", sensorSpeeds[startRollerIndex + 1]);
-                    SystemWrite(rollerName[startRollerIndex] + "WssValueBgColor",
-                                string(!leftResult.compare(testPass) ? "green" : "red"));
-                    SystemWrite(rollerName[startRollerIndex + 1] + "WssValueBgColor",
-                                string(!rightResult.compare(testPass) ? "green" : "red"));
                 }
                 else
                 {
                     result = testFail;
-                    Log(LOG_ERRORS, "Failed to read roller speeds from the system");
+                    Log(LOG_ERRORS, "Failure reading wheel speed sensors from the module");
                 }
             }
             else
             {
-                result = testFail;
-                Log(LOG_ERRORS, "Failure reading wheel speed sensors from the module");
-            }
-        }
-        else
-        {
             result = testTimeout;
             Log(LOG_ERRORS, "Timeout waiting for motors to reach target speeds");
         }

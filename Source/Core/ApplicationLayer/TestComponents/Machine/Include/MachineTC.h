@@ -727,6 +727,7 @@ protected:
      * @return The result of the operator bringing the vehicle to zero speed.
      */
     virtual const std::string TestStepBrakeToStop(const std::string &value);
+    virtual const std::string TestStepModerateBrakeToStop(const std::string &value);
     /**
      * Use the motors to bring the rollers to zero speed.
      * <p><b>Category:</b> Test Step

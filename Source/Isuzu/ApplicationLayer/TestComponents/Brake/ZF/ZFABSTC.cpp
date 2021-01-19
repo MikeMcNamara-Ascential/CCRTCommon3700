@@ -85,6 +85,7 @@ const string ZFABSTC<ModuleType>::CommandTestStep(const string &value)
             else if(!testStep.compare("WriteVacuumFillingEndFlag"))   result = TestStepWriteVacuumFillingEndFlag();
             else if(!testStep.compare("DynamicParkBrake"))			   result = TestStepDynamicParkBrake();
             else if(!testStep.compare("AnalyzeDynamicParkBrake"))	   result = AnalyzeDynamicParkBrake();
+            else if(!testStep.compare("LockModuleIfPass"))  result = LockModuleIfPass();
             else if(!testStep.compare("AccelerateToABSSpeed"))
 		    {
 			    m_baseBrakeTool->UpdateTarget(false);
@@ -2945,6 +2946,44 @@ string ZFABSTC<ModuleType>::BrakeSwitchTest(const string& position)
     testResult = testPass;
 
     return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string ZFABSTC<ModuleType>::LockModuleIfPass(void)
+{
+    Log(LOG_FN_ENTRY, "ZFABSTC::LockModuleIfPass() - Enter");
+    string result(BEP_TESTING_RESPONSE);
+    string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+
+    bool isLocked = true;
+    // Attempt to read the locked status from the module
+    try
+    {   // Read the locked status from the module
+        moduleStatus = m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
+    }
+    catch (ModuleException &exception)
+    {   // Exception reading data
+        Log(LOG_ERRORS, "Module exception in LockModuleIfPass() while reading IsModuleLocked - %s\n", exception.message().c_str());
+        isLocked = true;
+        moduleStatus = BEP_STATUS_ERROR;
+    }
+
+    if(!isLocked && !GetOverallResult().compare(testPass))
+        moduleStatus = m_vehicleModule.LockModule();
+    else if (isLocked && !GetOverallResult().compare(testPass) && (BEP_STATUS_SUCCESS == moduleStatus)) {
+        Log(LOG_DEV_DATA, "Module Already Locked. Passing Test.");
+    }
+    // Set the test status
+	testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+	testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+	testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+	Log(LOG_DEV_DATA, "Lock Module: %s\n", testResult.c_str());
+
+    return(testResult);
 }
 
 

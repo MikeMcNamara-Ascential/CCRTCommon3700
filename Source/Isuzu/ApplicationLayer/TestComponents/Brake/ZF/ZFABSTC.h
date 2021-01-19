@@ -551,6 +551,7 @@ protected:
     string AbsPrime(void);
 
     string BrakeSwitchTest(const string& position);
+    string LockModuleIfPass(void);
 
 
     string m_originalDriveAxle;

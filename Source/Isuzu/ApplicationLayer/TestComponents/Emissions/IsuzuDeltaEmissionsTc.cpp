@@ -4073,7 +4073,7 @@ string IsuzuDeltaEmissionsTc<ModuleType>::ToothErrorCorrectionLearn(void)
         try
         {  
             // Have the operator shift to Neutral
-            DisplayPrompt(GetPromptBox("ShiftToN"), GetPrompt("ShiftToN"), GetPromptPriority("ShiftToN"));
+            DisplayPrompt(GetPromptBox("ShiftToP"), GetPrompt("ShiftToP"), GetPromptPriority("ShiftToP"));
             // 
             moduleStatus  = m_vehicleModule.CommandModule("TECL");
             if(moduleStatus == BEP_STATUS_SUCCESS)
@@ -4117,7 +4117,7 @@ string IsuzuDeltaEmissionsTc<ModuleType>::ToothErrorCorrectionLearn(void)
                 Log(LOG_DEV_DATA, "Module refused to start Tooth Error Correction Learn Process");
                 testResult = testFail;
             }
-            RemovePrompt(GetPromptBox("ShiftToN"), GetPrompt("ShiftToN"), GetPromptPriority("ShiftToN"));
+            RemovePrompt(GetPromptBox("ShiftToP"), GetPrompt("ShiftToP"), GetPromptPriority("ShiftToP"));
             RemovePrompt(GetPromptBox("PushAcceleratorPedalToFloor"), GetPrompt("PushAcceleratorPedalToFloor"), GetPromptPriority("PushAcceleratorPedalToFloor"));
         }
         catch (ModuleException &moduleException)

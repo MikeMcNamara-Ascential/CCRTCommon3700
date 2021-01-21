@@ -4130,7 +4130,18 @@ string IsuzuDeltaEmissionsTc<ModuleType>::ToothErrorCorrectionLearn(void)
         }
         // Report the results
         SendTestResult(testResult, testDescription, testResultCode);
-
+        if (testResult == testFail)
+        {
+            DisplayPrompt(GetPromptBox("CycleKeyTEC"), GetPrompt("CycleKeyTEC"), GetPromptPriority("CycleKeyTEC"));
+            BposSleep(2000);
+            RemovePrompt(GetPromptBox("CycleKeyTEC"), GetPrompt("CycleKeyTEC"), GetPromptPriority("CycleKeyTEC"));
+        }
+        else if (testResult == testPass)
+        {
+            DisplayPrompt(GetPromptBox("RemoveFootFromAccelerator"), GetPrompt("RemoveFootFromAccelerator"), GetPromptPriority("RemoveFootFromAccelerator"));
+            BposSleep(2000);
+            RemovePrompt(GetPromptBox("RemoveFootFromAccelerator"), GetPrompt("RemoveFootFromAccelerator"), GetPromptPriority("RemoveFootFromAccelerator"));
+        }
     }
     else
     {   // Need to skip this test step

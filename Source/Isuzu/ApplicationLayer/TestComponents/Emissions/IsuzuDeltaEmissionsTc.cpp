@@ -2528,6 +2528,15 @@ string IsuzuDeltaEmissionsTc<ModuleType>::GetSerialNumberFromFile(void)
 			string fileName = serialNumberDirectory + vin + GetParameter("EsnFileNameExtension");
 			serialNumber = ExtractEsnSerialNumberFromFile(fileName);
         }
+        
+        Log(LOG_DEV_DATA, "trimming spaces off end of serial number");
+        int last = serialNumber.size() - 1;
+        while (last >= 0 && serialNumber[last] == ' ')
+        {
+            --last;
+        }
+        serialNumber = serialNumber.substr(0, last + 1);
+
     }
     catch (...)
     {

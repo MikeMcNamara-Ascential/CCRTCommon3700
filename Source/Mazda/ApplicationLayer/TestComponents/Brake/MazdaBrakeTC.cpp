@@ -15,26 +15,22 @@
 #include <numeric>
 
 //-------------------------------------------------------------------------------------------------
-MazdaBrakeTC::MazdaBrakeTC() : GenericBaseBrakeTC()
-{   // Nothing special to do here
+MazdaBrakeTC::MazdaBrakeTC() : GenericBaseBrakeTC() {   // Nothing special to do here
 
 }
 
 //-------------------------------------------------------------------------------------------------
-MazdaBrakeTC::~MazdaBrakeTC()
-{   // Nothing special to do here
+MazdaBrakeTC::~MazdaBrakeTC() {   // Nothing special to do here
 }
 
 //-------------------------------------------------------------------------------------------------
-void MazdaBrakeTC::Abort(void)
-{
+void MazdaBrakeTC::Abort(void) {
     DisableRollMotors(SPEED_MODE);
     GenericBaseBrakeTC::Abort();
 }
 
 //-------------------------------------------------------------------------------------------------
-const string MazdaBrakeTC::CommandTestStep(const string &value)
-{
+const string MazdaBrakeTC::CommandTestStep(const string &value) {
     string testResult(BEP_TESTING_STATUS);
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Enter", value.c_str());
     // Make sure it is OK to perform the test step
@@ -42,13 +38,41 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
     if (BEP_STATUS_SUCCESS == StatusCheck())
     {
         if (!GetTestStepName().compare("AbsLfTest"))
+        {
             testResult = MazdaAbsValveTest("LfAbsTest", LFWHEEL, RFWHEEL);
+            //Set abs flag test
+            if (testResult != testPass) 
+            {
+                SystemWrite(GetDataTag("LfAbsTestResult"), false);
+            }
+        }
         else if (!GetTestStepName().compare("AbsLrTest"))
+        {
             testResult = MazdaAbsValveTest("LrAbsTest", LRWHEEL, RRWHEEL);
+            //Set abs flag test
+            if (testResult != testPass) 
+            {
+                SystemWrite(GetDataTag("LrAbsTestResult"), false);
+            }
+        }
         else if (!GetTestStepName().compare("AbsRfTest"))
+        {
             testResult = MazdaAbsValveTest("RfAbsTest", RFWHEEL, LFWHEEL);
+            //Set abs flag test
+            if (testResult != testPass) 
+            {
+                SystemWrite(GetDataTag("RfAbsTestResult"), false);
+            }
+        }
         else if (!GetTestStepName().compare("AbsRrTest"))
+        {
             testResult = MazdaAbsValveTest("RrAbsTest", RRWHEEL, LRWHEEL);
+            //Set abs flag test
+            if (testResult != testPass) 
+            {
+                SystemWrite(GetDataTag("RrAbsTestResult"), false);
+            }
+        }
         else if (!GetTestStepName().compare("BrakeTestComplete"))
             testResult = BrakeTestingComplete();
         else if (!GetTestStepName().compare("BrakeTestStart"))
@@ -103,29 +127,26 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
         // Make sure rolls are disabled
         DisableRollMotors(SPEED_MODE);
     }
-    // Log the exit and return the result
+// Log the exit and return the result
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Exit", value.c_str());
     return testResult;
 }
 
 //-------------------------------------------------------------------------------------------------
-void MazdaBrakeTC::Initialize(const XmlNode *config)
-{   // Call the base class to begin the initialization
+void MazdaBrakeTC::Initialize(const XmlNode *config) {   // Call the base class to begin the initialization
     GenericBaseBrakeTC::Initialize(config);
     // Load the Mazda test head test steps
     try
     {
         m_testHeadTestSteps.DeepCopy(config->getChild("Setup/Parameters/MazdaTestHeadTestSteps")->getChildren());
-    }
-    catch (XmlException &excpt)
+    } catch (XmlException &excpt)
     {
         Log(LOG_ERRORS, "ERROR: Could not load Mazda Test Head Test Steps: %s", excpt.GetReason());
     }
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::BrakeTestingComplete(void)
-{
+string MazdaBrakeTC::BrakeTestingComplete(void) {
     DisableRollMotors(SPEED_MODE, GetParameterBool("DisableMotorsWaitForZeroSpeed"));
     DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"),
                   GetPromptPriority("RemoveFootFromBrake"));
@@ -133,8 +154,7 @@ string MazdaBrakeTC::BrakeTestingComplete(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::ClearDiagnostics(void)
-{
+string MazdaBrakeTC::ClearDiagnostics(void) {
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::ClearDiagnostics() - Enter");
     string result(BEP_TESTING_RESPONSE);
     if (!ShortCircuitTestStep())
@@ -155,8 +175,7 @@ string MazdaBrakeTC::ClearDiagnostics(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::FaultCheck(void)
-{
+string MazdaBrakeTC::FaultCheck(void) {
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::FaultCheck() - Enter");
     string result(BEP_TESTING_RESPONSE);
     if (!ShortCircuitTestStep())
@@ -177,8 +196,7 @@ string MazdaBrakeTC::FaultCheck(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel, INT16 oppositeWheel)
-{   // Log the entry and determine if this test should be performed
+string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel, INT16 oppositeWheel) {   // Log the entry and determine if this test should be performed
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaAbsValveTest(wheelTestStep: %s) - Enter", wheelTestStep.c_str());
     string result(BEP_TESTING_RESPONSE);
     if (!ShortCircuitTestStep())
@@ -193,7 +211,7 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
         string dumpResult = WaitForAbsDump(testingWheel, oppositeWheel);
         bool confirmFromMazda;
         WaitForSignalFromMazdaTestHead(testData->second->getAttribute("TestCompleteTag")->getValue(), confirmFromMazda);
-        // Write results to Mazda 
+        // Write results to Mazda
         string absDumpTag = !dumpResult.compare(testPass) ? GetDataTag("AbsDumpOk") : GetDataTag("AbsDumpNok");
         MazdaSystemWrite(absDumpTag, true);
 
@@ -216,12 +234,18 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
         }
         // Wait for confirmation/completion frm Mazda
         INT32 timeout = GetParameterInt("MazdaTestHeadSignalHandshakeTimeout") > 0 ? GetTestStepInfoInt("MazdaTestHeadSignalHandshakeTimeout") : 5000;
-        SetSecondaryStartTime(); 
-        
+        SetSecondaryStartTime();
+
         // Determine the overall result
         result = (!dumpResult.compare(testPass) && !buildResult.compare(testPass)) ? testPass : testFail;
+
         // Report the results
         SystemWrite(GetDataTag("AbsTestResultTag"), !result.compare(testPass));
+
+        //Log the results
+        Log(LOG_DEV_DATA, "Reporting %s to tag %s",
+            result.c_str(), GetDataTag("AbsTestResultTag").c_str());
+
         SendTestResult(result, GetTestStepInfo("Description"), "0000");
         // Wait for a bit to make sure no status bits get stomped
         BposSleep(GetParameterInt("MazdaTestHeadReactionTime"));
@@ -245,8 +269,7 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
-{   // Log the entry and determine if this should be checked
+string MazdaBrakeTC::MazdaBrakeForceTest(string axle) {   // Log the entry and determine if this should be checked
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaBrakeForceTest(%s) - Enter", axle.c_str());
     INT16 leftWheel = LFWHEEL;
     INT16 rightWheel = RFWHEEL;
@@ -349,8 +372,7 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
-{
+string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action) {
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaBrakeSwitchTest(action: %s) - Enter", action.c_str());
     string result(BEP_TESTING_RESPONSE);
     if (!ShortCircuitTestStep())
@@ -372,7 +394,7 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
         result = PerformTestHeadTest(GetTestStepInfo("TestHeadTestName"), !action.compare("Start"));
         Log(LOG_DEV_DATA, "Test Head Brake switch test % completed, result: %s", action.c_str(), result.c_str());
         // Report the result
-        SystemWrite(GetDataTag("NormalBrakeTestResultTag"), !result.compare(testPass));
+        //SystemWrite(GetDataTag("NormalBrakeTestResultTag"), !result.compare(testPass));
         SendTestResult(result, GetTestStepInfo("Description"), "0000");
         if (!action.compare("Start"))
         {
@@ -396,8 +418,7 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::MazdaDragTest(void)
-{   // Log the entry and determine if this should be checked
+string MazdaBrakeTC::MazdaDragTest(void) {   // Log the entry and determine if this should be checked
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Enter");
     string result(BEP_TESTING_STATUS);
     string loadCellTags[] = { GetDataTag("LfCurrentForce"), GetDataTag("RfCurrentForce"),
@@ -485,8 +506,7 @@ string MazdaBrakeTC::MazdaDragTest(void)
 
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTestComplete/*=true*/)
-{
+string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTestComplete/*=true*/) {
     Log(LOG_FN_ENTRY, "Performing test head test: %s", testStep.c_str());
     string result(BEP_ERROR_RESPONSE);
     bool testComplete = false;
@@ -511,7 +531,7 @@ string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTes
                     Log(LOG_DEV_DATA, "Waiting a bit.. TestResultCheckDelay: %d", GetTestStepInfoInt("TestResultCheckDelay"));
                     BposSleep(GetTestStepInfoInt("TestResultCheckDelay"));
                 }*/
-                bool resultFromMazda_OK; 
+                bool resultFromMazda_OK;
                 WaitForResultFromMazdaTestHead(testData->second->getAttribute("TestResultTag")->getValue() + "_OK",
                                                testData->second->getAttribute("TestResultTag")->getValue() + "_NOK", resultFromMazda_OK);
                 result = resultFromMazda_OK ? testPass : testFail;
@@ -559,8 +579,7 @@ string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTes
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::ReportOverallBrakeResults(void)
-{   // Report the brake sum
+string MazdaBrakeTC::ReportOverallBrakeResults(void) {   // Report the brake sum
     float totalBrakeForce = m_axleBrakeResults[FRONT_AXLE].axleSum + m_axleBrakeResults[REAR_AXLE].axleSum;
     float totalAXleWeight = GetAxleWeight("Front") + GetAxleWeight("Rear");
     string totalBrakeResult(BEP_TESTING_RESPONSE);
@@ -573,18 +592,27 @@ string MazdaBrakeTC::ReportOverallBrakeResults(void)
         totalBrakeResult = (!m_axleBrakeResults[FRONT_AXLE].axleResult.compare(testPass) &&
                             !m_axleBrakeResults[REAR_AXLE].axleResult.compare(testPass)) ? testPass : testFail;
     }
-    // Report these value to the PLC
-    SystemWrite(GetDataTag("TotalBrakeForceResultTag"), !totalBrakeResult.compare(testPass));
+
     SystemWrite(GetDataTag("TotalBrakeForceTag"), totalBrakeForce);
+
     // Determine the overall test result
-    SystemWrite(GetDataTag("OverallTestResultTag"), !GetOverallResult().compare(testPass) || !GetOverallResult().compare(BEP_TESTING_RESPONSE));
+    SystemWrite(GetDataTag("OverallTestResultTag"), !GetOverallResult().compare(testPass));
+
+    // Report these value to the PLC
+    SystemWrite(GetDataTag("TotalBrakeForceResultTag"), !GetOverallResult().compare(testPass));
+    SystemWrite(GetDataTag("NormalBrakeTestResultTag"), !GetOverallResult().compare(testPass));
+
+
+    Log(LOG_DEV_DATA, "Reporting %s to tags %s %s and %s",
+        GetOverallResult().c_str(), GetDataTag("OverallTestResultTag").c_str(), GetDataTag("TotalBrakeForceResultTag").c_str(),
+         GetDataTag("NormalBrakeTestResultTag").c_str());
+
     Log(LOG_DEV_DATA, "Reporting Total Force: %.2f - Result: %s", totalBrakeForce, totalBrakeResult.c_str());
     return testPass;
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::SpeedSensorCheck(void)
-{   // Log the entry and determine if this should be checked
+string MazdaBrakeTC::SpeedSensorCheck(void) {   // Log the entry and determine if this should be checked
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Enter");
     string testResult(BEP_TESTING_RESPONSE);
     if (!ShortCircuitTestStep())
@@ -621,8 +649,7 @@ string MazdaBrakeTC::SpeedSensorCheck(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::WaitForMazdaTester(const INT32 &waitTime)
-{
+string MazdaBrakeTC::WaitForMazdaTester(const INT32 &waitTime) {
     string result(BEP_TESTING_RESPONSE);
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForMazdaTester(wait time: %d) - Enter");
     if (!ShortCircuitTestStep())
@@ -644,8 +671,7 @@ string MazdaBrakeTC::AnalyzeForceResults(MaxBrakeData *forceData, const INT16 &l
                                          Comparison_t comparison, TestResultDetails &details, string &axle,
                                          string leftDisplayTag, string rightDisplayTag,
                                          string sumDisplayTag, string diffDisplayTag,
-                                         string sumBgColorTag, string diffBgColorTag)
-{
+                                         string sumBgColorTag, string diffBgColorTag) {
     string result(BEP_TESTING_RESPONSE);
     DataAnalysis analyze;
     float leftAvg = 0.0;
@@ -710,16 +736,14 @@ string MazdaBrakeTC::AnalyzeForceResults(MaxBrakeData *forceData, const INT16 &l
 }
 
 //-------------------------------------------------------------------------------------------------
-const float MazdaBrakeTC::AverageBrakeForce(const INT16 &wheel, const float *avgForce /*= NULL*/)
-{
+const float MazdaBrakeTC::AverageBrakeForce(const INT16 &wheel, const float *avgForce /*= NULL*/) {
     if (avgForce != NULL)
         m_avgBrakeForces[wheel] = *avgForce;
     return m_avgBrakeForces[wheel];
 }
 
 //-------------------------------------------------------------------------------------------------
-BEP_STATUS_TYPE MazdaBrakeTC::DisableRollMotors(const string motorMode, bool waitForZeroSpeed /*= true*/)
-{
+BEP_STATUS_TYPE MazdaBrakeTC::DisableRollMotors(const string motorMode, bool waitForZeroSpeed /*= true*/) {
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::DisableRollMotors(motorMode: %s) - Enter", motorMode.c_str());
     string lfValue;
     string rfValue;
@@ -758,8 +782,7 @@ BEP_STATUS_TYPE MazdaBrakeTC::DisableRollMotors(const string motorMode, bool wai
 }
 
 //-------------------------------------------------------------------------------------------------
-float MazdaBrakeTC::GetAxleWeight(string axle)
-{
+float MazdaBrakeTC::GetAxleWeight(string axle) {
     float axleWeight = -1.0;
     // Try to get the axle weight from the system
     if (axle.compare("ParkBrake"))
@@ -787,8 +810,7 @@ float MazdaBrakeTC::GetAxleWeight(string axle)
 }
 
 //-------------------------------------------------------------------------------------------------
-bool MazdaBrakeTC::IsWheelInSpeedRange(const string &wheelTag, const float &targetSpeed, const float &tolerance)
-{
+bool MazdaBrakeTC::IsWheelInSpeedRange(const string &wheelTag, const float &targetSpeed, const float &tolerance) {
     bool status = false;
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::IsWheelInSpeedRange() - Enter");
 
@@ -799,14 +821,13 @@ bool MazdaBrakeTC::IsWheelInSpeedRange(const string &wheelTag, const float &targ
     Log(LOG_DEV_DATA, "Verify %s is in acceptable range. minSpeed: %.2f  currSpeed: %.2f  maxSpeed: %.2f", wheelTag.c_str(), minSpeed, currSpeed, maxSpeed);
     status = (minSpeed <= currSpeed) && (currSpeed <= maxSpeed);
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::IsWheelInSpeedRange() - Exit status: %d", status);
-    return(status);
+    return (status);
 }
 
 //-------------------------------------------------------------------------------------------------
 bool MazdaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRoller,
                                       float minimumRequiredForceFront, float minimumRequiredForceRear,
-                                      MaxBrakeData *brakeData, UINT16 samplesToAverage)
-{
+                                      MaxBrakeData *brakeData, UINT16 samplesToAverage) {
     bool measurementComplete = false;
     UINT16 samplesAboveLimit = GetParameterInt("SamplesAboveLimitToStartAverage");
     UINT16 currentSamplesAboveLimit = 0;
@@ -871,8 +892,7 @@ bool MazdaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRoller
 }
 
 //-------------------------------------------------------------------------------------------------
-void MazdaBrakeTC::ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 startingRoller)
-{
+void MazdaBrakeTC::ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 startingRoller) {
     for (UINT8 roller = startingRoller; roller <= RRWHEEL; roller++)
     {
         brakeData[roller].currentForce = (atof(SystemRead(brakeData[roller].currentForceTag).c_str()));
@@ -882,8 +902,7 @@ void MazdaBrakeTC::ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 sta
 }
 
 //-------------------------------------------------------------------------------------------------
-void MazdaBrakeTC::SetupLoadCellDataStructure(MaxBrakeData dataStruct[], string loadCellTags[], string displayTags[])
-{   // Make sure data fields are initialized
+void MazdaBrakeTC::SetupLoadCellDataStructure(MaxBrakeData dataStruct[], string loadCellTags[], string displayTags[]) {   // Make sure data fields are initialized
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::SetupLoadCellDataStructure -- Enter");
     for (INT16 roller = LFWHEEL; roller <= RRWHEEL; roller++)
     {
@@ -897,8 +916,7 @@ void MazdaBrakeTC::SetupLoadCellDataStructure(MaxBrakeData dataStruct[], string 
 }
 
 //-------------------------------------------------------------------------------------------------
-bool MazdaBrakeTC::StartTestHeadTest(const string &testStep)
-{
+bool MazdaBrakeTC::StartTestHeadTest(const string &testStep) {
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::StartTestHeadTest() -- Enter");
     bool testStarted = false;
     // Get the test information
@@ -906,7 +924,7 @@ bool MazdaBrakeTC::StartTestHeadTest(const string &testStep)
     if (testData != m_testHeadTestSteps.end())
     {   // Command the test step to start
         Log(LOG_FN_ENTRY, "Setting signal: %s to true",
-            testData->second->getAttribute("StartTag")->getValue().c_str()); 
+            testData->second->getAttribute("StartTag")->getValue().c_str());
         MazdaSystemWrite(testData->second->getAttribute("StartTag")->getValue(), true);
         testStarted = true;
     }
@@ -919,8 +937,7 @@ bool MazdaBrakeTC::StartTestHeadTest(const string &testStep)
 }
 
 //-------------------------------------------------------------------------------------------------
-void MazdaBrakeTC::StopTestHeadTest(const string &testStep)
-{
+void MazdaBrakeTC::StopTestHeadTest(const string &testStep) {
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::StopTestHeadTest() -- Enter");
     // Get the test information
     const XmlNodeMapItr testData = m_testHeadTestSteps.find(testStep);
@@ -932,15 +949,14 @@ void MazdaBrakeTC::StopTestHeadTest(const string &testStep)
             BposSleep(GetTestStepInfoInt("StopTestHeadDelay"));
         }
         Log(LOG_FN_ENTRY, "Setting signal: %s to false",
-            testData->second->getAttribute("StartTag")->getValue().c_str()); 
+            testData->second->getAttribute("StartTag")->getValue().c_str());
         MazdaSystemWrite(testData->second->getAttribute("StartTag")->getValue(), false);
     }
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::StopTestHeadTest -- Exit");
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::WaitForAbsBuild(const INT16 &testingWheel, const INT16 &oppositeWheel)
-{
+string MazdaBrakeTC::WaitForAbsBuild(const INT16 &testingWheel, const INT16 &oppositeWheel) {
     string result(BEP_TESTING_RESPONSE);
     bool buildComplete = false;
     float buildPercent = 0.0;
@@ -953,7 +969,7 @@ string MazdaBrakeTC::WaitForAbsBuild(const INT16 &testingWheel, const INT16 &opp
         GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag") };
     SetupLoadCellDataStructure(forceData, loadCellTags, displayTags);
 
-    bool dumpStillInProgress = true; 
+    bool dumpStillInProgress = true;
     WaitForSignalFromMazdaTestHead("AbsWheelStart", dumpStillInProgress, false);
 
     if (!dumpStillInProgress)
@@ -986,7 +1002,7 @@ string MazdaBrakeTC::WaitForAbsBuild(const INT16 &testingWheel, const INT16 &opp
             Log(LOG_ERRORS, "Average brake force is %.2f, cannot analyze ABS build", AverageBrakeForce(testingWheel));
         }
     }
-    else 
+    else
     {
         Log(LOG_ERRORS, "Timeout or failure while waiting for confirmation from Mazda");
         result = testFail;
@@ -997,8 +1013,7 @@ string MazdaBrakeTC::WaitForAbsBuild(const INT16 &testingWheel, const INT16 &opp
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::WaitForAbsDump(const INT16 &testingWheel, const INT16 &oppositeWheel)
-{
+string MazdaBrakeTC::WaitForAbsDump(const INT16 &testingWheel, const INT16 &oppositeWheel) {
     string result(BEP_TESTING_RESPONSE);
     bool dumpComplete = false;
     MaxBrakeData forceData[GetRollerCount()];
@@ -1030,8 +1045,7 @@ string MazdaBrakeTC::WaitForAbsDump(const INT16 &testingWheel, const INT16 &oppo
 
 //-------------------------------------------------------------------------------------------------
 BEP_STATUS_TYPE MazdaBrakeTC::WaitForWheelSpeedsToBeReached(float lfTargetSpeed, float rfTargetSpeed,
-                                                            float lrTargetSpeed, float rrTargetSpeed)
-{
+                                                            float lrTargetSpeed, float rrTargetSpeed) {
     BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
     bool lfSpeedReached = false;
     bool rfSpeedReached = false;
@@ -1069,12 +1083,11 @@ BEP_STATUS_TYPE MazdaBrakeTC::WaitForWheelSpeedsToBeReached(float lfTargetSpeed,
     }
     status = allSpeedsReached ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForWheelSpeedsToBeReached() - Exit    status: %s", ConvertStatusToResponse(status).c_str());
-    return(status);
+    return (status);
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
-{   // Log the entry and determine if this should be checked
+string MazdaBrakeTC::MazdaSwapTest(string targetWheel) {   // Log the entry and determine if this should be checked
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaSwapTest(targetWheel: %s) - Enter", targetWheel.c_str());
     string result(BEP_TESTING_STATUS);
     TestResultDetails testDetails;
@@ -1140,8 +1153,8 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
         //SystemWrite(GetDataTag("RunBrakeTestTag"), true);
         //StartTestHeadTest("EnableSwapTest");
 
-        if (GetTestStepInfoBool("WaitForOperator") && 
-            !(GetParameterBool("SkipOperatorWaitOnConsecutiveWheel") && (rollerIndex % 2 != 0)) && 
+        if (GetTestStepInfoBool("WaitForOperator") &&
+            !(GetParameterBool("SkipOperatorWaitOnConsecutiveWheel") && (rollerIndex % 2 != 0)) &&
             !SystemReadBool(GetDataTag("IncycleRetest")))
         {
             BposSleep(GetParameterInt("OperatorReactionTime"));
@@ -1165,16 +1178,16 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
             /*if (SendSignalToMazdaTestHead(testData->second->getAttribute("StartTag")->getValue(), 
                                           testData->second->getAttribute("TestCompleteTag")->getValue()) == BEP_STATUS_SUCCESS) */
             if (SetSignalForMazdaTestHead(testData->second->getAttribute("StartTag")->getValue(), true/*,
-                                          testData->second->getAttribute("TestCompleteTag")->getValue()*/) == BEP_STATUS_SUCCESS)
+                                   testData->second->getAttribute("TestCompleteTag")->getValue()*/) == BEP_STATUS_SUCCESS)
             {
-                if (true)//(!brakeSwitchSet) 
+                if (true) //(!brakeSwitchSet)
                 {
                     bool measurementComplete = false;
 
                     string axle = rollerIndex > 1 ? "Rear" : "Front";
                     float minBrakeForce = GetAxleWeight(axle) * GetParameterFloat("SwapTest" + axle + "BrakeLimit");
                     float minSampleForce = GetParameterFloat("SwapTestMinSampleForce") > 0 ?
-                                           GetParameterFloat("SwapTestMinSampleForce") : minBrakeForce;
+                        GetParameterFloat("SwapTestMinSampleForce") : minBrakeForce;
                     measurementComplete = MonitorSwapTestForces(rollerIndex, minSampleForce, swapData,
                                                                 GetParameterInt("NumberOfSwapSamples"), testData, testHeadTestStep);
 
@@ -1257,7 +1270,7 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
                     }
 
                     if (result != testPass)
-                        description += "Failed -- Insufficient brake force"; 
+                        description += "Failed -- Insufficient brake force";
 
                     /*
                     if (!GetTestStepInfoBool("SkipWaitForTestStepComplete")) //This is really just a test step request confirm from Mazda
@@ -1276,16 +1289,16 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
                     */
                     //Not necessary but it can stay for now
                 }
-                
 
-                Log(LOG_DEV_DATA, "Overall swap test result (%s): %s", targetWheel.c_str(), result.c_str()); 
+
+                Log(LOG_DEV_DATA, "Overall swap test result (%s): %s", targetWheel.c_str(), result.c_str());
                 //StopTestHeadTest("EnableSwapTest");
 
                 //Wait for error or ok
                 bool processOk = false;
-                WaitForResultFromMazdaTestHead(testData->second->getAttribute("TestCompleteTag")->getValue(), 
+                WaitForResultFromMazdaTestHead(testData->second->getAttribute("TestCompleteTag")->getValue(),
                                                "CurrentTestStepResultFromTestHead_NOK", processOk);
- 
+
                 if (!processOk)
                 {
                     Log(LOG_ERRORS, "Process Error reported by Mazda.");
@@ -1293,17 +1306,17 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
                     Log(LOG_ERRORS, "Swap testing failed because brake pedal was engaged");
                     description += "Failed -- Brake pedal engaged";
                 }
-                result = processOk ? testPass : testFail; 
+                result = processOk ? testPass : testFail;
 
-                StopTestHeadTest(testHeadTestStep); 
-            }        
+                StopTestHeadTest(testHeadTestStep);
+            }
         }
         else
         {   // Timeout waiting for rollers to accelerate to speed
             RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
             Log(LOG_ERRORS, "Timeout waiting for rollers to be at speed");
             result = testFail;
-            description += "Failed -- Timeout waiting for roller speed";  
+            description += "Failed -- Timeout waiting for roller speed";
         }
 
         if (GetParameterBool("DisableMotorsAfterSwapTest"))
@@ -1311,7 +1324,7 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
             DisableRollMotors(SPEED_MODE);
         }
         RemovePrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
-        RemovePrompt(GetPromptBox("SwapTestInProgress"), GetPrompt("SwapTestInProgress"), GetPromptPriority("SwapTestInProgress")); 
+        RemovePrompt(GetPromptBox("SwapTestInProgress"), GetPrompt("SwapTestInProgress"), GetPromptPriority("SwapTestInProgress"));
     }
     else
     {   // Need to skip this step
@@ -1358,10 +1371,15 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
 
     //Report the results
     SystemWrite(GetDataTag("AbsTestResultTag"), !result.compare(testPass));
+
+    //Log the results
+    Log(LOG_DEV_DATA, "Reporting %s to tag %s",
+        result.c_str(), GetDataTag("AbsTestResultTag").c_str());
+
     SendSubtestResultWithDetail(targetWheel + "SwapTest", result, testDetails, description, "0000");
     if (GetTestStepInfoBool("DisableRollDrives") || (BEP_STATUS_SUCCESS != StatusCheck()))
     {
-        DisableRollMotors(SPEED_MODE, GetParameterBool("DisableMotorsWaitForZeroSpeed")); 
+        DisableRollMotors(SPEED_MODE, GetParameterBool("DisableMotorsWaitForZeroSpeed"));
     }
 
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaSwapTest() - Exit");
@@ -1372,15 +1390,14 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
 //-------------------------------------------------------------------------------------------------
 bool MazdaBrakeTC::MonitorSwapTestForces(INT16 targetWheel, float requiredForce,
                                          MaxBrakeData *brakeData, UINT16 samplesToAverage,
-                                         const XmlNodeMapItr &testData, string testHeadTestStep)
-{ // Front Axle Swap Test (similar to a TCS function)
+                                         const XmlNodeMapItr &testData, string testHeadTestStep) { // Front Axle Swap Test (similar to a TCS function)
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MonitorSwapTestForces(targetWheel: %s, minSampleForce: %f) - Enter",
         rollerName[targetWheel].c_str(), requiredForce);
     bool measurementComplete = false;
     UINT16 samplesAboveLimit = GetParameterInt("SwapTestSamplesAboveLimitToStartAverage");
     UINT16 currentSamplesAboveLimit = 0;
     bool testComplete = false;
-    bool processErorFromMazda =false;
+    bool processErorFromMazda = false;
     INT32 timeout = GetTestStepInfoInt("SampleForceTimeout") > 0 ? GetTestStepInfoInt("SampleForceTimeout") : 3000;
     bool fireRequestConfirmed;
     bool sufficientMaxForce;
@@ -1391,14 +1408,14 @@ bool MazdaBrakeTC::MonitorSwapTestForces(INT16 targetWheel, float requiredForce,
         if (!testComplete)
         {
             testComplete = MazdaSystemReadBool(testData->second->getAttribute("TestCompleteTag")->getValue());
-            processErorFromMazda = MazdaSystemReadBool("CurrentTestStepResultFromTestHead_NOK"); 
+            processErorFromMazda = MazdaSystemReadBool("CurrentTestStepResultFromTestHead_NOK");
             if (testComplete)
             {
                 Log(LOG_DEV_DATA, "MonitorSwapTestForces: Test Complete from Mazda Test Head");
                 StopTestHeadTest(testHeadTestStep);
             }
         }
-        
+
 
         // Get the current force for each wheel
         ReadCurrentLoadCellValues(brakeData, LeftFront);
@@ -1419,7 +1436,7 @@ bool MazdaBrakeTC::MonitorSwapTestForces(INT16 targetWheel, float requiredForce,
                 {   // We have enough samples over the threshold, start averaging
                     brakeData[roller].forceSamples.push_back(brakeData[roller].currentForce);
                     //Log(LOG_DEV_DATA, "Begin sampling...");
-                    
+
                     // Check if measurement is complete on this wheel
                     if (brakeData[roller].forceSamples.size() > samplesToAverage)
                     {   // Remove old samples to keep a moving sample window
@@ -1445,12 +1462,12 @@ bool MazdaBrakeTC::MonitorSwapTestForces(INT16 targetWheel, float requiredForce,
                 currentSamplesAboveLimit = 0;
             }
 
-            if (!sufficientMaxForce && 
-                (GetParameterBool("SwapTestUseMaxBrakeForce") && brakeData[targetWheel].maxForce >= requiredForce) )
+            if (!sufficientMaxForce &&
+                (GetParameterBool("SwapTestUseMaxBrakeForce") && brakeData[targetWheel].maxForce >= requiredForce))
             {
                 // Using a different flag here so that we can keep measuring
                 sufficientMaxForce = true;
-                brakeData[roller].measurementComplete = true; 
+                brakeData[roller].measurementComplete = true;
             }
         }
 
@@ -1463,7 +1480,7 @@ bool MazdaBrakeTC::MonitorSwapTestForces(INT16 targetWheel, float requiredForce,
         if (!measurementComplete)
             BposSleep(GetParameterInt("LoadCellReadingDelay"));
         // Keep checking until all min required forces are satisfied
-    } while ((BEP_STATUS_SUCCESS == StatusCheck()) && SecondaryTimeRemaining(&timeout) && 
+    } while ((BEP_STATUS_SUCCESS == StatusCheck()) && SecondaryTimeRemaining(&timeout) &&
              !measurementComplete && !processErorFromMazda);
 
     if (GetParameterBool("SwapTestUseMaxBrakeForce") && sufficientMaxForce)
@@ -1476,16 +1493,15 @@ bool MazdaBrakeTC::MonitorSwapTestForces(INT16 targetWheel, float requiredForce,
 
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::RunBrakeTest()
-{
+string MazdaBrakeTC::RunBrakeTest() {
     string result(BEP_TESTING_RESPONSE);
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::RunBrakeTest(wait time: %d) - Enter", GetTestStepInfoInt("Timeout"));
     bool skipOnIncycleRetest = GetTestStepInfoBool("SkipOnIncycleRetest");
     SetStartTime();
-    if (!ShortCircuitTestStep() && 
+    if (!ShortCircuitTestStep() &&
         ((skipOnIncycleRetest && !SystemReadBool(GetDataTag("IncycleRetest"))) || !skipOnIncycleRetest))
     {
-        
+
         /*
         SystemWrite(GetDataTag("RunBrakeTestTag"), true);
         // Wait for brake test confirm
@@ -1515,20 +1531,19 @@ string MazdaBrakeTC::RunBrakeTest()
 }
 
 //-------------------------------------------------------------------------------------------------
-BEP_STATUS_TYPE MazdaBrakeTC::SendSignalToMazdaTestHead(const string outgoingSignalTag, string confirmationSignal /* = "Undefined"*/, 
-                                                        bool signalStatus /*= true*/)
-{
-    BEP_STATUS_TYPE status = BEP_STATUS_FAILURE; 
+BEP_STATUS_TYPE MazdaBrakeTC::SendSignalToMazdaTestHead(const string outgoingSignalTag, string confirmationSignal /* = "Undefined"*/,
+                                                        bool signalStatus /*= true*/) {
+    BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::SendSignalToMazdaTestHead (signal: %s, status: %s) -- Enter",
         outgoingSignalTag.c_str(), signalStatus ? "true" : "false");
 
     INT32 timeout = GetParameterInt("MazdaTestHeadSignalHandshakeTimeout") > 0 ? GetTestStepInfoInt("MazdaTestHeadSignalHandshakeTimeout") : 10000;
-    SetSecondaryStartTime(); 
+    SetSecondaryStartTime();
 
     // Send outgoing
-    status = SystemWrite(GetDataTag(outgoingSignalTag), signalStatus) == BEP_STATUS_SUCCESS ? 
+    status = SystemWrite(GetDataTag(outgoingSignalTag), signalStatus) == BEP_STATUS_SUCCESS ?
         BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
-    
+
     if (status == BEP_STATUS_SUCCESS && confirmationSignal != "Undefined")
     {
         Log(LOG_DEV_DATA, "Waiting for confirmation: %s", confirmationSignal.c_str());
@@ -1547,7 +1562,7 @@ BEP_STATUS_TYPE MazdaBrakeTC::SendSignalToMazdaTestHead(const string outgoingSig
         {
             Log(LOG_DEV_DATA, "Confirmation %s received, reversing outgoing signal: %s", confirmationReceived ? "" : "NOT", outgoingSignalTag.c_str());
             // Reverse outgoing
-            SystemWrite(GetDataTag(outgoingSignalTag), !signalStatus); 
+            SystemWrite(GetDataTag(outgoingSignalTag), !signalStatus);
             status = BEP_STATUS_SUCCESS;
         }
         else
@@ -1555,16 +1570,15 @@ BEP_STATUS_TYPE MazdaBrakeTC::SendSignalToMazdaTestHead(const string outgoingSig
     }
     else
     {
-        Log(LOG_ERRORS, "Error sending outgoing signal!"); 
+        Log(LOG_ERRORS, "Error sending outgoing signal!");
     }
-    
+
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::SendSignalToMazdaTestHead -- Exit");
     return status;
 }
 
 //-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::SwapTestByAxle(const string axle)
-{
+string MazdaBrakeTC::SwapTestByAxle(const string axle) {
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::SwapTestByAxle(%s) -- Enter", axle.c_str());
     string testResult(BEP_TESTING_RESPONSE);
     if (!ShortCircuitTestStep())
@@ -1575,7 +1589,7 @@ string MazdaBrakeTC::SwapTestByAxle(const string axle)
             testResult = MazdaSwapTest("LeftFront");
             if (testResult == testPass)
             {
-                RunBrakeTest(); 
+                RunBrakeTest();
                 testResult = MazdaSwapTest("RightFront");
             }
             else
@@ -1586,11 +1600,11 @@ string MazdaBrakeTC::SwapTestByAxle(const string axle)
         else
         {
             // Assume Rear
-            RunBrakeTest(); 
+            RunBrakeTest();
             testResult = MazdaSwapTest("LeftRear");
             if (testResult == testPass)
             {
-                RunBrakeTest(); 
+                RunBrakeTest();
                 testResult = MazdaSwapTest("RightRear");
             }
             else
@@ -1605,10 +1619,9 @@ string MazdaBrakeTC::SwapTestByAxle(const string axle)
 
 
 //-------------------------------------------------------------------------------------------------
-BEP_STATUS_TYPE MazdaBrakeTC::SetSignalForMazdaTestHead(const string signalTag, bool signalStatus /*= true*/, 
+BEP_STATUS_TYPE MazdaBrakeTC::SetSignalForMazdaTestHead(const string signalTag, bool signalStatus /*= true*/,
                                                         string confirmationSignal /* = "Undefined"*/, bool confirmationSignalStatus /*= true*/,
-                                                        bool reverseSignalOnConfirm /*= false*/)
-{
+                                                        bool reverseSignalOnConfirm /*= false*/) {
     BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::SetSignalForMazdaTestHead (signal: %s, status: %s, waitForConfirmation: %s) -- Enter",
         signalTag.c_str(), signalStatus ? "1" : "0", confirmationSignal != "Undefined" ? "yes" : "no");
@@ -1621,7 +1634,7 @@ BEP_STATUS_TYPE MazdaBrakeTC::SetSignalForMazdaTestHead(const string signalTag, 
 
     if (confirmationSignal != "Undefined")
     {
-        Log(LOG_DEV_DATA, "Waiting for confirmation: %s:%s", confirmationSignal.c_str(), confirmationSignalStatus ? "1":"0");
+        Log(LOG_DEV_DATA, "Waiting for confirmation: %s:%s", confirmationSignal.c_str(), confirmationSignalStatus ? "1" : "0");
         bool confirmationReceived = !confirmationSignalStatus;
         do
         {
@@ -1635,28 +1648,28 @@ BEP_STATUS_TYPE MazdaBrakeTC::SetSignalForMazdaTestHead(const string signalTag, 
 
         if (confirmationReceived != confirmationSignalStatus)
         {
-            status = BEP_STATUS_FAILURE; 
-            Log(LOG_ERRORS, "Confirmation signal not in desired state!"); 
+            status = BEP_STATUS_FAILURE;
+            Log(LOG_ERRORS, "Confirmation signal not in desired state!");
         }
         else
         {
-            Log(LOG_DEV_DATA, "Confirmation received"); 
-            status = BEP_STATUS_SUCCESS; 
+            Log(LOG_DEV_DATA, "Confirmation received");
+            status = BEP_STATUS_SUCCESS;
         }
 
         if (reverseSignalOnConfirm &&
             (confirmationReceived == confirmationSignalStatus || GetParameterBool("AlwaysReverseTestHeadSignal")))
         {
-            Log(LOG_DEV_DATA, "Reversing outgoing signal - %s:%s", confirmationReceived ? "" : "NOT", 
+            Log(LOG_DEV_DATA, "Reversing outgoing signal - %s:%s", confirmationReceived ? "" : "NOT",
                 signalTag.c_str(), !signalStatus ? "1" : "0");
             // Reverse outgoing
             MazdaSystemWrite(signalTag, !signalStatus);
             status = BEP_STATUS_SUCCESS;
-        } 
+        }
     }
     else
     {
-        status = BEP_STATUS_SUCCESS; 
+        status = BEP_STATUS_SUCCESS;
         Log(LOG_DEV_DATA, "No confirmation tag defined. Not waiting...");
     }
 
@@ -1664,26 +1677,23 @@ BEP_STATUS_TYPE MazdaBrakeTC::SetSignalForMazdaTestHead(const string signalTag, 
     return status;
 }
 
-INT32 MazdaBrakeTC::MazdaSystemWrite(const string tag, const bool value)
-{
+INT32 MazdaBrakeTC::MazdaSystemWrite(const string tag, const bool value) {
     // Push all writes to Mazda Test Head through here for logging
     Log(LOG_DEV_DATA, "%-20.20s :: %-20.20s (PLC: , Mazda: ) -> %s", GetTestStepName().c_str(), tag.c_str(),
         value ? "1" : "0");
     return SystemWrite(GetDataTag(tag), value);
 }
 
-bool MazdaBrakeTC::MazdaSystemReadBool(const string tag)
-{
+bool MazdaBrakeTC::MazdaSystemReadBool(const string tag) {
     bool value = SystemReadBool(GetDataTag(tag));
     // Push all reads to Mazda Test Head through here for logging
     Log(LOG_DEV_DATA, "%-20.20s :: %-20.20s (PLC: , Mazda: ) <- %s", GetTestStepName().c_str(), tag.c_str(),
         value ? "1" : "0");
-    return value; 
+    return value;
 }
 
 //-------------------------------------------------------------------------------------------------
-INT32 MazdaBrakeTC::WaitForResultFromMazdaTestHead(const string okSignalTag, const string nokSignalTag, bool &processOk)
-{
+INT32 MazdaBrakeTC::WaitForResultFromMazdaTestHead(const string okSignalTag, const string nokSignalTag, bool &processOk) {
     INT32 status = BEP_STATUS_FAILURE;
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForResultFromMazdaTestHead (okSignalTag: %s, okSignalTag: %s) -- Enter",
         okSignalTag.c_str(), nokSignalTag.c_str());
@@ -1704,33 +1714,32 @@ INT32 MazdaBrakeTC::WaitForResultFromMazdaTestHead(const string okSignalTag, con
                 BposSleep(GetParameterInt("TestCompleteCheckDelay"));
             }
             else
-                processOk = false; 
+                processOk = false;
         }
         else
         {
-            processOk = true; 
+            processOk = true;
         }
     }while ((status = StatusCheck()) == BEP_STATUS_SUCCESS && !resultReceived && SecondaryTimeRemaining(&timeout));
 
-    Log("%s - Current result from Mazda: %s", GetTestStepName().c_str(), processOk ? "OK" : "ERROR"); 
+    Log("%s - Current result from Mazda: %s", GetTestStepName().c_str(), processOk ? "OK" : "ERROR");
 
     MazdaSystemWrite("CurrentTestStepResultFromTestHeadConfirm", true);
     BposSleep(GetParameterInt("MazdaTestHeadReactionTime"));
     MazdaSystemWrite("CurrentTestStepResultFromTestHeadConfirm", false);
 
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForResultFromMazdaTestHead (processOk: %s) -- Exit",
-        processOk ? "Yes" : "No"); 
+        processOk ? "Yes" : "No");
     return status;
 }
 
 //-------------------------------------------------------------------------------------------------
-INT32 MazdaBrakeTC::WaitForSignalFromMazdaTestHead(const string tag, bool &value, bool desiredState /*= true*/)
-{
+INT32 MazdaBrakeTC::WaitForSignalFromMazdaTestHead(const string tag, bool &value, bool desiredState /*= true*/) {
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForSignalFromMazdaTestHead (tag: %s, desiredState: %s) -- Enter",
         tag.c_str(), desiredState ? "1" : "0");
 
     INT32 timeout = GetParameterInt("MazdaTestHeadSignalHandshakeTimeout") > 0 ? GetTestStepInfoInt("MazdaTestHeadSignalHandshakeTimeout") : 5000;
-    SetSecondaryStartTime(); 
+    SetSecondaryStartTime();
 
     do
     {
@@ -1741,7 +1750,7 @@ INT32 MazdaBrakeTC::WaitForSignalFromMazdaTestHead(const string tag, bool &value
         }
     }while ((StatusCheck() == BEP_STATUS_SUCCESS) && value != desiredState && SecondaryTimeRemaining(&timeout));
 
-    Log(LOG_DEV_DATA, "%s: %s|%s", tag.c_str(), value ? "1" : "0", desiredState ? "1" : "0"); 
+    Log(LOG_DEV_DATA, "%s: %s|%s", tag.c_str(), value ? "1" : "0", desiredState ? "1" : "0");
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForSignalFromMazdaTestHead (tag: %s, desiredState: %s|%s) -- Exit",
         tag.c_str(), desiredState ? "1" : "0", desiredState ? "1" : "0");
 }

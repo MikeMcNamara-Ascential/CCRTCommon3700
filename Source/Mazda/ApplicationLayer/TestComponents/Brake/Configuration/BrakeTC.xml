@@ -85,6 +85,10 @@
          <FrontAxleWeightDefaultParameter>DefaultFrontAxleWeight</FrontAxleWeightDefaultParameter>
          <RearAxleWeightTag>VehicleRearAxleWeight</RearAxleWeightTag>
          <RearAxleWeightDefaultParameter>DefaultRearAxleWeight</RearAxleWeightDefaultParameter>
+		 <LfAbsTestResult>RunLfAbsTest</LfAbsTestResult>
+         <RfAbsTestResult>RunRfAbsTest</RfAbsTestResult>
+         <LrAbsTestResult>RunLrAbsTest</LrAbsTestResult>
+         <RrAbsTestResult>RunRrAbsTest</RrAbsTestResult>		 
          <OverallTestResultTag>OverallTestResult</OverallTestResultTag>
          <NormalBrakeTestResultTag>NormalBrakeTestResult</NormalBrakeTestResultTag>
 		 <TotalBrakeForceResultTag>TotalBrakeForceResult</TotalBrakeForceResultTag>

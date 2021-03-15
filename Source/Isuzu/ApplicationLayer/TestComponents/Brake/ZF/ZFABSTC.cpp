@@ -2317,14 +2317,15 @@ string ZFABSTC<ModuleType>::TestStepWriteVacuumFillingEndFlag(void)
         do
         {  
             Log(LOG_DEV_DATA,"Writing the Vacuum fill end flag");
-            moduleStatus = m_vehicleModule.GetInfo(moduleTag);
+            moduleStatus = m_vehicleModule.CommandModule(moduleTag);
 	    	if(moduleStatus == BEP_STATUS_SUCCESS)
             {
                 Log(LOG_DEV_DATA,"Reading the Vacuum fill end flag");
-                moduleStatus = m_vehicleModule.GetInfo("ReadVacuumFillingEndFlag",fillFlagValue);
+                moduleStatus = m_vehicleModule.ReadModuleData("ReadVacuumFillingEndFlag",fillFlagValue);
                 if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
                     result = fillFlagValue ? testPass : testFail;
+                    Log(LOG_DEV_DATA, "setting fillFlagValue: %s, result: %s", fillFlagValue ? "True" : "False", result.c_str());
                 }
                 else
                 {
@@ -2348,16 +2349,18 @@ string ZFABSTC<ModuleType>::TestStepWriteVacuumFillingEndFlag(void)
         }while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && !fillFlagValue);
         if (StatusCheck() != BEP_STATUS_SUCCESS) 
         {
+            Log(LOG_DEV_DATA, "StatusCheck fail trying to write Vacuum filling end flag");
             result = ConvertStatusToResponse(StatusCheck());
         }
-        else if (!TimeRemaining())
+        else if (!TimeRemaining() && !fillFlagValue)
         {
             Log(LOG_DEV_DATA, "Timeout trying to write Vacuum filling end flag");
             result = BEP_TIMEOUT_RESPONSE;          
         }
         else
         {
-            result = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            Log(LOG_DEV_DATA, "setting pass fail based on fillFlagValue");
+            result = fillFlagValue ? testPass : testFail;
             testResultCode = (result == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
             testDescription = (result == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
         }

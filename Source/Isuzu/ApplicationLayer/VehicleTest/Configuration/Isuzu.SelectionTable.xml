@@ -1,42 +1,58 @@
 <SelectionTable Description="Isuzu drive curve selection table">
-   <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
-      <BrakeType>Base Brake</BrakeType>
-   </BaseBrake>
-   <AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-   </AbsDriveCurve>
-   <My13AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My13Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <ModelYear>130</ModelYear>
-   </My13AbsDriveCurve>
-   <My14AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My14Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <ModelYear>140</ModelYear>
-   </My14AbsDriveCurve>
-   <My15AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My14Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <ModelYear>150</ModelYear>
-   </My15AbsDriveCurve>
-   <My18AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My18Isuzu.DriveCurve.xml">
-       <BrakeType>Advics</BrakeType>
-       <ModelYear>180</ModelYear>
-   </My18AbsDriveCurve>
-   <My19AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19Isuzu.DriveCurve.xml">
-       <BrakeType>Advics</BrakeType>
-       <ModelYear>190</ModelYear>
-   </My19AbsDriveCurve>
-   <My19_2AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19_2_Isuzu.DriveCurve.xml">
-       <BrakeType>Advics</BrakeType>
-       <ModelYear>190</ModelYear>
-	   <VIN>???B?????????????</VIN>
-   </My19_2AbsDriveCurve>
-   <My20AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19Isuzu.DriveCurve.xml">
-       <BrakeType>Advics</BrakeType>
-       <ModelYear>200</ModelYear>
-   </My20AbsDriveCurve>
-   <My20ibAbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My20iIsuzu.DriveCurve.xml">
-       <BrakeType>Advics</BrakeType>
-       <ModelYear>205</ModelYear>
-   </My20ibAbsDriveCurve>
-   
+	<BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+		<BrakeType>Base Brake</BrakeType>
+	</BaseBrake>
+	<AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/Isuzu.DriveCurve.xml">
+		<BrakeType>720 ABS</BrakeType>
+	</AbsDriveCurve>
+	<My13AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My13Isuzu.DriveCurve.xml">
+		<BrakeType>720 ABS</BrakeType>
+		<ModelYear>130</ModelYear>
+	</My13AbsDriveCurve>
+	<My14AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My14Isuzu.DriveCurve.xml">
+		<BrakeType>720 ABS</BrakeType>
+		<ModelYear>140</ModelYear>
+	</My14AbsDriveCurve>
+	<My15AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My14Isuzu.DriveCurve.xml">
+		<BrakeType>720 ABS</BrakeType>
+		<ModelYear>150</ModelYear>
+	</My15AbsDriveCurve>
+	<My18AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My18Isuzu.DriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>180</ModelYear>
+	</My18AbsDriveCurve>
+	<My19AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19Isuzu.DriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>190</ModelYear>
+	</My19AbsDriveCurve>
+	<My19_2AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19_2_Isuzu.DriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>190</ModelYear>
+		<VIN>???B?????????????</VIN>
+	</My19_2AbsDriveCurve>
+	<My20AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19Isuzu.DriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>200</ModelYear>
+	</My20AbsDriveCurve>
+	<My20iAbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My20iIsuzu.DriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>205</ModelYear>
+	</My20iAbsDriveCurve>
+	<My20iBDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My20iBDriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>205</ModelYear>
+		<VIN>???????????R?????</VIN>
+	</My20iBDriveCurve>
+	<My20iBLSDDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My20iBLSDDriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>205</ModelYear>
+		<VIN>???????????R?????</VIN>
+		<Axle>Limited Slip Differential</Axle>
+	</My20iBLSDDriveCurve>
+	<My23iIsuzuDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My23iIsuzuDriveCurve.xml">
+		<BrakeType>ZF</BrakeType>
+		<ModelYear>230</ModelYear>
+		<VIN>???????????R?????</VIN>
+	</My23iIsuzuDriveCurve>
+
 </SelectionTable>

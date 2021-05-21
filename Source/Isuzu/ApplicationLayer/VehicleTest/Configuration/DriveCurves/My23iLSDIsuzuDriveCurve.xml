@@ -10,7 +10,7 @@
         <Brakes>
 			<ComponentName>ZFABSTC.qxe</ComponentName>
 			<ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-			<ConfigFile>ZFABSTC.xml</ConfigFile>
+			<ConfigFile>LSDZFABSTC.xml</ConfigFile>
 			<ConfigPath>/Configuration/Components/Brake/</ConfigPath>
 			<Debug>Off</Debug>
         </Brakes>

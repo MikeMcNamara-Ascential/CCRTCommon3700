@@ -73,8 +73,9 @@
     <ModuleFault_0977 Code="P0977" Description="Mode 3 Control Circuit High Voltage (Shift Solenoid B)" FailureStatusMask="0x16"/>
     <ModuleFault_0989 Code="P0989" Description="Pressure Switch Sensors C456/CBR1 Circuit Low Voltage (TFP Sensor 4 / E)" FailureStatusMask="0x12"/>
     <ModuleFault_0990 Code="P0990" Description="Pressure Switch Sensors C456/CBR1 Circuit High Voltage (TFP Sensor 4 / E)" FailureStatusMask="0x12"/>
+    <ModuleFault_1761 Code="P175F" Description="Acceleration Sensor Signal Message Counter Incorrect" FailureStatusMask="0x12"/>
     <ModuleFault_1761 Code="P1761" Description="TUTD Switch Signal Circuit, Rolling Count" FailureStatusMask="0x12"/>
-    <ModuleFault_1762 Code="P1762" Description="Trans Mode Switch Signal Circuit, Rolling Count" FailureStatusMask="0x12"/>
+    <!--ModuleFault_1762 Code="P1762" Description="Trans Mode Switch Signal Circuit, Rolling Count" FailureStatusMask="0x12"/-->
     <ModuleFault_182E Code="P182E" Description="IMS Circuit A Low, Reported as IMS - Invalid Range" FailureStatusMask="0x16"/>
     <ModuleFault_1915 Code="P1915" Description="IMS Does Not Indicate Park/Neutral During Start" FailureStatusMask="0x16"/>
     <ModuleFault_2534 Code="P2534" Description="Ignition Switch Run / Start Position Circuit Low Voltage" FailureStatusMask="0x16"/>
@@ -97,4 +98,5 @@
     <ModuleFault_C100 Code="U0100" Description="Lost Communication with ECM" FailureStatusMask="0x16"/>
     <ModuleFault_C121 Code="U0121" Description="Lost Communication with ABSCM" FailureStatusMask="0x12"/>
     <ModuleFault_C140 Code="U0140" Description="Lost Communication with BCM" FailureStatusMask="0x12"/>
+    <ModuleFault_C140 Code="C1251" Description="Lateral Acceleration Sensor Performance/Stuck in Range" FailureStatusMask="0x12"/>
 </TransmisisonFaults>

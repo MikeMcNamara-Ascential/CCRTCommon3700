@@ -87,7 +87,7 @@
             <AbortOnTestStepFailure>True</AbortOnTestStepFailure>
             <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
-            <DelayBeforeDtcRead>20000</DelayBeforeDtcRead>
+            <DelayBeforeDtcRead>10000</DelayBeforeDtcRead>
             <DelayModuleInitialization>No</DelayModuleInitialization>
             <DeveloperTest>0</DeveloperTest>
             <ICMName>mgr/ICM</ICMName>
@@ -128,7 +128,7 @@
             <MaximumEngineOilTemperature Units="C" TestSteps="CheckEngineOilTemperature" Comment="Maximum operating engine oil temperature">210</MaximumEngineOilTemperature>
             <!-- Engine Oil Pressure Parameters -->
             <EngineOilPressureUnits>kPa</EngineOilPressureUnits>
-            <MinimumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Minimum operating engine oil pressure">150</MinimumEngineOilPressure>
+            <MinimumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Minimum operating engine oil pressure">100</MinimumEngineOilPressure>
             <MaximumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Maximum operating engine oil pressure">350</MaximumEngineOilPressure>
             <EngineOilLevelLowCompareValue>True</EngineOilLevelLowCompareValue>
             <EngineOilPressureLowCompareValue>True</EngineOilPressureLowCompareValue>
@@ -137,7 +137,7 @@
             <!-- Fuel Rail Pressure Parameters -->
             <FuelRailPressureUnits>kPa</FuelRailPressureUnits>
             <MinimumFuelRailPressure Units="kPa" TestSteps="CheckFuelRailPressure" Comment="Minimum operating Fuel Rail pressure">0</MinimumFuelRailPressure>
-            <MaximumFuelRailPressure Units="kPa" TestSteps="CheckFuelRailPressure" Comment="Maximum operating FuelRail pressure">1500</MaximumFuelRailPressure>
+            <MaximumFuelRailPressure Units="kPa" TestSteps="CheckFuelRailPressure" Comment="Maximum operating FuelRail pressure">255</MaximumFuelRailPressure>
             <!-- Fuel Level in Primary Tank Parameters -->
             <FuelLevelPrimaryTankUnits>%</FuelLevelPrimaryTankUnits>
             <MinimumFuelLevelPrimaryTank Units="%" TestSteps="CheckFuelLevelPrimaryTankLevel" Comment="Minimum operating Fuel Tank Level">0</MinimumFuelLevelPrimaryTank>
@@ -272,13 +272,11 @@
                 <PCMPartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">ReadPartNumber</PCMPartNo>
                 <!-- EndModelPartNumber -->
                 <PCMSoftwareModule06PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule06PartNo</PCMSoftwareModule06PartNo>
-                <PCMSoftwareModule10PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule10PartNo</PCMSoftwareModule10PartNo>
                 <PCMSoftwareModule05PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule05PartNo</PCMSoftwareModule05PartNo>
                 <PCMSoftwareModule03PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule03PartNo</PCMSoftwareModule03PartNo>
                 <PCMSoftwareModule02PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule02PartNo</PCMSoftwareModule02PartNo>
                 <PCMSoftwareModule04PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule04PartNo</PCMSoftwareModule04PartNo>
                 <PCMSoftwareModule01PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule01PartNo</PCMSoftwareModule01PartNo>
-                <PCMSoftwareModule09PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule09PartNo</PCMSoftwareModule09PartNo>
                 <!-- PCMUtilityFilePartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">UtilityFileConstantPartNumber</PCMUtilityFilePartNo -->
             </PartNumbersToCheck>
             <UtilityFileConstantPartNumber TestSteps="CheckPartNumbers" Comment="Utility File Part Number From Static test station">12631684</UtilityFileConstantPartNumber>
@@ -381,7 +379,7 @@
             <TestStep00>Setup</TestStep00>
             <TestStep05>WaitForEngineRunning</TestStep05>
             <TestStep10>EnterDiagnosticMode</TestStep10>
-            <TestStep15>ConditionalFaultClear</TestStep15>
+            <!--TestStep15>ConditionalFaultClear</TestStep15-->
         </EngineRunning>
         <KeyOffEngineOffKeyOn>
             <TestStep00>KeyOffEngineOffKeyOnNoStart</TestStep00>
@@ -394,6 +392,13 @@
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>StartModuleKeepAlive</TestStep15>
         </KeyOffEngineOffKeyOnNoStart>
+		<KeyOffEngineOffKeyOnNoStartLockMECEngineON>
+            <TestStep00>KeyOffEngineOffKeyOnNoStart</TestStep00>
+            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep15>LockModuleIfPass</TestStep15>
+            <TestStep17>WaitForEngineRunning</TestStep17>
+			<!--TestStep20>ReadFaultsPostMECLock</TestStep20-->
+        </KeyOffEngineOffKeyOnNoStartLockMECEngineON>
         <EngineWarmUp>
             <TestStep10>CheckVIN</TestStep10>
             <TestStep15>CheckPartNumbers</TestStep15>
@@ -412,7 +417,6 @@
         </ClearFaultsFinal>
         <FinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
-            <TestStep98>LockModule</TestStep98>
             <TestStep99>FinishUp</TestStep99>
         </FinishUp>
         <DelayBeforeDtcRead>
@@ -458,6 +462,9 @@
 			<TestStep01>CheckBrakeSensorOff</TestStep01>
 			<TestStep05>CheckBrakeSensorOn</TestStep05>
 		</CheckBrakeSensorOffOn>
+		<ReadFaultsPostMECLock>
+			<TestStep05>ReadFaultsPostMECLock</TestStep05>
+		</ReadFaultsPostMECLock>
     </Objectives>
     <TestSteps>
         <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
@@ -508,8 +515,10 @@
         <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" Prompt2="ShiftToPark" AlwaysPerform="True" AbortIfFailed="False"/>
 		<KeyOffEngineOffKeyOnNoStart Result="" Timeout="30000" Description="Key Cycle" Prompt2="ShiftToPark" AlwaysPerform="True" AbortIfFailed="False"/>
         <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
+        <LockModuleIfPass Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
         <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
+        <ReadFaultsPostMECLock Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM Post MEC Lock" AlwaysPerform="True" AbortIfFailed="False"/>
         <Setup Result="" Timeout="500" Description="Setup conditions for testing" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
         <StartModuleKeepAlive Result="" Timeout="5000" Messages="ModuleKeepAlive" AlwaysPerform="True" AbortIfFailed="False" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
         <StartRangeCheckMonitors Result="" Timeout="500" Description="Start background sensor monitoring" AlwaysPerform="True" AbortIfFailed="False"/>

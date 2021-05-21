@@ -49,10 +49,28 @@
 		<VIN>???????????R?????</VIN>
 		<Axle>Limited Slip Differential</Axle>
 	</My20iBLSDDriveCurve>
+	<My20iBDriveCurve2 DriveCurve="/Configuration/VehicleTest/DriveCurves/My20iBDriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>205</ModelYear>
+		<VIN>???????????5?????</VIN>
+	</My20iBDriveCurve2>
+	<My20iBLSDDriveCurve2 DriveCurve="/Configuration/VehicleTest/DriveCurves/My20iBLSDDriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>205</ModelYear>
+		<VIN>???????????5?????</VIN>
+		<Axle>Limited Slip Differential</Axle>
+	</My20iBLSDDriveCurve2>
 	<My23iIsuzuDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My23iIsuzuDriveCurve.xml">
-		<BrakeType>ZF</BrakeType>
-		<ModelYear>230</ModelYear>
-		<VIN>???????????R?????</VIN>
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>205</ModelYear> <!--230-->
+		<VIN>54DC4W1D7MS200000</VIN> <!--testing purposes only-->
+		<LotNumber>001</LotNumber> <!--testing purposes only-->
 	</My23iIsuzuDriveCurve>
-
+	<My23iLSDIsuzuDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My23iLSDIsuzuDriveCurve.xml">
+		<BrakeType>Advics</BrakeType>
+		<ModelYear>205</ModelYear> <!--230-->
+		<VIN>54DC4W1D7MS200000</VIN> <!--testing purposes only-->
+		<LotNumber>001</LotNumber> <!--testing purposes only-->
+		<Axle>Limited Slip Differential</Axle>
+	</My23iLSDIsuzuDriveCurve>
 </SelectionTable>

@@ -946,6 +946,7 @@ private:
 
     bool m_reconnectHasBeenRequested;
 
+	bool m_reconnectOnNoResponse;
     /**
      * Timer for sending keep alive messages.
      */

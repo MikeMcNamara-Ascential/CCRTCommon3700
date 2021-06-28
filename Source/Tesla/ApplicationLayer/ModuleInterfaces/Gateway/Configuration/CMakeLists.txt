@@ -4,5 +4,6 @@
 #------------------------------------------------------------------------------------------
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Gateway FILES
+	BroadcastVINModule.xml
 	KwpGatewayModule.xml
 )

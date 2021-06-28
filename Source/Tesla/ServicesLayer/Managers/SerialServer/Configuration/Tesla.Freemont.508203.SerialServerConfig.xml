@@ -14,8 +14,8 @@
       <LogicalPorts>
           <GryphonCCanLeft enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
              <Setup>
-				<EnableBroadcastFilters>True</EnableBroadcastFilters>
-				<SerialDevice>/dev/socket</SerialDevice>
+                <EnableBroadcastFilters>True</EnableBroadcastFilters>
+                <SerialDevice>/dev/socket</SerialDevice>
                 <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
                 <Protocol>
                    <Baud>19200</Baud>
@@ -31,7 +31,7 @@
                 <Logging>
                      <ProcessName>logport/GryphonCANLeft</ProcessName>
                      <AdditionalLogFile>/Communication/GryphonCANLeft.log</AdditionalLogFile>
-                     <Status>Disabled</Status>
+                     <Status>Enabled</Status>
                    <LocalEcho>Disabled</LocalEcho>
                      <Verbose>0x3F</Verbose>
                 </Logging>
@@ -49,23 +49,23 @@
                    </Setup>
                 </CommLog>
                 <Login>
-                   <IPAddress>192.168.1.22</IPAddress>
+                   <IPAddress>192.168.4.20</IPAddress>
                    <Port>7000</Port>
                    <UserID>gryphon</UserID>
                    <Password>gryphon</Password>
                 </Login>
                 <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
                 <NodePairs>
-                     <ABS Outgoing="0x645" Incoming="0x655"/>
-                     <SRS Outgoing="0x641" Incoming="0x651"/>
-                     <EPAS Outgoing="0x730" Incoming="0x738"/>
+                  <ABS Outgoing="0x645" Incoming="0x655"/>
+                  <SRS Outgoing="0x641" Incoming="0x651"/>
+                  <EPAS Outgoing="0x730" Incoming="0x738"/>
                 </NodePairs>
                 <NodePairSetup>
-                     <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
-                     <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
-                     <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
+                  <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
+                  <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
+                  <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
                 </NodePairSetup>
-			    <BroadcastMessageIDs>
+				<BroadcastMessageIDs>
 					 <GTW Incoming="0x405"/>
                 </BroadcastMessageIDs>
              </Setup>
@@ -107,7 +107,7 @@
                    </Setup>
                 </CommLog>
                 <Login>
-                   <IPAddress>192.168.1.21</IPAddress>
+                   <IPAddress>192.168.4.21</IPAddress>
                    <Port>7000</Port>
                    <UserID>gryphon</UserID>
                    <Password>gryphon</Password>
@@ -120,14 +120,14 @@
                                 <Alias>/dev/LogicalPorts/GryphonCCan</Alias>
                      -->
                 <NodePairs>
-                     <ABS Outgoing="0x645" Incoming="0x655"/>
-                     <SRS Outgoing="0x641" Incoming="0x651"/>
-                     <EPAS Outgoing="0x730" Incoming="0x738"/>
+                  <ABS Outgoing="0x645" Incoming="0x655"/>
+                  <SRS Outgoing="0x641" Incoming="0x651"/>
+                  <EPAS Outgoing="0x730" Incoming="0x738"/>
                 </NodePairs>
                 <NodePairSetup>
-                     <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
-                     <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
-                     <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
+                  <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
+                  <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
+                  <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
                 </NodePairSetup>
 				<BroadcastMessageIDs>
 					 <GTW Incoming="0x405"/>
@@ -290,46 +290,6 @@
                </CommLog>
             </Setup>
          </PlcDf1>
-         <MesHost enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
-            <Setup>
-               <SerialDevice>/dev/socket</SerialDevice>
-               <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-               <IpAddress>192.168.1.2</IpAddress>
-               <PortNo>20000</PortNo>
-               <TcpType>Client</TcpType>
-               <Protocol>
-                  <Baud>19200</Baud>
-                  <Parity>None</Parity>
-                  <DataBits>8</DataBits>
-                  <StopBits>1</StopBits>
-                  <Reflection>0</Reflection>
-                  <ByteGap>0</ByteGap>
-                  <MssgGap>0</MssgGap>
-                  <Interrupts>TxRx</Interrupts>
-                  <FifoSize>1024</FifoSize>
-               </Protocol>
-               <Logging>
-                  <ProcessName>logport/MesHost</ProcessName>
-                  <AdditionalLogFile>/Communication/MesHostComm.log</AdditionalLogFile>
-                  <Status>Enabled</Status>
-                  <LocalEcho>Disabled</LocalEcho>
-                  <Verbose>0x3F</Verbose>
-               </Logging>
-               <CommLog>
-                  <ContentType>RAW</ContentType>
-                  <Setup>
-                     <Logging>
-                        <AdditionalLogFile>/Communication/MesHost_BusComm.log</AdditionalLogFile>
-                        <Status>Disabled</Status>
-                        <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x1F</Verbose>
-                        <Debug>Off</Debug>
-                     </Logging>
-                  </Setup>
-               </CommLog>
-            </Setup>
-            <Verbose>0x1F</Verbose>
-         </MesHost>
       </LogicalPorts>
    </Setup>
 </SerialServerConfig>

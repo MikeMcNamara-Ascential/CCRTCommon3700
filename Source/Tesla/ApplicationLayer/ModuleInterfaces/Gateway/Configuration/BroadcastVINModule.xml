@@ -1,0 +1,150 @@
+<BroadcastVINModule>
+    <Setup>
+        <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
+        <CheckSumLength>1</CheckSumLength>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <DataByteCountIndex>3</DataByteCountIndex>
+        <DataHeaderLength>2</DataHeaderLength>
+        <DataStartIndex>6</DataStartIndex>
+        <DTCData>
+           <DTCCountIndex>-1</DTCCountIndex>
+           <BytesPerDTC>4</BytesPerDTC>
+           <FirstDTCByteIndex>3</FirstDTCByteIndex>
+           <NumberOfFaultRegisters>6</NumberOfFaultRegisters>
+           <NoFaultsPresentValue></NoFaultsPresentValue>
+        </DTCData>
+        <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+        <KeepAlivePriority>10</KeepAlivePriority>
+        <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+        <KeepAliveResponseTime>500</KeepAliveResponseTime>
+        <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+        <ModuleRequestID>0x404</ModuleRequestID>
+        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <SwitchMonitorDelay>500</SwitchMonitorDelay>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+        <NegativeResponseCodes>
+           <Code_0x10>General Reject</Code_0x10>
+           <Code_0x11>Service Not Supported</Code_0x11>
+           <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+           <Code_0x21>Busy / Repeat Request</Code_0x21>
+           <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+           <Code_0x23>Routine Not Complete</Code_0x23>
+           <Code_0x31>Request Out Of Range</Code_0x31>
+           <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+           <Code_0x35>Invalid Key</Code_0x35>
+           <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+           <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+           <Code_0x40>Download Not Accepted</Code_0x40>
+           <Code_0x50>Upload Not Accepted</Code_0x50>
+           <Code_0x71>Transfer Suspended</Code_0x71>
+           <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+           <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+           <Code_0x9A>Data Decompression Failed</Code_0x9A>
+           <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+           <Code_0xA0>ECU Not Responding</Code_0xA0>
+           <Code_0xA1>ECU Address Unknown</Code_0xA1>
+           <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+           <ResponsePending>0x78</ResponsePending>
+           <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+           <Debug>Off</Debug>
+           <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
+           <BufferSize>4096</BufferSize>
+           <CommSize>1</CommSize>
+           <Timeout>10000000</Timeout>
+           <Retries>3</Retries>
+        </Communication>
+        <Logging>
+           <Status>Enabled</Status>
+           <ProcessName>BroadcastVINModule</ProcessName>
+           <AdditionalLogFile>/Communication/BroadcastVINModule.log</AdditionalLogFile>
+           <Debug>Off</Debug>
+           <LocalEcho>Disabled</LocalEcho>
+           <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+
+
+    <SerialMessages>
+       <VehicleMessages>
+           <ReadVINHigh>
+               <TransmitMessage>None</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>ReadVINHigh</ReplyMessage>
+               <ReplyInterpretation>ReadVINHigh</ReplyInterpretation>
+           </ReadVINHigh>
+		  <ReadVINMid>
+               <TransmitMessage>None</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>ReadVINMid</ReplyMessage>
+               <ReplyInterpretation>ReadVINMid</ReplyInterpretation>
+           </ReadVINMid>
+		   <ReadVINLow>
+               <TransmitMessage>None</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>ReadVINLow</ReplyMessage>
+               <ReplyInterpretation>ReadVINLow</ReplyInterpretation>
+           </ReadVINLow>
+       </VehicleMessages>
+
+       <TransmitMessages>
+           <None>0x00</None>
+       </TransmitMessages>
+
+       <TransmitInterpretations/>
+
+       <ReplyMessages>
+           <ReadVINHigh ReplyTimeout="1000" endGapTime="0">
+               <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x10,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+			   <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x10,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_01>
+			   <Reply_02 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x10,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_02>
+			   <Reply_03 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x00,0x00,0x00,0x0A,0x04,0x05,0x10,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_03>
+           </ReadVINHigh>
+           <ReadVINMid ReplyTimeout="1000" endGapTime="0">
+		       <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x11,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+			   <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x11,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_01>
+			   <Reply_02 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x11,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_02>
+           	   <Reply_03 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x00,0x00,0x00,0x0A,0x04,0x05,0x11,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_03>
+		   </ReadVINMid>
+           <ReadVINLow ReplyTimeout="1000" endGapTime="0">
+		       <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x12,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+			   <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x12,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_01>
+			   <Reply_02 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x04,0x05,0x12,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_02>
+          	   <Reply_03 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x00,0x00,0x00,0x0A,0x04,0x05,0x12,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_03>
+		   </ReadVINLow>		   
+       </ReplyMessages>
+
+       <ReplyInterpretations>
+           <ReadVINHigh>
+				<String>
+				   <Substring format="%3s">
+					  <Chars input_index="11" mask="0xFF" length="3"/>
+				   </Substring>
+				</String>
+           </ReadVINHigh>
+           <ReadVINMid>
+				<String>
+				   <Substring format="%7s">
+					  <Chars input_index="7" mask="0xFF" length="7"/>
+				   </Substring>
+				</String>
+           </ReadVINMid>
+           <ReadVINLow>
+				<String>
+				   <Substring format="%7s">
+					  <Chars input_index="7" mask="0xFF" length="7"/>
+				   </Substring>
+				</String>
+           </ReadVINLow>
+       </ReplyInterpretations>
+
+    </SerialMessages>
+
+</BroadcastVINModule>

@@ -14,6 +14,7 @@
       <LogicalPorts>
          <GryphonCCanLeft enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
             <Setup>
+               <EnableBroadcastFilters>True</EnableBroadcastFilters>
                <SerialDevice>/dev/socket</SerialDevice>
                <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
                <Protocol>
@@ -64,10 +65,14 @@
                   <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
                   <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
                </NodePairSetup>
+				<BroadcastMessageIDs>
+					 <GTW Incoming="0x405"/>
+                </BroadcastMessageIDs>
             </Setup>
          </GryphonCCanLeft>
          <GryphonCCanRight enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
             <Setup>
+               <EnableBroadcastFilters>True</EnableBroadcastFilters>
                <SerialDevice>/dev/socket</SerialDevice>
                <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
                <Protocol>
@@ -124,6 +129,9 @@
                   <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
                   <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
                </NodePairSetup>
+			   <BroadcastMessageIDs>
+				  <GTW Incoming="0x405"/>
+               </BroadcastMessageIDs>
             </Setup>
          </GryphonCCanRight>
          <!--ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">

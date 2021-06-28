@@ -117,6 +117,22 @@ VehicleModuleVinReader::LoadAdditionalConfigurationItems(const XmlNode *configNo
     {
         SetCommModuleFileName("GryphonCCan");
     }
+    try
+    {
+        SetLeftLogicalPortPath(configNode->getChild("LeftCommModuleLogicalPort")->getValue());
+    }
+    catch (...)
+    {
+        SetLeftLogicalPortPath("");
+    }
+    try
+    {
+        SetRightLogicalPortPath(configNode->getChild("RightCommModuleLogicalPort")->getValue());
+    }
+    catch (...)
+    {
+        SetRightLogicalPortPath("");
+    }
 	try
 	{
 		m_vinReadMessages.DeepCopy(configNode->getChild("VinReadMessages")->getChildren());
@@ -142,6 +158,28 @@ VehicleModuleVinReader::LoadAdditionalConfigurationItems(const XmlNode *configNo
     {
         Log(LOG_ERRORS, "Defaulting to false for m_onlyReadIfVehiclePresent: %s", excpt.GetReason());
         m_onlyReadIfVehiclePresent = false;
+    }
+	//Check if the read VIN message is unsolicited
+    try
+    {
+        m_isVINBroadcastOnBus = atob(configNode->getChild("IsVINBroadcastOnBus")->getValue().c_str());
+		if ( m_isVINBroadcastOnBus )
+		{//get time alotted to receive broadcast VIN
+			try
+			{
+				m_vinBroadcastTimeout = atoi(configNode->getChild("VINBroadcastTimeout")->getValue().c_str());
+			}
+			catch (XmlException &excpt)
+			{
+				Log(LOG_ERRORS, "Defaulting to 5000 for m_vinBroadcastTimeout: %s", excpt.GetReason());
+				m_vinBroadcastTimeout = 5000;
+			}
+		}
+	}
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Defaulting to false for m_isVINBroadcastOnBus: %s", excpt.GetReason());
+        m_isVINBroadcastOnBus = false;
     }
     // Create a new module with the given protocol filter
     if (!protocol.compare("KeywordProtocol2000"))
@@ -192,14 +230,19 @@ VehicleModuleVinReader::LoadAdditionalConfigurationItems(const XmlNode *configNo
 
 const std::string VehicleModuleVinReader::Publish(const XmlNode *node)
 {
-    if (!node->getName().compare(GetDataTag("CableConnect")) && !node->getValue().compare(cableConnected))
+    if (!node->getName().compare(GetDataTag("CableConnect")) && !node->getValue().compare(cableConnected) || 
+		!node->getName().compare(GetDataTag("RHSCableConnect")) && !node->getValue().compare(cableConnected))
     {   // Check if a test is in progress
         string response, tag, testInProgress;
         m_ndb->Read("TestInProgress", response, true);
         m_ndb->GetNext(tag, testInProgress, response);
         if (testInProgress.compare("1"))
         {   // Test is not in progress, allow VIN to be scanned from module
-            Log(LOG_DEV_DATA, "Cable was just connected, signaling to managers");
+			if ( !m_leftLogicalPort.empty() && !m_rightLogicalPort.empty() )
+			{//left and right logical ports specified in configuration, switch accordingly
+				ChangeCommModuleSymbolicLink(!node->getName().compare(GetDataTag("RHSCableConnect")));
+			}
+			Log(LOG_DEV_DATA, "Cable was just connected, signaling to managers");
             m_cableConnected.Signal(cableConnected);
             BposSleep(500);
             m_cableConnected.Signal(cableNotConnected);
@@ -249,7 +292,14 @@ void VehicleModuleVinReader::Run(volatile bool *terminateFlag) /* =NULL */
             // The cable has been connected, read the VIN from the module
             if(m_onlyReadIfVehiclePresent && m_vehPresentSignal || !m_onlyReadIfVehiclePresent)
             {
-                ReadVIN();
+				if ( m_isVINBroadcastOnBus )
+				{
+					ReceiveVINBroadcast();
+				}
+				else
+				{
+					ReadVIN();
+				}
             }
             //Allow time for m_cableConnected to become false
             BposSleep(500);
@@ -258,6 +308,36 @@ void VehicleModuleVinReader::Run(volatile bool *terminateFlag) /* =NULL */
         m_cableConnected.Release();
     }
     
+}
+
+void VehicleModuleVinReader::ChangeCommModuleSymbolicLink(bool rightSideSelected)
+{
+    string desiredLink = "";
+    string commonLink = "";
+	try
+	{
+		desiredLink = rightSideSelected ? m_rightLogicalPort : m_leftLogicalPort;
+		commonLink = m_commModulePath + m_commModuleFileName;
+		if(!desiredLink.empty() && !commonLink.empty())
+		{   // Move the link to the correct side of the vehicle based on cable connect
+			unlink(commonLink.c_str());
+			bool isSuccess = !symlink(desiredLink.c_str(),commonLink.c_str());
+			if(!isSuccess)
+			{
+				Log(LOG_ERRORS, "Could not create sym link: %s", strerror(errno));
+			}
+			Log(LOG_DEV_DATA, "Symbolic link creation %s to %s Status: %s", 
+				commonLink.c_str(), desiredLink.c_str(), isSuccess ? "Success" : "Error");
+		}
+		else
+		{
+			Log(LOG_ERRORS,"VehicleModuleVinReader::ChangeCommModuleSymbolicLink: Link Info Missing in Input Server Config\n");
+		}
+	}
+	catch(BepException &e)
+	{
+		Log(LOG_ERRORS, "VehicleModuleVinReader::ChangeCommModuleSymbolicLink Exception: %s\n", e.what());
+	}
 }
 
 void VehicleModuleVinReader::ReadVIN(void)
@@ -277,7 +357,7 @@ void VehicleModuleVinReader::ReadVIN(void)
         }
         catch (...)
         {
-        status = m_vinModule->ReadVIN(vin);
+			status = m_vinModule->ReadVIN(vin);
         }
 
         if (BEP_STATUS_SUCCESS == status)
@@ -308,6 +388,60 @@ void VehicleModuleVinReader::ReadVIN(void)
     }
 }
 
+void VehicleModuleVinReader::ReceiveVINBroadcast(void)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    if (m_vinModule)
+    {// Communicate with the module
+		string messageTag("IgnitionStatusMsg");
+        string vin = "";
+		for (XmlNodeMapItr iter = m_vinReadMessages.begin();
+                (iter != m_vinReadMessages.end());
+                iter++)
+		{//iterate through vin read messages
+			string partialVIN;
+			// Get the bus broadcast message
+			status = m_vinModule->ReceiveBroadcastData(iter->second->getValue().c_str(),partialVIN,(long)m_vinBroadcastTimeout);
+			if ( status == BEP_STATUS_SUCCESS )
+			{
+				Log(LOG_DEV_DATA, "Received Partial VIN: %s", partialVIN.c_str());
+				vin = vin + partialVIN;
+			}
+			else
+			{
+				Log(LOG_ERRORS, "Error, partial VIN not received");
+				break;
+			}
+		}
+		if (BEP_STATUS_SUCCESS == status)
+        {   // VIN read from the vehicle, publish it to the system
+            Log(LOG_DEV_DATA, "Read vin from the module: %s", vin.c_str());
+            if (vin.length() >= 17)
+            {
+                XmlNode vinData(GetVinTag(), vin);
+                XmlNode vinDisplayData(VINDISPLAY_DATA_TAG, vin);
+                string response;
+                m_inputServerComm->Write(&vinData,response,true);
+                //update display here
+                m_inputServerComm->Write(&vinDisplayData,response,true);
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Invalid VIN read from module: %s", vin.c_str());
+            }
+        }
+        else
+        {   // Could not read VIN from the module
+            Log(LOG_ERRORS, "Failed to read VIN from the vehicle - status: %s", ConvertStatusToResponse(status).c_str());
+        }
+		
+	}
+    else
+    {// Module has not been created, cannot talk to the module
+        Log(LOG_ERRORS, "Module reader has not been instantiated, not checking vehicle comm!");
+    }
+}
+
 void VehicleModuleVinReader::CheckPresence(void)
 {
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
@@ -326,7 +460,7 @@ void VehicleModuleVinReader::CheckPresence(void)
         }
         catch (...)
         {
-        status = BEP_STATUS_FAILURE;
+			status = BEP_STATUS_FAILURE;
         }
 
         if (BEP_STATUS_SUCCESS == status)

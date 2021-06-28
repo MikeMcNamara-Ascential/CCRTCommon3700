@@ -186,6 +186,44 @@ public:
 		m_commModuleFileName = commModuleFileName;
 	};
 
+	/**
+	 * Return the path to the left logical port.
+	 *
+	 * @return m_commModulePath.
+	*/
+    inline const std::string GetLeftLogicalPortModulePath(void)
+	{
+		return m_leftLogicalPort;
+	};
+	/**
+	 * Store the path to the left logical port.
+	 *
+	 * @param commModulePath.
+	 * @since Version 1.0
+	 */
+	inline void SetLeftLogicalPortPath(const std::string &leftLogicalPortPath)
+	{
+		m_leftLogicalPort = leftLogicalPortPath;
+	};
+	/**
+	 * Return the path to the right logical port.
+	 *
+	 * @return m_commModulePath.
+	*/
+    inline const std::string GetRightLogicalPortModulePath(void)
+	{
+		return m_rightLogicalPort;
+	};
+	/**
+	 * Store the path to the right logical port.
+	 *
+	 * @param commModulePath.
+	 * @since Version 1.0
+	 */
+	inline void SetRightLogicalPortPath(const std::string &rightLogicalPortPath)
+	{
+		m_rightLogicalPort = rightLogicalPortPath;
+	};
 protected:
     /**
      * Load the additional configuration items needed by the SymbolScannerMgr.
@@ -196,9 +234,18 @@ protected:
      */
     virtual void LoadAdditionalConfigurationItems(const XmlNode *configNode);
 	/**
+	 * Changes the communication module symbolic link based on right
+	 * or left cable connected. 
+	 */
+    virtual void ChangeCommModuleSymbolicLink(bool rightSideSelected);
+	/**
 	 * Read the VIN from the module and use the InputServer to write it to the system.
 	 */
 	virtual void ReadVIN(void);
+	/**
+	 * Receives the VIN broadcast on the bus
+	 */
+	virtual void ReceiveVINBroadcast(void);
     /**
 	 * Read the VIN from the module and use the InputServer to write it to the system.
 	 */
@@ -253,6 +300,16 @@ private:
 	 * @since Version 1.0
 	 */
 	std::string m_commModulePath;
+	/**
+	 * Logical port to comm device left.
+	 * @since Version 1.0
+	 */
+	std::string m_leftLogicalPort;
+		/**
+	 * Logical port to comm device right.
+	 * @since Version 1.0
+	 */
+	std::string m_rightLogicalPort;
     /**
      * Communication object to interface with the NamedDataBroker.
      */
@@ -261,6 +318,10 @@ private:
     bool m_vehPresentSignal;
 
     bool m_onlyReadIfVehiclePresent;
+
+	bool m_isVINBroadcastOnBus;
+
+	int m_vinBroadcastTimeout;
 };
 //------------------------------------------------------------------------------
 #endif //VehicleModuleVinReader_h

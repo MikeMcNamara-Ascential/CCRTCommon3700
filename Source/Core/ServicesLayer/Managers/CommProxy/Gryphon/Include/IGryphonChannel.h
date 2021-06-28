@@ -746,6 +746,7 @@ protected:
     struct InOutSetup m_nodePairSetupMap[104];
     int m_nodePairSetupCount;
     bool m_nonLegacyDevice;
+    bool m_enableBroadcastFilters;
     bool m_j1939Channel;
     bool m_optimizeForLatency;
     /**

@@ -174,6 +174,8 @@ protected:
 	void CreateJ1939BroadcastFilter(void);
     void LegacyChannelSpecificUUDTInit(void);
     void LegacyChannelSpecificJ1939Init(void);
+	void SetupBroadcastFilters(void);
+
     void CreateFilter(bool is29BitHeader, uint32_t incomingId);
     virtual bool IsBroadcastModuleID(const UINT32 locModule);
     virtual bool IsUudtId(const UINT32 &locModule);
@@ -187,6 +189,7 @@ private:
         uint32_t incoming;
         SerialString_t message;
         bool blocked;
+		bool is29BitHeader;
     };
     // assume there will never be more than 63 pairs.
     struct BcastMessage m_broadcastMessages[63];

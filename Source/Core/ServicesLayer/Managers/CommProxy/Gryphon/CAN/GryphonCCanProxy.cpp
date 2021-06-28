@@ -84,8 +84,6 @@
 //******************************************************************************
 //In case Dearborn group still hasn't fixed their bugs (In registration we specify UUDT nodes - USDT server should know to pass these to us)
 #define CARD_UUDT_STILL_REQUIRED_NON_LEGACY 0
-//In case broadcast messages are not forwarded as they should be from non legacy device
-#define J1939_BROADCASTS_THROUGH_CARD_FILTER 0
 #define J1939_SendToCard 0
 
 #include <sys/neutrino.h>
@@ -227,6 +225,16 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
 
     try
     {
+        m_enableBroadcastFilters = atob(portSetup->getChild("Setup/EnableBroadcastFilters")->getValue().c_str()); 
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "EnableBroadcastFilters parameter not specified, setting to false - %s", excpt.GetReason());
+        m_enableBroadcastFilters = false;
+    }
+
+    try
+    {
         m_j1939Channel = atob(portSetup->getChild("Setup/IsJ1939Channel")->getValue().c_str()); 
     }
     catch(XmlException &excpt)
@@ -342,11 +350,13 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
             }
         }
     }
-	if(!m_nonLegacyDevice)
-	{//Legacy devices only
+	if(!m_nonLegacyDevice || m_enableBroadcastFilters)
+	{
 		try
 		{
 			XmlNodeMap bcastMessages;
+			// with 5 as the default msgSize, the header bit length will default to 11-bit headers
+			int nodePairLength = 5;
 			m_broadcastMessageCount = 0;
 			bcastMessages.DeepCopy(portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren());
 			m_broadcastMessageCount = portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren().size();
@@ -357,6 +367,8 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
 				m_broadcastMessages[m_broadcastMessageCount].incoming = (UINT32)BposReadInt(iter->second->getAttribute("Incoming")->getValue().c_str());
 				//initialize as blocked
 				m_broadcastMessages[m_broadcastMessageCount].blocked = true;
+				nodePairLength = strlen(iter->second->getAttribute("Incoming")->getValue().c_str());
+                m_broadcastMessages[m_broadcastMessageCount].is29BitHeader = (nodePairLength == 10);
 				Log( LOG_DETAILED_DATA, "Added Broadcast Incoming Msg ID: %04X\n",m_broadcastMessages[m_broadcastMessageCount].incoming);
 				m_broadcastMessageCount++;
 			}
@@ -370,33 +382,7 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
 	}
 	else
 	{
-		#if J1939_BROADCASTS_THROUGH_CARD_FILTER
-			try
-			{
-				XmlNodeMap bcastMessages;
-				m_broadcastMessageCount = 0;
-				bcastMessages.DeepCopy(portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren());
-				m_broadcastMessageCount = portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren().size();
-				Log( LOG_DEV_DATA, "[GryphonCCan] Found %d broadcast messages\n", m_broadcastMessageCount);
-				m_broadcastMessageCount = 0;
-				for(XmlNodeMapCItr iter = bcastMessages.begin();iter != bcastMessages.end(); iter++)
-				{   // Get list of broadcast message ids to be recorded
-					m_broadcastMessages[m_broadcastMessageCount].incoming = (UINT32)BposReadInt(iter->second->getAttribute("Incoming")->getValue().c_str());
-					//initialize as blocked
-					m_broadcastMessages[m_broadcastMessageCount].blocked = true;
-					Log( LOG_DETAILED_DATA, "Added Broadcast Incoming Msg ID: %04X\n",m_broadcastMessages[m_broadcastMessageCount].incoming);
-					m_broadcastMessageCount++;
-				}
-				m_recordBroadcastMessages = true;
-			}
-			catch(XmlException &excpt)
-			{//No broadcast messages specified default to null
-				Log(LOG_ERRORS, "No broadcast messages specified %s", excpt.GetReason());
-				m_recordBroadcastMessages = false;
-			}
-		#else
-			Log(LOG_DEV_DATA, "Non-Legacy device, not settting card filters for Broadcast messages, these are forwarded automatically by device now");
-		#endif
+		Log(LOG_DEV_DATA, "Non-Legacy device, not settting card filters for Broadcast messages, these are forwarded automatically by device now");
 	}
 #if IGCDEBUG
     dumpNodePairs(m_nodeMap, m_nodePairCount);
@@ -874,11 +860,27 @@ void GryphonCCanProxy::LegacyChannelSpecificUUDTInit(void)
 void GryphonCCanProxy::LegacyChannelSpecificJ1939Init(void)
 {
 	//Legacy devices only - J1939 broadcast messages are now passed to us automatically in non-Legacy devices
-	if ( m_recordBroadcastMessages )
+	if ( m_recordBroadcastMessages && !m_enableBroadcastFilters)
     {
         for (int ii = 0; ii < m_broadcastMessageCount; ii++)
         {//all broadcast messages are j1939 therefore 29 bit headers
             CreateFilter(true,m_broadcastMessages[ii].incoming);
+        }
+        //TURN ON THE FILTER
+        SetFilterMode(FILTER_ON);
+
+        //BLOCK ALL OTHER MESSAGES???
+        SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
+    }
+}
+void GryphonCCanProxy::SetupBroadcastFilters(void)
+{
+	if ( m_recordBroadcastMessages && m_enableBroadcastFilters)
+    {
+		Log(LOG_FN_ENTRY, "GryphonCCanProxy::SetupBroadcastFilters() -- broadcast filters enabled");
+        for (int ii = 0; ii < m_broadcastMessageCount; ii++)
+        {
+            CreateFilter(m_broadcastMessages[ii].is29BitHeader,m_broadcastMessages[ii].incoming);
         }
         //TURN ON THE FILTER
         SetFilterMode(FILTER_ON);
@@ -894,6 +896,7 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 	if ( !m_nonLegacyDevice )
 	{
 		LegacyChannelSpecificUUDTInit();
+		//NOTE: below is used for non j1939 implementations as well for messages broadcast on bus
 		LegacyChannelSpecificJ1939Init();
 	}
 	else
@@ -903,13 +906,9 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 		#else
 			Log(LOG_DEV_DATA, "Non-Legacy device, not settting card filters for UUDT messages, these are handled by USDT server now");
 		#endif
-		#if J1939_BROADCASTS_THROUGH_CARD_FILTER
-			CreateJ1939BroadcastFilter();
-		#else
-			Log(LOG_DEV_DATA, "Non-Legacy device, not settting card filters for Broadcast messages, these are forwarded automatically by device now");
-		#endif
+		Log(LOG_DEV_DATA, "Non-Legacy device, not settting card filters for Broadcast messages, these are forwarded automatically by device now");
 	}
-
+	SetupBroadcastFilters();
     // Set the filter mode
     // disabled for test SetFilterMode(FILTER_OFF_BLOCK_ALL);
     // Register and return the result
@@ -939,13 +938,9 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 	if ( m_nonLegacyDevice && m_j1939Channel )
 	{
 			if ( retVal == EOK )  retVal = EnableJ1939TransportProtocol();
-		#if J1939_BROADCASTS_THROUGH_CARD_FILTER
-			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress,true);
-		#else
 			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress,false);
 			SetDefaultFilterMode(DEFAULT_FILTER_PASS);
 			SetFilterMode(FILTER_OFF_PASS_ALL);
-		#endif
 	}
 
     Log(LOG_FN_ENTRY, "GryphonCCanProxy::ChannelSpecificInit() complete - retval: %d", retVal);

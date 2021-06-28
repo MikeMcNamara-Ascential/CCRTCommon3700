@@ -183,6 +183,8 @@ public:
      */
     virtual const BEP_STATUS_TYPE GetModuleData(std::string messageTag, SerialString_t &reply,
                                                 SerialArgs_t *args = NULL) = 0;
+
+	virtual const BEP_STATUS_TYPE GetBusBroadcastMessage(std::string messageTag, const long messageWaitTime, SerialString_t &busMssg) = 0;
     /**
      * Subscribe for a message with the specified filter.
      *

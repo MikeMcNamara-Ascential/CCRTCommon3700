@@ -344,6 +344,11 @@ public:
 	 */
 	virtual BEP_STATUS_TYPE GetInfo(string methodName, vector<UINT16> &value)
 		throw(ModuleException) = 0;
+
+    virtual BEP_STATUS_TYPE ReceiveBroadcastData(const string messageTag, string &data, long timeout, 
+                                           SerialString_t *rawData = NULL, 
+                                           IProtocolFilter *commObject = NULL) = 0; 
+
 	/**
      * Read data from the module.
      * <p><b>Description:</b><br>

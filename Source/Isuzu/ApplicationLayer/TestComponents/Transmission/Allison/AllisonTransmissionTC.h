@@ -66,6 +66,7 @@ protected:
 	 * @param config Configuration file to use for initialization.
      */
     virtual void InitializeHook(const XmlNode *config);
+    virtual string UpdateEOLStatusByte(const UINT16 &statusRegister, const UINT8 &testBit, const string &testResult);
 
     /**
      * Prompts driver for a requested state.

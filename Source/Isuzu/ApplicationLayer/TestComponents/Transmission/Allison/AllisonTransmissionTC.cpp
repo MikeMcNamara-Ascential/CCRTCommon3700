@@ -137,6 +137,15 @@ string AllisonTransmissionTC<VehicleModuleType>::ShiftLeverTest(void)
     return result;
 }
 
+//-------------------------------------------------------------------------------------------------
+template <class VehicleModuleType>
+inline string AllisonTransmissionTC<VehicleModuleType>::UpdateEOLStatusByte(const UINT16 &statusRegister, 
+                                                                          const UINT8 &testBit, 
+                                                                          const string &testResult)
+{   // Currently not updating status bytes in the module
+    return testPass;
+}
+
 //-----------------------------------------------------------------------------
 template <class VehicleModuleType>
 bool AllisonTransmissionTC<VehicleModuleType>::RequestStateByPrompt(string requestedState,

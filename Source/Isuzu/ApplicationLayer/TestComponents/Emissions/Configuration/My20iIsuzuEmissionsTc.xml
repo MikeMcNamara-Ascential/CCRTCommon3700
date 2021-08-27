@@ -462,6 +462,10 @@
 			<TestStep01>CheckBrakeSensorOff</TestStep01>
 			<TestStep05>CheckBrakeSensorOn</TestStep05>
 		</CheckBrakeSensorOffOn>
+		<CheckBrakeSensorOnOff>
+			<TestStep05>CheckBrakeSensorOn</TestStep05>
+			<TestStep10>CheckBrakeSensorOff</TestStep10>
+		</CheckBrakeSensorOnOff>
 		<ReadFaultsPostMECLock>
 			<TestStep05>ReadFaultsPostMECLock</TestStep05>
 		</ReadFaultsPostMECLock>

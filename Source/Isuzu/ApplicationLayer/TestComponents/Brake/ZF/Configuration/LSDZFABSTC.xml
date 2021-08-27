@@ -4,7 +4,7 @@
          <BrakeDomain>1 400</BrakeDomain>
          <BrakeForceStabilizeTime>50</BrakeForceStabilizeTime>
          <BrakeTarget>350 800</BrakeTarget>
-         <ConfigFile Description="Path to protocol configuration file">/Configuration/Components/Brake/ZFAbsModule.xml</ConfigFile>
+         <ConfigFile Description="Path to protocol configuration file">/Configuration/Components/Brake/LSDZFAbsModule.xml</ConfigFile>
          <AccelFilePath>/dev/Icm/Block/Acceleration</AccelFilePath>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
@@ -149,10 +149,10 @@
          <PrimeAbsStartDelay>3000</PrimeAbsStartDelay>
 		 <!-- Diagnostic Mode Parameters -->
 		 <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">True</AlwaysEnterDiagnosticMode>
-		 <LeftFrontReductionPulseLength>380</LeftFrontReductionPulseLength>
-		 <RightFrontReductionPulseLength>380</RightFrontReductionPulseLength>
-		 <LeftRearReductionPulseLength>380</LeftRearReductionPulseLength>
-		 <RightRearReductionPulseLength>380</RightRearReductionPulseLength>
+		 <LeftFrontReductionPulseLength>480</LeftFrontReductionPulseLength>
+		 <RightFrontReductionPulseLength>480</RightFrontReductionPulseLength>
+		 <LeftRearReductionPulseLength>480</LeftRearReductionPulseLength>
+		 <RightRearReductionPulseLength>480</RightRearReductionPulseLength>
 		 <RearReductionPulseLength>240</RearReductionPulseLength>
 		 <LeftFrontRecoveryPulseLength>200</LeftFrontRecoveryPulseLength>
 		 <RightFrontRecoveryPulseLength>200</RightFrontRecoveryPulseLength>
@@ -164,10 +164,10 @@
 		 <RearRecoveryRegister>0x4003</RearRecoveryRegister>
 		 <RearRecoveryTime>150</RearRecoveryTime>
 		 <SendKeepAliveDurringValveFire>1</SendKeepAliveDurringValveFire>
-		 <LowSpeedAbs_LeftFrontTorque>-300</LowSpeedAbs_LeftFrontTorque>
-		 <LowSpeedAbs_RightFrontTorque>-300</LowSpeedAbs_RightFrontTorque>
-		 <LowSpeedAbs_LeftRearTorque>-200</LowSpeedAbs_LeftRearTorque>
-		 <LowSpeedAbs_RightRearTorque>-200</LowSpeedAbs_RightRearTorque>
+		 <LowSpeedAbs_LeftFrontTorque>-500</LowSpeedAbs_LeftFrontTorque>
+		 <LowSpeedAbs_RightFrontTorque>-500</LowSpeedAbs_RightFrontTorque>
+		 <LowSpeedAbs_LeftRearTorque>-400</LowSpeedAbs_LeftRearTorque>
+		 <LowSpeedAbs_RightRearTorque>-400</LowSpeedAbs_RightRearTorque>
 		 <LowSpeedAbs_SafetyDelay>3000</LowSpeedAbs_SafetyDelay>
 		 <LowSpeedAbs_SafetyMaxSpeed>20</LowSpeedAbs_SafetyMaxSpeed>
 		 <LowSpeedAbs_TestSpeed>-4</LowSpeedAbs_TestSpeed>
@@ -542,7 +542,7 @@
       <ParkBrakeTest>
           <!--TestStep04>DisableDiagnosticSpeedLimit</TestStep04-->
           <TestStep05>StartModuleKeepAlive</TestStep05>
-          <TestStep10>StaticParkBrake</TestStep10>
+		  <TestStep10>StaticParkBrake</TestStep10>
       </ParkBrakeTest>
       <BrakeTest>
          <TestStep00>AccelerateToBrakeSpeed</TestStep00>

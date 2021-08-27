@@ -44,6 +44,11 @@
          <ParkPawlSpeedValue Description="Amount of speed to command to the non-driven axle for the park pawl test" units="MPH">3</ParkPawlSpeedValue>
          <ParkPawlMaxDistance Description="Maximum allowable travel for the drive wheels during the park pawl test" units=".016 Degrees">200</ParkPawlMaxDistance>
          <ParkPawlMinDistance Description="Minimum required travel for the non-driven wheels during the park pawl test" units=".016 Degrees">50</ParkPawlMinDistance>
+		 <!-- Static Park Brake Parameters -->
+		 <ParkBrakeApplyForce>-350</ParkBrakeApplyForce>
+		 <ParkBrakeSpeedValue>5</ParkBrakeSpeedValue>
+		 <ParkBrakeMaxDistance>15</ParkBrakeMaxDistance>
+		 <ParkBrakeMinDistance>2</ParkBrakeMinDistance>
          <!-- Base Brake Parameters -->
          <ArmSpeed Units="MPH">70</ArmSpeed>
          <NeutralDecelRate Units="MPH/sec">0.00</NeutralDecelRate>
@@ -60,7 +65,7 @@
          <FrontMaxBrakeForce Units="lbs">800</FrontMaxBrakeForce>
          <RearMinBrakeForce Units="lbs">350</RearMinBrakeForce>
          <RearMaxBrakeForce Units="lbs">800</RearMaxBrakeForce>
-         <MinimumStartForce Units="lbs">350</MinimumStartForce>
+         <MinimumStartForce Units="lbs">270</MinimumStartForce>
          <StartSamplingAtMinimumForce>1</StartSamplingAtMinimumForce>
          <BaseBrakeSampleCount Description="Number of base brake samples (at 100ms intervals) to use when calculating base brake forces">10</BaseBrakeSampleCount>
          <IncludeDragInBrakeForce>0</IncludeDragInBrakeForce>
@@ -514,12 +519,14 @@
          <TestStep13>StartModuleKeepAlive</TestStep13>
          <TestStep14>ClearFaults</TestStep14>
          <TestStep15>EnterDiagnosticMode</TestStep15>
+         <TestStep20>WriteVacuumFillingEndFlag</TestStep20>
       </Setup>
       <FinishUp>
          <!--TestStep10>StopModuleKeepAlive</TestStep10-->
          <TestStep11>ReadFaults</TestStep11>
          <!--TestStep12>WriteVacuumFillingEndFlag</TestStep12-->
          <!--TestStep13>ExitDiagnosticMode</TestStep13-->
+         <TestStep98>LockModuleIfPass</TestStep98>
          <TestStep99>FinishUp</TestStep99>
       </FinishUp>
       <EnterDiagnosticMode>
@@ -535,9 +542,7 @@
       <ParkBrakeTest>
           <!--TestStep04>DisableDiagnosticSpeedLimit</TestStep04-->
           <TestStep05>StartModuleKeepAlive</TestStep05>
-          <TestStep10>AccelerateToParkBrakeSpeed</TestStep10>
-          <TestStep15>DynamicParkBrake</TestStep15>
-          <TestStep20>AnalyzeDynamicParkBrake</TestStep20>
+          <TestStep10>StaticParkBrake</TestStep10>
       </ParkBrakeTest>
       <BrakeTest>
          <TestStep00>AccelerateToBrakeSpeed</TestStep00>
@@ -747,6 +752,7 @@
       <EvaluateABS Result="" Timeout="10000" Description="Evaluate ABS" ABSLowerForceLimit="0"/>
       <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
       <DynamicParkBrake Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
+	  <StaticParkBrake Result="" Timeout="90000" Description="Check park brake functionality" TestTime="10000" AbortIfFailed="True"/>
       <!-- Add Other test steps here -->
       <ParkBrakeStop Result="" Timeout="30000" Description="Brake To Stop afetr park brake or park pawl test" Prompt1="BrakeToStop"/>
       <LowSpeedSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test for the ABS Wheel speed sensor"/>
@@ -763,7 +769,7 @@
       <PerformModuleLinkup Result="" Timeout="3000" Description="Establish communications with the module"/>
       <CheckPartNumber Result="" Timeout="500" Description="Verify the module part number"/>
       <DisableDiagnosticSpeedLimit Result="" Timeout="500" Description="Disable Speed Limit"/>
-      <WriteVacuumFillingEndFlag Result="" Timeout="1000" Description="Write and Verify the Vacuum Filling End Flag"/>
+      <WriteVacuumFillingEndFlag Result="" Timeout="5000" Description="Write and Verify the Vacuum Filling End Flag"/>
       <UnlockModuleSecurity Result="" Timeout="500" Description="Unlock Module Security"/>
       <CommandSecurityUnlock Result="" Timeout="500" Description="Unlock Module Security"/>
       <AllInletValvesOn Result="" Timeout="500" Description="AllInletValvesOn"/>
@@ -776,5 +782,6 @@
       <LowSpeedValveFiringTest Result="" Timeout="30000" Description="Cycle the valves to perform reduction recovery testing" Prompt1="MaintainBrake" BrakeDomain="0 500" BrakeTarget="300 450" ScanDelay="250"/>
       <ApplyTorqueToAllRollers Result="" Timeout="30000" Description="Apply torque to rollers"/>
       <TorqueZero Result="" Timeout="30000" Description="Apply torque to rollers"/>
+      <LockModuleIfPass Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
    </TestSteps>
 </ZFABS>

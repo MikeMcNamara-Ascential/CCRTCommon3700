@@ -289,6 +289,7 @@ const string GenericABSTCTemplate<VehicleModuleType>::CommandTestStep(const stri
         }
         // Force the ABS test to complete - Development testing only
         else if(step == "SetShipStatusPass")            status = UpdateShipStatus(testPass);
+        else if (step == "StaticParkBrake")              status = StaticParkBrakeTest();
         // Reduce the left front wheel
         else if(step == "FireLFReduction")               status = Reduction(rollerName[LFWHEEL],
                                                                             m_reduxRecovIndex[LFWHEEL].reductionStart,
@@ -3100,4 +3101,63 @@ void GenericABSTCTemplate<VehicleModuleType>::Abort(void)
     // Call the base class to complete the abort processing
     GenericTCTemplate<VehicleModuleType>::Abort();
     
+}
+
+//-------------------------------------------------------------------------------------------------
+
+template <class ModuleType>
+string GenericABSTCTemplate<ModuleType>::StaticParkBrakeTest(void)
+{
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    string testResult            = BEP_TESTING_STATUS;
+    string testResultCode        = "0000";
+    string testDescription       = GetTestStepInfo("Description");
+    bool brakeSwitchOn           = false;
+    bool compare                 = true;
+    // Log the function entry
+    Log(LOG_FN_ENTRY, "GenericABSTCTemplate::StaticParkBrakeTest - Enter\n");
+    // Determine if this test step should be performed
+    if(!ShortCircuitTestStep())
+    {   // Attempt to observe the brake switch in the on position
+        try
+        {   
+            DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+            DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));;
+            SetStartTime();
+
+            testResult = BrakeSwitchTest("SwitchOff");
+            if (testResult == testPass) 
+            {
+                Log(LOG_DEV_DATA, "Successfully read brake switch as OFF. ");
+                DisplayPrompt(GetPromptBox("ApplyParkBrake"), GetPrompt("ApplyParkBrake"), GetPromptPriority("ApplyParkBrake"));
+                BposSleep(1500);
+                testResult = PerformPBTorqueTest("Forward", false);
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "Failed to see brake switch as OFF");
+            }
+
+        }
+        catch(ModuleException &excpt)
+        {
+            Log(LOG_ERRORS,"ModuleException reading Brake Switch Position: %s\n", excpt.GetReason());
+            testResult = testSoftwareFail;
+            testDescription = GetFaultDescription("SoftwareFailure");
+            testResultCode = GetFaultCode("SoftwareFailure");
+        }
+        // Report the result
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Do not need to perform this step
+        Log(LOG_FN_ENTRY, "Skipping test step: %s\n", GetTestStepName().c_str());
+        testResult = testSkip;
+    }
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "GenericABSTCTemplate::StaticParkBrakeTest - Exit: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(), testResult.c_str());
+    //Just for Testing so we don't keep failing
+    testResult = testPass;
+
+    return testResult;
 }

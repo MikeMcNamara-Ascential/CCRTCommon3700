@@ -2138,6 +2138,7 @@ protected:
      *      </ul>
      */
     virtual string DisableDiagSpeedLimit(void);
+
     /**
      * Check the Evac and Fill status of the vehicle.
      * <p><b>Category:</b> Test Step
@@ -2188,6 +2189,20 @@ protected:
      *      </ul>
      */
     virtual string CheckEvacAndFill(void);
+
+
+
+
+    /** 
+     * Static Park Brake Test 
+     * <p><b>Category:</b> Test Step
+     * <br><p>
+     * <b>Description:</b><br>
+     *Appply torque rollers with park brake applied. Check for less 
+     *than max allowed movement 
+     * <br><p>
+     */
+    virtual string StaticParkBrakeTest(void);
     /**
      * <b>Description:</b>
      * Method used to abort the current processing based on the needs of the 

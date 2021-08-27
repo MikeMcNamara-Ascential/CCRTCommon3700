@@ -10,7 +10,7 @@
         <Brakes>
 			<ComponentName>ZFABSTC.qxe</ComponentName>
 			<ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-			<ConfigFile>ZFABSTC.xml</ConfigFile>
+			<ConfigFile>ZfAbsLightTrucklTc.xml</ConfigFile>
 			<ConfigPath>/Configuration/Components/Brake/</ConfigPath>
 			<Debug>Off</Debug>
         </Brakes>
@@ -111,13 +111,13 @@
             </ForegroundObjectives>
         </TestPhase011>
 
-        <!--TestPhase012 Description="Check Steering Wheel Angle" Result="" Timeout="">
+        <TestPhase012 Description="Check Steering Wheel Angle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Check Steering Wheel Angle" Result="" Timeout="" Component="Machine">
                     <ReportSteeringWheelAngle/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase012-->
+        </TestPhase012>
 
         <TestPhase013 Description="Prompt operator that modules are initializing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">

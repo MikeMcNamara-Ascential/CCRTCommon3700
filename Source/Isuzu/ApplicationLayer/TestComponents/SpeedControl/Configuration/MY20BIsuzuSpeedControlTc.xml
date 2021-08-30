@@ -73,7 +73,7 @@
             <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
             <DelayModuleInitialization>No</DelayModuleInitialization>
-            <DelayBeforeBrakeTap>5000</DelayBeforeBrakeTap>
+            <DelayBeforeBrakeTap>2000</DelayBeforeBrakeTap>
             <DeveloperTest>False</DeveloperTest>
             <ICMName>mgr/ICM</ICMName>
             <IcmForceArray>/dev/ArrayForce</IcmForceArray>
@@ -95,7 +95,7 @@
 
             <!-- Speed Control State Parameters -->
             <SpeedControlBrakeMaskNotAnyBitsSet TestSteps="CheckBrakeCutOut"
-                Comment="Mask requires no bits set to indicate brake cutout">True</SpeedControlBrakeMaskNotAnyBitsSet>
+                Comment="Mask requires no bits set to indicate brake cutout">False</SpeedControlBrakeMaskNotAnyBitsSet>
             <SpeedControlBrakeMask TestSteps="CheckBrakeCutOut"
                 Comment="Mask to apply to hr data to determine if the speed control system cutout for brake tap">0x0010</SpeedControlBrakeMask>
             <SpeedControlModeCheckDelay Units="ms" 
@@ -134,7 +134,7 @@
             <StableSpeedVariation Units="mph" TestSteps="CheckResumeEngagement"
                 Comment="Allowable variation between set speed and current speed">5</StableSpeedVariation>
             <StableSpeedPoints TestSteps="CheckSetEngagement"
-                Comment="Number of samples within the acceptable speed range to determine if vehicle speed is stable">20</StableSpeedPoints>
+                Comment="Number of samples within the acceptable speed range to determine if vehicle speed is stable">10</StableSpeedPoints>
             <StableSpeedSampleDelay Units="ms" TestSteps="CheckSetEngagement"
                 Comment="Amount of time to wait between checks for stable vehicle speed">250</StableSpeedSampleDelay>
             <UseModuleSpeed TestSteps="CheckSetEngagement,CheckBrakeCutOut,CheckResumeEngagement,CheckCancelCutOut"
@@ -153,10 +153,8 @@
         <Prompts>
             <CancelPrompt PromptBox="1" Priority="0" TestSteps="CheckCancelCutOut">SpeedControlCancel</CancelPrompt>
             <CheckStableSpeed PromptBox="1" Priority="0" TestSteps="CheckSetEngagement">CheckForStableSpeed</CheckStableSpeed>
-            <PressFailPrompt PromptBox="2" Priority="0" 
-                TestSteps="CheckBrakeCutOut,CheckResumeEngagement,CheckCancelCutOut">SpeedControlPressFail</PressFailPrompt>
-            <PressResumePrompt PromptBox="1" Priority="0" 
-                TestSteps="CheckResumeEngagement">SpeedControlResume</PressResumePrompt>
+            <PressFailPrompt PromptBox="2" Priority="0" TestSteps="CheckBrakeCutOut,CheckResumeEngagement,CheckCancelCutOut">SpeedControlPressFail</PressFailPrompt>
+            <PressResumePrompt PromptBox="1" Priority="0" TestSteps="CheckResumeEngagement">SpeedControlResume</PressResumePrompt>
             <RemoveFootPrompt PromptBox="2" Priority="0" TestSteps="CheckSetEngagement">RemoveFootFromAccelerator</RemoveFootPrompt>
             <SpeedControlOff PromptBox="2" Priority="0" TestSteps="CheckOffDisable">SpeedControlOff</SpeedControlOff>
             <SpeedControlOn PromptBox="1" Priority="0" TestSteps="CheckOnEnable">SpeedControlOn</SpeedControlOn>

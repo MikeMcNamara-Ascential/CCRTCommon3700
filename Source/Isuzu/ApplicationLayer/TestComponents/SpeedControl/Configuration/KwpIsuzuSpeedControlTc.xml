@@ -73,7 +73,7 @@
             <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
             <DelayModuleInitialization>No</DelayModuleInitialization>
-            <DelayBeforeBrakeTap>30000</DelayBeforeBrakeTap>
+            <DelayBeforeBrakeTap>10000</DelayBeforeBrakeTap>
             <DeveloperTest>False</DeveloperTest>
             <ICMName>mgr/ICM</ICMName>
             <IcmForceArray>/dev/ArrayForce</IcmForceArray>
@@ -134,7 +134,7 @@
             <StableSpeedVariation Units="mph" TestSteps="CheckResumeEngagement"
                 Comment="Allowable variation between set speed and current speed">5</StableSpeedVariation>
             <StableSpeedPoints TestSteps="CheckSetEngagement"
-                Comment="Number of samples within the acceptable speed range to determine if vehicle speed is stable">20</StableSpeedPoints>
+                Comment="Number of samples within the acceptable speed range to determine if vehicle speed is stable">10</StableSpeedPoints>
             <StableSpeedSampleDelay Units="ms" TestSteps="CheckSetEngagement"
                 Comment="Amount of time to wait between checks for stable vehicle speed">250</StableSpeedSampleDelay>
             <UseModuleSpeed TestSteps="CheckSetEngagement,CheckBrakeCutOut,CheckResumeEngagement,CheckCancelCutOut"

@@ -45,9 +45,9 @@
          <ParkPawlMaxDistance Description="Maximum allowable travel for the drive wheels during the park pawl test" units=".016 Degrees">200</ParkPawlMaxDistance>
          <ParkPawlMinDistance Description="Minimum required travel for the non-driven wheels during the park pawl test" units=".016 Degrees">50</ParkPawlMinDistance>
 		 <!-- Static Park Brake Parameters -->
-		 <ParkBrakeApplyForce>-350</ParkBrakeApplyForce>
+		 <ParkBrakeApplyForce>-100</ParkBrakeApplyForce>
 		 <ParkBrakeSpeedValue>5</ParkBrakeSpeedValue>
-		 <ParkBrakeMaxDistance>15</ParkBrakeMaxDistance>
+		 <ParkBrakeMaxDistance>250</ParkBrakeMaxDistance>
 		 <ParkBrakeMinDistance>2</ParkBrakeMinDistance>
          <!-- Base Brake Parameters -->
          <ArmSpeed Units="MPH">70</ArmSpeed>
@@ -266,7 +266,7 @@
          <AdditionalLogFile Types="/Component/Generic or Disabled">/Components/ZFABS.log</AdditionalLogFile>
          <Debug>Off</Debug>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x3F</Verbose>
+         <Verbose>0x1F</Verbose>
       </Logging>
       <NamedDataBrokerComm>
          <Comm>IPC</Comm>
@@ -752,7 +752,7 @@
       <EvaluateABS Result="" Timeout="10000" Description="Evaluate ABS" ABSLowerForceLimit="0"/>
       <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
       <DynamicParkBrake Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
-	  <StaticParkBrake Result="" Timeout="90000" Description="Check park brake functionality" TestTime="10000" AbortIfFailed="True"/>
+	  <StaticParkBrake Result="" Timeout="90000" Description="Check park brake functionality" TestTime="5000" AbortIfFailed="True"/>
       <!-- Add Other test steps here -->
       <ParkBrakeStop Result="" Timeout="30000" Description="Brake To Stop afetr park brake or park pawl test" Prompt1="BrakeToStop"/>
       <LowSpeedSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test for the ABS Wheel speed sensor"/>

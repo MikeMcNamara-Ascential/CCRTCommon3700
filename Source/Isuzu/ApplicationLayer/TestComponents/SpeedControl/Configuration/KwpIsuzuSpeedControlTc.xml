@@ -73,7 +73,7 @@
             <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
             <DelayModuleInitialization>No</DelayModuleInitialization>
-            <DelayBeforeBrakeTap>10000</DelayBeforeBrakeTap>
+            <DelayBeforeBrakeTap>2000</DelayBeforeBrakeTap>
             <DeveloperTest>False</DeveloperTest>
             <ICMName>mgr/ICM</ICMName>
             <IcmForceArray>/dev/ArrayForce</IcmForceArray>
@@ -160,7 +160,7 @@
             <SpeedControlOn PromptBox="1" Priority="0" TestSteps="CheckOnEnable">SpeedControlOn</SpeedControlOn>
             <SetPrompt PromptBox="1" Priority="0" TestSteps="CheckSetEngagement">SpeedControlSet</SetPrompt>
             <TapBrakePrompt PromptBox="1" Priority="0" TestSteps="CheckBrakeCutOut">SpeedControlTapBrakes</TapBrakePrompt>
-            <AccelerateToTargetSpeed PromptBox="1" Priority="0" TestSteps="CheckSetEngagement">AccelerateToTargetSpeedInD6</AccelerateToTargetSpeed>
+            <AccelerateToTargetSpeed PromptBox="1" Priority="0" TestSteps="CheckSetEngagement">ShiftToDrive</AccelerateToTargetSpeed>
             <DelayBeforeTapPrompt PromptBox="1" Priority="0" TestSteps="CheckBrakeCutOut">DelayBeforeTapPrompt</DelayBeforeTapPrompt>
         </Prompts>
 

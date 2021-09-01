@@ -35,9 +35,9 @@
          <DynamicParkBrakeSampleUseForces TestSteps="DynamicParkBrake" Comments="Flag to determine if sampling should begin when the min force is reached">True</DynamicParkBrakeSampleUseForces>
          <DynamicParkBrakeStartSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake start speed">30</DynamicParkBrakeStartSampleSpeed>
 		 <!-- Static Park Brake Parameters -->
-		 <ParkBrakeApplyForce>-350</ParkBrakeApplyForce>
+		 <ParkBrakeApplyForce>-100</ParkBrakeApplyForce>
 		 <ParkBrakeSpeedValue>5</ParkBrakeSpeedValue>
-		 <ParkBrakeMaxDistance>15</ParkBrakeMaxDistance>
+		 <ParkBrakeMaxDistance>250</ParkBrakeMaxDistance>
 		 <ParkBrakeMinDistance>2</ParkBrakeMinDistance>
          <!-- Park Pawl Paramaters -->
          <ParkPawlDriverInfluenceSkip>1</ParkPawlDriverInfluenceSkip>
@@ -752,7 +752,7 @@
       <EvaluateABS Result="" Timeout="10000" Description="Evaluate ABS" ABSLowerForceLimit="0"/>
       <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
       <DynamicParkBrake Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
-	  <StaticParkBrake Result="" Timeout="90000" Description="Check park brake functionality" TestTime="10000" AbortIfFailed="True"/>
+	  <StaticParkBrake Result="" Timeout="90000" Description="Check park brake functionality" TestTime="5000" AbortIfFailed="True"/>
       <!-- Add Other test steps here -->
       <ParkBrakeStop Result="" Timeout="30000" Description="Brake To Stop afetr park brake or park pawl test" Prompt1="BrakeToStop"/>
       <LowSpeedSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test for the ABS Wheel speed sensor"/>

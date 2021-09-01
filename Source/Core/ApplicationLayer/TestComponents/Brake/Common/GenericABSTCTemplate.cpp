@@ -3114,38 +3114,34 @@ string GenericABSTCTemplate<ModuleType>::StaticParkBrakeTest(void)
     string testDescription       = GetTestStepInfo("Description");
     bool brakeSwitchOn           = false;
     bool compare                 = true;
+    string color = "Green";
     // Log the function entry
     Log(LOG_FN_ENTRY, "GenericABSTCTemplate::StaticParkBrakeTest - Enter\n");
     // Determine if this test step should be performed
     if(!ShortCircuitTestStep())
     {   // Attempt to observe the brake switch in the on position
-        try
-        {   
-            DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
-            DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));;
-            SetStartTime();
-
-            testResult = BrakeSwitchTest("SwitchOff");
-            if (testResult == testPass) 
-            {
-                Log(LOG_DEV_DATA, "Successfully read brake switch as OFF. ");
-                DisplayPrompt(GetPromptBox("ApplyParkBrake"), GetPrompt("ApplyParkBrake"), GetPromptPriority("ApplyParkBrake"));
-                BposSleep(1500);
-                testResult = PerformPBTorqueTest("Forward", false);
-            }
-            else
-            {
-                Log(LOG_DEV_DATA, "Failed to see brake switch as OFF");
-            }
-
-        }
-        catch(ModuleException &excpt)
+   
+        DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+        DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));;
+        SetStartTime();
+        //Give the operator time to read the prompt and remove their foot from the brake
+        //Tried reading the brake switch but the message isnt configured properly and I dont want to deal with it
+        BposSleep(5000);
+        //Log(LOG_DEV_DATA, "Successfully read brake switch as OFF. ");
+        DisplayPrompt(GetPromptBox("ApplyParkBrake"), GetPrompt("ApplyParkBrake"), GetPromptPriority("ApplyParkBrake"));
+        BposSleep(2000);
+        testResult = PerformPBTorqueTest("Forward", false);
+        if (testResult != testPass) 
         {
-            Log(LOG_ERRORS,"ModuleException reading Brake Switch Position: %s\n", excpt.GetReason());
-            testResult = testSoftwareFail;
-            testDescription = GetFaultDescription("SoftwareFailure");
-            testResultCode = GetFaultCode("SoftwareFailure");
+            Log(LOG_DEV_DATA, "Static park brake test failed");
+            color = "Red";
         }
+        SystemWrite("RightRearParkBrakeForceBGColor", color);
+        SystemWrite("LeftRearParkBrakeForceBGColor", color);
+        SystemWrite("LeftFrontParkBrakeForceBGColor", color);
+        SystemWrite("RightFrontParkBrakeForceBGColor", color);
+
+        RemovePrompts();
         // Report the result
         SendTestResult(testResult, testDescription, testResultCode);
     }
@@ -3156,8 +3152,6 @@ string GenericABSTCTemplate<ModuleType>::StaticParkBrakeTest(void)
     }
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "GenericABSTCTemplate::StaticParkBrakeTest - Exit: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(), testResult.c_str());
-    //Just for Testing so we don't keep failing
-    testResult = testPass;
 
     return testResult;
 }

@@ -43,9 +43,9 @@
             <Debug>Off</Debug>
         </SpeedControl>
         <Transmission>
-            <ComponentName>MY20BAllisonTransmissionTC.qxe</ComponentName>
+            <ComponentName>AllisonTransmissionTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>MY20BAllisonTransmissionTC.xml</ConfigFile>
+            <ConfigFile>AllisonTransmissionTC.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
             <Debug>Off</Debug>
         </Transmission>

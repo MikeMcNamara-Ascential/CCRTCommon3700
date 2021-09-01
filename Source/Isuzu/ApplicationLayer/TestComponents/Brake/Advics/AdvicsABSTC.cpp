@@ -1590,6 +1590,11 @@ string AdvicsABSTC<ModuleType>::DynamicABSValveFiringTest(void)
             m_vehicleModule.CommandModule("RunPumpMotor");
             delay(GetParameterInt("PostPumpRunDelay"));
             // run the individual wheel ABS tests
+
+            Log(LOG_DEV_DATA, "About to start valve firing, Hopefully operator has their foot on the brake");
+            WHEELINFO wheelSpeed;
+            GetWheelSpeeds(wheelSpeed);
+            
             testResult = LRABSTest2();
             if(testResult == testPass) testResult = RRABSTest2();
             if(testResult == testPass) testResult = LFABSTest2();
@@ -2787,7 +2792,7 @@ string AdvicsABSTC<ModuleType>::BrakeSwitchTest(const string& position)
     bool brakeSwitchOn           = false;
     bool compare                 = true;
     // Log the function entry
-    Log(LOG_FN_ENTRY, "%s::%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    Log(LOG_FN_ENTRY, "AdvicsABSTC::BrakeSwitchTest - Enter\n");
     // Determine if this test step should be performed
     if(!ShortCircuitTestStep())
     {   // Attempt to observe the brake switch in the on position

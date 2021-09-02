@@ -159,7 +159,7 @@
             </PartNumbersToCheck>
 
             <TCMConstantASMPartNo TestSteps="CheckPartNumbers"
-                Comment="ASM Part Number">24260247</TCMConstantASMPartNo>
+                Comment="ASM Part Number">24286246</TCMConstantASMPartNo>
 
             <UtilityFileConstantPartNumber TestSteps="CheckPartNumbers"
                 Comment="Utility File Part Number From Static test station">24242068</UtilityFileConstantPartNumber>
@@ -202,9 +202,9 @@
             <AbortIfVinMismatch TestSteps="CheckVIN"
                 Comment="Flag to determine if the test sequence should be aborted if the VIN is not valid">True</AbortIfVinMismatch>
             <BypassVINValidation TestSteps="CheckVIN" 
-                Comment="Flag used to determine if VIN validation should be skipped">False</BypassVINValidation>
+                Comment="Flag used to determine if VIN validation should be skipped">True</BypassVINValidation>
             <PromptDriverVinMismatch TestSteps="CheckVIN"
-                Comment="Flag used to determine if the operator should be prompted that the module VIN does not match the scanned VIN">True</PromptDriverVinMismatch>
+                Comment="Flag used to determine if the operator should be prompted that the module VIN does not match the scanned VIN">False</PromptDriverVinMismatch>
 
         </Parameters>
 
@@ -266,7 +266,7 @@
             <TestStep05>CheckVIN</TestStep05>
             <TestStep10>CheckPartNumbers</TestStep10>
             <TestStep15>ShiftLeverTest</TestStep15>
-            <TestStep20>ShiftLeverTest</TestStep20>
+            <!--TestStep20>ShiftLeverTest</TestStep20-->
             <!-- TestStep15>ReadFaults</TestStep15 -->
         </StaticChecks>
 

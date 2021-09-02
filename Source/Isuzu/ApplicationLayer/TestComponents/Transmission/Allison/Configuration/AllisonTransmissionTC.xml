@@ -151,15 +151,15 @@
             <PartNumbersToCheck TestSteps="CheckPartNumbers"
                 Comment="Partnumbers to be verified">
                 <TCMASMPartNo comparison="PartNumberPositionComparisonSkipFirstAndLast" >TCMConstantASMPartNo</TCMASMPartNo> <!-- EndModelPartNumber -->
-                <TCMSoftwareModule02PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule02PartNo</TCMSoftwareModule02PartNo>
+                <!-- <TCMSoftwareModule02PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule02PartNo</TCMSoftwareModule02PartNo>
                 <TCMSoftwareModule03PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule03PartNo</TCMSoftwareModule03PartNo>
                 <TCMSoftwareModule04PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule04PartNo</TCMSoftwareModule04PartNo>
-                <TCMSoftwareModule01PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule01PartNo</TCMSoftwareModule01PartNo>
+                <TCMSoftwareModule01PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule01PartNo</TCMSoftwareModule01PartNo> -->
                 <!-- TCMUtilityFilePartNo comparison="PartNumberPositionComparisonSkipFirstAndLast" >UtilityFileConstantPartNumber</TCMUtilityFilePartNo No longer checking per Konda san phone call -->
             </PartNumbersToCheck>
 
             <TCMConstantASMPartNo TestSteps="CheckPartNumbers"
-                Comment="ASM Part Number">24257187</TCMConstantASMPartNo>
+                Comment="ASM Part Number">97541056</TCMConstantASMPartNo>
 
             <UtilityFileConstantPartNumber TestSteps="CheckPartNumbers"
                 Comment="Utility File Part Number From Static test station">24242068</UtilityFileConstantPartNumber>
@@ -167,10 +167,22 @@
             <!-- PRNDL Parameters -->
             <AlwaysPerformShiftLeverTest>True</AlwaysPerformShiftLeverTest>
             <PrndlPositions>
-                <Position0 Value="P"/>
-                <Position1 Value="R"/>
-                <Position2 Value="N"/>
-                <Position3 Value="1"/>
+                <Position00 Value="P"/>
+                <Position01 Value="R"/>
+                <Position02 Value="N"/>
+                <Position03 Value="6"/>
+                <!--Position03 Value="4"/-->
+                <Position04 Value="3"/>
+                <Position05 Value="2"/>
+                <Position06 Value="1"/>
+                <!--Position07 Value="P"/>
+                <Position08 Value="R"/>
+                <Position09 Value="N"/>
+                <Position10 Value="6"/-->
+                <!--Position10 Value="4"/-->
+                <!--Position11 Value="3"/>
+                <Position12 Value="2"/>
+                <Position13 Value="1"/-->
             </PrndlPositions>
             <SuccessiveLeverReadMinimum TestSteps="ShiftLeverTest"
                 Comment="Number of times shift lever must be seen in the current position">2</SuccessiveLeverReadMinimum>
@@ -211,7 +223,7 @@
                 TestSteps="AccelerateInReverse,WaitForGears">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
             <FootOnBrake PromptBox="2" Priority="0" TestSteps="ShiftLeverTest">ApplyBrake</FootOnBrake>
             <MaintainSpeed PromptBox="1" Priority="0" TestSteps="EvaluateTccSlipError">MaintainSpeed</MaintainSpeed>
-            <ShiftTo1 PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToDrive</ShiftTo1>
+            <ShiftTo1 PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftTo1</ShiftTo1>
             <ShiftToDrive PromptBox="1" Priority="0" TestSteps="WaitForGears">ShiftToDrive</ShiftToDrive>
             <ShiftToD PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToDrive</ShiftToD>
             <ShiftToN PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToNeutral</ShiftToN>
@@ -249,7 +261,7 @@
         </FinishUp>
 
         <ReverseTest>
-            <!--TestStep00>StartGearMonitor</TestStep00-->
+            <TestStep00>StartGearMonitor</TestStep00>
             <TestStep05>AccelerateInReverse</TestStep05>
         </ReverseTest>
 
@@ -264,8 +276,7 @@
         <StaticChecks>
             <!--TestStep05>CheckVIN</TestStep05-->
             <TestStep10>CheckPartNumbers</TestStep10>
-            <!--TestStep15>ShiftLeverTest</TestStep15>
-            <TestStep20>ShiftLeverTest</TestStep20-->
+            <TestStep15>ShiftLeverTest</TestStep15>
         </StaticChecks>
 
         <ShiftLeverTest>
@@ -276,7 +287,10 @@
             <TestStep00>Setup</TestStep00>
             <TestStep15>ReadFaults</TestStep15>
         </Test>
-
+		
+		<ToothErrorCorection>
+			<TestStep00>ToothErrorCorection</TestStep00>
+		</ToothErrorCorection>
         <WaitForAllGears>
             <TestStep00>WaitForGears</TestStep00>
         </WaitForAllGears>
@@ -285,7 +299,7 @@
 
     <!-- Test Steps -->
     <TestSteps>
-        <AccelerateInReverse Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="True"
+        <AccelerateInReverse Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="False"
             Description="Validate Reverse gear functionality" ScanDelay="250"/>
         <CheckPartNumbers Result="" Timeout="1000" AlwaysPerform="False" AbortIfFailed="False"
             Description="Verify module part number matches broadcast" ScanDelay="250"/>

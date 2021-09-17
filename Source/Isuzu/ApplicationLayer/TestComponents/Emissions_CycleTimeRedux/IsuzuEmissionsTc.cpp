@@ -2003,8 +2003,8 @@ string IsuzuEmissionsTc<ModuleType>::StopBackgroundComponent(void)
         }
         else
         {   // Check conditions met
-            bool conditionsMet = std::find(m_oxygenSensorAnalysisOk, m_oxygenSensorAnalysisOk + 4, false) != m_oxygenSensorAnalysisOk+4; 
-            Log(LOG_DEV_DATA, "All Sensor Results Passed: %s\n", conditionsMet ? testPass.c_str() : testFail.c_str());
+            bool conditionsMet = !(std::find(m_oxygenSensorAnalysisOk, m_oxygenSensorAnalysisOk + 4, false) != m_oxygenSensorAnalysisOk+4); 
+            Log(LOG_DEV_DATA, "Aggregate Sensor Result: %s\n", conditionsMet ? testPass.c_str() : testFail.c_str());
             testResult = conditionsMet ? testPass : testFail;
             testDescription = conditionsMet ? testDescription : "Sensor analysis failed";
         }
@@ -2115,8 +2115,9 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         //Update engine speed to make sure that we are idling
         engineStatus = m_vehicleModule.ReadModuleData("ReadEngineSpeedSensor", engineSpeedValue );
         bool overallSensorReadStatusOk = true;
-        if (engineSpeedValue <= engineMaxIdleSpeedValue)
+        if (engineStatus == BEP_STATUS_SUCCESS && engineSpeedValue <= engineMaxIdleSpeedValue)
         { //Engine is idling so read sensors
+             
             for (int sensorNum = 0; sensorNum < 4; sensorNum++)
             { 
                 BEP_STATUS_TYPE sensorStatus = BEP_STATUS_SUCCESS; 
@@ -2128,6 +2129,8 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
 
                 if (sensorReadStatus[sensorNum] != BEP_STATUS_SUCCESS)
                     overallSensorReadStatusOk = false;
+                else
+                    overallSensorReadStatusOk = true; 
             }
         }
         else
@@ -2165,7 +2168,7 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
 
     }
     while (engineStatus == BEP_STATUS_SUCCESS && m_oxygenSensorSampleCount < minSamples && 
-            endBackgroundMonitor && StatusCheck() == BEP_STATUS_SUCCESS);
+            !endBackgroundMonitor && StatusCheck() == BEP_STATUS_SUCCESS);
 
     // Analyze result if min sample count reached
     if (m_oxygenSensorSampleCount >= minSamples)
@@ -2178,6 +2181,7 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
                 result = AnalyzeO2SensorData(sensorName[sensorNum], &sensorCounts[sensorNum][0]);
             else
                 result = AnalyzeO2SensorDelta(sensorName[sensorNum], &sensorFLVals[sensorNum][0]);
+
             Log(LOG_DEV_DATA, "OxygenSensorMonitor ::  %s finished analysis with a result of %s",
                 sensorName[sensorNum].c_str(), result.c_str());
             m_oxygenSensorAnalysisOk[sensorNum] = result.compare(testPass) == 0 ? true : false;
@@ -2185,8 +2189,11 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
     }
     else
     {
-        Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Exiting without capturing the min sample count (&d/%d)",
+        Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Exiting without capturing the min sample count (%d/%d)",
             m_oxygenSensorSampleCount, minSamples);
+
+        Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Module Status: %s - EndMonitor: %s",
+            engineStatus == BEP_STATUS_SUCCESS ? "OK" : "NOK", endBackgroundMonitor ? "Yes" : "No");
     }
 
     SendSubtestResult("OxygenSensorMonitor", testPass, "Oxygen Sensor Monitor Completed", "0000"); 

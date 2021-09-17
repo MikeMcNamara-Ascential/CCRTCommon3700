@@ -1,0 +1,384 @@
+<EmissionsFaults>
+    <!-- System Status -->
+    <SoftwareFailure Code="7001" Description="Software failure using module interface"/>
+    <SystemStatus Code="7002" Description="Test failure, system status not correct"/>
+    <!-- Test Condition Failures -->
+    <PreconditionTimeout Code="7100" Description="Timeout waiting for preconditions"/>
+    <TimeoutFailure Code="" Description="Timeout waiting for test comditions"/>
+    <VehicleNotConnected Code="7108" Description="Vehicle not connected to tester"/>
+    <!-- Communication Failures -->
+    <CommunicationFailure Code="7200" Description="PCM Communication Failure"/>
+    <!-- Sensor Range Check Test Failures -->
+    <BarometricPressureOutOfRangeHigh Code="" Description="Barometric pressure out of range - high"/>
+    <BarometricPressureOutOfRangeLow  Code="" Description="Barometric pressure out of range - low"/>
+    <EngineCoolantTemperatureOutOfRangeHigh Code="" Description="Engine coolant temperature too high - Abort"/>
+    <EngineCoolantTemperatureOutOfRangeLow  Code="" Description="Engine coolant temperature too low - Abort"/>
+    <EngineOilTemperatureOutOfRangeHigh Code="" Description="Engine oil temperature out of range - high"/>
+    <EngineOilTemperatureOutOfRangeLow  Code="" Description="Engine oil temperature out of range - low"/>
+    <EngineOilLevelLowOutOfRange Code="" Description="Engine oil level low"/>
+    <EngineOilPressureLowOutOfRange Code="" Description="Engine oil pressure low"/>
+    <KnockSensor1OutOfRange Code="" Description="Knock Sensor 1 Fault"/>
+    <KnockSensor2OutOfRange Code="" Description="Knock Sensor 2 Fault"/>
+    <MisfireCatalystFailureOutOfRange Code="" Description="Misfire Catalyst Failure"/>
+    <MisfireEmissionsFailureOutOfRange Code="" Description="Misfire Failure"/>
+    <OxygenSensor1Bank1OutOfRangeLow Code="" Description="O2 Sensor 1 Bank 1 reading out of limits - low"/>
+    <OxygenSensorsFailedAnalysis Code="" Description="O2 Sensors failed data analysis"/>
+    <PedalPositionSensorsAgreeOutOfRange Code="" Description="Pedal Position Sensors Disagree"/>
+    <ThrottlePositionSensorsAgreeOutOfRange Code="" Description="Throttle Position Sensors Disagree"/>
+    <VINMismatch Code="" Description="ECM VIN does not match scanned VIN"/>
+    <ModuleFaults Code="" Description="ECM Module Faults Present"/>
+    <SerialNumberMismatch Code="" Description="Serial Number does not match file"/>
+    <!-- Miscellaneous Test Failures -->
+    <StartModuleKeepAliveFail Code="7400" Description="Failed to start keep alive thread"/>
+
+    <!-- Module Faults From 17MY_US-4H_DTClist_R2.xslx'-->
+    <!-- Fuel System Faults-->
+    <ModuleFault_0087 Code="P0087" Description="Fuel Rail / System Pressure Too Low" FailureStatusMask="0x02"/>
+    <ModuleFault_0088 Code="P0088" Description="Fuel Rail / System Pressure Too High" FailureStatusMask="0x02"/>
+    <ModuleFault_0171 Code="P0171" Description="Fuel Injection Quantity Too Lean" FailureStatusMask="0x02"/>
+    <ModuleFault_0172 Code="P0172" Description="Fuel Injection Quantity Too High" FailureStatusMask="0x02"/>
+    <ModuleFault_02CD Code="P02CD" Description="Cylinder #1 Injection Exceeded Maximum Limit" FailureStatusMask="0x02"/>
+    <ModuleFault_02CF Code="P02CF" Description="Cylinder #2 Injection Exceeded Maximum Limit" FailureStatusMask="0x02"/>
+    <ModuleFault_02D1 Code="P02D1" Description="Cylinder #3 Injection Exceeded Maximum Limit" FailureStatusMask="0x02"/>
+    <ModuleFault_02D3 Code="P02D3" Description="Cylinder #4 Injection Exceeded Maximum Limit" FailureStatusMask="0x02"/>
+    <ModuleFault_02CC Code="P02CC" Description="Cylinder #1 Injection Exceeded Minimum Limit" FailureStatusMask="0x02"/>
+    <ModuleFault_02CE Code="P02CE" Description="Cylinder #2 Injection Exceeded Minimum Limit" FailureStatusMask="0x02"/>
+    <ModuleFault_02D0 Code="P02D0" Description="Cylinder #3 Injection Exceeded Minimum Limit" FailureStatusMask="0x02"/>
+    <ModuleFault_02D2 Code="P02D2" Description="Cylinder #4 Injection Exceeded Minimum Limit" FailureStatusMask="0x02"/>
+    <ModuleFault_0093 Code="P0093" Description="Fuel System Leak Detected - Large Leak" FailureStatusMask="0x02"/>
+    <ModuleFault_000F Code="P000F" Description="Fuel System Over pressure Relief Valve Activated  (PL Open)" FailureStatusMask="0x02"/>
+    <ModuleFault_0091 Code="P0091" Description="Fuel Pressure Regulator Solenoid Control Circuit -- Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0092 Code="P0092" Description="Fuel Pressure Regulator Solenoid Control Circuit -- High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0181 Code="P0181" Description="Fuel Temperature Sensor & CAC Outlet Temp Sensor Correlation Check" FailureStatusMask="0x02"/>
+    <ModuleFault_0182 Code="P0182" Description="Fuel Temperature Sensor Circuit -- Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0183 Code="P0183" Description="Fuel Temperature Sensor Circuit -- High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0190 Code="P0190" Description="Fuel Rail Pressure Sensor 1 Out Of Range High" FailureStatusMask="0x02"/>
+    <ModuleFault_0191 Code="P0191" Description="Fuel Rail Pressure (FRP) Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0192 Code="P0192" Description="Fuel Rail Pressure Sensor 1 Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0193 Code="P0193" Description="Fuel Rail Pressure Sensor 1 Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_018B Code="P018B" Description="Fuel Rail Pressure Sensor 2 Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_018C Code="P018C" Description="Fuel Rail Pressure Sensor 2 Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_018D Code="P018D" Description="Fuel Rail Pressure Sensor 2 Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_1102 Code="P1102" Description="Fuel Rail Pressure Sensor 1 / 2 Correlation" FailureStatusMask="0x02"/>
+    <ModuleFault_0201 Code="P0201" Description="Injector#1 Control Circuit Open" FailureStatusMask="0x02"/>
+    <ModuleFault_0202 Code="P0202" Description="Injector#4 Control Circuit Open" FailureStatusMask="0x02"/>
+    <ModuleFault_0203 Code="P0203" Description="Injector#2 Control Circuit Open" FailureStatusMask="0x02"/>
+    <ModuleFault_0204 Code="P0204" Description="Injector#3 Control Circuit Open" FailureStatusMask="0x02"/>
+    <ModuleFault_2146 Code="P2146" Description="Injector Control Circuits Group 1 (Cyl.#1&#4) Open Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_2147 Code="P2147" Description="Injector Control Circuits Group 1(Cyl.#1&#4) Short to GND" FailureStatusMask="0x02"/>
+    <ModuleFault_2148 Code="P2148" Description="Injector Control Circuits Group 1(Cyl.#1&#4) Short to BATT" FailureStatusMask="0x02"/>
+    <ModuleFault_2149 Code="P2149" Description="Injector Control Circuits Group 2 (Cyl.#2&#3) Open Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_2150 Code="P2150" Description="Injector Control Circuits Group 2 (Cyl.#2&#3) Short to GND" FailureStatusMask="0x02"/>
+    <ModuleFault_2151 Code="P2151" Description="Capacitor Charge-up Circuit Insufficient or Excessive" FailureStatusMask="0x02"/>
+    <ModuleFault_1261 Code="P1261" Description="Capacitor Charge-up Circuit Insufficient or Excessive" FailureStatusMask="0x02"/>
+    <ModuleFault_0261 Code="P0261" Description="Injector #1 Circuit Short (Coil short / terminal short )" FailureStatusMask="0x02"/>
+    <ModuleFault_0264 Code="P0264" Description="Injector #4 Circuit Short (Coil short / terminal short )" FailureStatusMask="0x02"/>
+    <ModuleFault_0267 Code="P0267" Description="Injector #2 Circuit Short (Coil short / terminal short )" FailureStatusMask="0x02"/>
+    <ModuleFault_0270 Code="P0270" Description="Injector #3 Circuit Short (Coil short / terminal short )" FailureStatusMask="0x02"/>
+    <!-- Misfire Faults -->
+    <ModuleFault_0300   Code="P0300" Description="Random/Multiple Cylinder Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_0301   Code="P0301" Description="Cylinder 1 Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_0302   Code="P0302" Description="Cylinder 2 Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_0303   Code="P0303" Description="Cylinder 3 Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_0304   Code="P0304" Description="Cylinder 4 Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_13A0   Code="P13A0" Description="Random/Multiple Cylinder Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_13A1   Code="P13A1" Description="Cylinder 1 Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_13A2   Code="P13A2" Description="Cylinder 2 Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_13A3   Code="P13A3" Description="Cylinder 3 Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_13A4   Code="P13A4" Description="Cylinder 4 Misfire Detected" FailureStatusMask="0x02"/>
+    <ModuleFault_1380 Code="P1380" Description="Wheel Speed Error" FailureStatusMask="0x02"/>
+    <ModuleFault_31B1 Code="P31B1" Description="Rough road detection" FailureStatusMask="0x02"/>
+    <!--EGR Faults -->
+    <ModuleFault_0401 Code="P0401" Description="EGR Flow Insufficient" FailureStatusMask="0x02"/>
+    <ModuleFault_0402 Code="P0402" Description="EGR Excessive Flow" FailureStatusMask="0x02"/>
+    <ModuleFault_2413 Code="P2413" Description="EGR slow response" FailureStatusMask="0x02"/>
+    <ModuleFault_2457 Code="P2457" Description="EGR Cooler Efficiency Below Threshold" FailureStatusMask="0x02"/>
+    <ModuleFault_0403 Code="P0403" Description="EGR Valve Control Unit Failure" FailureStatusMask="0x02"/>
+    <ModuleFault_0404 Code="P0404" Description="EGR Valve Performance (Open Position)" FailureStatusMask="0x02"/>
+    <ModuleFault_0409 Code="P0409" Description="EGR Sensor Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_042E Code="P042E" Description="EGR Valve Closed Position Performance (Closed stuck error)" FailureStatusMask="0x02"/>
+    <ModuleFault_046C Code="P046C" Description="EGR Sensor Circuit Range/Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_040B Code="P040B" Description="EGR Cooler Inlet Temp Sensor Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_041B Code="P041B" Description="EGR Cooler Outlet Temp Sensor Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_2478 Code="P2478" Description="EGR Cooler Inlet Temp Out of Range High" FailureStatusMask="0x02"/>
+    <ModuleFault_040C Code="P040C" Description="EGR Cooler Inlet Temp Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_041C Code="P041C" Description="EGR Cooler Outlet Temp Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_040D Code="P040D" Description="EGR Cooler Inlet Temp Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_041D Code="P041D" Description="EGR Cooler Outlet Temp Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_140D Code="P140D" Description="EGR Motor Temperature Sensor Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_1414 Code="P1414" Description="EGR Closed" FailureStatusMask="0x02"/>
+    <!-- Boost Control System Faults -->
+    <ModuleFault_0299 Code="P0299" Description="Turbocharger Under boost" FailureStatusMask="0x02"/>
+    <ModuleFault_0234 Code="P0234" Description="Turbocharger Over boost" FailureStatusMask="0x02"/>
+    <ModuleFault_226B Code="P226B" Description="Turbocharger Boost Pressure Too High - Mechanical" FailureStatusMask="0x02"/>
+    <ModuleFault_1256 Code="P1256" Description="Jumbo boost fault detection Too Low" FailureStatusMask="0x02"/>
+    <ModuleFault_2263 Code="P2263" Description="Boost Slow Response " FailureStatusMask="0x02"/>
+    <ModuleFault_026A Code="P026A" Description="Charge Air Cooling system Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_0237 Code="P0237" Description="Turbo Charger Boost Pressure Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0238 Code="P0238" Description="Turbo Charger Boost Pressure Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0045 Code="P0045" Description="Turbocharger Boost Controller Solenoid Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_003A Code="P003A" Description="Turbocharger Boost Control Solenoid Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_2564 Code="P2564" Description="Turbocharger Boost Control Position Sensor Circuit Low" FailureStatusMask="0x02"/>
+    <ModuleFault_2565 Code="P2565" Description="Turbocharger Boost Control Position Sensor Circuit High" FailureStatusMask="0x02"/>
+    <ModuleFault_2563 Code="P2563" Description="VGT Position Sensor Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_007C Code="P007C" Description="CAC Outlet Air Temp Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_007D Code="P007D" Description="CAC Outlet Air Temp Sensor Circuit High voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_1078 Code="P1078" Description="Turbo Compressor Outlet Temp Sensor & CAC Outlet Temp Sensor Correlation Check" FailureStatusMask="0x02"/>
+    <!-- NMHC Catalyst Faults -->
+    <ModuleFault_0420 Code="P0420" Description="NMHC Catalyst Temperature Too Low During Regeneration" FailureStatusMask="0x02"/>
+    <!-- NOx Converting Catalyst Faults -->
+    <ModuleFault_20C9 Code="P20C9" Description="NOx Converting Catalyst" FailureStatusMask="0x02"/>
+    <!-- Particulate Matter Filter Faults -->
+    <ModuleFault_2002 Code="P2002" Description="Particulate Filter Efficiency Below Threshold" FailureStatusMask="0x02"/>
+    <ModuleFault_24A2 Code="P24A2" Description="DPF Incomplete Regeneration" FailureStatusMask="0x02"/>
+    <ModuleFault_2459 Code="P2459" Description="DPF Regeneration Too Frequent" FailureStatusMask="0x02"/>
+    <ModuleFault_244B Code="P244B" Description="Diesel Particulate Filter Differential Pressure Too High" FailureStatusMask="0x02"/>
+    <ModuleFault_2463 Code="P2463" Description=" DOC Inlet Temp Sensor Out Of Range High" FailureStatusMask="0x02"/>
+    <ModuleFault_2428 Code="P2428" Description=" DOC Inlet Temp Sensor Out Of Range High" FailureStatusMask="0x02"/>
+    <ModuleFault_244D Code="P244D" Description="DOC Outlet Temp Sensor Out Of Range High" FailureStatusMask="0x02"/>
+    <ModuleFault_2453 Code="P2453" Description="Differential Pressure Sensor Rationality" FailureStatusMask="0x02"/>
+    <ModuleFault_2454 Code="P2454" Description="DPF Differential Pressure Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_2455 Code="P2455" Description="DPF Differential Pressure Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0545 Code="P0545" Description="Exhaust Gas Temp. before OC Too Low" FailureStatusMask="0x02"/>
+    <ModuleFault_2032 Code="P2032" Description="DOC Outlet Temp Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0546 Code="P0546" Description="DOC Inlet Temp Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_2033 Code="P2033" Description="DOC Outlet Temp Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_20E2 Code="20E2" Description="DOC Inlet Temp Sensor – DOC Outlet Temp Sensor Correlation (P20E2)" FailureStatusMask="0x02"/>
+    <!-- Positive Crankcase Ventilation Faults -->
+    <ModuleFault_052E Code="P052E" Description="PCV Regulator Valve Performance - Disconnected" FailureStatusMask="0x02"/>
+    <ModuleFault_051C Code="P051C" Description="PCV Differential Pressure Sensor Circuit Low" FailureStatusMask="0x02"/>
+    <ModuleFault_051D Code="P051D" Description="PCV Differential Pressure Sensor Circuit High" FailureStatusMask="0x02"/>
+    <ModuleFault_051B Code="P051B" Description="PCV Differential Pressure Sensor Circuit Performance" FailureStatusMask="0x02"/>
+    <!-- Exhaust Gas Sensor Faults -->
+    <ModuleFault_113A Code="P113A" Description="NOx Sensor O2 Signal 1 / 2 Correlation" FailureStatusMask="0x02"/>
+    <ModuleFault_24AF Code="P24AF" Description="Particulate Matter Sensor Circuit Range/ Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_24D1 Code="P24D1" Description="Particulate Matter Sensor Regeneration Incomplete" FailureStatusMask="0x02"/>
+    <ModuleFault_24DA Code="P24DA" Description="Particulate Matter Sensor Exhaust Sample Error Bank 1" FailureStatusMask="0x02"/>
+    <ModuleFault_103B Code="P103B" Description="Particulate Matter Sensor Sensitivity Factor Out of Range" FailureStatusMask="0x02"/>
+    <ModuleFault_24B0 Code="P24B0" Description="Particulate Matter Sensor Circuit Low" FailureStatusMask="0x02"/>
+    <ModuleFault_24B1 Code="P24B1" Description="Particulate Matter Sensor Circuit High" FailureStatusMask="0x02"/>
+    <ModuleFault_24AE Code="P24AE" Description="Particulate Matter Sensor Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_103C Code="P103C" Description="Particulate Matter Sensor Short Circuit after Sensor Regeneration" FailureStatusMask="0x02"/>
+    <ModuleFault_24B3 Code="P24B3" Description="Particulate Matter Sensor Heater Control Circuit/Open" FailureStatusMask="0x02"/>
+    <ModuleFault_24B6 Code="P24B6" Description="Particulate Matter Sensor Heater Control Circuit High" FailureStatusMask="0x02"/>
+    <ModuleFault_24B4 Code="P24B4" Description="Particulate Matter Sensor Heater Control Circuit Range/Performance" FailureStatusMask="0x02"/>
+    <!-- Engine Cooling System Faults -->
+    <ModuleFault_111E Code="P111E" Description="Engine Coolant Temperature  Sensor & Intake Manifold Temperature  Sensor Correlation Check Error" FailureStatusMask="0x02"/>
+    <ModuleFault_0117 Code="P0117" Description="Engine Coolant Temperature Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0118 Code="P0118" Description="Engine Coolant Temperature Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0126 Code="P0126" Description="Engine Coolant Temperature Insufficient For Stable Operation" FailureStatusMask="0x02"/>
+    <ModuleFault_249C Code="P249C" Description="Engine Coolant Temperature Insufficient For Reductant Injection Control" FailureStatusMask="0x02"/>
+    <ModuleFault_0128   Code="P0128"    Description="Engine Coolant Temperature Below thermostat Regulating Temperature"  FailureStatusMask="0x02"/>
+    <!-- Mass Air Flow Sensor Faults -->
+    <ModuleFault_0101 Code="P0101" Description="Mass Air Flow Sensor Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_0102 Code="P0102" Description="Mass Air Flow Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0103 Code="P0103" Description="Mass Air Flow Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <!-- Barometric Pressure Sensor Faults -->
+    <ModuleFault_00CF Code="P00CF" Description="Barometric Pressure - Turbocharger/Supercharger Boost Sensor A Correlation" FailureStatusMask="0x02"/>
+    <ModuleFault_2228 Code="P2228" Description="Barometric Pressure Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_2229 Code="P2229" Description="Barometric Pressure Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <!-- Intake Air Temperature Sensor Faults -->
+    <ModuleFault_0112 Code="P0112" Description="Intake Air Temperature Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0113 Code="P0113" Description="Intake Air Temperature Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_011C Code="P011C" Description="Intake Air Temp Sensor & CAC Outlet Temp Sensor Correlation Check Error" FailureStatusMask="0x02"/>
+    <!-- Intake Air Manifold Temperature Sensor Faults --> 
+    <ModuleFault_0097 Code="P0097" Description="Intake Manifold Temperature Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0098 Code="P0098" Description="Intake Manifold Temperature Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <!-- Particulate Matter Sensor Temperature Faults -->
+    <ModuleFault_24C6 Code="P24C6" Description="Particulate Matter Sensor Temperature Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_24C7 Code="P24C7" Description="Particulate Matter Sensor - Temperature Range/Performance" FailureStatusMask="0x02"/>
+    <!-- Accelerator Pedal Position Sensor Faults -->
+    <ModuleFault_2122 Code="P2122" Description="Accelerator Pedal Position Sensor No1 Circuit Low" FailureStatusMask="0x02"/>
+    <ModuleFault_2127 Code="P2127" Description="Accelerator Pedal Position Sensor No2 Circuit Low" FailureStatusMask="0x02"/>
+    <ModuleFault_2123 Code="P2123" Description="Accelerator Pedal Position Sensor No2 Circuit High " FailureStatusMask="0x02"/>
+    <ModuleFault_2128 Code="P2128" Description="Accelerator Pedal Position Sensor No2 Circuit High" FailureStatusMask="0x02"/>
+    <ModuleFault_2138 Code="P2138" Description="Accelerator Pedal Position Sensor No1 & 2 Correlation" FailureStatusMask="0x02"/>
+    <!-- Turbo Controller Outlet Air Temperature Sensor Faults -->
+    <ModuleFault_1072 Code="P1072" Description="Turbo Compressor Outlet Temp Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_1073 Code="P1073" Description="Turbo Compressor Outlet Temp Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <!-- Crank Angle Sensor Faults -->
+    <ModuleFault_0016 Code="P0016" Description="Camshaft Position Sensor Correlation " FailureStatusMask="0x02"/>
+    <ModuleFault_0335 Code="P0335" Description="Crankshaft Angle Sensor Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_0336 Code="P0336" Description="Crankshaft Angle Sensor Performance" FailureStatusMask="0x02"/>
+    <!-- Camshaft Position Sensor -->
+    <ModuleFault_0340 Code="P0340" Description="Camshaft Position Sensor Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_0341 Code="P0341" Description="Camshaft Position Sensor Performance" FailureStatusMask="0x02"/>
+    <!-- Intake Throttle Valve Faults -->
+    <ModuleFault_02E7 Code="P02E7" Description="Intake Throttle Control Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_02E8 Code="P02E8" Description="Intake Throttle Position Sensor Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_02E9 Code="P02E9" Description="Intake Throttle Position Sensor Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_02E3 Code="P02E3" Description="Intake Throttle DC Motor Circuit Short" FailureStatusMask="0x02"/>
+    <ModuleFault_02E2 Code="P02E2" Description="Intake Throttle DC Motor Circuit Low Open" FailureStatusMask="0x02"/>
+    <!-- Exhaust Throttle Valve Faults -->
+    <ModuleFault_0027 Code="P0027" Description="Exhaust Throttle Control Valve Function" FailureStatusMask="0x02"/>
+    <ModuleFault_0079 Code="P0079" Description="Exhaust Throttle Control Valve Circuit Low" FailureStatusMask="0x02"/>
+    <ModuleFault_0080 Code="P0080" Description="Exhaust Throttle Control Valve Circuit High" FailureStatusMask="0x02"/>
+    <!-- Vehicle Speed Sensor Faults -->
+    <ModuleFault_0500 Code="P0500" Description="Vehicle Speed Sensor (VSS) Circuit" FailureStatusMask="0x02"/>
+    <!-- RPM Control Faults -->
+    <ModuleFault_0506 Code="P0506" Description="Idle Speed Control System RPM Lower than Expected" FailureStatusMask="0x02"/>
+    <ModuleFault_0507 Code="P0507" Description="Idle Speed Control System RPM Higher than Expected" FailureStatusMask="0x02"/>
+    <ModuleFault_054E Code="P054E" Description="Idle Control System - Fuel Quantity Lower Than Expected" FailureStatusMask="0x02"/> 
+    <ModuleFault_054F Code="P054F" Description="Idle Control System - Fuel Quantity Higher Than Expected" FailureStatusMask="0x02"/>
+    <!-- Glow Control Circuit Faults -->
+    <ModuleFault_064C Code="P064C" Description="Glow Plug Control Module (GPCM) Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_0671 Code="P0671" Description="Cylinder #1 Glow Plug Control Circuits" FailureStatusMask="0x02"/>
+    <ModuleFault_0672 Code="P0672" Description="Cylinder #2 Glow Plug Control Circuits" FailureStatusMask="0x02"/>
+    <ModuleFault_0673 Code="P0673" Description="Cylinder #3 Glow Plug Control Circuits" FailureStatusMask="0x02"/>
+    <ModuleFault_0674 Code="P0674" Description="Cylinder #4 Glow Plug Control Circuits" FailureStatusMask="0x02"/>
+    <!-- Exhaust Aftertreatment Fuel Injector Faults -->
+    <ModuleFault_20CB Code="P20CB" Description="Exhaust Aftertreatment Fuel Injector Circuit Open" FailureStatusMask="0x02"/>
+    <ModuleFault_20CC Code="P20CC" Description="Exhaust Aftertreatment Fuel Injector Circuit Short" FailureStatusMask="0x02"/>
+    <ModuleFault_20CD Code="P20CD" Description="Exhaust Aftertreatment Fuel Injector Short to GND" FailureStatusMask="0x02"/>
+    <ModuleFault_20CE Code="P20CE" Description="Exhaust Aftertreatment Fuel Injector Short to BATT" FailureStatusMask="0x02"/>
+    <ModuleFault_20CF Code="P20CF" Description="Exhaust Aftertreatment Fuel Injector Stuck Open" FailureStatusMask="0x02"/>
+    <ModuleFault_20DE Code="P20DE" Description="Exhaust Aftertreatment Fuel Pressure Sensor Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_20DF Code="P20DF" Description="Exhaust Aftertreatment Fuel Pressure Sensor Circuit Low" FailureStatusMask="0x02"/>
+    <ModuleFault_20E0 Code="20E0" Description="Exhaust Aftertreatment Fuel Pressure Sensor Circuit High" FailureStatusMask="0x02"/>
+    <!-- Lamp Circuit Faults-->
+    <ModuleFault_0381 Code="P0381" Description="Wait to Start Lamp Control Circuit (Open Load/short to GND or Short to BATT)" FailureStatusMask="0x02"/>
+    <ModuleFault_0650 Code="P0650" Description="Malfunction Indicator Lamp (MIL) Control Circuit Monitoring(short to BATT or open load/short to GND)" FailureStatusMask="0x02"/>
+    <!-- ECM Diagnostics Faults -->
+    <ModuleFault_062D Code="P062D" Description="Injector driver IC communication error(#1)" FailureStatusMask="0x02"/>
+    <ModuleFault_062E Code="P062E" Description="Injector driver IC communication error(#2)" FailureStatusMask="0x02"/>
+    <ModuleFault_268A Code="P268A" Description="Fuel Injector Calibration Not Learned / Programmed- QR Code ( 2-D bar-code ) Not Programmed-in ECM" FailureStatusMask="0x02"/>
+    <ModuleFault_0602 Code="P0602" Description="Multi-point correction for injector tolerance- QR Code ERROR" FailureStatusMask="0x02"/>
+    <ModuleFault_2696 Code="P2696" Description="Injector Data Incompatible" FailureStatusMask="0x02"/>
+    <ModuleFault_0606 Code="P0606" Description="ECM Processor" FailureStatusMask="0x02"/>
+    <ModuleFault_062F Code="P062F" Description="EEPROM Data Check error" FailureStatusMask="0x02"/>
+    <!-- System Voltage Faults -->
+    <ModuleFault_0642 Code="P0642" Description="Battery 5V Reference 1/2/3 Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0652 Code="P0652" Description="Battery 5V Reference 1/2/3 Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0698 Code="P0698" Description="Battery 5V Reference 1/2/3 Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_06A4 Code="P06A4" Description="Battery 5V Reference 1/2/3 Circuit Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0643 Code="P0643" Description="Battery 5V Reference 1/2/3 Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0653 Code="P0653" Description="Battery 5V Reference 1/2/3 Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0699 Code="P0699" Description="Battery 5V Reference 1/2/3 Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_06A5 Code="P06A5" Description="Battery 5V Reference 1/2/3 Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_24D0 Code="P24D0" Description="Particulate Matter Sensor Supply Voltage Circuit Low" FailureStatusMask="0x02"/>
+    <!-- Switches Faults -->
+    <ModuleFault_0512 Code="P0512" Description="Starter Switch Short to BATT" FailureStatusMask="0x02"/>
+    <ModuleFault_0700 Code="P0700" Description="Transmission Control Module Requested MIL Illumination Monitoring" FailureStatusMask="0x02"/>
+    <ModuleFault_170A Code="P170A" Description="Transmission Control Module Requested MIL Illumination Monitoring" FailureStatusMask="0x02"/>
+    <!-- CAN Communication Faults -->
+    <ModuleFault_0106 Code="U0106" Description="Glow Plug Control Module Communication Failure" FailureStatusMask="0x02"/>
+    <ModuleFault_010C Code="U010C" Description="Lost CAN Communication with Turbocharger Control Module" FailureStatusMask="0x02"/>
+    <ModuleFault_0073 Code="U0073" Description="CAN Bus Reset Counter Overrun(J1939)" FailureStatusMask="0x02"/>
+    <ModuleFault_0101 Code="U0101" Description="Lost CAN Communication with TCM Control" FailureStatusMask="0x02"/>
+    <ModuleFault_0001 Code="U0001" Description="CAN Bus Reset Counter Overrun (BUS OFF)(ISO-CAN)" FailureStatusMask="0x02"/>
+    <ModuleFault_010E Code="U010E" Description="Lost Communications with Reductant Delivery Control Module" FailureStatusMask="0x02"/>
+    <ModuleFault_02A3 Code="U02A3" Description="Lost Communication with PM sensor" FailureStatusMask="0x02"/>
+    <ModuleFault_010A Code="U010A" Description="Lost Communication with EGR controller" FailureStatusMask="0x02"/>
+    <!-- Other Module Faults -->
+    <ModuleFault_254D Code="P254D" Description="PTO Accel Sensor Circuit High voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0571 Code="P0571" Description="Cruise Controk Brake Switch Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_0567 Code="P0567" Description="Cruise Control Resume Switch Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_0568 Code="P0568" Description="Cruise Control Set Switch Circuit" FailureStatusMask="0x02"/>
+    <ModuleFault_1463 Code="P1463" Description="Reductant Control Module Requested SVS Illlumination" FailureStatusMask="0x02"/>
+    <ModuleFault_244C Code="P244C" Description="Catalyst Temperature Too Low During Regeneration" FailureStatusMask="0x02"/>
+    <ModuleFault_1470 Code="P1470" Description="DPF Differential Pressure Performance" FailureStatusMask="0x02"/>
+    <ModuleFault_0523 Code="P0523" Description="Engine Oil Pressure Sensor High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0522 Code="P0522" Description="Engine Oil Pressure Sensor Low Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0617 Code="P0617" Description="Starter relay short to battery" FailureStatusMask="0x02"/>
+    <ModuleFault_0563 Code="P0563" Description="Battery System voltage too High" FailureStatusMask="0x02"/>
+    <ModuleFault_0687 Code="P0687" Description="Control Module Power Relay Control Circuit High Voltage" FailureStatusMask="0x02"/>
+    <ModuleFault_0219 Code="P0219" Description="Engine Overspeed" FailureStatusMask="0x02"/>
+    <ModuleFault_1085 Code="P1085" Description="Supply Pump Exchange/Protection waring Error" FailureStatusMask="0x02"/>
+    <ModuleFault_260C Code="P260C" Description="PTO engage relay short to battery" FailureStatusMask="0x02"/>
+    <ModuleFault_1694 Code="P1694" Description="Tacho output short to battery" FailureStatusMask="0x02"/>
+    <ModuleFault_1504 Code="P1504" Description="Vehicle speed pulse output short to battery" FailureStatusMask="0x02"/>
+    <!-- DEF Dosing Valve Faults -->
+    <ModuleFault_2049 Code="P2049" Description="short circuit to battery switch." FailureStatusMask="0x02"/>
+    <ModuleFault_2048 Code="P2048" Description="short circuit to ground switch." FailureStatusMask="0x02"/>
+    <ModuleFault_208E Code="P208E" Description="Dosing Valve is Blocked(Current profile test)." FailureStatusMask="0x02"/>
+    <!-- SCR Inlet Temperature Sensor Faults -->
+    <ModuleFault_242D Code="P242D" Description="Urea catalyst upstream temperature sensor SRC High" FailureStatusMask="0x02"/>
+    <ModuleFault_242C Code="P242C" Description="Urea catalyst upstream temperature sensor SRC Low" FailureStatusMask="0x02"/>
+    <ModuleFault_242B Code="P242B" Description="Urea catalyst upstream temperature sensor Plausibility test (Dynamic Check)" FailureStatusMask="0x02"/>
+    <ModuleFault_1498 Code="P1498" Description="Error TTCL for SCR catalyst upstream temperature sensor" FailureStatusMask="0x02"/>
+    <!-- NOx Sensor Upstream Faults -->
+    <ModuleFault_2203 Code="P2203" Description="NOx signal out-of-range check Max" FailureStatusMask="0x02"/>
+    <ModuleFault_2202 Code="P2202" Description="NOx signal out-of-range check Min" FailureStatusMask="0x02"/>
+    <ModuleFault_2207 Code="P2207" Description="NOx signal & Heater signal short circuit error" FailureStatusMask="0x02"/>
+    <ModuleFault_2206 Code="P2206" Description="NOx signal & Heater signal open circuit error" FailureStatusMask="0x02"/>
+    <ModuleFault_22FB Code="P22FB" Description="O2 signal from Ft NOx senosor slow response" FailureStatusMask="0x02"/>
+    <ModuleFault_2201 Code="P2201" Description="plausibility error Max for NOx sensor upstream of SCR Cat" FailureStatusMask="0x02"/>
+    <ModuleFault_225C Code="P225C" Description="Upstream Nox sensor offset signal plausibility check for maximum error" FailureStatusMask="0x02"/>
+    <ModuleFault_225D Code="P225D" Description="Upstream Nox sensor offset signal plausibility check for minimum error" FailureStatusMask="0x02"/>
+    <ModuleFault_1034 Code="P1034" Description="Upstream Nox sensor feedback error" FailureStatusMask="0x02"/>
+    <!-- NOx Sensor Downstream Faults -->
+    <ModuleFault_22A1 Code="P22A1" Description="NOx signal out-of-range check Max" FailureStatusMask="0x02"/>
+    <ModuleFault_22A0 Code="P22A0" Description="NOx signal out-of-range check Min" FailureStatusMask="0x02"/>
+    <ModuleFault_22A5 Code="P22A5" Description="NOx signal & Heater signal short circuit error" FailureStatusMask="0x02"/>
+    <ModuleFault_22A4 Code="P22A4" Description="NOx signal & Heater signal open circuit error" FailureStatusMask="0x02"/>
+    <ModuleFault_229F Code="P229F" Description="Peak check for NOx sensor downstream of SCR Cata" FailureStatusMask="0x02"/>
+    <ModuleFault_22FE Code="P22FE" Description="O2 signal from Rr NOx senosor slow response" FailureStatusMask="0x02"/>
+    <ModuleFault_225E Code="P225E" Description="Downstream Nox sensor offset signal plausibility check for maximum error" FailureStatusMask="0x02"/>
+    <ModuleFault_225F Code="P225F" Description="Downstream Nox sensor offset signal plausibility check for minimum error" FailureStatusMask="0x02"/>
+    <ModuleFault_1036 Code="P1036" Description="Downstream Nox sensor feedback error" FailureStatusMask="0x02"/>
+    <!-- Urea Level Sensor Faults -->
+    <ModuleFault_203D Code="P203D" Description="Urea tank level sensor SRC High" FailureStatusMask="0x02"/>
+    <ModuleFault_203C Code="P203C" Description="Urea tank level sensor SRC Low" FailureStatusMask="0x02"/>
+    <ModuleFault_203B Code="P203B" Description="Urea tank level sensor Stuck Check" FailureStatusMask="0x02"/>
+    <!-- Urea Temperature Sensor Faults -->
+    <ModuleFault_205D Code="P205D" Description="Urea Tank temperature sensor SRC High" FailureStatusMask="0x02"/>
+    <ModuleFault_205C Code="P205C" Description="Urea Tank temperature sensor SRC Low" FailureStatusMask="0x02"/>
+    <ModuleFault_205B Code="P205B" Description="Urea Tank temperature sensor plausibility threshold" FailureStatusMask="0x02"/>
+    <!-- Urea Quality Sensor Faults -->
+    <ModuleFault_2BA9 Code="P2BA9" Description="Poor DEF monitoring" FailureStatusMask="0x02"/>
+    <!-- Urea Tank Heater Valve Faults -->
+    <ModuleFault_20B4 Code="P20B4" Description="Short Circuit to Battery of Urea Tank Heater Actuator powerstage" FailureStatusMask="0x02"/>
+    <ModuleFault_20B3 Code="P20B3" Description="Short Circuit to Ground of Urea Tank Heater Actuator powerstage" FailureStatusMask="0x02"/>
+    <ModuleFault_20B1 Code="P20B1" Description="Open Load error of Urea Tank Heater Actuator powerstage" FailureStatusMask="0x02"/>
+    <ModuleFault_20B2 Code="P20B2" Description="Urea Tank heater is faulty" FailureStatusMask="0x02"/>
+    <!-- Supply Module Pump Faults -->
+    <ModuleFault_208D Code="P208D" Description="SCB error on the PWM output powerstage for the actuator" FailureStatusMask="0x02"/>
+    <ModuleFault_208C Code="P208C" Description="SCG error on the PWM output powerstage for the actuator" FailureStatusMask="0x02"/>
+    <ModuleFault_208A Code="P208A" Description="OL error on the PWM output powerstage for the actuator" FailureStatusMask="0x02"/>
+    <ModuleFault_208B Code="P208B" Description="Pump motor speed deviation" FailureStatusMask="0x02"/>
+    <!-- Supply Module Reverting Valve Faults -->
+    <ModuleFault_20A3 Code="P20A3" Description="Short Circuit to Battery of urea reverting valve actuator powerstage" FailureStatusMask="0x02"/>
+    <ModuleFault_20A2 Code="P20A2" Description="Short Circuit to Ground of urea reverting valve actuator powerstage" FailureStatusMask="0x02"/>
+    <ModuleFault_20A0 Code="P20A0" Description="Open Load error of urea reverting valve actuator powerstage" FailureStatusMask="0x02"/>
+    <!-- Supply Module Urea Pressure Sensor Faults -->
+    <ModuleFault_204D Code="P204D" Description="Urea Pump Module Pressure Sensor SRC High" FailureStatusMask="0x02"/>
+    <ModuleFault_204C Code="P204C" Description="Urea Pump Module Pressure Sensor SRC Low" FailureStatusMask="0x02"/>
+    <ModuleFault_1497 Code="P1497" Description="Urea Pump Module Pressure Sensor Physical Range High" FailureStatusMask="0x02"/>
+    <ModuleFault_1496 Code="P1496" Description="Urea Pump Module Pressure Sensor Physical Range Low" FailureStatusMask="0x02"/>
+    <ModuleFault_204B Code="P204B" Description="Urea Pump Module Pressure Sensor plausibility threshold" FailureStatusMask="0x02"/>
+    <!-- Supply Module Temperature Faults -->
+    <ModuleFault_20AC Code="P20AC" Description="faulty PWM signal" FailureStatusMask="0x02"/>
+    <ModuleFault_20AD Code="P20AD" Description="Temperature Sensor Plausibility test" FailureStatusMask="0x02"/>
+    <!-- Dosing Control Unit Faults -->
+    <ModuleFault_060B Code="P060B" Description="report the ADC test error" FailureStatusMask="0x02"/>
+    <ModuleFault_0658 Code="P0658" Description="short circuit to ground of actuator relay 4 or 5" FailureStatusMask="0x02"/>
+    <ModuleFault_0659 Code="P0659" Description="short circuit to ground of actuator relay 1 or 2" FailureStatusMask="0x02"/>
+    <ModuleFault_0641 Code="P0641" Description="Error Sensor supplies 3  5V" FailureStatusMask="0x02"/>
+    <ModuleFault_1493 Code="P1493" Description="over temperature error on the PWM output powerstage for the actuator" FailureStatusMask="0x02"/>
+    <ModuleFault_1468 Code="P1468" Description="DCU over temperature error" FailureStatusMask="0x02"/>
+    <ModuleFault_1464 Code="P1464" Description="Default Fault check for main relay error." FailureStatusMask="0x02"/>
+    <!-- NOx Conversion Catalyst Faults -->
+    <ModuleFault_20EE Code="P20EE" Description="Monitoring the NOx Efficiency" FailureStatusMask="0x02"/>
+    <ModuleFault_207F Code="P207F" Description="Monitoring the NOx Efficiency" FailureStatusMask="0x02"/>
+    <!-- DNOx Syste Feedback Parameter Faults -->
+    <ModuleFault_1494 Code="P1494" Description="Urea Tank Defrost test" FailureStatusMask="0x02"/>
+    <ModuleFault_1495 Code="P1495" Description="Urea Pump Module Defrost test" FailureStatusMask="0x02"/>
+    <!-- Reductant Delivery Failure Faults -->
+    <ModuleFault_1491 Code="P1491" Description="overpressure error (12.5bar & 5s)" FailureStatusMask="0x02"/>
+    <ModuleFault_20E9 Code="P20E9" Description="overpressure error (10.5bar & 20s)" FailureStatusMask="0x02"/>
+    <ModuleFault_149C Code="P149C" Description="Pressure reduction error = FCT_ERROR in state PRESSUREREDUCTION" FailureStatusMask="0x02"/>
+    <ModuleFault_20FE Code="P20FE" Description="Pressure build-up error = FCT_ERROR in state PRESSUREBUILDUP" FailureStatusMask="0x02"/>
+    <ModuleFault_20E8 Code="P20E8" Description="underpressure error = FCT_ERROR in the METERINGCONTROL state" FailureStatusMask="0x02"/>
+    <ModuleFault_149D Code="P149D" Description="Urea tank is Overheated" FailureStatusMask="0x02"/>
+    <!-- System Voltage Faults -->
+    <ModuleFault_156B Code="P156B" Description="SRC high for battery voltage sensor" FailureStatusMask="0x02"/>
+    <ModuleFault_156A Code="P156A" Description="SRC Low for battery voltage sensor" FailureStatusMask="0x02"/>
+    <!-- CAN Communication Monitoring Faults -->
+    <ModuleFault_0607 Code="P0607" Description="Diagnostic fault check to report errors in query-/response-communication" FailureStatusMask="0x02"/>
+    <ModuleFault_029D Code="U029D" Description="Timeout error for AT1I1PD2 frame" FailureStatusMask="0x02"/>
+    <ModuleFault_029E Code="U029E" Description="Timeout error for AT1O1PD2 frame" FailureStatusMask="0x02"/>
+    <ModuleFault_0100 Code="U0100" Description="Timeout error for Electronic engine controller 1 framel" FailureStatusMask="0x02"/>
+    <ModuleFault_0002 Code="U0002" Description="BusOff error CAN B" FailureStatusMask="0x02"/>
+    <ModuleFault_1467 Code="P1467" Description="J1939 Error(Engine speed message)" FailureStatusMask="0x02"/>
+    <ModuleFault_262B Code="P262B" Description="DFC_StopCntTmr" FailureStatusMask="0x02"/>
+</EmissionsFaults>

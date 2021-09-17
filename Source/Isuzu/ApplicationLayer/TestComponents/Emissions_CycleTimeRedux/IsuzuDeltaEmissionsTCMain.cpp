@@ -1,0 +1,76 @@
+//*************************************************************************
+// FILE:
+//    $Header: /CCRT-cmake/Source/Isuzu/ApplicationLayer/TestComponents/Emissions/IsuzuDeltaEmissionsTCMain.cpp 
+//
+// FILE DESCRIPTION:
+//  Test Component for testing Isuzu engine controller
+//  using Keyword Protocol 2000.
+//
+//===========================================================================
+// Copyright (c) 2005- Burke E. Porter Machinery
+// All Rights Reserved
+//
+// This file contains confidential information of Burke E. Porter Machinery
+// and is not to be used in any way detrimental to the interests thereof.
+// Unauthorized use, distribution, copying, or transmittal of this file in
+// any way is strictly prohibited.
+//===========================================================================
+// 
+//*************************************************************************
+#include "IsuzuDeltaEmissionsTc.cpp"
+#include "IsuzuDeltaEngineControlModule.cpp"
+#include "KwpCanProtocolFilter.h"
+#include "CmdLineProcessor.h"
+
+int main(int argc, char *argv[])
+{
+	CmdLineProcessor clp;				// command line processor
+	XmlParser parser;
+	GenericTC *emissionsTest = NULL;
+	
+	try
+	{   // Parse the command line arguments
+		clp.ParseArguments(argc, argv);     // parse the command line
+		// Set the pointer to NULL
+		emissionsTest = NULL;
+		// Get the config file
+		const XmlNode *config = parser.ReturnXMLDocument(clp.GetConfigFile());
+		// Determine what type of test component to instantiate
+		string commProtocol = config->getChild("Setup/CommunicationProtocol")->getValue();
+		if (commProtocol == "KeywordProtocol2000") 
+		{
+			emissionsTest = new IsuzuDeltaEmissionsTc<IsuzuDeltaEngineControlModule<KwpCanProtocolFilter> >();
+		}
+		else
+		{   // Unknown protocol type
+			printf("Could not create Isuzu Delta Emissions test component - Unsupported protocol type!\n");
+		}
+		// Check if we should perform the test
+		if (emissionsTest != NULL)
+		{	// Initialize the new test component
+			if(clp.IsDebugOn())	printf("Initializing the IsuzuDeltaEmissionsTest Component\n");
+			emissionsTest->Initialize(clp.GetConfigFile());
+			// Start the test running
+			if(clp.IsDebugOn())	printf("IsuzuDeltaEmissionsTest Component Running\n");
+			emissionsTest->Run();							// process until terminated
+		}
+	}
+	catch(XmlException &XmlErr)
+	{
+		printf("IsuzuDeltaEmissionsTest -%s: XmlExcpetion: %s", clp.GetConfigFile().c_str(), XmlErr.what());
+	}
+	catch(BepException &BepErr)
+	{
+		printf("IsuzuDeltaEmissionsTest -%s: BepExcpetion: %s", clp.GetConfigFile().c_str(), BepErr.what());
+	}
+	catch(...)
+	{
+		printf("IsuzuDeltaEmissionsTest -%s: Unknown Exception\n", clp.GetConfigFile().c_str());
+	}
+	if(clp.IsDebugOn())	printf("IsuzuDeltaEmissionsTest (%d, %s): Terminating\n", BposGetMyTaskId(), clp.GetConfigFile().c_str());
+	// Delete the test component
+	if (emissionsTest != NULL)  delete emissionsTest;
+	emissionsTest = NULL;
+	// Return control
+	return (1);
+}

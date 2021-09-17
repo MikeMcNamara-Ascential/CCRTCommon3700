@@ -90,6 +90,7 @@ public:
      */
     bool& IsBGTestComplete(void);
     void OxygenSensorMonitor(); 
+    string Setup(void);
 
 protected:
 

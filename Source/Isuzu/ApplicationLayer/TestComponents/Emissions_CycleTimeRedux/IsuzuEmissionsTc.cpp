@@ -17,7 +17,8 @@
 
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
-IsuzuEmissionsTc<ModuleType>::IsuzuEmissionsTc() : GenericEmissionsTCTemplate<ModuleType>()
+IsuzuEmissionsTc<ModuleType>::IsuzuEmissionsTc() : GenericEmissionsTCTemplate<ModuleType>(),
+    m_backgroundComponent(NULL)
 {   // Nothing special to do here
 }
 
@@ -55,6 +56,57 @@ IsuzuEmissionsTc<ModuleType>::~IsuzuEmissionsTc()
         delete m_backgroundComponent;
     }
     m_backgroundComponent = NULL; 
+}
+
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::Setup(void)
+{   // Ensure the vehicle is connected
+    Log(LOG_FN_ENTRY, "%s::%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    string testResult(BEP_TESTING_STATUS);
+    string vehicleConnectedResult(BEP_TESTING_STATUS);
+    string testResultCode("0000");
+    string testDescription(GetTestStepInfo("Description"));
+    if (CheckCableConnect())
+    {   //Check if we need to set up communications link
+        if (GetParameterBool("DelayModuleInitialization"))
+        {   //Set up comminictions link (right or left)
+            testResult = GenericTCTemplate<ModuleType>::Setup();
+            testResultCode = (testPass == testResult ? "0000" : GetFaultCode("SoftwareFailure"));
+            testDescription = (testPass == testResult ? GetTestStepInfo("Description") : GetFaultDescription("SoftwareFailure"));
+            Log(LOG_ERRORS, "Module Interface initialization: %s", testResult.c_str());
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "Module Interface already initialized.");
+            testResult = testPass;
+        }
+        // Determine if we are ready to start talking to the module
+        if (!testResult.compare(testPass))
+        {
+            testResult = testPass; //GetParameterBool("SkipVehicleConnectCheck") || VehicleConnected() ? testPass : testFail;
+            testResultCode = testPass == testResult ? "0000" : GetFaultCode("VehicleNotConnected");
+            testDescription = testPass == testResult ? GetTestStepInfo("Description") : GetFaultDescription("VehicleNotConnected");
+            vehicleConnectedResult = testResult;
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not initialize module interface!  ABORT!");
+        }
+    }
+    else
+    {
+        Log(LOG_ERRORS, "Timeout waiting for cable to be connected");
+        testResult = testTimeout;
+        testResultCode = GetFaultCode("PreconditionTimeout");
+        testDescription = GetFaultDescription("PreconditionTimeout");
+    }
+    // Report the result
+    SendTestResult(testResult, testDescription, testResultCode);
+
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    return testResult;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -2006,7 +2058,7 @@ inline bool& IsuzuEmissionsTc<ModuleType>::IsBGTestComplete(void)
 
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
-string IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
+void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
 {
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::OxygenSensorMonitor() - Enter");
 
@@ -2063,7 +2115,7 @@ string IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         //Update engine speed to make sure that we are idling
         engineStatus = m_vehicleModule.ReadModuleData("ReadEngineSpeedSensor", engineSpeedValue );
         bool overallSensorReadStatusOk = true;
-        if (m_engineSpeedValue <= engineMaxIdleSpeedValue)
+        if (engineSpeedValue <= engineMaxIdleSpeedValue)
         { //Engine is idling so read sensors
             for (int sensorNum = 0; sensorNum < 4; sensorNum++)
             { 
@@ -2072,7 +2124,7 @@ string IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
                     sensorReadStatus[sensorNum] = ReadAndProcessO2Sensor(sensorName[sensorNum], &sensorBandLimits[sensorNum][0],
                                            &sensorCounts[sensorNum][0], sensorLastBand[sensorNum]);
                 else if (m_oxygenSensorSampleCount == 0 || m_oxygenSensorSampleCount == (minSamples - 1))
-                    sensorReadStatus[sensorNum] = ReadAndProcessO2Sensor(sensorName[sensorNum], sensorFLVals[sensorNum][0], m_oxygenSensorSampleCount);
+                    sensorReadStatus[sensorNum] = ReadAndProcessO2Sensor(sensorName[sensorNum], &sensorFLVals[sensorNum][0], m_oxygenSensorSampleCount);
 
                 if (sensorReadStatus[sensorNum] != BEP_STATUS_SUCCESS)
                     overallSensorReadStatusOk = false;
@@ -2080,8 +2132,8 @@ string IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         }
         else
         {
-            Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Not reading Oxygen Sensors because engine RPM is too high - Current Sample Count: %d/%d",
-                m_oxygenSensorSampleCount, minSamples);
+            Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Not reading Oxygen Sensors because engine RPM is too high %d (Max: %d) - Current Sample Count: %d/%d",
+                engineSpeedValue, engineMaxIdleSpeedValue, m_oxygenSensorSampleCount, minSamples); 
         }
 
         // Allow failed sensor reads but do not count them toward total
@@ -2096,7 +2148,7 @@ string IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         }
 
         SendSubtestResult("OxygenSensorMonitor", testFail, 
-                          CreateMessage(buffer, sizeof(buffer), "O2 Sensor Monitor: %d%% Complete", 
+                          CreateMessage(buff, sizeof(buff), "O2 Sensor Monitor: %d%% Complete",
                                         m_oxygenSensorSampleCount/minSamples * 100), "0000");
 
         //foreground mutex will aquire mutex once background test should end
@@ -2122,10 +2174,10 @@ string IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         {
             string result(BEP_TESTING_RESPONSE);
 
-            if (!s1TestDelta)
-                result = AnalyzeO2SensorData(sensorName[sensorNum], sensorCounts[sensorNum][0]);
+            if (!sensorTestDelta[sensorNum])
+                result = AnalyzeO2SensorData(sensorName[sensorNum], &sensorCounts[sensorNum][0]);
             else
-                result = AnalyzeO2SensorDelta(sensorName[sensorNum], sensorFLVals[sensorNum][0]);
+                result = AnalyzeO2SensorDelta(sensorName[sensorNum], &sensorFLVals[sensorNum][0]);
             Log(LOG_DEV_DATA, "OxygenSensorMonitor ::  %s finished analysis with a result of %s",
                 sensorName[sensorNum].c_str(), result.c_str());
             m_oxygenSensorAnalysisOk[sensorNum] = result.compare(testPass) == 0 ? true : false;

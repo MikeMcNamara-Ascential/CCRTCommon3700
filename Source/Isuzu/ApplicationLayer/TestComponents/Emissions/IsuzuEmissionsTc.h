@@ -18,6 +18,7 @@
 #include "GenericEmissionsTCTemplate.cpp"
 #include "BackgroundSwitchMonitor.cpp"
 #include "BackgroundRangeCheckMonitor.cpp"
+#include "O2SBackgroundComponent.cpp" // Class to create background thread
 #include <vector>
 
 //class XmlNodeMap;
@@ -62,6 +63,34 @@ public:
      */
     virtual const INT32 HandlePulse(const INT32 code, const INT32 value);
 
+    /**
+     * Signals that the test is complete.
+     * <br><p>
+     * <b>Category:</b> Utility
+     * <br><p>
+     * <b>Description:</b><br>
+     * Flag that signals TPM test is complete is set.
+     * <br><p>
+     */
+    void SetBGTestComplete();
+    /**
+     * Checks if the TPM test is complete.
+     * <br><p>
+     * <b>Category:</b> Utility
+     * <br><p>
+     * <b>Description:</b><br>
+     * Used to determine when background component is complete.
+     * <br><p>
+     * 
+     * @return Flag representing if the TPM test is complete
+     *      <ul>
+     *      <li> True - The TPM test has been completed. </li>
+     *      <li> False - The TPM test has <i> not </i> been completed. </li>
+     *      </ul>
+     */
+    bool& IsBGTestComplete(void);
+    void OxygenSensorMonitor(); 
+    string Setup(void);
 
 protected:
 
@@ -76,6 +105,8 @@ protected:
      * @param config The configuration data to use for initializing the test component.
      */
     virtual void InitializeHook(const XmlNode *config);
+
+    virtual void WarmInitialize(); 
 
 
 private:
@@ -467,6 +498,92 @@ private:
     XmlNodeMap m_rangeCheckMonitorItems;
 
     bool m_mafLearnComplete;
+
+    /**
+     * Used to create a background component object to
+     * start a thread running so the component can be run
+     * in the background
+     */
+    O2SBackgroundComponent<ModuleType> *m_backgroundComponent;
+    int m_oxygenSensorSampleCount;
+    bool m_oxygenSensorAnalysisOk[4];
+    BepMutex m_o2sBackgroundMutex; 
+    string WaitForOxygenSensorAnalysisComplete();
+
+    /**
+     * Creates a thread for testing component background tasks.
+     * <br><p>
+     * <b>Category:</b> Test Step
+     * <br><p>
+     * <b>Description:</b><br>
+     * This method starts a background component thread to
+     * perform the background portions of the test component.
+     * <br><p>
+     * 
+     * <b>Functions Called:</b><br>
+     * 		<ul>
+     *      <li> GetTestStepInfo() </li>
+     * 		<li> SendTestResult() </li>
+     * 		<li> ShortCircuitTestStep() </li>
+     * 		<li> Resume() </li>
+     * 		</ul>
+     * 
+     * @return Result of the test step starting the background component thread.
+     *      <ul>
+     *      <li> Pass - The background component thread was successfully started. </li>
+     *      <li> Fail - Unable to start the background component thread. </li>
+     *      <li> Skip - The background component thread does not need to be started. </li>
+     *      </ul>
+     */
+    string StartBackgroundComponent(void);
+    /**
+     * Completes the test component background tasks and removes the thread.
+     * <br><p>
+     * <b>Category:</b> Test Step
+     * <br><p>
+     * <b>Description:</b><br>
+     * This method sets the test conditions required to
+     * complete any unfinished portions of the background tests
+     * for the test component. It then deletes the thread object.
+     * <br><p>
+     * 
+     * <b>Functions Called:</b><br>
+     * 		<ul>
+     *      <li> IsTPMComplete() </li>
+     * 		<li> GetDataTag() </li>
+     * 		<li> GetComponentName() </li>
+     * 		<li> GetFaultDescription() </li>
+     * 		<li> GetFaultCode() </li>
+     * 		<li> GetTestStepName() </li>
+     * 		<li> GetTestStepInfo() </li>
+     * 		<li> GetTestStepInfoInt() </li>
+     * 		<li> SendTestResult() </li>
+     * 		<li> SetTestDomain() </li>
+     * 		<li> ShortCircuitTestStep() </li>
+     * 		<li> TimeRemaining() </li>
+     * 		<li> StatusCheck() </li>
+     * 		<li> WaitUntilDone() </li>
+     * 		<li> BposSleep() (Bepos) </li>
+     * 		</ul>
+     * 
+     * @see Bepos
+     * 
+     * @return Result of stopping the background component thread.
+     *      <ul>
+     *      <li> Pass - The background component thread was terminated. </li>
+     *      <li> Fail - Unable to terminate the background component thread. </li>
+     *      <li> softwareFail - The background component thread does not exist. </li>
+     *      <li> Timeout - The background component thread was not started within the specified
+     *                     time frame. </li>
+     *      <li> Abort - A general system status failure caused the test to abort. </li>
+     *      </ul>
+     */
+    string StopBackgroundComponent(void);
+    /**
+     * Used by the background thread to indicate when it
+     * has completed its tasks
+     */
+    bool m_backgroundTestComplete;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //IsuzuEmissionsTc_h

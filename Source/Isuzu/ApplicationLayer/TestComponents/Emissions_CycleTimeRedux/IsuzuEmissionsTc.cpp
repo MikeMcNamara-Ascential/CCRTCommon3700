@@ -2137,6 +2137,7 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         {
             Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Not reading Oxygen Sensors because engine RPM is too high %d (Max: %d) - Current Sample Count: %d/%d",
                 engineSpeedValue, engineMaxIdleSpeedValue, m_oxygenSensorSampleCount, minSamples); 
+            overallSensorReadStatusOk = false;
         }
 
         // Allow failed sensor reads but do not count them toward total
@@ -2151,8 +2152,8 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         }
 
         SendSubtestResult("OxygenSensorMonitor", testFail, 
-                          CreateMessage(buff, sizeof(buff), "O2 Sensor Monitor: %d%% Complete",
-                                        m_oxygenSensorSampleCount/minSamples * 100), "0000");
+                          CreateMessage(buff, sizeof(buff), "O2 Sensor Monitor: %.1f%% Complete",
+                                        float((m_oxygenSensorSampleCount*100)/minSamples)), "0000");
 
         //foreground mutex will aquire mutex once background test should end
         endBackgroundMonitor = (m_o2sBackgroundMutex.TryAcquire() != EOK);
@@ -2223,15 +2224,19 @@ string IsuzuEmissionsTc<ModuleType>::WaitForOxygenSensorAnalysisComplete(void)
         SetStartTime();
         while (StatusCheck() == BEP_STATUS_SUCCESS && TimeRemaining() && !IsBGTestComplete())
         {
-            int percentComplete = m_oxygenSensorSampleCount / GetParameterInt("OxygenSensorSamples") * 100;
+            float percentComplete = float(m_oxygenSensorSampleCount * 100 / GetParameterInt("OxygenSensorSamples"));
             DisplayPrompt(GetPromptBox("CheckingO2Sensors"), GetPrompt("CheckingO2Sensors"),
-                          GetPromptPriority("CheckingO2Sensors"), "", CreateMessage(buffer, sizeof(buffer), "%d", percentComplete));
+                          GetPromptPriority("CheckingO2Sensors"), "", CreateMessage(buffer, sizeof(buffer), "%.1f", percentComplete));
             DisplayPrompt(GetPromptBox("EngineMustIdle"), GetPrompt("EngineMustIdle"),
                           GetPromptPriority("EngineMustIdle")); 
 
             BposSleep(scanDelay);
         }
     }
+    RemovePrompt(GetPromptBox("CheckingO2Sensors"), GetPrompt("CheckingO2Sensors"),
+                          GetPromptPriority("CheckingO2Sensors"));
+    RemovePrompt(GetPromptBox("EngineMustIdle"), GetPrompt("EngineMustIdle"),
+                          GetPromptPriority("EngineMustIdle")); 
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::WaitForOxygenSensorAnalysisComplete() Exit\n"); 
     return testResult;
 }

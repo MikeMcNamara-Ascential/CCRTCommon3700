@@ -19,6 +19,7 @@
 #include "BackgroundSwitchMonitor.cpp"
 #include "BackgroundRangeCheckMonitor.cpp"
 #include "DeltaO2SBackgroundComponent.cpp" // Class to create background thread
+#include "DeltaThrottleBackgroundComponent.cpp" // Class to create background thread
 #include <vector>
 
 //class XmlNodeMap;
@@ -90,6 +91,7 @@ public:
      */
     bool& IsBGTestComplete(void);
     void OxygenSensorMonitor(); 
+    void ThrottlePositionMonitor();
     string Setup(void);
 
 protected:
@@ -601,9 +603,11 @@ private:
      * in the background
      */
     DeltaO2SBackgroundComponent<ModuleType> *m_backgroundComponent;
+    DeltaThrottleBackgroundComponent<ModuleType> *m_throttlebackgroundComponent;
     int m_oxygenSensorSampleCount;
     bool m_oxygenSensorAnalysisOk[4];
-    BepMutex m_o2sBackgroundMutex; 
+    BepMutex m_o2sBackgroundMutex;
+    BepMutex m_ThrottleBackgroundMutex; 
     string WaitForOxygenSensorAnalysisComplete();
 
     /**
@@ -632,6 +636,7 @@ private:
      *      </ul>
      */
     string StartBackgroundComponent(void);
+    string StartThrottleBackgroundComponent(void);
     /**
      * Completes the test component background tasks and removes the thread.
      * <br><p>
@@ -675,6 +680,7 @@ private:
      *      </ul>
      */
     string StopBackgroundComponent(void);
+    string StopThrottleBackgroundComponent(void);
     /**
      * Used by the background thread to indicate when it
      * has completed its tasks

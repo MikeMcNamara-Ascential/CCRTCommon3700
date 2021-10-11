@@ -18,7 +18,7 @@
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
 IsuzuDeltaEmissionsTc<ModuleType>::IsuzuDeltaEmissionsTc() : GenericEmissionsTCTemplate<ModuleType>(),
-    m_backgroundComponent(NULL)
+    m_backgroundComponent(NULL), m_throttlebackgroundComponent(NULL)
 {   // Nothing special to do here
 }
 
@@ -54,6 +54,15 @@ IsuzuDeltaEmissionsTc<ModuleType>::~IsuzuDeltaEmissionsTc()
         m_o2sBackgroundMutex.Release();
         delete m_backgroundComponent;
     }
+    // Ensure background component is gone
+    if (m_throttlebackgroundComponent != NULL)
+    {
+        m_ThrottleBackgroundMutex.Acquire();
+        m_throttlebackgroundComponent->WaitUntilDone();
+        m_ThrottleBackgroundMutex.Release();
+        delete m_throttlebackgroundComponent;
+    }
+    m_throttlebackgroundComponent = NULL;
     m_backgroundComponent = NULL; 
 }
 //-------------------------------------------------------------------------------------------------
@@ -204,6 +213,8 @@ const string IsuzuDeltaEmissionsTc<ModuleType>::CommandTestStep(const string &va
             else if (!GetTestStepName().compare("ReadFaultsJ1939"))                     testResult = ReadFaultsJ1939();
             else if (!GetTestStepName().compare("StartBackgroundComponent"))            testResult = StartBackgroundComponent();
             else if (!GetTestStepName().compare("StopBackgroundComponent"))             testResult = StopBackgroundComponent();
+            else if (!GetTestStepName().compare("StartThrottleBackgroundComponent"))            testResult = StartThrottleBackgroundComponent();
+            else if (!GetTestStepName().compare("StopThrottleBackgroundComponent"))             testResult = StopThrottleBackgroundComponent();
 
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
@@ -2349,7 +2360,8 @@ string IsuzuDeltaEmissionsTc<ModuleType>::AnalyzeO2SensorData(string O2Name, int
                                 "HighBandCount", CreateMessage(highCountStr, sizeof(highCountStr), "%d", counts[2]), "Count",
                                 "BandSwitches", CreateMessage(switchCountStr, sizeof(switchCountStr), "%d", counts[3]), "Count");
 
-    return testResult;
+    //Return pass as Isuzu does not want to report fail if voltage readings are off
+    return testPass;
 
 }
 
@@ -4458,6 +4470,15 @@ void IsuzuDeltaEmissionsTc<ModuleType>::WarmInitialize()
         m_o2sBackgroundMutex.Release();
         delete m_backgroundComponent;
     }
+    // Ensure throttle background component is gone
+    if (m_throttlebackgroundComponent != NULL)
+    {
+        m_ThrottleBackgroundMutex.Acquire();
+        m_throttlebackgroundComponent->WaitUntilDone();
+        m_ThrottleBackgroundMutex.Release();
+        delete m_throttlebackgroundComponent;
+    }
+    m_throttlebackgroundComponent = NULL;
     m_backgroundComponent = NULL; 
     Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::WarmInitialize - exit");
 }
@@ -4579,8 +4600,9 @@ string IsuzuDeltaEmissionsTc<ModuleType>::StopBackgroundComponent(void)
     }
     // Log method exit
     Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::StopBackgroundComponent() Exit\n");
-    // return method result
-    return (testResult);
+    // return method with result pass. Isuzu does not want to fully fail this test as long as we include the failures
+    //in test result details
+    return (testPass);
 }
 
 //-----------------------------------------------------------------------------
@@ -4607,6 +4629,7 @@ void IsuzuDeltaEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
     UINT16 engineMaxIdleSpeedValue = GetParameterInt("MaximumEngineSpeed");
     UINT32 minSamples = GetParameterInt("OxygenSensorSamples");
     UINT32 scanDelay = GetParameterInt("OxygenSensorPeriodTime");
+    float acceleratorPedalPos1 = 0;
 
     string sensorName[] = { GetDataTag("OxygenSensor1Name"), GetDataTag("OxygenSensor2Name"), 
         GetDataTag("OxygenSensor3Name"), GetDataTag("OxygenSensor4Name") };
@@ -4677,7 +4700,7 @@ void IsuzuDeltaEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         else
         {
             Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Not reading Oxygen Sensors because engine RPM is too high %d (Max: %d) - Current Sample Count: %d/%d",
-                engineSpeedValue, engineMaxIdleSpeedValue, m_oxygenSensorSampleCount, minSamples); 
+                engineSpeedValue, engineMaxIdleSpeedValue, m_oxygenSensorSampleCount, minSamples);         
             overallSensorReadStatusOk = false;
         }
 
@@ -4782,5 +4805,155 @@ string IsuzuDeltaEmissionsTc<ModuleType>::WaitForOxygenSensorAnalysisComplete(vo
                           GetPromptPriority("EngineMustIdle")); 
     Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::WaitForOxygenSensorAnalysisComplete() Exit\n"); 
     return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+void IsuzuDeltaEmissionsTc<ModuleType>::ThrottlePositionMonitor(void)
+{
+    Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::ThrottlePositionMonitor() - Enter");
+    bool endBackgroundMonitor = false; 
+    string throttleRange = GetParameter("GearThrottleRange");
+    float acceleratorPedalPos1 = 0;
+    BEP_STATUS_TYPE throttleStatus;
+
+     //Display TPS
+     SystemWrite(GetDataTag("TPSActive"), true);
+     SystemWrite(GetDataTag("TPSTarget"), throttleRange);
+
+    do
+    {
+        //Read throttle position from module and update the screen
+        throttleStatus = m_vehicleModule.ReadModuleData("ReadAcceleratorPedalPosition1", acceleratorPedalPos1);
+        if (throttleStatus == BEP_STATUS_SUCCESS)
+        { //Successful read of throttle position
+
+            Log(LOG_DEV_DATA, "ThrottlePositionMonitor :: Updating TPS display");
+            SystemWrite("TPSValue", (int)acceleratorPedalPos1);
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "ThrottlePositionMonitor :: Could not Update TPS display");
+        }
+
+        //foreground mutex will aquire mutex once background test should end
+        endBackgroundMonitor = (m_ThrottleBackgroundMutex.TryAcquire() != EOK);
+        if (!endBackgroundMonitor)
+        {
+            m_ThrottleBackgroundMutex.Release();
+            BposSleep(1000);
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "ThrottlePositionMonitor :: Background Component signaled to end by mutex\n");
+        }
+
+    }
+    while (!endBackgroundMonitor && StatusCheck() == BEP_STATUS_SUCCESS);
+
+    Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::ThrottlePositionMonitor() - Exit");
+    return;
+
+}
+
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string IsuzuDeltaEmissionsTc<ModuleType>::StartThrottleBackgroundComponent(void)
+{
+    string testResult(testPass);    // Report test step result
+    string testDescription(GetTestStepInfo("Description"));     // Report test step description
+    string testResultCode("0000");      // Report test step code
+                                        // Log method entry
+    Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::StartThrottleBackgroundComponent() Enter\n");
+    if (ShortCircuitTestStep())
+    {   // Need to skip this test step
+        testResult = testSkip;
+    }
+    else
+    {
+        // Check if backgroundComponent already exists
+        if (m_throttlebackgroundComponent == NULL)
+        {   // Create background component thread
+            m_throttlebackgroundComponent = new DeltaThrottleBackgroundComponent<ModuleType>(this);
+            // Start the thread running
+            m_throttlebackgroundComponent->Resume(false);
+        }
+        else
+        {   // BackgroundComponent already exists, do not need to start another
+            Log(LOG_DEV_DATA, "Background Component exists, do not need to start\n");
+        }
+
+    }
+    // Report test results to test result server
+    SendTestResult(testResult, testDescription, testResultCode);
+    // Log method exit
+    Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::StartThrottleBackgroundComponent() Exit\n");
+    return testResult;
+}
+
+
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string IsuzuDeltaEmissionsTc<ModuleType>::StopThrottleBackgroundComponent(void)
+{
+    INT32 scanDelay = GetTestStepInfoInt("ScanDelay");  // Used to control loop cycle time
+    string testResult(testFail);    // Report test step result
+    string testDescription(GetTestStepInfo("Description"));     // Report test step description
+    string testResultCode("0000");      // Report test step code
+                                        // Log method entry
+    Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::StopThrottleBackgroundComponent() Enter\n");
+    if (ShortCircuitTestStep())
+    {   // Need to skip this test step
+        testResult = testSkip;
+    }
+    else
+    {
+        // Set up variables for reporting test information and results
+        if (StatusCheck() != BEP_STATUS_SUCCESS)
+        {   // System status failure
+            Log(LOG_ERRORS, "%s:%s Status Check Failure\n", GetComponentName().c_str(), GetTestStepName().c_str());
+            testResult = testAbort;
+            testDescription = GetFaultDescription("StatusCheckFailure");
+            testResultCode = GetFaultCode("StatusCheckFailure");
+        }
+        else if (m_throttlebackgroundComponent == NULL)
+        {   // m_backgroundComponent never created
+            Log(LOG_ERRORS, "%s:%s Background component thread does not exist", GetComponentName().c_str(), GetTestStepName().c_str());
+            testResult = testSoftwareFail;
+            testDescription = GetFaultDescription("SoftwareFailure");
+            testResultCode = GetFaultCode("SoftwareFailure");
+        }
+        else
+        {   // Everything clear, good to delete object
+            bool conditionsMet = true; 
+            Log(LOG_DEV_DATA, "Aggregate Throttle Result: %s\n", conditionsMet ? testPass.c_str() : testFail.c_str());
+            testResult = conditionsMet ? testPass : testFail;
+            testDescription = conditionsMet ? testDescription : "Throttle reading failed";
+        }
+        // Remove Background component
+        if (m_throttlebackgroundComponent != NULL)
+        {   // delete the background object
+            m_ThrottleBackgroundMutex.Acquire();
+            m_throttlebackgroundComponent->WaitUntilDone();
+            m_ThrottleBackgroundMutex.Release();
+            if (m_throttlebackgroundComponent != NULL)
+            {
+                delete m_throttlebackgroundComponent;
+            }
+            m_throttlebackgroundComponent = NULL;
+        }
+        else
+        {   // background component does not exist
+            Log(LOG_DEV_DATA, "IsuzuDeltaEmissionsTc::StopThrottleBackgroundComponent() - Background Component did not exist\n");
+        }
+
+    }
+    //Remove TPS from screen
+    SystemWrite(GetDataTag("TPSTarget"), string("0 0"));
+    SystemWrite(GetDataTag("TPSActive"), false);
+    // Log method exit
+    Log(LOG_FN_ENTRY, "IsuzuDeltaEmissionsTc::StopThrottleBackgroundComponent() Exit\n");
+    // return method result
+    return (testResult);
 }
 

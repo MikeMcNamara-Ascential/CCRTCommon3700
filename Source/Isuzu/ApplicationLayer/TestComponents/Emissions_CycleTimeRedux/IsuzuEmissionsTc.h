@@ -19,6 +19,7 @@
 #include "BackgroundSwitchMonitor.cpp"
 #include "BackgroundRangeCheckMonitor.cpp"
 #include "O2SBackgroundComponent.cpp" // Class to create background thread
+#include "ThrottleBackgroundComponent.cpp" // Class to create background thread
 #include <vector>
 
 //class XmlNodeMap;
@@ -90,6 +91,7 @@ public:
      */
     bool& IsBGTestComplete(void);
     void OxygenSensorMonitor(); 
+    void ThrottlePositionMonitor(); 
     string Setup(void);
 
 protected:
@@ -505,9 +507,11 @@ private:
      * in the background
      */
     O2SBackgroundComponent<ModuleType> *m_backgroundComponent;
+    ThrottleBackgroundComponent<ModuleType> *m_throttlebackgroundComponent;
     int m_oxygenSensorSampleCount;
     bool m_oxygenSensorAnalysisOk[4];
     BepMutex m_o2sBackgroundMutex; 
+    BepMutex m_ThrottleBackgroundMutex; 
     string WaitForOxygenSensorAnalysisComplete();
 
     /**
@@ -536,6 +540,7 @@ private:
      *      </ul>
      */
     string StartBackgroundComponent(void);
+    string StartThrottleBackgroundComponent(void);
     /**
      * Completes the test component background tasks and removes the thread.
      * <br><p>
@@ -579,6 +584,7 @@ private:
      *      </ul>
      */
     string StopBackgroundComponent(void);
+    string StopThrottleBackgroundComponent(void);
     /**
      * Used by the background thread to indicate when it
      * has completed its tasks

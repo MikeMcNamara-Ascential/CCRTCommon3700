@@ -2215,6 +2215,8 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Exiting without capturing the min sample count (%d/%d)",
             m_oxygenSensorSampleCount, minSamples);
 
+        SendSubtestResult("OxygenSensorMonitor", testFail, "Failed to capture enough samples", "0000"); 
+
         Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Module Status: %s - EndMonitor: %s",
             engineStatus == BEP_STATUS_SUCCESS ? "OK" : "NOK", endBackgroundMonitor ? "Yes" : "No");
     }
@@ -2516,7 +2518,7 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
     BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read"+O2Name+"Sensor", sensorValue);
     if (status==BEP_STATUS_SUCCESS)
     {
-        if (sensorValue<=limits[0])
+        if (sensorValue < limits[0])
         { //In Low Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=Low", O2Name.c_str(), sensorValue);
             counts[0]++; //Increment Low Band count
@@ -2527,7 +2529,9 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
                 lastBand = "Low";
             }
         }
-        else if (limits[1]<=sensorValue && sensorValue<=limits[2])
+        //Make sure to limit[1] is open low band limit; limit[2] is open high band limit
+        //Sensor Readings between low band limit and high band limit
+        else if (sensorValue >= limits[0] && sensorValue<=limits[3])
         { //In Open Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=Open", O2Name.c_str(), sensorValue);
             counts[1]++; //Increment Open Band count
@@ -2541,7 +2545,7 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
             }
             */
         }
-        else if (limits[3]<=sensorValue)
+        else if (sensorValue > limits[3])
         { //In High Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=High", O2Name.c_str(), sensorValue);
             counts[2]++; //Increment High Band count
@@ -2552,9 +2556,10 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
                 lastBand = "High";
             }
         }
+        //Remove this none count
         else
         { //Not in any of the bands
-            Log(LOG_DEV_DATA, "%s Value=%.3f, Band=None", O2Name.c_str(), sensorValue);
+            //Log(LOG_DEV_DATA, "%s Value=%.3f, Band=None", O2Name.c_str(), sensorValue);
         }
     }
 
@@ -2595,6 +2600,7 @@ string IsuzuEmissionsTc<ModuleType>::AnalyzeO2SensorData(string O2Name, int coun
     char openCountStr[16];
     char highCountStr[16];
     char switchCountStr[16];
+    char totalSampleStr[16];
 
     if (counts[0]*100/numSamples > GetParameterInt(O2Name+"MaxPercentLow"))
     {
@@ -2629,10 +2635,11 @@ string IsuzuEmissionsTc<ModuleType>::AnalyzeO2SensorData(string O2Name, int coun
         testResult = testPass;
 
     SendSubtestResultWithDetail(GetTestStepName()+"_"+O2Name, testResult, testDescription, "0000", 
-                                "LowBandCount", CreateMessage(lowCountStr, sizeof(lowCountStr), "%d", counts[0]), "Count", 
-                                "OpenBandCount", CreateMessage(openCountStr, sizeof(openCountStr), "%d", counts[1]), "Count",
-                                "HighBandCount", CreateMessage(highCountStr, sizeof(highCountStr), "%d", counts[2]), "Count",
-                                "BandSwitches", CreateMessage(switchCountStr, sizeof(switchCountStr), "%d", counts[3]), "Count");
+                                "LowBandCount", CreateMessage(lowCountStr, sizeof(lowCountStr), "%d/%d", counts[0],numSamples), "Count", 
+                                "OpenBandCount", CreateMessage(openCountStr, sizeof(openCountStr), "%d/%d", counts[1],numSamples), "Count",
+                                "HighBandCount", CreateMessage(highCountStr, sizeof(highCountStr), "%d/%d", counts[2],numSamples), "Count",
+                                "BandSwitches", CreateMessage(switchCountStr, sizeof(switchCountStr), "%d", counts[3]), "Count",
+                                "TotalSamples", CreateMessage(switchCountStr, sizeof(totalSampleStr),"%d", numSamples), "Count");
 
     //Return pass as Isuzu does not want to report fail if voltage readings are off
     return testPass;

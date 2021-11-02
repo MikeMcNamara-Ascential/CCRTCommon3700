@@ -9,7 +9,7 @@
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
-         <DeveloperTest>1</DeveloperTest>
+         <DeveloperTest>0</DeveloperTest>
          <Port>ISOK</Port>
          <UseFastInitLinkup>True</UseFastInitLinkup>
          <DelayModuleInitialization>0</DelayModuleInitialization>

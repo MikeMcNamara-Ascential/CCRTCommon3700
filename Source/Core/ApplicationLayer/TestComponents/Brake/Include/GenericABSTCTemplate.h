@@ -2467,6 +2467,9 @@ protected:
     vector<BrakeDataStats> m_absStats;
 	/** Result of Evaluate ABS test.  This is used to determine if tests such as Sensor Cross analysis should be performed. */
 	string m_evalAbsResult;
+    /** Result Park Brake test.  This is used to determine if
+     *  park brakes needs to be retested */
+	string m_prevParkBrakeResult;
 };
 
 #endif  // GENERICABSTCTEMPLATE_H

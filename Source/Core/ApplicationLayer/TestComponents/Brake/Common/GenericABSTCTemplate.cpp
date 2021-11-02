@@ -142,7 +142,7 @@
 template <class VehicleModuleType>
 GenericABSTCTemplate<VehicleModuleType>::GenericABSTCTemplate() :
 GenericTCTemplate<VehicleModuleType>(), m_isFourChannelSystem(false), m_absStartIndex(0),
-m_absEndIndex(0),m_isESPEquipped(false), m_evalAbsResult(BEP_TESTING_RESPONSE)
+m_absEndIndex(0),m_isESPEquipped(false), m_evalAbsResult(BEP_TESTING_RESPONSE),m_prevParkBrakeResult(BEP_TESTING_RESPONSE)
 {   // Create a BaseBrakeTool utility object
     m_baseBrakeTool = new BaseBrakeTool(this);
 }
@@ -212,6 +212,7 @@ void GenericABSTCTemplate<VehicleModuleType>::WarmInitialize(void)
         m_reduxRecovIndex[wheelIndex].reductionStart = 0;
     }
     m_evalAbsResult = BEP_TESTING_RESPONSE;
+    m_prevParkBrakeResult = BEP_TESTING_RESPONSE;
     Log( LOG_FN_ENTRY, "Exit GenericABSTCTemplate::WarmInitialize()\n");
 }
 
@@ -3117,8 +3118,9 @@ string GenericABSTCTemplate<ModuleType>::StaticParkBrakeTest(void)
     string color = "Green";
     // Log the function entry
     Log(LOG_FN_ENTRY, "GenericABSTCTemplate::StaticParkBrakeTest - Enter\n");
-    // Determine if this test step should be performed
-    if(!ShortCircuitTestStep())
+    Log(LOG_DEV_DATA, "Checking Previous ParkBrake Result: %s", m_prevParkBrakeResult.c_str());
+    // Determine if this test step should be performed. Don't perform if passed previously
+    if(!ShortCircuitTestStep() && m_prevParkBrakeResult != testPass)
     {   // Attempt to observe the brake switch in the on position
    
         DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
@@ -3142,6 +3144,10 @@ string GenericABSTCTemplate<ModuleType>::StaticParkBrakeTest(void)
         SystemWrite("RightFrontParkBrakeForceBGColor", color);
 
         RemovePrompts();
+
+        //Set ParkBrake results. This is for retestting purposes
+        m_prevParkBrakeResult = testResult;
+
         // Report the result
         SendTestResult(testResult, testDescription, testResultCode);
     }

@@ -130,7 +130,7 @@
             <!-- Engine Oil Pressure Parameters -->
             <EngineOilPressureUnits>kPa</EngineOilPressureUnits>
             <MinimumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Minimum operating engine oil pressure">23</MinimumEngineOilPressure>
-            <MaximumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Maximum operating engine oil pressure">150</MaximumEngineOilPressure>
+            <MaximumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Maximum operating engine oil pressure">45</MaximumEngineOilPressure>
             <EngineOilLevelLowCompareValue>True</EngineOilLevelLowCompareValue>
             <EngineOilPressureLowCompareValue>True</EngineOilPressureLowCompareValue>
             <PedalPositionSensorsAgreeCompareValue>False</PedalPositionSensorsAgreeCompareValue>
@@ -214,45 +214,45 @@
             <MisfireCatalystFailureCompareValue>False</MisfireCatalystFailureCompareValue>
             <MisfireEmissionsFailureCompareValue>False</MisfireEmissionsFailureCompareValue>
             <!-- Oxygen Sensor Parameters -->
-            <OxygenSensorSamples>150</OxygenSensorSamples>
+            <OxygenSensorSamples>60</OxygenSensorSamples>
             <OxygenSensorPeriodTime Units="ms">20</OxygenSensorPeriodTime>
             <OxygenSensor1Bank1Units>V</OxygenSensor1Bank1Units>
             <OxygenSensor1Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor1Bank1LBandLimit>
             <OxygenSensor1Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank1OBandLowLimit>
             <OxygenSensor1Bank1OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank1OBandHighLimit>
             <OxygenSensor1Bank1HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank1HBandLimit>
-            <OxygenSensor1Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor1Bank1MaxPercentLow>
-            <OxygenSensor1Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank1MaxPercentOpen>
-            <OxygenSensor1Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor1Bank1MaxPercentHigh>
-            <OxygenSensor1Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor1Bank1MinBandSwitches>
+            <OxygenSensor1Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor1Bank1MaxPercentLow>
+            <OxygenSensor1Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">99</OxygenSensor1Bank1MaxPercentOpen>
+            <OxygenSensor1Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor1Bank1MaxPercentHigh>
+            <OxygenSensor1Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor1Bank1MinBandSwitches>
             <OxygenSensor1Bank2Units>V</OxygenSensor1Bank2Units>
             <OxygenSensor1Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor1Bank2LBandLimit>
             <OxygenSensor1Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank2OBandLowLimit>
             <OxygenSensor1Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank2OBandHighLimit>
             <OxygenSensor1Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank2HBandLimit>
             <OxygenSensor1Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor1Bank2MaxPercentLow>
-            <OxygenSensor1Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank2MaxPercentOpen>
+            <OxygenSensor1Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">99</OxygenSensor1Bank2MaxPercentOpen>
             <OxygenSensor1Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor1Bank2MaxPercentHigh>
             <OxygenSensor1Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor1Bank2MinBandSwitches>
             <OxygenSensor2Bank1Units>V</OxygenSensor2Bank1Units>
-            <OxygenSensor2Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank1LBandLimit>
+            <OxygenSensor2Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor2Bank1LBandLimit>
             <OxygenSensor2Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank1OBandLowLimit>
             <OxygenSensor2Bank1OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank1OBandHighLimit>
             <OxygenSensor2Bank1HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank1HBandLimit>
-            <OxygenSensor2Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">90</OxygenSensor2Bank1MaxPercentLow>
-            <OxygenSensor2Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank1MaxPercentOpen>
-            <OxygenSensor2Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor2Bank1MaxPercentHigh>
-            <OxygenSensor2Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor2Bank1MinBandSwitches>
+            <OxygenSensor2Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor2Bank1MaxPercentLow>
+            <OxygenSensor2Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">99</OxygenSensor2Bank1MaxPercentOpen>
+            <OxygenSensor2Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor2Bank1MaxPercentHigh>
+            <OxygenSensor2Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank1MinBandSwitches>
             <OxygenSensor2Bank1TestDelta>False</OxygenSensor2Bank1TestDelta>
             <OxygenSensor2Bank1MinDeltaPercent>-50</OxygenSensor2Bank1MinDeltaPercent>
             <OxygenSensor2Bank1MaxDeltaPercent>-2</OxygenSensor2Bank1MaxDeltaPercent>
             <OxygenSensor2Bank2Units>V</OxygenSensor2Bank2Units>
-            <OxygenSensor2Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank2LBandLimit>
+            <OxygenSensor2Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor2Bank2LBandLimit>
             <OxygenSensor2Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank2OBandLowLimit>
             <OxygenSensor2Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank2OBandHighLimit>
             <OxygenSensor2Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank2HBandLimit>
             <OxygenSensor2Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor2Bank2MaxPercentLow>
-            <OxygenSensor2Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank2MaxPercentOpen>
+            <OxygenSensor2Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">90</OxygenSensor2Bank2MaxPercentOpen>
             <OxygenSensor2Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor2Bank2MaxPercentHigh>
             <OxygenSensor2Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank2MinBandSwitches>
             <OxygenSensor2Bank2TestDelta>False</OxygenSensor2Bank2TestDelta>

@@ -136,6 +136,13 @@
             </ForegroundObjectives>
         </TestPhase019>
 		
+		<TestPhase020 Description="Starting O2 Monitor" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective05 Description="Starting O2 Monitor" Result="" Timeout="" Component="Emissions">
+					<StartBackgroundO2Monitor/>
+				</Objective05>
+			</ForegroundObjectives>
+		</TestPhase020>		
         <!--TestPhase019 Description="ABS Pump Prime" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective15 Description="ABS Prime" Result="" Timeout="" Component="Brakes">
@@ -222,6 +229,13 @@
 
 
         <!-- Perform forward driving tests -->
+		<TestPhase200 Description="Turn on TPS" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="Turn on TPS" Result="" Timeout="" Component="Emissions">
+					<StartThrottleBackgroundComponent/>
+				</Objective0>
+			</ForegroundObjectives>
+		</TestPhase200>		
         <TestPhase205 Description="Acceleration testing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Wait for all transmission gears" Result="" Timeout="" Component="Transmission">
@@ -257,7 +271,13 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase220>
-
+		<TestPhase235 Description="Turn off TPS" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="Turn off TPS" Result="" Timeout="" Component="Emissions">
+					<StopThrottleBackgroundComponent/>
+				</Objective0>
+			</ForegroundObjectives>
+		</TestPhase235>
         <!-- Perform Brake Testing -->
         <TestPhase300 Description="Base Brake testing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
@@ -348,7 +368,8 @@
         <TestPhase750 Description="Read and analyze oxygen sensors" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective00 Description="Read and analyze oxygen sensors" Result="" Timeout="" Component="Emissions">
-                    <CheckOxygenSensors/>
+					<StopBackgroundO2Monitor/>
+					<!-- <CheckOxygenSensors/> -->
                 </Objective00>
             </ForegroundObjectives>
         </TestPhase750>

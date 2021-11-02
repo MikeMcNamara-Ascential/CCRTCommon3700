@@ -129,8 +129,8 @@
             <MaximumEngineOilTemperature Units="C" TestSteps="CheckEngineOilTemperature" Comment="Maximum operating engine oil temperature">210</MaximumEngineOilTemperature>
             <!-- Engine Oil Pressure Parameters -->
             <EngineOilPressureUnits>kPa</EngineOilPressureUnits>
-            <MinimumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Minimum operating engine oil pressure">100</MinimumEngineOilPressure>
-            <MaximumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Maximum operating engine oil pressure">250</MaximumEngineOilPressure>
+            <MinimumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Minimum operating engine oil pressure">23</MinimumEngineOilPressure>
+            <MaximumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Maximum operating engine oil pressure">45</MaximumEngineOilPressure>
             <EngineOilLevelLowCompareValue>True</EngineOilLevelLowCompareValue>
             <EngineOilPressureLowCompareValue>True</EngineOilPressureLowCompareValue>
             <PedalPositionSensorsAgreeCompareValue>False</PedalPositionSensorsAgreeCompareValue>
@@ -154,7 +154,7 @@
             <!-- MassAirFlow Parameters -->
             <MassAirFlowUnits>g/s</MassAirFlowUnits>
             <MinimumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Minimum operating MassAirFlow">10</MinimumMassAirFlow>
-            <MaximumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Maximum operating MassAirFlow">30</MaximumMassAirFlow>
+            <MaximumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Maximum operating MassAirFlow">35</MaximumMassAirFlow>
             <!-- Fan Speed Parameters -->
             <EngineFanUnits>RPM</EngineFanUnits>
             <MinimumActualFanSpeed Units="RPM" TestSteps="CheckEngineFan" Comment="Minimum actual fan speed">100</MinimumActualFanSpeed>
@@ -214,45 +214,45 @@
             <MisfireCatalystFailureCompareValue>False</MisfireCatalystFailureCompareValue>
             <MisfireEmissionsFailureCompareValue>False</MisfireEmissionsFailureCompareValue>
             <!-- Oxygen Sensor Parameters -->
-            <OxygenSensorSamples>1000</OxygenSensorSamples>
+            <OxygenSensorSamples>60</OxygenSensorSamples>
             <OxygenSensorPeriodTime Units="ms">20</OxygenSensorPeriodTime>
             <OxygenSensor1Bank1Units>V</OxygenSensor1Bank1Units>
             <OxygenSensor1Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor1Bank1LBandLimit>
             <OxygenSensor1Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank1OBandLowLimit>
             <OxygenSensor1Bank1OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank1OBandHighLimit>
             <OxygenSensor1Bank1HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank1HBandLimit>
-            <OxygenSensor1Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor1Bank1MaxPercentLow>
-            <OxygenSensor1Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank1MaxPercentOpen>
-            <OxygenSensor1Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor1Bank1MaxPercentHigh>
-            <OxygenSensor1Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor1Bank1MinBandSwitches>
+            <OxygenSensor1Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor1Bank1MaxPercentLow>
+            <OxygenSensor1Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">99</OxygenSensor1Bank1MaxPercentOpen>
+            <OxygenSensor1Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor1Bank1MaxPercentHigh>
+            <OxygenSensor1Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor1Bank1MinBandSwitches>
             <OxygenSensor1Bank2Units>V</OxygenSensor1Bank2Units>
             <OxygenSensor1Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor1Bank2LBandLimit>
             <OxygenSensor1Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank2OBandLowLimit>
             <OxygenSensor1Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank2OBandHighLimit>
             <OxygenSensor1Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank2HBandLimit>
             <OxygenSensor1Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor1Bank2MaxPercentLow>
-            <OxygenSensor1Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank2MaxPercentOpen>
+            <OxygenSensor1Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">99</OxygenSensor1Bank2MaxPercentOpen>
             <OxygenSensor1Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor1Bank2MaxPercentHigh>
             <OxygenSensor1Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor1Bank2MinBandSwitches>
             <OxygenSensor2Bank1Units>V</OxygenSensor2Bank1Units>
-            <OxygenSensor2Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank1LBandLimit>
+            <OxygenSensor2Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor2Bank1LBandLimit>
             <OxygenSensor2Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank1OBandLowLimit>
             <OxygenSensor2Bank1OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank1OBandHighLimit>
             <OxygenSensor2Bank1HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank1HBandLimit>
-            <OxygenSensor2Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">90</OxygenSensor2Bank1MaxPercentLow>
-            <OxygenSensor2Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank1MaxPercentOpen>
-            <OxygenSensor2Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor2Bank1MaxPercentHigh>
-            <OxygenSensor2Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor2Bank1MinBandSwitches>
+            <OxygenSensor2Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor2Bank1MaxPercentLow>
+            <OxygenSensor2Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">99</OxygenSensor2Bank1MaxPercentOpen>
+            <OxygenSensor2Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor2Bank1MaxPercentHigh>
+            <OxygenSensor2Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank1MinBandSwitches>
             <OxygenSensor2Bank1TestDelta>False</OxygenSensor2Bank1TestDelta>
             <OxygenSensor2Bank1MinDeltaPercent>-50</OxygenSensor2Bank1MinDeltaPercent>
             <OxygenSensor2Bank1MaxDeltaPercent>-2</OxygenSensor2Bank1MaxDeltaPercent>
             <OxygenSensor2Bank2Units>V</OxygenSensor2Bank2Units>
-            <OxygenSensor2Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank2LBandLimit>
+            <OxygenSensor2Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor2Bank2LBandLimit>
             <OxygenSensor2Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank2OBandLowLimit>
             <OxygenSensor2Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank2OBandHighLimit>
             <OxygenSensor2Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank2HBandLimit>
             <OxygenSensor2Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">100</OxygenSensor2Bank2MaxPercentLow>
-            <OxygenSensor2Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank2MaxPercentOpen>
+            <OxygenSensor2Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">90</OxygenSensor2Bank2MaxPercentOpen>
             <OxygenSensor2Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">100</OxygenSensor2Bank2MaxPercentHigh>
             <OxygenSensor2Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank2MinBandSwitches>
             <OxygenSensor2Bank2TestDelta>False</OxygenSensor2Bank2TestDelta>
@@ -341,10 +341,12 @@
             <ESNLength1D>10</ESNLength1D>
             <ESNLength2D>10</ESNLength2D>
             <EsnFileNameExtension>.ESN</EsnFileNameExtension>
+			<GearThrottleRange>36 46</GearThrottleRange>
         </Parameters>
         <Prompts>
             <AbortEngineTemp PromptBox="1" Priority="0" Duration="5000" TestSteps="WaitForEngineTemperature">AbortEngineTempTooHigh</AbortEngineTemp>
             <CableConnect PromptBox="1" Priority="0" TestSteps="EnterDiagnosticMode,Setup,StartModuleKeepAlive">ConnectCable</CableConnect>
+            <CycleKeyTEC PromptBox="1" Priority="0" TestSteps="ToothErrorCorrection">CycleKeyTEC</CycleKeyTEC>
             <CaseLearnInProgress PromptBox="1" Priority="0" TestSteps="CheckCASELearn">CaseLearnInProgress</CaseLearnInProgress>
             <CheckingO2Sensors PromptBox="1" Priority="0" TestSteps="CheckOxygenSensors">CheckingO2Sensors</CheckingO2Sensors>
             <DelayBeforeDtcRead PromptBox="1" Priority="0" TestSteps="DelayBeforeDtcRead">DelayBeforeDtcRead</DelayBeforeDtcRead>
@@ -360,6 +362,8 @@
             <ShiftToNeutral PromptBox="1" Priority="0" TestSteps="AcceleratorPedalWOTTest">ShiftToNeutral</ShiftToNeutral>
             <ShiftToN PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToNeutral</ShiftToN>
             <ShiftToPark PromptBox="2" Priority="0" Duration="3000" TestSteps="CheckCASELearn">ShiftToPark</ShiftToPark>
+            <ShiftToP PromptBox="1" Priority="0" TestSteps="ToothErrorCorrection">ShiftToPark</ShiftToP>
+            <RemoveFootFromAccelerator PromptBox="1" Priority="0" TestSteps="ToothErrorCorrection">RemoveFootFromAccelerator</RemoveFootFromAccelerator>
             <TurnEngineOffKeyOn PromptBox="2" Priority="0" TestSteps="Setup">TurnEngineOffAndKeyOn</TurnEngineOffKeyOn>
             <TurnOnAc PromptBox="2" Priority="0" TestSteps="CheckAcStatus">TurnOnAc</TurnOnAc>
             <WaitForEngineTemp PromptBox="2" Priority="0" TestSteps="WaitForEngineTemperature">WaitForEngineTemp</WaitForEngineTemp>
@@ -408,7 +412,7 @@
         </KeyOffEngineOffKeyOnNoStart>
         <EngineWarmUp>
             <TestStep10>CheckVIN</TestStep10>
-            <TestStep15>CheckPartNumbers</TestStep15>
+            <!--TestStep15>CheckPartNumbers</TestStep15-->
             <TestStep20>CheckSerialNumber</TestStep20>
             <TestStep25>WaitForEngineTemperature</TestStep25>
             <TestStep27>EnterDiagnosticMode</TestStep27>
@@ -477,9 +481,23 @@
 			<TestStep00>UnlockModuleSecurity</TestStep00>
 			<TestStep05>ToothErrorCorrection</TestStep05>
 		</ToothErrorCorrection>
+		<StartBackgroundO2Monitor>
+			<TestStep00>Setup</TestStep00>
+			<TestStep05>EnterDiagnosticMode</TestStep05>
+			<TestStep10>StartBackgroundComponent</TestStep10>
+		</StartBackgroundO2Monitor>
+		<StopBackgroundO2Monitor>
+			<TestStep05>StopBackgroundComponent</TestStep05>
+		</StopBackgroundO2Monitor>
+		<StartThrottleBackgroundComponent>
+			<TestStep10>StartThrottleBackgroundComponent</TestStep10>
+		</StartThrottleBackgroundComponent>
+		<StopThrottleBackgroundComponent>
+			<TestStep05>StopThrottleBackgroundComponent</TestStep05>
+		</StopThrottleBackgroundComponent>		
     </Objectives>
     <TestSteps>
-        <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="False"/>
+        <AccelerateToTestSpeed Result="" Timeout="90000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="False"/>
         <AcceleratorPedalWOTTest Result="" Timeout="30000" Description="Verify the read of a full accelerator pedal" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
         <AdjustCruiseMass Result="" Timeout="3000" AlwaysPerform="False" AbortIfFailed="False" Description="Change the mass value used by the Cruise for calculations" ScanDelay="250"/>
         <CheckAcStatus Result="" Timeout="10000" Description="Verify A/C is functional" ScanDelay="500" AlwaysPerform="False" AbortIfFailed="False"/>
@@ -544,5 +562,9 @@
         <UnlockModuleSecurity Result="" Timeout="50000" Description="Unlock Module Security" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
         <WaitForEngineRunning Result="" Timeout="20000" Description="Wait for the engine to be running" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
         <WaitForEngineTemperature Result="" Timeout="-1" Messages="ReadEngineTemperature" AlwaysPerform="True" Description="Wait for engine coolant temperature to be in operating range" ScanDelay="500" AbortIfFailed="False"/>
+		<StartBackgroundComponent Result="" ScanDelay="250" Timeout="500" Description="Start background O2 sensor monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
+		<StopBackgroundComponent Result="" ScanDelay="250" Timeout="50000" Description="Stop background O2 sensor monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
+		<StartThrottleBackgroundComponent Result="" ScanDelay="250" Timeout="500" Description="Start background Throttle monitoring" AlwaysPerform="True" AbortIfFailed="False"/>	
+		<StopThrottleBackgroundComponent Result="" ScanDelay="250" Timeout="50000" Description="Stop background Throttle monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
     </TestSteps>
 </IsuzuEmissionsTc>

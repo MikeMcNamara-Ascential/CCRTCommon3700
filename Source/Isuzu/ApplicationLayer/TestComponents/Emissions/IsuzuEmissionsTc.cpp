@@ -18,7 +18,7 @@
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
 IsuzuEmissionsTc<ModuleType>::IsuzuEmissionsTc() : GenericEmissionsTCTemplate<ModuleType>(),
-    m_backgroundComponent(NULL)
+    m_backgroundComponent(NULL), m_throttlebackgroundComponent(NULL)
 {   // Nothing special to do here
 }
 
@@ -55,6 +55,15 @@ IsuzuEmissionsTc<ModuleType>::~IsuzuEmissionsTc()
         m_o2sBackgroundMutex.Release();
         delete m_backgroundComponent;
     }
+    // Ensure background component is gone
+    if (m_throttlebackgroundComponent != NULL)
+    {
+        m_ThrottleBackgroundMutex.Acquire();
+        m_throttlebackgroundComponent->WaitUntilDone();
+        m_ThrottleBackgroundMutex.Release();
+        delete m_throttlebackgroundComponent;
+    }
+    m_throttlebackgroundComponent = NULL;
     m_backgroundComponent = NULL; 
 }
 
@@ -203,6 +212,8 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
                 testResult = StartBackgroundComponent();
             else if (!GetTestStepName().compare("StopBackgroundComponent"))
                 testResult = StopBackgroundComponent();
+            else if (!GetTestStepName().compare("StartThrottleBackgroundComponent"))            testResult = StartThrottleBackgroundComponent();
+            else if (!GetTestStepName().compare("StopThrottleBackgroundComponent"))             testResult = StopThrottleBackgroundComponent();
 
             else
                 testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
@@ -1918,6 +1929,15 @@ void IsuzuEmissionsTc<ModuleType>::WarmInitialize()
         delete m_backgroundComponent;
     }
     m_backgroundComponent = NULL; 
+    // Ensure throttle background component is gone
+    if (m_throttlebackgroundComponent != NULL)
+    {
+        m_ThrottleBackgroundMutex.Acquire();
+        m_throttlebackgroundComponent->WaitUntilDone();
+        m_ThrottleBackgroundMutex.Release();
+        delete m_throttlebackgroundComponent;
+    }
+    m_throttlebackgroundComponent = NULL;
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::WarmInitialize - exit");
 }
 
@@ -2038,8 +2058,9 @@ string IsuzuEmissionsTc<ModuleType>::StopBackgroundComponent(void)
     }
     // Log method exit
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::StopBackgroundComponent() Exit\n");
-    // return method result
-    return (testResult);
+    // return method with result pass. Isuzu does not want to fully fail this test as long as we include the failures
+    //in test result details
+    return (testPass);
 }
 
 //-----------------------------------------------------------------------------
@@ -2066,6 +2087,7 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
     UINT16 engineMaxIdleSpeedValue = GetParameterInt("MaximumEngineSpeed");
     UINT32 minSamples = GetParameterInt("OxygenSensorSamples");
     UINT32 scanDelay = GetParameterInt("OxygenSensorPeriodTime");
+    float acceleratorPedalPos1 = 0;
 
     string sensorName[] = { GetDataTag("OxygenSensor1Name"), GetDataTag("OxygenSensor2Name"), 
         GetDataTag("OxygenSensor3Name"), GetDataTag("OxygenSensor4Name") };
@@ -2100,7 +2122,7 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         }
     }
 
-    BEP_STATUS_TYPE engineStatus;
+    BEP_STATUS_TYPE engineStatus, throttleStatus;
     UINT16 engineSpeedValue = 0; 
     BEP_STATUS_TYPE sensorReadStatus[4] = { BEP_STATUS_SUCCESS, BEP_STATUS_SUCCESS, 
         BEP_STATUS_SUCCESS, BEP_STATUS_SUCCESS};
@@ -2137,6 +2159,7 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         {
             Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Not reading Oxygen Sensors because engine RPM is too high %d (Max: %d) - Current Sample Count: %d/%d",
                 engineSpeedValue, engineMaxIdleSpeedValue, m_oxygenSensorSampleCount, minSamples); 
+            overallSensorReadStatusOk = false;
         }
 
         // Allow failed sensor reads but do not count them toward total
@@ -2191,6 +2214,8 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
     {
         Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Exiting without capturing the min sample count (%d/%d)",
             m_oxygenSensorSampleCount, minSamples);
+
+        SendSubtestResult("OxygenSensorMonitor", testFail, "Failed to capture enough samples", "0000"); 
 
         Log(LOG_DEV_DATA, "OxygenSensorMonitor :: Module Status: %s - EndMonitor: %s",
             engineStatus == BEP_STATUS_SUCCESS ? "OK" : "NOK", endBackgroundMonitor ? "Yes" : "No");
@@ -2493,7 +2518,7 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
     BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read"+O2Name+"Sensor", sensorValue);
     if (status==BEP_STATUS_SUCCESS)
     {
-        if (sensorValue<=limits[0])
+        if (sensorValue < limits[0])
         { //In Low Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=Low", O2Name.c_str(), sensorValue);
             counts[0]++; //Increment Low Band count
@@ -2504,7 +2529,9 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
                 lastBand = "Low";
             }
         }
-        else if (limits[1]<=sensorValue && sensorValue<=limits[2])
+        //Make sure to limit[1] is open low band limit; limit[2] is open high band limit
+        //Sensor Readings between low band limit and high band limit
+        else if (sensorValue >= limits[0] && sensorValue<=limits[3])
         { //In Open Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=Open", O2Name.c_str(), sensorValue);
             counts[1]++; //Increment Open Band count
@@ -2518,7 +2545,7 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
             }
             */
         }
-        else if (limits[3]<=sensorValue)
+        else if (sensorValue > limits[3])
         { //In High Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=High", O2Name.c_str(), sensorValue);
             counts[2]++; //Increment High Band count
@@ -2529,9 +2556,10 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
                 lastBand = "High";
             }
         }
+        //Remove this none count
         else
         { //Not in any of the bands
-            Log(LOG_DEV_DATA, "%s Value=%.3f, Band=None", O2Name.c_str(), sensorValue);
+            //Log(LOG_DEV_DATA, "%s Value=%.3f, Band=None", O2Name.c_str(), sensorValue);
         }
     }
 
@@ -2572,6 +2600,7 @@ string IsuzuEmissionsTc<ModuleType>::AnalyzeO2SensorData(string O2Name, int coun
     char openCountStr[16];
     char highCountStr[16];
     char switchCountStr[16];
+    char totalSampleStr[16];
 
     if (counts[0]*100/numSamples > GetParameterInt(O2Name+"MaxPercentLow"))
     {
@@ -2606,12 +2635,14 @@ string IsuzuEmissionsTc<ModuleType>::AnalyzeO2SensorData(string O2Name, int coun
         testResult = testPass;
 
     SendSubtestResultWithDetail(GetTestStepName()+"_"+O2Name, testResult, testDescription, "0000", 
-                                "LowBandCount", CreateMessage(lowCountStr, sizeof(lowCountStr), "%d", counts[0]), "Count", 
-                                "OpenBandCount", CreateMessage(openCountStr, sizeof(openCountStr), "%d", counts[1]), "Count",
-                                "HighBandCount", CreateMessage(highCountStr, sizeof(highCountStr), "%d", counts[2]), "Count",
-                                "BandSwitches", CreateMessage(switchCountStr, sizeof(switchCountStr), "%d", counts[3]), "Count");
+                                "LowBandCount", CreateMessage(lowCountStr, sizeof(lowCountStr), "%d/%d", counts[0],numSamples), "Count", 
+                                "OpenBandCount", CreateMessage(openCountStr, sizeof(openCountStr), "%d/%d", counts[1],numSamples), "Count",
+                                "HighBandCount", CreateMessage(highCountStr, sizeof(highCountStr), "%d/%d", counts[2],numSamples), "Count",
+                                "BandSwitches", CreateMessage(switchCountStr, sizeof(switchCountStr), "%d", counts[3]), "Count",
+                                "TotalSamples", CreateMessage(switchCountStr, sizeof(totalSampleStr),"%d", numSamples), "Count");
 
-    return testResult;
+    //Return pass as Isuzu does not want to report fail if voltage readings are off
+    return testPass;
 
 }
 
@@ -2658,7 +2689,8 @@ string IsuzuEmissionsTc<ModuleType>::AnalyzeO2SensorDelta(string O2Name, float F
                                 "MaxDeltaPercent", CreateMessage(maxPercentStr, sizeof(maxPercentStr), "%.2f", maxPercent), "%",
                                 "DeltaPercent", CreateMessage(deltaPercentStr, sizeof(deltaPercentStr), "%.2f", deltaPercent), "%");
 
-    return testResult;
+    //Return pass as Isuzu does not want to report fail if voltage readings are off
+    return testPass;
 
 }
 
@@ -4380,5 +4412,155 @@ string IsuzuEmissionsTc<ModuleType>::ToothErrorCorrectionLearn(void)
 
     Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::ToothErrorCorrectionLearn()\n");
     return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+void IsuzuEmissionsTc<ModuleType>::ThrottlePositionMonitor(void)
+{
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ThrottlePositionMonitor() - Enter");
+    bool endBackgroundMonitor = false; 
+    string throttleRange = GetParameter("GearThrottleRange");
+    float acceleratorPedalPos1 = 0;
+    BEP_STATUS_TYPE throttleStatus;
+
+     //Display TPS
+     SystemWrite(GetDataTag("TPSActive"), true);
+     SystemWrite(GetDataTag("TPSTarget"), throttleRange);
+
+    do
+    {
+        //Read throttle position from module and update the screen
+        throttleStatus = m_vehicleModule.ReadModuleData("ReadAcceleratorPedalPosition1", acceleratorPedalPos1);
+        if (throttleStatus == BEP_STATUS_SUCCESS)
+        { //Successful read of throttle position
+
+            Log(LOG_DEV_DATA, "ThrottlePositionMonitor :: Updating TPS display");
+            SystemWrite("TPSValue", (int)acceleratorPedalPos1);
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "ThrottlePositionMonitor :: Could not Update TPS display");
+        }
+
+        //foreground mutex will aquire mutex once background test should end
+        endBackgroundMonitor = (m_ThrottleBackgroundMutex.TryAcquire() != EOK);
+        if (!endBackgroundMonitor)
+        {
+            m_ThrottleBackgroundMutex.Release();
+            BposSleep(250);
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "ThrottlePositionMonitor :: Background Component signaled to end by mutex\n");
+        }
+
+    }
+    while (!endBackgroundMonitor && StatusCheck() == BEP_STATUS_SUCCESS);
+
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ThrottlePositionMonitor() - Exit");
+    return;
+
+}
+
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::StartThrottleBackgroundComponent(void)
+{
+    string testResult(testPass);    // Report test step result
+    string testDescription(GetTestStepInfo("Description"));     // Report test step description
+    string testResultCode("0000");      // Report test step code
+                                        // Log method entry
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::StartThrottleBackgroundComponent() Enter\n");
+    if (ShortCircuitTestStep())
+    {   // Need to skip this test step
+        testResult = testSkip;
+    }
+    else
+    {
+        // Check if backgroundComponent already exists
+        if (m_throttlebackgroundComponent == NULL)
+        {   // Create background component thread
+            m_throttlebackgroundComponent = new ThrottleBackgroundComponent<ModuleType>(this);
+            // Start the thread running
+            m_throttlebackgroundComponent->Resume(false);
+        }
+        else
+        {   // BackgroundComponent already exists, do not need to start another
+            Log(LOG_DEV_DATA, "Background Component exists, do not need to start\n");
+        }
+
+    }
+    // Report test results to test result server
+    SendTestResult(testResult, testDescription, testResultCode);
+    // Log method exit
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::StartThrottleBackgroundComponent() Exit\n");
+    return testResult;
+}
+
+
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::StopThrottleBackgroundComponent(void)
+{
+    INT32 scanDelay = GetTestStepInfoInt("ScanDelay");  // Used to control loop cycle time
+    string testResult(testFail);    // Report test step result
+    string testDescription(GetTestStepInfo("Description"));     // Report test step description
+    string testResultCode("0000");      // Report test step code
+                                        // Log method entry
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::StopThrottleBackgroundComponent() Enter\n");
+    if (ShortCircuitTestStep())
+    {   // Need to skip this test step
+        testResult = testSkip;
+    }
+    else
+    {
+        // Set up variables for reporting test information and results
+        if (StatusCheck() != BEP_STATUS_SUCCESS)
+        {   // System status failure
+            Log(LOG_ERRORS, "%s:%s Status Check Failure\n", GetComponentName().c_str(), GetTestStepName().c_str());
+            testResult = testAbort;
+            testDescription = GetFaultDescription("StatusCheckFailure");
+            testResultCode = GetFaultCode("StatusCheckFailure");
+        }
+        else if (m_throttlebackgroundComponent == NULL)
+        {   // m_backgroundComponent never created
+            Log(LOG_ERRORS, "%s:%s Background component thread does not exist", GetComponentName().c_str(), GetTestStepName().c_str());
+            testResult = testSoftwareFail;
+            testDescription = GetFaultDescription("SoftwareFailure");
+            testResultCode = GetFaultCode("SoftwareFailure");
+        }
+        else
+        {   // Everything clear, good to delete object
+            bool conditionsMet = true; 
+            Log(LOG_DEV_DATA, "Aggregate Throttle Result: %s\n", conditionsMet ? testPass.c_str() : testFail.c_str());
+            testResult = conditionsMet ? testPass : testFail;
+            testDescription = conditionsMet ? testDescription : "Throttle reading failed";
+        }
+        // Remove Background component
+        if (m_throttlebackgroundComponent != NULL)
+        {   // delete the background object
+            m_ThrottleBackgroundMutex.Acquire();
+            m_throttlebackgroundComponent->WaitUntilDone();
+            m_ThrottleBackgroundMutex.Release();
+            if (m_throttlebackgroundComponent != NULL)
+            {
+                delete m_throttlebackgroundComponent;
+            }
+            m_throttlebackgroundComponent = NULL;
+        }
+        else
+        {   // background component does not exist
+            Log(LOG_DEV_DATA, "IsuzuEmissionsTc::StopThrottleBackgroundComponent() - Background Component did not exist\n");
+        }
+
+    }
+    //Remove TPS from screen
+    SystemWrite(GetDataTag("TPSTarget"), string("0 0"));
+    SystemWrite(GetDataTag("TPSActive"), false);
+    // Log method exit
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::StopThrottleBackgroundComponent() Exit\n");
+    // return method result
+    return (testResult);
 }
 

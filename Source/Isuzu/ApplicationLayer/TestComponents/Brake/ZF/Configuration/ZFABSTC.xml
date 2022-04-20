@@ -124,10 +124,10 @@
          <RFRecoveryPulse>1000</RFRecoveryPulse>
          <LRRecoveryPulse>1000</LRRecoveryPulse>
          <RRRecoveryPulse>1000</RRRecoveryPulse>
-		 <LFReductionPulse>1500</LFReductionPulse>
-         <RFReductionPulse>1500</RFReductionPulse>
-         <LRReductionPulse>1500</LRReductionPulse>
-         <RRReductionPulse>1500</RRReductionPulse>
+		 <LFReductionPulse>1000</LFReductionPulse>
+         <RFReductionPulse>1000</RFReductionPulse>
+         <LRReductionPulse>1000</LRReductionPulse>
+         <RRReductionPulse>1000</RRReductionPulse>
 		 <LeftFrontMinRecoveryPercent>60.0</LeftFrontMinRecoveryPercent>
          <LeftRearMinRecoveryPercent>50.0</LeftRearMinRecoveryPercent>
          <RightFrontMinRecoveryPercent>60.0</RightFrontMinRecoveryPercent>

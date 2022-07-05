@@ -120,16 +120,16 @@ BEP_STATUS_TYPE AllisonTransmissionModule<ProtocolFilterType>::MonitorTransmissi
                 Log(LOG_DEV_DATA,"Message is valid, parsing gear data\n");
                 //int gear = (int) ParseUnsignedIntegerResponse("InterpShiftLeverPosition", msg); 
                 //Log(LOG_DEV_DATA,"Parsed response:: gear = %d", gear);
-                if (msg == "125") currentState = "N";     //neutral
-                else if (msg == "126") currentState = "1"; //first state
-                else if (msg == "127") currentState = "2"; //second state
-                else if (msg == "128") currentState = "3"; //third state
-                else if (msg == "129") currentState = "4"; //fourth state
-                else if (msg == "130") currentState = "5"; //fifth state
-                else if (msg == "131") currentState = "6"; //sixth state
-                else if (msg == "124") currentState = "R"; //reverse
-                else if (msg == "251") currentState = "P"; //park
-                else if (msg == "254") currentState = "E"; //error
+                if (msg == "125" || msg == "N") currentState = "N";     //neutral
+                else if (msg == "126"|| msg == "1") currentState = "1"; //first state
+                else if (msg == "127"|| msg == "2") currentState = "2"; //second state
+                else if (msg == "128"|| msg == "3") currentState = "3"; //third state
+                else if (msg == "129"|| msg == "4") currentState = "4"; //fourth state
+                else if (msg == "130"|| msg == "5") currentState = "5"; //fifth state
+                else if (msg == "131"|| msg == "6") currentState = "6"; //sixth state
+                else if (msg == "124"|| msg == "R") currentState = "R"; //reverse
+                else if (msg == "251"|| msg == "P") currentState = "P"; //park
+                else if (msg == "254"|| msg == "E") currentState = "E"; //error
                 else Log(LOG_ERRORS, "Message could not be parsed, state '%s' found", msg.c_str());
 
                 Log(LOG_DEV_DATA,"Parsed response:: state: '%s', currentState: '%s'", msg.c_str(), currentState.c_str());
@@ -372,16 +372,16 @@ const string AllisonTransmissionModule<ProtocolFilterType>::GetCurrentState(void
     if (moduleStatus == BEP_STATUS_SUCCESS)
     {   // Valid message, extract the data
         //UINT8 state = (UINT8) ParseUnsignedIntegerResponse("InterpShiftLeverPosition", msg);
-        if (msg == "078") currentState = "N";     //neutral
-        else if (msg == "049") currentState = "1"; //first state
-        else if (msg == "050") currentState = "2"; //second state
-        else if (msg == "051") currentState = "3"; //third state
-        else if (msg == "052") currentState = "4"; //fourth state
-        else if (msg == "053") currentState = "5"; //fifth state
-        else if (msg == "054") currentState = "6"; //sixth state
-        else if (msg == "082") currentState = "R"; //reverse
-        else if (msg == "080") currentState = "P"; //park
-        else if (msg == "255") currentState = "E"; //error
+        if (msg == "007" || msg == "N") currentState = "N";     //neutral
+        else if (msg == "001" || msg == "1") currentState = "1"; //first state
+        else if (msg == "002" || msg == "2") currentState = "2"; //second state
+        else if (msg == "003" || msg == "3") currentState = "3"; //third state
+        else if (msg == "004" || msg == "4") currentState = "4"; //fourth state
+        else if (msg == "005" || msg == "5") currentState = "5"; //fifth state
+        else if (msg == "006" || msg == "6") currentState = "6"; //sixth state
+        else if (msg == "008" || msg == "R") currentState = "R"; //reverse
+        else if (msg == "009" || msg == "P") currentState = "P"; //park
+        else if (msg == "255" || msg == "E") currentState = "E"; //error
         else Log(LOG_ERRORS, "Message could not be parsed, state '%s' found", msg.c_str());
 
         Log(LOG_DEV_DATA,"Parsed response:: state: '%s', currentState: '%s'", msg.c_str(), currentState.c_str());

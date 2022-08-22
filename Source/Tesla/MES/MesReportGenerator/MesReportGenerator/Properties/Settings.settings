@@ -20,5 +20,8 @@
     <Setting Name="ArchiveDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">G:\\Rewrite\\TestResults\\MES Source Archive\\</Value>
     </Setting>
+    <Setting Name="QNXAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

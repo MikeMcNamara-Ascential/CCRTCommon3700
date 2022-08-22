@@ -13,11 +13,16 @@ using System.Xml.Xsl;
 using System.Xml.XPath;
 using System.Collections;
 using System.Text.RegularExpressions;
+using FtpFileMonitorNamespace;
 
 namespace MesReportGenerator
 {
     public partial class CcrtReportGenerator : Form
     {
+        private FtpFileMonitor m_FTPMonitor = null;
+
+        private bool dumpFTPLog = false;
+
         //-----------------------------------------------------------------------------------------
         // Member Functions
         //-----------------------------------------------------------------------------------------
@@ -32,6 +37,7 @@ namespace MesReportGenerator
             m_reportDirectory.Text = MesReportGenerator.Properties.Settings.Default.OutputDirectory;
             m_archiveDirectory.Text = MesReportGenerator.Properties.Settings.Default.ArchiveDirectory;
             m_schema.Text = MesReportGenerator.Properties.Settings.Default.XsltFile;
+            m_QNXaddress.Text = MesReportGenerator.Properties.Settings.Default.QNXAddress;
             //if (MesReportGenerator.Properties.Settings.Default.usedResults != null)
             //{
             //    m_usedTestResultFiles = MesReportGenerator.Properties.Settings.Default.usedResults;
@@ -48,7 +54,9 @@ namespace MesReportGenerator
             }
             Text = title;
             VerifySystemSetup();
-
+            //ToDo: Start the FTP Monitor
+            m_FTPMonitor = new FtpFileMonitor("/Rewrite/TestResults/MES Process Queue/", m_resultDirectory.Text + "/", m_archiveDirectory.Text + "/", 10000, "burke", "porter", m_QNXaddress.Text, "*", this);
+            m_FTPMonitor.StartFileMonitorThread();
 
         }
 
@@ -56,7 +64,7 @@ namespace MesReportGenerator
         /// Display the provided status message in the message box.
         /// </summary>
         /// <param name="message">Message to display.</param>
-        private void DisplayStatusMessage(String message)
+        public void DisplayStatusMessage(String message)
         {
             if (m_msgTextBox.InvokeRequired)
             {
@@ -309,6 +317,8 @@ namespace MesReportGenerator
                 setupComplete = false;
             }
             return setupComplete;
+            //TODO: Ping the QNX IP
+
         }
         ///// <summary>
         ///// Obsolete 
@@ -479,6 +489,9 @@ namespace MesReportGenerator
         private void button1_Click(object sender, EventArgs e)
         {
             //ConvertXml();
+            //TODO Check the Rewrite Directory for the files with FTP
+
+            //then do below
             MesReportGenerator.Properties.Settings.Default.SourceDirectory = m_resultDirectory.Text;
             MesReportGenerator.Properties.Settings.Default.OutputDirectory = m_reportDirectory.Text;
             MesReportGenerator.Properties.Settings.Default.ArchiveDirectory = m_archiveDirectory.Text;
@@ -527,7 +540,13 @@ namespace MesReportGenerator
             Thread reportThread = new Thread(new ThreadStart(GenerateReport));
             reportThread.Start();
 #else
+            
             m_reportTimer.Stop();
+            //TODO: Add the FTP collection here
+            if (m_FTPMonitor != null && m_FTPMonitor.GetLogLength() > 5)
+            {
+                DisplayStatusMessage(m_FTPMonitor.GetLog());
+            }
             GenerateReport();
             System.GC.Collect();
             m_reportTimer.Start();
@@ -620,7 +639,7 @@ namespace MesReportGenerator
             //ArrayList arraylist = new ArrayList(this.m_resultDirectory.Items);
             //Settings.Default.cboCollection = arraylist;
             //Settings.Default.Save();
-
+            m_FTPMonitor.StopFileMonitorThread();
             if (VerifyProgramExit())
             {
                 Environment.Exit(0);
@@ -635,6 +654,40 @@ namespace MesReportGenerator
         private void m_selectResultFile_Click(object sender, EventArgs e)
         {
             SelectResultFile();
+        }
+
+        private void m_updateQNXaddress_Click(object sender, EventArgs e)
+        {
+
+            m_FTPMonitor.StopFileMonitorThread();
+
+            bool validIP = true;
+            if (m_QNXaddress.Text.Length > 0)
+            {
+                //check that it is a valid IP Address, if so save it, if not prompt the user to change it to a propper one.
+                string tempIP = m_QNXaddress.Text;
+                string[] IPFields = tempIP.Split('.');
+                DisplayStatusMessage("" + IPFields.Length);
+                if (IPFields.Length != 4)
+                    validIP = false;
+                foreach (string field in IPFields)
+                {
+                    int tempInt = Int32.Parse(field);
+                    if (tempInt < 0 && tempInt > 255)
+                        validIP = false;
+                }
+
+            }
+            if (validIP)
+            {
+                //ToDo: Start the FTP Monitor
+                m_FTPMonitor = new FtpFileMonitor("/Rewrite/TestResults/MES Process Queue/", m_resultDirectory.Text + "/", m_archiveDirectory.Text + "/", 60000, "burke", "porter", m_QNXaddress.Text, "*", this);
+                m_FTPMonitor.StartFileMonitorThread();
+
+                MesReportGenerator.Properties.Settings.Default.QNXAddress = m_QNXaddress.Text;
+                MesReportGenerator.Properties.Settings.Default.Save();
+                //dumpFTPLog = true;
+            }
         }
 
     }

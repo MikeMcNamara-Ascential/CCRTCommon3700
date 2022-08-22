@@ -48,11 +48,14 @@
             this.m_archiveDirectory = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.m_browseArchiveDirectory = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.m_QNXaddress = new System.Windows.Forms.TextBox();
+            this.m_updateQNXaddress = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // m_checkForResultsButton
             // 
-            this.m_checkForResultsButton.Location = new System.Drawing.Point(608, 167);
+            this.m_checkForResultsButton.Location = new System.Drawing.Point(608, 175);
             this.m_checkForResultsButton.Name = "m_checkForResultsButton";
             this.m_checkForResultsButton.Size = new System.Drawing.Size(163, 22);
             this.m_checkForResultsButton.TabIndex = 0;
@@ -228,11 +231,41 @@
             this.m_browseArchiveDirectory.UseVisualStyleBackColor = true;
             this.m_browseArchiveDirectory.Click += new System.EventHandler(this.m_browseArchiveDirectory_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(67, 142);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 13);
+            this.label6.TabIndex = 36;
+            this.label6.Text = "QNX IP:";
+            // 
+            // m_QNXaddress
+            // 
+            this.m_QNXaddress.Location = new System.Drawing.Point(233, 139);
+            this.m_QNXaddress.Name = "m_QNXaddress";
+            this.m_QNXaddress.Size = new System.Drawing.Size(390, 20);
+            this.m_QNXaddress.TabIndex = 37;
+            // 
+            // m_updateQNXaddress
+            // 
+            this.m_updateQNXaddress.Location = new System.Drawing.Point(666, 138);
+            this.m_updateQNXaddress.Name = "m_updateQNXaddress";
+            this.m_updateQNXaddress.Size = new System.Drawing.Size(68, 21);
+            this.m_updateQNXaddress.TabIndex = 38;
+            this.m_updateQNXaddress.Text = "Update";
+            this.m_updateQNXaddress.UseVisualStyleBackColor = true;
+            this.m_updateQNXaddress.Click += new System.EventHandler(this.m_updateQNXaddress_Click);
+            // 
             // CcrtReportGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 346);
+            this.Controls.Add(this.m_updateQNXaddress);
+            this.Controls.Add(this.m_QNXaddress);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.m_browseArchiveDirectory);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.m_archiveDirectory);
@@ -279,6 +312,9 @@
         private System.Windows.Forms.ComboBox m_archiveDirectory;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button m_browseArchiveDirectory;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox m_QNXaddress;
+        private System.Windows.Forms.Button m_updateQNXaddress;
     }
 }
 

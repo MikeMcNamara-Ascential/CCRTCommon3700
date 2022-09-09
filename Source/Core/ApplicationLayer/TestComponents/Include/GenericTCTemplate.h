@@ -1789,6 +1789,8 @@ protected:
     /** List of faults to be ignored during testing. */
     XmlNodeMap m_ignoreFaults;
 
+    XmlNodeMap m_reportOnlyFaults;
+
     XmlNodeMap m_clearFaults;
 
     /** List of valid module part numbers. */

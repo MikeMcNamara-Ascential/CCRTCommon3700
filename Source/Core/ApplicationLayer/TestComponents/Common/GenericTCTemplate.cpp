@@ -126,6 +126,7 @@ GenericTCTemplate<ModuleType>::~GenericTCTemplate(void)
    m_partNumbersToCheck.clear(true);
    m_validPartNumbers.clear(true);
    m_ignoreFaults.clear(true);
+   m_reportOnly.clear(true);
    m_clearFaults.clear(true);
 }
 
@@ -184,6 +185,7 @@ void GenericTCTemplate<ModuleType>::ReloadConfiguration(void)
    Log(LOG_FN_ENTRY, "GenericTCTemplate::ReloadConfiguration()\n");
    //Clear all items that were copied
    m_ignoreFaults.clear(true);
+   m_reportOnly.clear(true);
    m_clearFaults.clear(true);
    m_validPartNumbers.clear(true);
    m_moduleDataItems.clear(true);
@@ -468,6 +470,16 @@ void GenericTCTemplate<ModuleType>::InitializeHook(const XmlNode *config)
    {   // Could not get list of faults to ignore
       Log("XML Exception loading ignored faults list - %s\n", err.Reason().c_str());
       m_ignoreFaults.clear(true);
+   }
+   // Get the list of module faults to report but not fail
+   try
+   {
+      m_reportOnly.DeepCopy(config->getChild("Setup/ReportOnlyFaults")->getChildren());
+   }
+   catch (BepException& err)
+   {   // Could not get list of faults to ignore
+      Log("XML Exception loading ignored faults list - %s\n", err.Reason().c_str());
+      m_reportOnly.clear(true);
    }
    // Get the list of module faults to clear
    try
@@ -1575,6 +1587,10 @@ string GenericTCTemplate<ModuleType>::ReadFaults(void)
                      ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
                      faultsRecorded = true;
                   }
+                  else if ((faultCode != 0) && (m_reportOnly.find(faultTag) == m_reportOnly.end())) {
+                     faultStatus = "Reported";
+                     ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
+                  }
                   // Log the fault read from the module
                   Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex + 1,
                       moduleFaults[faultIndex].c_str(), faultStatus.c_str());
@@ -2523,6 +2539,10 @@ string GenericTCTemplate<ModuleType>::ReadFaultsByPhase(std::string phase)
                      faultStatus = "Reported";
                      ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
                      faultsRecorded = true;
+                  }
+                  else if ((faultCode != 0) && (m_reportOnly.find(faultTag) == m_reportOnly.end())) {
+                     faultStatus = "Reported";
+                     ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
                   }
                   // Log the fault read from the module
                   Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex + 1,

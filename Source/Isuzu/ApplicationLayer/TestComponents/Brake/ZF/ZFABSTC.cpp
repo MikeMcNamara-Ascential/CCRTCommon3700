@@ -92,6 +92,7 @@ const string ZFABSTC<ModuleType>::CommandTestStep(const string &value)
 			    result = m_baseBrakeTool->TestStepAccelerate();
 		    }
             else if(!testStep.compare("PrimeAbs"))                    result = AbsPrime();
+            else if(!testStep.compare("ReadZFIDs"))                    result = ReadZFIDs();
             // Try the base class
             else                                  result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
         }
@@ -2989,6 +2990,35 @@ string ZFABSTC<ModuleType>::LockModuleIfPass(void)
     return(testResult);
 }
 
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string ZFABSTC<ModuleType>::ReadZFIDs(void)
+{
+    Log(LOG_FN_ENTRY, "ZFABSTC::ReadZFIDs() - Enter");
+    string result(BEP_TESTING_RESPONSE);
+    string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 
+    // Attempt to read the FaultIDs From the Module
+    try
+    {   // Read the locked status from the module
+        moduleStatus = m_vehicleModule.CommandModule("ReadZFFaults");
+    }
+    catch (ModuleException &exception)
+    {   // Exception reading data
+        Log(LOG_ERRORS, "Module exception in ReadZFIDs() while reading IsModuleLocked - %s\n", exception.message().c_str());
+        moduleStatus = BEP_STATUS_ERROR;
+    }
+
+    // Set the test status
+	testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+	testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+	testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+	Log(LOG_DEV_DATA, "ReadZFIDs() - Exit");
+
+    return(testPass);
+}
 
 

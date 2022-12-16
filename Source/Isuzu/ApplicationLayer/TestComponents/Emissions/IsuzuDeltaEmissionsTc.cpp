@@ -4674,9 +4674,11 @@ void IsuzuDeltaEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
         BEP_STATUS_SUCCESS, BEP_STATUS_SUCCESS};
     m_oxygenSensorSampleCount = 0;
     char buff[64];
-    UINT8 percentComplete = 0; 
-    bool clearAnalysisResults[4] = {false, false, false, false};
-    std::memcpy(m_oxygenSensorAnalysisOk, clearAnalysisResults, sizeof(m_oxygenSensorAnalysisOk));
+    UINT8 percentComplete = 0;
+    if (!IsRetest()) {
+        bool clearAnalysisResults[4] = { false, false, false, false };
+        std::memcpy(m_oxygenSensorAnalysisOk, clearAnalysisResults, sizeof(m_oxygenSensorAnalysisOk));
+    }
 
     do
     {

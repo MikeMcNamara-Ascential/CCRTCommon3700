@@ -585,11 +585,13 @@ private:
      */
     string StopBackgroundComponent(void);
     string StopThrottleBackgroundComponent(void);
+    string DelayIfTestNotPassed(void);
     /**
      * Used by the background thread to indicate when it
      * has completed its tasks
      */
     bool m_backgroundTestComplete;
+    bool m_RunDelayTest;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //IsuzuEmissionsTc_h

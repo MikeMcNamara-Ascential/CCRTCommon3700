@@ -65,6 +65,7 @@ IsuzuEmissionsTc<ModuleType>::~IsuzuEmissionsTc()
     }
     m_throttlebackgroundComponent = NULL;
     m_backgroundComponent = NULL; 
+    m_RunDelayTest = false;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -208,12 +209,11 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("EngineOffBeforeMAFClear"))             testResult = EngineOffBeforeMAFClear();
             else if (!GetTestStepName().compare("ReadFaultsPostMECLock"))               testResult = ReadFaultsPostMECLock();
             else if (!GetTestStepName().compare("ToothErrorCorrection"))           testResult = ToothErrorCorrectionLearn();
-            else if (!GetTestStepName().compare("StartBackgroundComponent"))
-                testResult = StartBackgroundComponent();
-            else if (!GetTestStepName().compare("StopBackgroundComponent"))
-                testResult = StopBackgroundComponent();
+            else if (!GetTestStepName().compare("StartBackgroundComponent"))            testResult = StartBackgroundComponent();
+            else if (!GetTestStepName().compare("StopBackgroundComponent"))             testResult = StopBackgroundComponent();
             else if (!GetTestStepName().compare("StartThrottleBackgroundComponent"))            testResult = StartThrottleBackgroundComponent();
             else if (!GetTestStepName().compare("StopThrottleBackgroundComponent"))             testResult = StopThrottleBackgroundComponent();
+            else if (!GetTestStepName().compare("DelayIfTestNotPassed"))                testResult = DelayIfTestNotPassed();
 
             else
                 testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
@@ -914,6 +914,7 @@ string IsuzuEmissionsTc<ModuleType>::StartRangeCheckMonitors()
             BackgroundRangeCheckMonitor *monitor = new BackgroundRangeCheckMonitor(iter->second->getName(),
                                                                                    iter->second->getValue(),
                                                                                    &m_vehicleModule, this);
+            
             monitor->ReadCurrentSensorValue();
             m_rangeCheckMonitors.push_back(monitor);           
         }
@@ -2129,8 +2130,10 @@ void IsuzuEmissionsTc<ModuleType>::OxygenSensorMonitor(void)
     m_oxygenSensorSampleCount = 0;
     char buff[64];
     UINT8 percentComplete = 0; 
-    bool clearAnalysisResults[4] = {false, false, false, false};
-    std::memcpy(m_oxygenSensorAnalysisOk, clearAnalysisResults, sizeof(m_oxygenSensorAnalysisOk));
+    if (!IsRetest()) {
+        bool clearAnalysisResults[4] = { false, false, false, false };
+        std::memcpy(m_oxygenSensorAnalysisOk, clearAnalysisResults, sizeof(m_oxygenSensorAnalysisOk));
+    }
 
     do
     {
@@ -4059,9 +4062,10 @@ string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
                     {   // Determine if this fault should be ignored
                         string faultTag = "ModuleFault_" + moduleFaults[faultIndex].m_code;
                         INT32 faultCode = atoh(moduleFaults[faultIndex].m_code.c_str());
-                        bool ignored = false;/*
+                        string faultStatus("Ignored");
                         UINT8 statusMask = 0x00;
                         UINT8 dtcStatus = atoh(moduleFaults[faultIndex].m_status.c_str());;
+                        bool ignored;
                         try
                         {
                             statusMask = atoh(GetFaultFailureStatusMask(faultTag).c_str()); 
@@ -4073,8 +4077,12 @@ string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
                         }
                         Log(LOG_DEV_DATA, "Ignored from dtc status byte? %s - status mask [%02X] dtc status [%02X]\n", 
                             ignored ? "True" : "False", statusMask, dtcStatus);
-                            */
-                        executeFaultClear = (m_clearFaults.find(faultTag) == m_clearFaults.end()) ? executeFaultClear : true;
+                        executeFaultClear = (ignored || (m_clearFaults.find(faultTag) == m_clearFaults.end())) ? executeFaultClear : true;
+                        if (m_clearFaults.find(faultTag) != m_clearFaults.end())
+                        {
+                            m_RunDelayTest = true;
+                        }
+
                         // Log the fault read from the module
                         Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex+1,
                             moduleFaults[faultIndex].m_code.c_str(), ignored ? "Valid" : "Ignored");
@@ -4086,6 +4094,8 @@ string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
                 {
                     // Tell the module to clear faults
                     moduleStatus = m_vehicleModule.ClearFaults();
+                    //set Flag for Extra Retest Steps to be performed. 
+                    
                     // Log the data
                     Log(LOG_DEV_DATA, "Clear Faults: %s - status: %s\n",
                         testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
@@ -4564,3 +4574,38 @@ string IsuzuEmissionsTc<ModuleType>::StopThrottleBackgroundComponent(void)
     return (testResult);
 }
 
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::DelayIfTestNotPassed(void)
+{
+    string testResult(testPass);    // Report test step result
+    string testDescription(GetTestStepInfo("Description"));     // Report test step description
+    string testResultCode("0000");      // Report test step code
+    string testToCheck("");
+
+    if (!IsRetest() || !m_RunDelayTest || ShortCircuitTestStep())
+    {
+        return testPass;
+    }
+
+    float targetSpeed = (GetParameterFloat("SensorRetestSpeed") > 0)?GetParameterFloat("SensorRetestSpeed"):25;
+    string speedRange(GetParameter("SensorRetestRange"));
+    if(speedRange.length() <= 0)
+        speedRange = "0 25";
+    int speedScanDelay = (GetParameterInt("SensorRetestScanDelay")>0)?GetParameterInt("SensorRetestScanDelay"):100;
+
+    AccelerateToTestSpeed(targetSpeed, speedRange, speedScanDelay, false, "SensorRetestAcceleration");
+
+    //SetTestStepName 
+    DisplayPrompt(GetPromptBox("RunningDelayTest"), GetPrompt("RunningDelayTest"), GetPromptPriority("RunningDelayTest"));
+    DisplayPrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
+    int delay = (GetTestStepInfoInt("ScanDelay") > 0)?GetTestStepInfoInt("ScanDelay"):10000;
+    BposSleep(delay);
+
+    RemovePrompt(GetPromptBox("RunningDelayTest"), GetPrompt("RunningDelayTest"), GetPromptPriority("RunningDelayTest"));
+    RemovePrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::DelayIfTestNotPassed() Exit\n");
+    return testPass;
+
+    m_RunDelayTest = false;
+}

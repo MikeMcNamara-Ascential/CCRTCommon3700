@@ -66,6 +66,8 @@ IsuzuEmissionsTc<ModuleType>::~IsuzuEmissionsTc()
     m_throttlebackgroundComponent = NULL;
     m_backgroundComponent = NULL; 
     m_RunDelayTest = false;
+	if (m_ClearFaultsComponent.IsInitialized())	 m_ClearFaultsComponent.CloseCom();
+    //m_ClearFaultsComponent = NULL;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -306,6 +308,33 @@ void IsuzuEmissionsTc<ModuleType>::InitializeHook(const XmlNode *config)
     // Save pid value range monitor items
     m_rangeCheckMonitorItems.DeepCopy(config->getChild("Setup/Parameters/BackgroundPidValueRangesMonitoring/MonitoredPidValueRanges")->getChildren()); 
     m_mafLearnComplete = false;
+    XmlParser parser;
+    BEP_STATUS_TYPE status;
+    try
+    {
+        Log(LOG_DEV_DATA, "Delete ClearFaults module");
+        if (m_ClearFaultsComponent.IsInitialized())
+        {
+            Log(LOG_DEV_DATA, "ClearFaults module not NULL");
+            m_ClearFaultsComponent.CloseCom();
+            m_ClearFaultsComponent.Uninitialize();
+        }
+        Log(LOG_DEV_DATA, "Creating new ClearFaults module interface.");
+        // The ABS module file.
+        //m_ClearFaultsComponent = new ModuleType();
+        XmlNode *clearFaultsConfig = NULL;
+        clearFaultsConfig = const_cast<XmlNode *>(parser.ReturnXMLDocument(GetRootDir() + GetParameter("ClearFaultsConfigFile")));
+        m_ClearFaultsComponent.Initialize(clearFaultsConfig);
+    } catch (BepException &err)
+    {
+        Log(LOG_ERRORS, "BepException in IsuzuEmissionsTc::InitializeHook(): %s\n", err.GetReason());
+    } catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "XmlException in IsuzuEmissionsTc::InitializeHook(): %s\n", excpt.GetReason());
+    } catch (...)
+    {
+        Log(LOG_ERRORS, "Unexpected exception in IsuzuEmissionsTc::InitializeHook()");
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -2737,7 +2766,7 @@ string IsuzuEmissionsTc<ModuleType>::ClearFaults(void)
     {
         try
         {   // Tell the module to clear faults
-            moduleStatus = m_vehicleModule.ClearFaults();
+            moduleStatus = m_ClearFaultsComponent.ClearFaults();
             // Determine the test results
             if (moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
             testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
@@ -4043,6 +4072,7 @@ string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     FaultStatusVector_t moduleFaults;
     bool executeFaultClear = false;
+    m_RunDelayTest = false;
     // Determine if this test step needs to be skipped
     Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::ConditionalFaultClear()\n");
     if(!ShortCircuitTestStep()  || GetTestStepInfoBool("AlwaysPerform"))
@@ -4078,7 +4108,7 @@ string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
                         Log(LOG_DEV_DATA, "Ignored from dtc status byte? %s - status mask [%02X] dtc status [%02X]\n", 
                             ignored ? "True" : "False", statusMask, dtcStatus);
                         executeFaultClear = (ignored || (m_clearFaults.find(faultTag) == m_clearFaults.end())) ? executeFaultClear : true;
-                        if (m_clearFaults.find(faultTag) != m_clearFaults.end())
+                        if (m_clearFaults.find(faultTag) != m_clearFaults.end() && !ignored)
                         {
                             m_RunDelayTest = true;
                         }
@@ -4093,9 +4123,7 @@ string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
                 if(executeFaultClear)
                 {
                     // Tell the module to clear faults
-                    moduleStatus = m_vehicleModule.ClearFaults();
-                    //set Flag for Extra Retest Steps to be performed. 
-                    
+                    moduleStatus = m_ClearFaultsComponent.ClearFaults();
                     // Log the data
                     Log(LOG_DEV_DATA, "Clear Faults: %s - status: %s\n",
                         testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
@@ -4583,7 +4611,7 @@ string IsuzuEmissionsTc<ModuleType>::DelayIfTestNotPassed(void)
     string testResultCode("0000");      // Report test step code
     string testToCheck("");
 
-    if (!IsRetest() || !m_RunDelayTest || ShortCircuitTestStep())
+    if (!m_RunDelayTest || ShortCircuitTestStep())
     {
         return testPass;
     }
@@ -4609,3 +4637,5 @@ string IsuzuEmissionsTc<ModuleType>::DelayIfTestNotPassed(void)
 
     m_RunDelayTest = false;
 }
+
+

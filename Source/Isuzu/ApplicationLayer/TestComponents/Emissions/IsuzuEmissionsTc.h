@@ -499,6 +499,8 @@ private:
     /** Pid data for setting up background range check monitoring */
     XmlNodeMap m_rangeCheckMonitorItems;
 
+    ModuleType m_ClearFaultsComponent;
+
     bool m_mafLearnComplete;
 
     /**
@@ -595,3 +597,4 @@ private:
 };
 //-------------------------------------------------------------------------------------------------
 #endif //IsuzuEmissionsTc_h
+

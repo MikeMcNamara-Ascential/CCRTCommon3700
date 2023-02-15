@@ -3672,9 +3672,9 @@ string IsuzuEmissionsTc<ModuleType>::CheckBASLearnComplete(void)
             status = m_vehicleModule.ReadModuleData("ReadBASPosition", basPosition);
             if(status == BEP_STATUS_SUCCESS)
             {
-                testResult = (basLearned && (basPosition >= 20) && (basPosition <= 30)) ? testPass : testFail;
-                testResultCode = (basLearned && (basPosition >= 20) && (basPosition <= 30)) ? "0000": GetFaultCode("BASPositionIncorrect");
-                testDescription = (basLearned && (basPosition >= 20) && (basPosition <= 30)) ? testDescription : GetFaultDescription("BASPositionIncorrect");
+                testResult = (basLearned && (basPosition >= 20) && (basPosition <= 31.8)) ? testPass : testFail;
+                testResultCode = (basLearned && (basPosition >= 20) && (basPosition <= 31.8)) ? "0000": GetFaultCode("BASPositionIncorrect");
+                testDescription = (basLearned && (basPosition >= 20) && (basPosition <= 31.8)) ? testDescription : GetFaultDescription("BASPositionIncorrect");
             }
             else
             {

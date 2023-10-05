@@ -1766,6 +1766,10 @@ protected:
 	 */
 	string VerifySteadySpeed(void);
 
+	string AddTorqueAssist(void);
+
+	string RemoveTorqueAssist(void);
+
 	/**
      * Status of the individual cruise tests.
      */
@@ -1812,6 +1816,7 @@ private:
      * Store the the valid Speed Control Types for this test from configuration file
      */
     XmlNodeMap m_validSpeedControlTypes;
+    std::string m_torqueSpeedLimit;
 };
 
 #endif //GenericSpeedControlTC_h

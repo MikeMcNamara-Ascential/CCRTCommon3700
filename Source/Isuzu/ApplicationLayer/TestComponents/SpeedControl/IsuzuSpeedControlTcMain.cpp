@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	{
 		printf("Isuzu Speed Control Test -%s: BepExcpetion: %s", clp.GetConfigFile().c_str(), BepErr.what());
 	}
-	catch(...)
+	catch(...)  
 	{
 		printf("Isuzu Speed Control Test -%s: Unknown Exception\n", clp.GetConfigFile().c_str());
 	}

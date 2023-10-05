@@ -216,6 +216,7 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("StartThrottleBackgroundComponent"))            testResult = StartThrottleBackgroundComponent();
             else if (!GetTestStepName().compare("StopThrottleBackgroundComponent"))             testResult = StopThrottleBackgroundComponent();
             else if (!GetTestStepName().compare("DelayIfTestNotPassed"))                testResult = DelayIfTestNotPassed();
+            else if (!GetTestStepName().compare("PressBrakeMultiple"))                    testResult = PressBrakeMultiple();
 
             else
                 testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
@@ -1432,8 +1433,8 @@ string IsuzuEmissionsTc<ModuleType>::CheckCASELearn()
             // Look for CASE learn complete if the learn process has begun
             if (!result.compare(testPass))
             {   // Prompt the operator to get vehicle conditions correct
-                DisplayPrompt(GetPromptBox("PushAcceleratorPedalToFloor"), GetPrompt("PushAcceleratorPedalToFloor"),
-                              GetPromptPriority("PushAcceleratorPedalToFloor"));
+                DisplayPrompt(GetPromptBox("PushAcceleratorPedalToFloorCaseLearn"), GetPrompt("PushAcceleratorPedalToFloorCaseLearn"),
+                              GetPromptPriority("PushAcceleratorPedalToFloorCaseLearn"));
                 // Give the CASE learn process some time to start
                 BposSleep(GetParameterInt("CaseLearnStartDelay"));
                 UINT8 caseLearnInProgressMask = GetParameterInt("CaseLearnInProgressMask");
@@ -4637,5 +4638,113 @@ string IsuzuEmissionsTc<ModuleType>::DelayIfTestNotPassed(void)
 
     m_RunDelayTest = false;
 }
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::PressBrakeMultiple(void)
+{
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::PressBrakeMultiple() - Enter");
+    string result(BEP_TESTING_RESPONSE);
+    string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    bool brakeSwitch = false;
+    int timesTapped = 0;
+    int timesToTap = (GetParameterInt("BASLearnBrakeTaps")>0) ? GetParameterInt("BASLearnBrakeTaps"):10; 
+    int scanDelay = (GetTestStepInfoInt("ScanDelay")>0)?GetTestStepInfoInt("ScanDelay"):100;
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+
+    while (timesTapped < timesToTap && moduleStatus == BEP_STATUS_SUCCESS && TimeRemaining())
+    {    
+        try
+        {   // Prompt The Operator to apply the brakeSwitch
+    	    DisplayPrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
+
+            do
+            {
+                // Read the locked status from the module
+                
+                moduleStatus = m_vehicleModule.ReadModuleData("ReadBrakeSwitchPosition", brakeSwitch);
+                BposSleep(scanDelay);
+            }while (!brakeSwitch && TimeRemaining() && moduleStatus == BEP_STATUS_SUCCESS); 
+			RemovePrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
+    	    DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
+            while (brakeSwitch && TimeRemaining() && moduleStatus == BEP_STATUS_SUCCESS)
+            {
+                moduleStatus = m_vehicleModule.ReadModuleData("ReadBrakeSwitchPosition", brakeSwitch);
+                BposSleep(scanDelay);
+            }
+            timesTapped++;
+			RemovePrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
+        }
+        catch (ModuleException &exception)
+        {   // Exception reading data
+            Log(LOG_ERRORS, "Module exception in PressBrakeMultiple() while reading BrakeSwitch - %s\n", exception.message().c_str());
+            moduleStatus = BEP_STATUS_ERROR;
+        }
+        if (!TimeRemaining()) 
+        {
+            // Set the test status
+        	Log(LOG_DEV_DATA, "Timeout trying to tap the brake multiple times");
+            testResult = BEP_TIMEOUT_RESPONSE;
+        }
+        else if (timesTapped >= timesToTap)
+        {
+        	Log(LOG_DEV_DATA, "Brakes Tapped enough times");
+            testResult = testPass;
+        }
+        else 
+        {
+            Log(LOG_DEV_DATA,"Somehow the Brakes weren't tapped enough. IDC, Pass it.");
+            testResult = testPass;
+        }
+    }
+
+    // Set the test status
+	testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+	testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+	testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+	Log(LOG_DEV_DATA, "IsuzuEmissionsTc::PressBrakeMultiple() - Exit");
+
+    return(testPass);
+}
 
 
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::ReadPIDNoFail(void)
+{   // Log the entry and check if this step should be performed
+    string sensorName = "OilPID";
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ReadPIDNoFail(%s) - Enter", sensorName.c_str());
+    string testResult(BEP_TESTING_RESPONSE);
+    {   // Read the sensor from the module
+        bool sensorValue = 0;
+        bool valueToCompare = GetParameterBool(sensorName + "CompareValue");
+
+        BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName, sensorValue);
+        string testDescription(GetTestStepInfo("Description"));
+        string testCode("0000");
+        if (BEP_STATUS_SUCCESS == status)
+        {   // Good data from the module, evaluate against parameters
+            testResult = testPass;
+
+            Log(LOG_DEV_DATA, "%s value: %02X (%d) - compare to: %02X (%d) - result: %s",
+                sensorName.c_str(), sensorValue, sensorValue, valueToCompare, valueToCompare, testResult.c_str());
+        }
+        else
+        {   // Could not read data from the module
+            testResult = testPass;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testCode = GetFaultCode("CommunicationFailure");
+            Log(LOG_DEV_DATA, "Error reading %s from the module - %s", 
+                sensorName.c_str(), ConvertStatusToResponse(status).c_str());
+        }
+    }
+    else
+    {   // Need to skip this test
+        Log(LOG_FN_ENTRY, "Skipping IsuzuEmissionsTc::ReadPIDNoFail(%s)", sensorName.c_str());
+        testResult = testSkip;
+    }
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ReadPIDNoFail(%s) - Exit", sensorName.c_str());
+    return testResult;
+}

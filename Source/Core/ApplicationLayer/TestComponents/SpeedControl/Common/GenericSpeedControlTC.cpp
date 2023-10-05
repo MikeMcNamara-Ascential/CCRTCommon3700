@@ -139,6 +139,8 @@ const string GenericSpeedControlTC<VehicleModuleType>::CommandTestStep(const str
 				// Get the operator result
 				else if(GetTestStepName() == "OperatorResult")		   testResult = SpeedControlOperatorResult();
 				else if(!GetTestStepName().compare("VerifyStableSpeed"))  testResult = VerifySteadySpeed();
+				else if(!GetTestStepName().compare("AddTorqueAssist"))  testResult = AddTorqueAssist();
+				else if(!GetTestStepName().compare("RemoveTorqueAssist"))  testResult = RemoveTorqueAssist();
 				// Unknown test step requested - try the base class
 				else   testResult = GenericTCTemplate<VehicleModuleType>::CommandTestStep(value);
 			}
@@ -205,6 +207,7 @@ void GenericSpeedControlTC<VehicleModuleType>::InitializeHook(const XmlNode *con
 	m_testStepStatus.verifyBrakeCutOut  = BEP_TESTING_RESPONSE;
 	m_testStepStatus.verifyClutchCutOut = BEP_TESTING_RESPONSE;
 	m_testStepStatus.checkForFaults     = BEP_TESTING_RESPONSE;
+    m_torqueSpeedLimit                  = "5";
 	// Call the base class to complete initialization
 	GenericTCTemplate<VehicleModuleType>::InitializeHook(config);
 	// Load the Valid Speed Control Types from the configuration file
@@ -1472,6 +1475,86 @@ string GenericSpeedControlTC<VehicleModuleType>::SpeedControlOperatorResult(void
 	return testResult;
 }
 
+//-------------------------------------------------------------------------------------------------
+template <class VehicleModuleType>
+string GenericSpeedControlTC<VehicleModuleType>::AddTorqueAssist(void)
+{
+	string testResult(BEP_TESTING_RESPONSE);
+	// Log the entry and determine if the test should be performed
+	Log(LOG_FN_ENTRY, "GenericSpeedControlTC::AddTorqueAssist() - Enter");
+    if (!ShortCircuitTestStep() && !IsPreviousPass()) 
+	{	// Get the result from the operator
+
+        std::string torqueValue = GetParameter("CruiseTorqueAssistValue");
+        //float torqueValue = (GetParameterInt("CruiseTorqueAssistValue") > 0)?GetParameterInt("CruiseTorqueAssistValue"):50;
+
+        m_torqueSpeedLimit = SystemRead(GetDataTag("TorqueModeSpeedLimit"));
+        SystemWrite(GetDataTag("TorqueModeSpeedLimit"), "75");
+
+        m_MotorController.Write(std::string("LeftFrontMotorMode"),BOOST_MODE, false);
+        m_MotorController.Write(std::string("RightFrontMotorMode"),BOOST_MODE, false);
+        m_MotorController.Write(std::string("LeftRearMotorMode"),std::string("Torque"), false);
+        m_MotorController.Write(std::string("RightRearMotorMode"),std::string("Torque"), false);
+        // Command the left front roll to the sensor test speed
+        m_MotorController.Write(std::string("LeftRearTorqueValue"),torqueValue, false);
+        m_MotorController.Write(std::string("RightRearTorqueValue"),torqueValue, true);
+
+		Log(LOG_ERRORS, "AddTorqueAssist result: %s", testResult.c_str());
+		// Report the result
+		SendTestResult(testResult, GetTestStepInfo("Description"));
+	}
+	else
+	{	// Need to skip this test
+		testResult = testSkip;
+		Log(LOG_FN_ENTRY, "Skipping AddTorqueAssist");
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "GenericSpeedControlTC::AddTorqueAssist() - Exit");
+	return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+template <class VehicleModuleType>
+string GenericSpeedControlTC<VehicleModuleType>::RemoveTorqueAssist(void)
+{
+	string testResult(BEP_TESTING_RESPONSE);
+	// Log the entry and determine if the test should be performed
+	Log(LOG_FN_ENTRY, "GenericSpeedControlTC::RemoveTorqueAssist() - Enter");
+    if (!ShortCircuitTestStep() && !IsPreviousPass()) 
+    {
+
+        SystemWrite(GetDataTag("TorqueModeSpeedLimit"), m_torqueSpeedLimit);
+
+        m_MotorController.Write(std::string("LeftFrontMotorMode"),BOOST_MODE, false);
+        m_MotorController.Write(std::string("RightFrontMotorMode"),BOOST_MODE, false);
+        m_MotorController.Write(std::string("LeftRearMotorMode"),BOOST_MODE, false);
+        m_MotorController.Write(std::string("RightRearMotorMode"),BOOST_MODE, false);
+        // Command the left front roll to the sensor test speed
+        m_MotorController.Write(std::string("LeftRearTorqueValue"),"0", false);
+        m_MotorController.Write(std::string("RightRearTorqueValue"),"0", true);
+
+		Log(LOG_ERRORS, "RemoveTorqueAssist result: %s", testResult.c_str());
+		// Report the result
+		SendTestResult(testResult, GetTestStepInfo("Description"));
+	}
+	else
+	{	// Need to skip this test
+		testResult = testSkip;
+		Log(LOG_FN_ENTRY, "Skipping RemoveTorqueAssist");
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "GenericSpeedControlTC::RemoveTorqueAssist() - Exit");
+	return testResult;
+
+
+    /*if(SystemCommand(MOTOR_MODE, string(BOOST_MODE)) != BEP_STATUS_SUCCESS)
+        throw BepException("Error: Could Not Command %s, %s\n", 
+                           MOTOR_MODE, BOOST_MODE);
+    // set Boost to enable
+    if(SystemWrite(BOOST_MODE, "1") != BEP_STATUS_SUCCESS)
+        throw BepException("Error: Could Not Command %s, %s\n", BOOST_MODE, "1");*/
+}
+
 //-----------------------------------------------------------------------------
 template <class VehicleModuleType>
 const bool GenericSpeedControlTC<VehicleModuleType>::IsVehicleSpeedStable(const float &targetSpeed, bool &zeroThrottle,
@@ -1717,7 +1800,7 @@ const bool GenericSpeedControlTC<VehicleModuleType>::IsSpeedIncreasing(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-template <class VehicleModuleType>
+    template <class VehicleModuleType>
 const BEP_STATUS_TYPE GenericSpeedControlTC<VehicleModuleType>::ReadVehicleSpeed(float &vehicleSpeed)
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
@@ -1930,6 +2013,7 @@ BEP_STATUS_TYPE GenericSpeedControlTC<VehicleModuleType>::WaitForResumeButton(bo
 	// Return the status
 	return status;
 }
+
 
 //-------------------------------------------------------------------------------------------------
 template <class VehicleModuleType>

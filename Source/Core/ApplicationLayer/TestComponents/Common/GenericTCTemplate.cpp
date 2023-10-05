@@ -1581,16 +1581,17 @@ string GenericTCTemplate<ModuleType>::ReadFaults(void)
                   string faultTag = "ModuleFault_" + moduleFaults[faultIndex];
                   INT32 faultCode = atoh(moduleFaults[faultIndex].c_str());
                   string faultStatus("Ignored");
-                  if ((faultCode != 0) && (m_ignoreFaults.find(faultTag) == m_ignoreFaults.end()))
+                  if ((faultCode != 0) && (m_reportOnly.find(faultTag) != m_reportOnly.end())) {
+                     faultStatus = "Reported";
+                     ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
+                  }
+                  else if ((faultCode != 0) && (m_ignoreFaults.find(faultTag) == m_ignoreFaults.end()))
                   {   // This is a fault to report
                      faultStatus = "Reported";
                      ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
                      faultsRecorded = true;
                   }
-                  else if ((faultCode != 0) && (m_reportOnly.find(faultTag) == m_reportOnly.end())) {
-                     faultStatus = "Reported";
-                     ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
-                  }
+                  
                   // Log the fault read from the module
                   Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex + 1,
                       moduleFaults[faultIndex].c_str(), faultStatus.c_str());
@@ -1945,10 +1946,10 @@ const string GenericTCTemplate<ModuleType>::WaitForEngineOffIgnitionOn(void)
    string testResult(testFail);
    bool engineOffIgnitionOn = false;
    Log(LOG_FN_ENTRY, "GenericTCTemplate<ModuleType>::WaitForEngineOffIgnitionOn()  - Enter");
+   DisplayPrompt(GetPromptBox("EngineOffIgnitionOn"),
+                    GetPrompt("EngineOffIgnitionOn"), GetPromptPriority("EngineOffIgnitionOn"));
    do
    {   // Display prompt to put Engine off ignition on
-      DisplayPrompt(GetPromptBox("EngineOffIgnitionOn"),
-                    GetPrompt("EngineOffIgnitionOn"), GetPromptPriority("EngineOffIgnitionOn"));
       if (!IsIgnitionOn())
       {   // Wait before the next check
          BposSleep(GetTestStepInfoInt("ScanDelay"));
@@ -2471,9 +2472,10 @@ const string GenericTCTemplate<ModuleType>::WaitForEngineOffIgnitionOff(void)
       BposSleep(GetTestStepInfoInt("ShiftToParkDisplayPrompt"));
       RemovePrompt(GetPromptBox("ShiftToPark"), GetPrompt("ShiftToPark"), GetPromptPriority("ShiftToPark"));
    }
+   DisplayPrompt(GetPromptBox("EngineOffIgnitionOff"), GetPrompt("EngineOffIgnitionOff"), GetPromptPriority("EngineOffIgnitionOff"));
    do
    {   // Display prompt to put Engine off ignition off
-      DisplayPrompt(GetPromptBox("EngineOffIgnitionOff"), GetPrompt("EngineOffIgnitionOff"), GetPromptPriority("EngineOffIgnitionOff"));
+      
       if (IsIgnitionOn())
       {   // Wait before the next check
          BposSleep(GetTestStepInfoInt("ScanDelay"));

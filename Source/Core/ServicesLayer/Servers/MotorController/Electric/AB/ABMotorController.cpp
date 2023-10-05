@@ -605,6 +605,12 @@ const std::string ABMotorController::Command(const XmlNode *node)
         }
 		status = BEP_SUCCESS_RESPONSE;
     }
+    else if(!name.compare("TorqueModeSpeedLimit"))
+	{
+		Log(LOG_DEV_DATA, "Setting torque mode speed limit to %s mph", value.c_str());
+		SetTorqueModeSpeedLimit(atof(value.c_str()));
+		status = BEP_SUCCESS_RESPONSE;
+	}
     else
     {
         status = MotorController::Command( node);
@@ -2063,7 +2069,7 @@ inline const bool ABMotorController::IsQuickBrakeEnabled(void) const
 //-------------------------------------------------------------------------------------------------
 inline void ABMotorController::SetTorqueModeSpeedLimit(const float limit)
 {
-    const float upper = 40.0;
+    const float upper = 75.0;
     uint32_t    ii;
     Log(LOG_FN_ENTRY, "ABMotorController::SetTorqueModeSpeedLimit(%3.2f)\n", limit);
 

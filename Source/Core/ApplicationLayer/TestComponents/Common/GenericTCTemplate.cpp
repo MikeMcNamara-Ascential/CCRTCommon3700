@@ -126,7 +126,7 @@ GenericTCTemplate<ModuleType>::~GenericTCTemplate(void)
    m_partNumbersToCheck.clear(true);
    m_validPartNumbers.clear(true);
    m_ignoreFaults.clear(true);
-   m_reportOnly.clear(true);
+   m_reportOnlyFaults.clear(true);
    m_clearFaults.clear(true);
 }
 
@@ -185,7 +185,7 @@ void GenericTCTemplate<ModuleType>::ReloadConfiguration(void)
    Log(LOG_FN_ENTRY, "GenericTCTemplate::ReloadConfiguration()\n");
    //Clear all items that were copied
    m_ignoreFaults.clear(true);
-   m_reportOnly.clear(true);
+   m_reportOnlyFaults.clear(true);
    m_clearFaults.clear(true);
    m_validPartNumbers.clear(true);
    m_moduleDataItems.clear(true);
@@ -474,12 +474,12 @@ void GenericTCTemplate<ModuleType>::InitializeHook(const XmlNode *config)
    // Get the list of module faults to report but not fail
    try
    {
-      m_reportOnly.DeepCopy(config->getChild("Setup/ReportOnlyFaults")->getChildren());
+      m_reportOnlyFaults.DeepCopy(config->getChild("Setup/ReportOnlyFaults")->getChildren());
    }
    catch (BepException& err)
    {   // Could not get list of faults to ignore
       Log("XML Exception loading ignored faults list - %s\n", err.Reason().c_str());
-      m_reportOnly.clear(true);
+      m_reportOnlyFaults.clear(true);
    }
    // Get the list of module faults to clear
    try
@@ -1581,7 +1581,7 @@ string GenericTCTemplate<ModuleType>::ReadFaults(void)
                   string faultTag = "ModuleFault_" + moduleFaults[faultIndex];
                   INT32 faultCode = atoh(moduleFaults[faultIndex].c_str());
                   string faultStatus("Ignored");
-                  if ((faultCode != 0) && (m_reportOnly.find(faultTag) != m_reportOnly.end())) {
+                  if ((faultCode != 0) && (m_reportOnlyFaults.find(faultTag) != m_reportOnlyFaults.end())) {
                      faultStatus = "Reported";
                      ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
                   }
@@ -2542,7 +2542,7 @@ string GenericTCTemplate<ModuleType>::ReadFaultsByPhase(std::string phase)
                      ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
                      faultsRecorded = true;
                   }
-                  else if ((faultCode != 0) && (m_reportOnly.find(faultTag) == m_reportOnly.end())) {
+                  else if ((faultCode != 0) && (m_reportOnlyFaults.find(faultTag) == m_reportOnlyFaults.end())) {
                      faultStatus = "Reported";
                      ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
                   }

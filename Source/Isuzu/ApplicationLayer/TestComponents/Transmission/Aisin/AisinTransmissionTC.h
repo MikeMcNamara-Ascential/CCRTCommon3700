@@ -119,6 +119,8 @@ private:
 
     virtual string ReadFaults(void);
 
+    virtual string ExtraAccelerationTest(void);
+
 
     /**
      * Check the Overdrive switch. Looking for <i>any</i> state change.
@@ -154,6 +156,8 @@ private:
 private:
     /** List of PRNDL positions to check for */
     XmlNodeMap m_prndlPositions;
+    XmlNodeMap m_SolenoidDtcs;
+    bool m_extraTest;
 };
 //*************************************************************************
 #endif  //AisinTransmissionTC_h

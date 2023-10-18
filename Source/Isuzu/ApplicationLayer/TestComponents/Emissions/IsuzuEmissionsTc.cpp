@@ -4716,33 +4716,27 @@ string IsuzuEmissionsTc<ModuleType>::ReadPIDNoFail(void)
     string sensorName = "OilPID";
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ReadPIDNoFail(%s) - Enter", sensorName.c_str());
     string testResult(BEP_TESTING_RESPONSE);
-    {   // Read the sensor from the module
-        bool sensorValue = 0;
-        bool valueToCompare = GetParameterBool(sensorName + "CompareValue");
+    // Read the sensor from the module
+    bool sensorValue = 0;
+    bool valueToCompare = GetParameterBool(sensorName + "CompareValue");
 
-        BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName, sensorValue);
-        string testDescription(GetTestStepInfo("Description"));
-        string testCode("0000");
-        if (BEP_STATUS_SUCCESS == status)
-        {   // Good data from the module, evaluate against parameters
-            testResult = testPass;
+    BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName, sensorValue);
+    string testDescription(GetTestStepInfo("Description"));
+    string testCode("0000");
+    if (BEP_STATUS_SUCCESS == status)
+    {   // Good data from the module, evaluate against parameters
+        testResult = testPass;
 
-            Log(LOG_DEV_DATA, "%s value: %02X (%d) - compare to: %02X (%d) - result: %s",
-                sensorName.c_str(), sensorValue, sensorValue, valueToCompare, valueToCompare, testResult.c_str());
-        }
-        else
-        {   // Could not read data from the module
-            testResult = testPass;
-            testDescription = GetFaultDescription("CommunicationFailure");
-            testCode = GetFaultCode("CommunicationFailure");
-            Log(LOG_DEV_DATA, "Error reading %s from the module - %s", 
-                sensorName.c_str(), ConvertStatusToResponse(status).c_str());
-        }
+        Log(LOG_DEV_DATA, "%s value: %02X (%d) - compare to: %02X (%d) - result: %s",
+            sensorName.c_str(), sensorValue, sensorValue, valueToCompare, valueToCompare, testResult.c_str());
     }
     else
-    {   // Need to skip this test
-        Log(LOG_FN_ENTRY, "Skipping IsuzuEmissionsTc::ReadPIDNoFail(%s)", sensorName.c_str());
-        testResult = testSkip;
+    {   // Could not read data from the module
+        testResult = testPass;
+        testDescription = GetFaultDescription("CommunicationFailure");
+        testCode = GetFaultCode("CommunicationFailure");
+        Log(LOG_DEV_DATA, "Error reading %s from the module - %s", 
+            sensorName.c_str(), ConvertStatusToResponse(status).c_str());
     }
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ReadPIDNoFail(%s) - Exit", sensorName.c_str());

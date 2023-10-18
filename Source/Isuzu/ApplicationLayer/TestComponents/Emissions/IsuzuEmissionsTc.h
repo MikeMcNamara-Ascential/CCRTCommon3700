@@ -478,6 +478,8 @@ private:
      * Adjust the mass value used in cruise control calculations to a suitable value for the machine
      */ 
     string AdjustCruiseMass(void);
+    string PressBrakeMultiple(void);
+    string ReadPIDNoFail(void);
 
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;

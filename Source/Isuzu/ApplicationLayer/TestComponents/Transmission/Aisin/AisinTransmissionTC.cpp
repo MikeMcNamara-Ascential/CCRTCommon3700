@@ -21,6 +21,7 @@ template <class VehicleModuleType>
 AisinTransmissionTC<VehicleModuleType>::AisinTransmissionTC() : 
 GenericTransmissionTCTemplate<VehicleModuleType>()
 {   // Nothing special to do
+
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -28,6 +29,7 @@ template <class VehicleModuleType>
 AisinTransmissionTC<VehicleModuleType>::~AisinTransmissionTC()
 {   // clear out the PRNDL position data
     m_prndlPositions.clear(true);
+    m_SolenoidDtcs.clear(true);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -50,6 +52,8 @@ const string AisinTransmissionTC<VehicleModuleType>::CommandTestStep(const strin
                 else if(!GetTestStepName().compare("ReadFaultCount"))   testResult = CheckFaultCount();
                 else if(!GetTestStepName().compare("ShiftLeverTest"))   testResult = ShiftLeverTest();
                 else if(!GetTestStepName().compare("ClearFaultsFinal")) testResult = ClearFaults();
+                else if(!GetTestStepName().compare("ExtraAccelerationTest")) testResult = ExtraAccelerationTest();
+                
                 // No specific method, try the base class
                 else testResult = GenericTransmissionTCTemplate<VehicleModuleType>::CommandTestStep(value);
             }
@@ -89,6 +93,15 @@ void AisinTransmissionTC<VehicleModuleType>::InitializeHook(const XmlNode *confi
     GenericTransmissionTCTemplate<VehicleModuleType>::InitializeHook(config);
     // Load the PRNDL positions
     m_prndlPositions.DeepCopy(config->getChild("Setup/Parameters/PrndlPositions")->getChildren());
+    m_extraTest = false;
+    try
+    {
+        m_SolenoidDtcs.DeepCopy(config->getChild("Setup/SolenoidDtcs")->getChildren());   
+    }
+    catch (BepException& err)
+    {
+        m_SolenoidDtcs.clear(true);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -392,12 +405,17 @@ string AisinTransmissionTC<ModuleType>::ReadFaults(void)
                         Log(LOG_DEV_DATA, "Ignored from dtc status byte? %s - status mask [%02X] dtc status [%02X]\n", 
                             ignored ? "True" : "False", statusMask, dtcStatus);
                         ignored = (ignored ? ignored : !(m_ignoreFaults.find(faultTag) == m_ignoreFaults.end()));
+
                         if (((faultCode != 0) && !ignored) || ((faultCode != 0) && GetParameterBool("ReportIgnoredFaults")))
                         {   // This is a fault to report
                             if(!ignored)
                             {
                                 faultStatus = "Reported";
                                 faultsRecorded = true;
+                                if (!(m_SolenoidDtcs.find(faultTag) == m_SolenoidDtcs.end()))
+                                {
+                                    m_extraTest = true;
+                                }
                             }
 
                             //Set strDtcStatus to indicate the DTC status
@@ -490,4 +508,48 @@ string AisinTransmissionTC<ModuleType>::ReadFaults(void)
     Log(LOG_FN_ENTRY, "Exit AisinTransmissionTC::ReadFaults()\n");
     return testResult;
 }
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string AisinTransmissionTC<ModuleType>::ExtraAccelerationTest(void)
+{
+    string testResult(testPass);    // Report test step result
+    string testDescription(GetTestStepInfo("Description"));     // Report test step description
+    string testResultCode("0000");      // Report test step code
+    string testToCheck("");
 
+    if (!m_extraTest || ShortCircuitTestStep())
+    {
+        return testPass;
+    }
+
+    float targetSpeed = (GetParameterFloat("SensorRetestSpeed") > 0)?GetParameterFloat("SensorRetestSpeed"):40;
+    string speedRange(GetParameter("SensorRetestRange"));
+    if(speedRange.length() <= 0)
+        speedRange = "0 40";
+    int speedScanDelay = (GetParameterInt("SensorRetestScanDelay")>0)?GetParameterInt("SensorRetestScanDelay"):100;
+
+    AccelerateToTestSpeed(targetSpeed, speedRange, speedScanDelay, false, "SensorRetestAcceleration");
+
+    //SetTestStepName 
+    DisplayPrompt(GetPromptBox("RunningDelayTest"), GetPrompt("RunningDelayTest"), GetPromptPriority("RunningDelayTest"));
+    DisplayPrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
+    int delay = (GetTestStepInfoInt("ScanDelay") > 0)?GetTestStepInfoInt("ScanDelay"):10000;
+    BposSleep(delay);
+
+    RemovePrompt(GetPromptBox("RunningDelayTest"), GetPrompt("RunningDelayTest"), GetPromptPriority("RunningDelayTest"));
+    RemovePrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
+
+    DisplayPrompt(GetPromptBox("FootOnBrake"), GetPrompt("FootOnBrake"), GetPromptPriority("FootOnBrake"));
+
+    SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+            // check if at zerospeed
+    while (ReadSubscribeData("Zerospeed") != "1" && TimeRemaining()){
+        BposSleep(speedScanDelay);
+    }
+    RemovePrompt(GetPromptBox("FootOnBrake"), GetPrompt("FootOnBrake"), GetPromptPriority("FootOnBrake"));
+
+    Log(LOG_FN_ENTRY, "AisinTransmissionTC::ExtraAccelerationTest() Exit\n");
+    return testPass;
+
+    m_extraTest = false;
+}

@@ -49,6 +49,7 @@ const string ToyotaBrakeTC::CommandTestStep(const string& value)
       else if (!GetTestStepName().compare("ParkBrakeForceCalibration")) testResult = ParkBrakeForceCalibration();
       else if (!GetTestStepName().compare("PreShiftCheckout"))          testResult = PreShiftCheck();
       else if (!GetTestStepName().compare("TractionControlTest"))       testResult = TractionControlCheck();
+      else if (!GetTestStepName().compare("DualBrakeForceMeasurement"))  testResult = DualBrakeForceVerification();
       else if (!GetTestStepName().compare("Initialize"))
       {   // Reset the system tags and then call the base class to finish the Initialize
          ResetSystemTags();
@@ -907,6 +908,218 @@ string ToyotaBrakeTC::TractionControlCheck(void)
 }
 
 //-------------------------------------------------------------------------------------------------
+string ToyotaBrakeTC::DualBrakeForceVerification(void)
+{   // Log the entry and see if this step should be performed
+   Log(LOG_FN_ENTRY, "ToyotaBrakeTC::DualBrakeForceVerification() - Enter V2");
+   string testResult(BEP_TESTING_STATUS);
+   if (!ShortCircuitTestStep())
+   {   // Wait for minimum force on all wheels or timeout
+      SystemWrite(GetDataTag("LFMaxBrakeForceColorTag"), GetParameter("TestInProgressColor"));
+      SystemWrite(GetDataTag("RFMaxBrakeForceColorTag"), GetParameter("TestInProgressColor"));
+      SystemWrite(GetDataTag("LRMaxBrakeForceColorTag"), GetParameter("TestInProgressColor"));
+      SystemWrite(GetDataTag("RRMaxBrakeForceColorTag"), GetParameter("TestInProgressColor"));
+      SystemWrite(GetDataTag("FrontBalanceBGColor"), GetParameter("TestInProgressColor"));
+      SystemWrite(GetDataTag("RearBalanceBGColor"), GetParameter("TestInProgressColor"));
+      MaxBrakeData brakeData[GetRollerCount()];
+      // Assign the data tags
+      for (INT16 roller = LFWHEEL; roller <= RRWHEEL; roller++)
+      {
+         brakeData[roller].currentForce = 0.0;
+         brakeData[roller].maxForce     = 0.0;
+         brakeData[roller].measurementComplete = false;
+      }
+      brakeData[LFWHEEL].currentForceTag = GetDataTag("LFCurrentForce");
+      brakeData[RFWHEEL].currentForceTag = GetDataTag("RFCurrentForce");
+      brakeData[LRWHEEL].currentForceTag = GetDataTag("LRCurrentForce");
+      brakeData[RRWHEEL].currentForceTag = GetDataTag("RRCurrentForce");
+      brakeData[LFWHEEL].displayTag = GetDataTag("LFMaxBrakeForceTag");
+      brakeData[RFWHEEL].displayTag = GetDataTag("RFMaxBrakeForceTag");
+      brakeData[LRWHEEL].displayTag = GetDataTag("LRMaxBrakeForceTag");
+      brakeData[RRWHEEL].displayTag = GetDataTag("RRMaxBrakeForceTag");
+      
+      // Command the high torque motors to engage
+      SystemWrite(GetDataTag("EngageHighTorqueMotor"), true);
+      SystemWrite(GetDataTag("EngageParkBrakeMotors"), true);
+      // Wait for the rollers to be rolling
+      WHEELINFO rollerSpeed;
+      do
+      {
+         GetWheelSpeeds(rollerSpeed);
+         BposSleep(GetParameterInt("ApplyBrakePedalWaitTime"));
+      }
+      while ((rollerSpeed.lfWheel < 1.0) && (BEP_STATUS_SUCCESS == StatusCheck()));
+      // Instruct operator to apply brake pedal and wait for a bit
+      DisplayPrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
+      bool frontMeasurementComplete = false;
+      float fBal = GetVehicleParameter("MaxFrontDifference", (float)0.0) + 20.0;
+      float lfMaxForce = 0.0;
+      float rfMaxForce = 0.0;
+      do
+      {   // Make sure the max values are reset
+         brakeData[LFWHEEL].maxForce = 0.0;
+         brakeData[LFWHEEL].measurementComplete = false;
+         brakeData[RFWHEEL].maxForce = 0.0;
+         brakeData[RFWHEEL].measurementComplete = false;
+         BposSleep(GetParameterInt("FrontMaxBrakeStablizationTime"));
+         frontMeasurementComplete = MonitorBrakeForces(LFWHEEL, RFWHEEL,
+                                                       GetVehicleParameter("RequiredBrakeForceFront", (float)0.0),
+                                                       GetVehicleParameter("RequiredBrakeForceRear", (float)0.0),
+                                                       brakeData, GetVehicleParameter("MaxBrakeSamples", (int)0.0));
+         // Set the result colors on the screen
+         if (brakeData[LFWHEEL].forceSamples.size() > 0)
+         {
+            lfMaxForce = accumulate(brakeData[LFWHEEL].forceSamples.begin(),
+                                    brakeData[LFWHEEL].forceSamples.end(), 0.0) / brakeData[LFWHEEL].forceSamples.size();
+            Log(LOG_DEV_DATA, "LF Max Force: %.2f, samples: %d", lfMaxForce, brakeData[LFWHEEL].forceSamples.size());
+         }
+         else
+         {
+            lfMaxForce = 0.0;
+            Log(LOG_ERRORS, "LF MAX Force not measured, no samples collected");
+         }
+         if (brakeData[RFWHEEL].forceSamples.size() > 0)
+         {
+            rfMaxForce = accumulate(brakeData[RFWHEEL].forceSamples.begin(),
+                                    brakeData[RFWHEEL].forceSamples.end(), 0.0) / brakeData[RFWHEEL].forceSamples.size();
+            Log(LOG_DEV_DATA, "RF Max Force: %.2f, samples: %d", rfMaxForce, brakeData[RFWHEEL].forceSamples.size());
+         }
+         else
+         {
+            rfMaxForce = 0.0;
+            Log(LOG_ERRORS, "RF MAX Force not measured, no samples collected");
+         }
+         BposSleep(GetParameterInt("LoadCellReadingDelay"));
+         SystemWrite(brakeData[LFWHEEL].displayTag, lfMaxForce);
+         SystemWrite(brakeData[RFWHEEL].displayTag, rfMaxForce);
+         SystemWrite(GetDataTag("LFMaxBrakeForceColorTag"),
+                     lfMaxForce >= GetVehicleParameter("RequiredBrakeForceFront", (float)0.0) ? string("green") : string("red"));
+         SystemWrite(GetDataTag("RFMaxBrakeForceColorTag"),
+                     rfMaxForce >= GetVehicleParameter("RequiredBrakeForceFront", (float)0.0) ? string("green") : string("red"));
+         // Set the brake balance for each axle
+         fBal = abs(lfMaxForce - rfMaxForce);
+      }
+      while ((!frontMeasurementComplete || (fBal > GetVehicleParameter("MaxFrontDifference", (float)0.0))) && TimeRemaining() &&
+             (BEP_STATUS_SUCCESS == StatusCheck()));
+      SystemWrite(GetDataTag("FrontBalanceValue"), fBal);
+      SystemWrite(GetDataTag("FrontBalanceBGColor"),
+                  fBal <= GetVehicleParameter("MaxFrontDifference", (float)0.0) ? string("green") : string("red"));
+      // Log the test result data
+      Log(LOG_DEV_DATA, "LF Max Force: %.2f    RF Max Force: %.2f     Balance: %.2f",
+          lfMaxForce, rfMaxForce, fBal);
+
+
+      bool rearMeasurementComplete = false;
+      float rBal = GetVehicleParameter("MaxRearDifference", (float)0.0) + 20.0;
+      float lrMaxForce = 0.0;
+      float rrMaxForce = 0.0;
+      do
+      {   // Make sure the max values are reset
+         Log(LOG_DEV_DATA, "Setting rear max brake values to incomplete state");
+         brakeData[LRWHEEL].maxForce = 0.0;
+         brakeData[LRWHEEL].measurementComplete = false;
+         brakeData[RRWHEEL].maxForce = 0.0;
+         brakeData[RRWHEEL].measurementComplete = false;
+         //BposSleep(GetParameterInt("RearMaxBrakeStablizationTime"));
+         rearMeasurementComplete = MonitorBrakeForces(LRWHEEL, RRWHEEL,
+                                                      GetVehicleParameter("RequiredBrakeForceFront", (float)0.0),
+                                                      GetVehicleParameter("RequiredBrakeForceRear", (float)0.0),
+                                                      brakeData, GetVehicleParameter("MaxBrakeSamples", (int)0));
+         // Set the result colors on the screen
+         if (brakeData[LRWHEEL].forceSamples.size() > 0)
+         {
+            lrMaxForce = accumulate(brakeData[LRWHEEL].forceSamples.begin(),
+                                    brakeData[LRWHEEL].forceSamples.end(), 0.0) / brakeData[LRWHEEL].forceSamples.size();
+            Log(LOG_DEV_DATA, "LR Max Force: %.2f, samples: %d", lrMaxForce, brakeData[LRWHEEL].forceSamples.size());
+         }
+         else
+         {
+            lrMaxForce = 0.0;
+            Log(LOG_ERRORS, "LR MAX Force not measured, no samples collected");
+         }
+         if (brakeData[RRWHEEL].forceSamples.size() > 0)
+         {
+            rrMaxForce = accumulate(brakeData[RRWHEEL].forceSamples.begin(),
+                                    brakeData[RRWHEEL].forceSamples.end(), 0.0) / brakeData[RRWHEEL].forceSamples.size();
+            Log(LOG_DEV_DATA, "RR Max Force: %.2f, samples: %d", rrMaxForce, brakeData[RRWHEEL].forceSamples.size());
+         }
+         else
+         {
+            rrMaxForce = 0.0;
+            Log(LOG_ERRORS, "RR MAX Force not measured, no samples collected");
+         }
+         BposSleep(GetParameterInt("LoadCellReadingDelay"));
+         SystemWrite(brakeData[LRWHEEL].displayTag, lrMaxForce);
+         SystemWrite(brakeData[RRWHEEL].displayTag, rrMaxForce);
+         SystemWrite(GetDataTag("LRMaxBrakeForceColorTag"),
+                     lrMaxForce >= GetVehicleParameter("RequiredBrakeForceRear", (float)0.0) ? string("green") : string("red"));
+         SystemWrite(GetDataTag("RRMaxBrakeForceColorTag"),
+                     rrMaxForce >= GetVehicleParameter("RequiredBrakeForceRear", (float)0.0) ? string("green") : string("red"));
+         // Set the brake balance for each axle
+         rBal = abs(lrMaxForce - rrMaxForce);
+         if (rBal > GetVehicleParameter("MaxRearDifference", (float)0.0))
+         {
+            Log(LOG_DEV_DATA, "Rear brake difference [%.2f] is out of spec!", rBal);
+         }
+      }
+      while ((!rearMeasurementComplete || (rBal > GetVehicleParameter("MaxRearDifference", (float)0.0))) && TimeRemaining() &&
+             (BEP_STATUS_SUCCESS == StatusCheck()));
+      // Command the high torque motors to disengage
+      SystemWrite(GetDataTag("EngageParkBrakeMotors"), false);
+      SystemWrite(GetDataTag("EngageHighTorqueMotor"), false);
+      SystemWrite(GetDataTag("RearBalanceValue"), rBal);
+      SystemWrite(GetDataTag("RearBalanceBGColor"),
+                  rBal <= GetVehicleParameter("MaxRearDifference", (float)0.0) ? string("green") : string("red"));
+      // Log the test result data
+      Log(LOG_DEV_DATA, "LR Max Force: %.2f    RR Max Force: %.2f     Balance: %.2f",
+          lrMaxForce, rrMaxForce, rBal);
+
+      RemovePrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
+
+      // Determine the results
+      if (BEP_STATUS_SUCCESS != StatusCheck())
+      {   // Bad system status during the test
+         Log(LOG_ERRORS, "Bad system status during max brake force testing: %s",
+             ConvertStatusToResponse(StatusCheck()).c_str());
+         testResult = testFail;
+      }
+      else if (!TimeRemaining())
+      {   // Timeout during max brake force testing
+         Log(LOG_ERRORS, "Timeout waiting for minimum required brake force");
+         testResult = testTimeout;
+      }
+      else if (frontMeasurementComplete && rearMeasurementComplete &&
+               (fBal <= GetVehicleParameter("MaxFrontDifference", (float)0.0)) &&
+               (rBal <= GetVehicleParameter("MaxRearDifference", (float)0.0)))
+      {   // All brake forces are good
+         Log(LOG_DEV_DATA, "All wheels met minimum brake force requirements");
+         testResult = testPass;
+      }
+      else
+      {
+         testResult = testFail;
+      }
+      // Report the results
+      char buff[32];
+      TestResultDetails testData;
+      testData.AddDetail("LFMaxBrakeForce", CreateMessage(buff, sizeof(buff), "%.2f", lfMaxForce), unitsKGF);
+      testData.AddDetail("RFMaxBrakeForce", CreateMessage(buff, sizeof(buff), "%.2f", rfMaxForce), unitsKGF);
+      testData.AddDetail("LRMaxBrakeForce", CreateMessage(buff, sizeof(buff), "%.2f", lrMaxForce), unitsKGF);
+      testData.AddDetail("RRMaxBrakeForce", CreateMessage(buff, sizeof(buff), "%.2f", rrMaxForce), unitsKGF);
+      testData.AddDetail("FrontBrakeDifference", CreateMessage(buff, sizeof(buff), "%.2f", fBal), unitsKGF);
+      testData.AddDetail("RearBrakeDifference", CreateMessage(buff, sizeof(buff), "%.2f", rBal), unitsKGF);
+      SendTestResultWithDetail(testResult, testData, GetTestStepInfo("Description"), "0000");
+   }
+   else
+   {
+      Log(LOG_FN_ENTRY, "Skipping ToyotaBrakeTC::DualBrakeForceVerification()");
+      testResult = testSkip;
+   }
+   // Log the exit and return the result
+   Log(LOG_FN_ENTRY, "ToyotaBrakeTC::DualBrakeForceVerification() - Exit");
+   return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
 bool ToyotaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRoller,
                                        float minimumRequiredForceFront, float minimumRequiredForceRear,
                                        MaxBrakeData *brakeData, UINT16 samplesToAverage)
@@ -922,7 +1135,7 @@ bool ToyotaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRolle
       bool allForcesAboveLimit = true;
       for (int roller = startingRoller; (roller <= stoppingRoller) && allForcesAboveLimit; roller++)
       {
-         allForcesAboveLimit = (brakeData[roller].currentForce >= requiredForce);
+         allForcesAboveLimit = (brakeData[roller].currentForce >= ((roller < LRWHEEL) ? minimumRequiredForceFront : minimumRequiredForceRear));
       }
       // update the number of samples above the limit
       currentSamplesAboveLimit = allForcesAboveLimit ? currentSamplesAboveLimit + 1 : 0;
@@ -932,7 +1145,7 @@ bool ToyotaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRolle
          SystemWrite(brakeData[roller].displayTag, brakeData[roller].currentForce);
          if (allForcesAboveLimit)
          {   // Check if this is a max value
-            if (brakeData[roller].currentForce > requiredForce)
+            if (brakeData[roller].currentForce > ((roller < LRWHEEL) ? minimumRequiredForceFront : minimumRequiredForceRear))
             {
                if (currentSamplesAboveLimit >= samplesAboveLimit)
                {   // We have enough samples over the threshold, start averaging

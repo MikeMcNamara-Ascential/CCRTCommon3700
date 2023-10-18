@@ -164,6 +164,9 @@ public:
     string TractionControlCheck(void);
 
 
+    string DualBrakeForceVerification(void);
+
+
 
 protected:
     /** Structure for holding brake force data during max brake force testing and park brake testing */

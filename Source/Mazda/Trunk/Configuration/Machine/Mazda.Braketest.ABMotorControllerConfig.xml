@@ -105,6 +105,7 @@
 			<SpeedLoading Description="Amount of force to apply as speed increases (per roll as function of speed squared)" Units="Pounds/MPH^2">0.0</SpeedLoading>
 			<MotorLoadingMinSpeed Description="Minimum speed for motor loading" Units="MPH">2.0</MotorLoadingMinSpeed>
 			<MotorLoadingMaxSpeed Description="Maximum speed for motor loading (0 to disable upper limit)" Units="MPH">90.0</MotorLoadingMaxSpeed>
+			<SpeedValueNegative Description="Determines if the Speed Value is read backwards. If true, the sign is flipped for display">0</SpeedValueNegative>
 		</MotorParameters>
 		<HeartBeatParameters>
 			<Setup>

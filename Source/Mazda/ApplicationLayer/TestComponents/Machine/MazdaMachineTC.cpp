@@ -241,16 +241,18 @@ string MazdaMachineTC::ReportSideSlipResults(void) {
         // Report the results
         SendTestResultWithDetail(testPass, details, GetTestStepInfo("Description"), "0000");
 
-        Log(LOG_DEV_DATA, "---Overall Result for Drum Test: %s", GetOverallResult());
-        // Send drum results if test is pass or test is continuing.                                   
+        
+        // Send drum results if test is pass or test is continuing. Updated to be VERY clear
+        Log(LOG_DEV_DATA, "---Overall Result for Drum Test: %s", GetOverallResult().c_str());
         if (!GetOverallResult().compare(testPass) || !GetOverallResult().compare(BEP_TESTING_RESPONSE))
         {
-            Log(LOG_DEV_DATA, "SETTING DRUM RESULT TAG TO PASS")
-            SystemWrite(GetDataTag("DrumResultTag");
+            Log(LOG_DEV_DATA, "SETTING DRUM RESULT TAG TO PASS");
+            SystemWrite(GetDataTag("DrumResultTag"), 1);
         }
         else
         {
-            Log(LOG_DEV_DATA, "DRUM TEST FAIL. NOT SETTING TAG!")
+            Log(LOG_DEV_DATA, "DRUM TEST FAIL. NOT SETTING TAG!");
+            SystemWrite(GetDataTag("DrumResultTag"), 0);
         }
     }
     else

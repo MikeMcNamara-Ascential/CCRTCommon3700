@@ -18,6 +18,7 @@
             <RetainersDown>RollsDownElevUp</RetainersDown>
             <StartVehicleTest>StartVehicleTest</StartVehicleTest>
             <Vin>Aon</Vin>
+            <CurrentTestStatus>CurrentTestStatus</CurrentTestStatus>
         </DataTags>
         <TagList>
             <SubscribeTags>

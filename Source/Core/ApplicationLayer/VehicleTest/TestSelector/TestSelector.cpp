@@ -278,7 +278,7 @@ std::string TestSelector::SelectDriveCurve(const XmlNode *vehicleBuild, string &
                     }
 
                     // determine if drive curve match is closer than the previous match
-                    if (!difference) // if no differences
+                    if (!difference) // if not zero differences
                     {
                         if (currentMatches > matches)    // if a better fit found
                         {

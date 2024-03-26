@@ -152,6 +152,7 @@
                 <CurrentRFMachineLoss DataType="float" Units="LBF">ICM</CurrentRFMachineLoss>
                 <CurrentRRMachineLoss DataType="float" Units="LBF">ICM</CurrentRRMachineLoss>
                 <CurrentRTMachineLoss DataType="float">ICM</CurrentRTMachineLoss>
+                <CurrentTestStatus DataType="string">VehicleTest</CurrentTestStatus>
                 <CurrentTestStepResultFromTestHead DataType="bool">PLC</CurrentTestStepResultFromTestHead>
                 <CurrentWheelAbsTestComplete DataType="bool">PLC</CurrentWheelAbsTestComplete>
                 <CurrentWheelbasePosition DataType="short" Units="Inch*10">PLC</CurrentWheelbasePosition>

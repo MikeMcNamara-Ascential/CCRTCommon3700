@@ -170,7 +170,9 @@ const string MazdaMachineTC::CommandTestStep(const string &value) {
                 testResult = VehicleSetup();
             else if (!GetTestStepName().compare("FinishUp"))
             {
+                //ANCHOR - This is sending pass to overall result if objective's overall result is pass.
                 testResult = TestStepFinishUp(value);
+                
                 SystemWrite(GetDataTag("OverallResultTag"), !testResult.compare(testPass));
             }
             else
@@ -239,8 +241,17 @@ string MazdaMachineTC::ReportSideSlipResults(void) {
         // Report the results
         SendTestResultWithDetail(testPass, details, GetTestStepInfo("Description"), "0000");
 
-        // Send drum results
-        SystemWrite(GetDataTag("DrumResultTag"), !GetOverallResult().compare(testPass) || !GetOverallResult().compare(BEP_TESTING_RESPONSE));
+        Log(LOG_DEV_DATA, "---Overall Result for Drum Test: %s", GetOverallResult());
+        // Send drum results if test is pass or test is continuing.                                   
+        if (!GetOverallResult().compare(testPass) || !GetOverallResult().compare(BEP_TESTING_RESPONSE))
+        {
+            Log(LOG_DEV_DATA, "SETTING DRUM RESULT TAG TO PASS")
+            SystemWrite(GetDataTag("DrumResultTag");
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "DRUM TEST FAIL. NOT SETTING TAG!")
+        }
     }
     else
     {

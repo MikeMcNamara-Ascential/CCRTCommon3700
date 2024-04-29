@@ -95,7 +95,7 @@ string AllisonTransmissionTC<VehicleModuleType>::ShiftLeverTest(void)
 {   // Log the entry and determine if this step should be performed
     Log(LOG_FN_ENTRY, "AllisonTransmissionTC::ShiftLeverTest() - Enter");
     string result(testPass);
-    if(!ShortCircuitTestStep() && (!IsRetest() && GetPreviousOverallResult() != testPass))
+    if(!ShortCircuitTestStep() && (!IsRetest() || GetPreviousOverallResult() != testPass))
     {   // Check for each PRNDL position
         TestResultDetails details;
         // Have the operator apply the brake pedal during the shifting

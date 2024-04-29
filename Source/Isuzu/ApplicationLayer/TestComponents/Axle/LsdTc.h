@@ -131,6 +131,7 @@ protected:
      * @return The results of the LSD test.
      */
     virtual string GetTestResults(void);
+    virtual string GetTestResultsVL36(void);
 
     /**
      * Compare the two rear wheels and tell if they are going the same speed.
@@ -189,6 +190,7 @@ protected:
      * @return The status of starting the motor.
      */
     virtual string TurnWheel(void);
+    virtual string TurnWheelVL36(void);
 
     /**
      * Stop turning the wheels.

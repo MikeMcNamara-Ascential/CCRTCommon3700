@@ -2746,16 +2746,24 @@ string IsuzuEmissionsTc<ModuleType>::ClearFaults(void)
     //if(BEP_STATUS_SUCCESS == status)
     //{
     bool isLocked = true;
+    if(!GetTestStepInfoBool("IgnoreModuleLockedStatus"))
+    {
     // Attempt to read the locked status from the module
-    try
-    {   // Read the locked status from the module
-        m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
+        try
+        {   // Read the locked status from the module
+            m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
+        }
+        catch (ModuleException &exception)
+        {   // Exception reading data
+            Log(LOG_ERRORS, "Module exception in ClearFaults() while reading IsModuleLocked - %s\n", exception.message().c_str());
+            isLocked = true;
+        }
     }
-    catch (ModuleException &exception)
-    {   // Exception reading data
-        Log(LOG_ERRORS, "Module exception in ClearFaults() while reading IsModuleLocked - %s\n", exception.message().c_str());
-        isLocked = true;
+    else
+    {
+        isLocked = false;
     }
+        
     result = testPass;
     //Log(LOG_DEV_DATA, "DTC Count: %d", faultCount);
     Log(LOG_DEV_DATA, "Module Locked: %s", (isLocked ? "True" : "False"));

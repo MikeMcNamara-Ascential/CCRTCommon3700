@@ -59,6 +59,7 @@
             this.m_logMessageTextBox = new System.Windows.Forms.RichTextBox();
             this.m_passFileCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.m_esnFileCheckTimer = new System.Windows.Forms.Timer(this.components);
+            this.m_tsnFileCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.m_stpFileCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -303,6 +304,10 @@
             // 
             this.m_esnFileCheckTimer.Tick += new System.EventHandler(this.m_esnFileCheckTimer_Tick);
             // 
+            // m_tsnFileCheckTimer
+            // 
+            this.m_tsnFileCheckTimer.Tick += new System.EventHandler(this.m_tsnFileCheckTimer_Tick);
+            // 
             // m_stpFileCheckTimer
             // 
             this.m_stpFileCheckTimer.Interval = 1000;
@@ -355,6 +360,7 @@
         private System.Windows.Forms.ToolStripMenuItem passConfirmationFilesToolStripMenuItem;
         private System.Windows.Forms.Timer m_passFileCheckTimer;
         private System.Windows.Forms.Timer m_esnFileCheckTimer;
+        private System.Windows.Forms.Timer m_tsnFileCheckTimer;
         private System.Windows.Forms.ToolStripMenuItem modeCodeSpcificSttingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem retainingRollerPressureToolStripMenuItem;
         private System.Windows.Forms.Timer m_stpFileCheckTimer;

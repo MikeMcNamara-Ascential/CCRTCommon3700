@@ -82,6 +82,13 @@ namespace BomFileProcessor
 
 
             remotePaths.Clear();
+            remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCTSNFileLocation);
+            m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.RealTimePCTSNFileLocation + " to the remote paths");
+            //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
+            m_transmissionSerialNumberFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.WindowsPCTSNFileLocation,
+                users, passwords, ipaddresses, m_logger);
+
+            remotePaths.Clear();
             m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory + " to the remote paths");
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory);
             m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.VehicleBuildFlashTransferLocation + " to the remote paths");
@@ -98,6 +105,8 @@ namespace BomFileProcessor
 
             m_esnFileCheckTimer.Interval = BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay;
             m_esnFileCheckTimer.Start();
+            m_tsnFileCheckTimer.Interval = BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay;
+            m_tsnFileCheckTimer.Start();
 
             // Check if we should start monitoring for pass confirmation files
             if (BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles)
@@ -920,6 +929,46 @@ namespace BomFileProcessor
             m_esnFileCheckTimer.Start();
         }
 
+
+        /// <summary>
+        /// check for new ESN files to move from the Windows directory to the CCRT directory.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_tsnFileCheckTimer_Tick(object sender, EventArgs e)
+        {   // Stop the timer while processing any new pass confirmation files
+            m_tsnFileCheckTimer.Stop();
+            // Check for any new pass confirmation files
+            try
+            {
+                String[] newFiles = Directory.GetFiles(BomFileProcessor.Properties.Settings.Default.WindowsPCTSNFileLocation);
+                if (newFiles.Count() > 0)
+                {   // Process the CCRT generated pass confirmation files
+                    m_logger.Log("INFO: Found " + Convert.ToString(newFiles.Count()) + " new TSN File(s)");
+                    System.Threading.Thread.Sleep(3000);   // Make sure any current files are closed
+                    // Process each esn file
+
+                    if (m_transmissionSerialNumberFileMonitor.UploadToSources(newFiles.ToList()))
+                    {
+                        m_logger.Log("INFO:  TSN Transmit Successful");
+
+                        //delete oldest files if max exceeded
+                        m_transmissionSerialNumberFileMonitor.ManageRemoteLocationFileCount(BomFileProcessor.Properties.Settings.Default.RealTimePCTSNFileLocation, 1000);
+                    }
+                    else
+                    {
+                        m_logger.Log("INFO:  TSN Transmit Error, Retransmitting...");
+                    }
+                }
+            }
+            catch (System.IO.IOException ex)
+            {
+                m_logger.Log("ERROR: IOException accessing file or folder - " + ex.Message);
+            }
+            // Restart the timer to look for more pass confirmation files
+            m_tsnFileCheckTimer.Start();
+        }
+
         /// <summary>
         /// Check for new STP files to move from the CCRT directory to the Windows directory.
         /// </summary>
@@ -1241,6 +1290,7 @@ namespace BomFileProcessor
         private BomFtpFileMonitor m_engineSerialNumberFileMonitor;
         private BomFtpFileMonitor m_buildRecordFileMonitor;
         private BomFtpFileMonitor m_vinStampingFileMonitor;
+        private BomFtpFileMonitor m_transmissionSerialNumberFileMonitor;
 
         /// <summary>
         /// ESN Settings.
@@ -1276,6 +1326,8 @@ namespace BomFileProcessor
             m_engineSerialNumberFileMonitor.StopFileMonitorThread();
             m_buildRecordFileMonitor.StopFileMonitorThread();
             m_vinStampingFileMonitor.StopFileMonitorThread();
+            m_transmissionSerialNumberFileMonitor.StopFileMonitorThread();
+            
         }
 
         private void BomProcessorMainForm_Load(object sender, EventArgs e)

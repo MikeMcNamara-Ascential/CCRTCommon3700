@@ -128,5 +128,11 @@
     <Setting Name="RealTimePCESNFlashTransferLocation2" Type="System.String" Scope="User">
       <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox2/ESN/</Value>
     </Setting>
+    <Setting Name="WindowsPCTSNFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\BOM\TSN</Value>
+    </Setting>
+    <Setting Name="RealTimePCTSNFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/TSN/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

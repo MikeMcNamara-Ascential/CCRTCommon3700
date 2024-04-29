@@ -526,5 +526,29 @@ namespace BomFileProcessor.Properties {
                 this["RealTimePCESNFlashTransferLocation2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\BOM\\TSN")]
+        public string WindowsPCTSNFileLocation {
+            get {
+                return ((string)(this["WindowsPCTSNFileLocation"]));
+            }
+            set {
+                this["WindowsPCTSNFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox2/TSN/")]
+        public string RealTimePCTSNFileLocation {
+            get {
+                return ((string)(this["RealTimePCTSNFileLocation"]));
+            }
+            set {
+                this["RealTimePCTSNFileLocation"] = value;
+            }
+        }
     }
 }

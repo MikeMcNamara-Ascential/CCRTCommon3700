@@ -17,7 +17,7 @@
          <AdditionalLogFile Types="/Servers/PromptServer.log or Disabled">/Servers/PromptServer.log</AdditionalLogFile>
          <Debug>Off</Debug>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x01</Verbose>
+         <Verbose>0x0B</Verbose>
       </Logging>
       <TagList>
          <PublishTags>

@@ -35,7 +35,8 @@ LINK_LIBRARIES(resmanager)
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(CommProxy)
-ADD_SUBDIRECTORY(ICM)
+#ADD_SUBDIRECTORY(ICM)
+ADD_SUBDIRECTORY(DE10NanoIcm)
 ADD_SUBDIRECTORY(PlcMgr)
 ADD_SUBDIRECTORY(SciIsoMuxMgr)
 ADD_SUBDIRECTORY(SerialServer)

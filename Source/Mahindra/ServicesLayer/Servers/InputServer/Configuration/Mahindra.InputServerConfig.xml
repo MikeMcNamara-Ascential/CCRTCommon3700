@@ -221,7 +221,7 @@
                         <AdditionalLogFile>/Servers/LeftSymbolScanner.log</AdditionalLogFile>
                         <Debug>Off</Debug>
                         <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x1F</Verbose>
+                        <Verbose>0x01</Verbose>
                     </Logging>
                     <ThreadPool>
                         <Debug>Off</Debug>
@@ -278,7 +278,7 @@
                     <BadDataIndicator>0x00</BadDataIndicator>
                     <BadDataReplacementValue>0x31</BadDataReplacementValue>
                     <SecondaryDataTag>MaterialNumber</SecondaryDataTag>
-                    <SecondaryDataLength>15</SecondaryDataLength>                    
+                    <SecondaryDataLength>15</SecondaryDataLength>
                     <TwoDimensionBarcode>True</TwoDimensionBarcode>
                     <TwoDimensionBarcodeItems>
                         <Balero StartIndex="0" Length="17"/>
@@ -306,7 +306,7 @@
                         <AdditionalLogFile>/Servers/RightSymbolScanner.log</AdditionalLogFile>
                         <Debug>Off</Debug>
                         <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x1F</Verbose>
+                        <Verbose>0x01</Verbose>
                     </Logging>
                     <ThreadPool>
                         <Debug>Off</Debug>
@@ -562,7 +562,7 @@
                         <AdditionalLogFile>/Servers/LeftMapleKeypad.log</AdditionalLogFile>
                         <Debug>Off</Debug>
                         <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x1F</Verbose>
+                        <Verbose>0x01</Verbose>
                     </Logging>
                     <ThreadPool>
                         <Debug>Off</Debug>
@@ -609,7 +609,6 @@
                         <BlockModeFillCharacter/>
                         <DisableKeyboard>1</DisableKeyboard>
                         <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER VIN #</EnterVIN>
-                        <EnterModelCode RowIndex="1" ColumnIndex="10">PLEASE ENTER MODEL #</EnterModelCode>
                         <ReadyToTest RowIndex="1" ColumnIndex="18">READY!</ReadyToTest>
                         <NotReady RowIndex="1" ColumnIndex="11">NOT READY TO TEST</NotReady>
                         <PleaseWait RowIndex="2" ColumnIndex="12">PLEASE WAIT</PleaseWait>
@@ -619,7 +618,6 @@
                     <VinLength>17</VinLength>
                     <SecondaryDataTag>ModelCode</SecondaryDataTag>
                     <SecondaryDataLength>6</SecondaryDataLength>
-                    <WriteSecondaryDataToNdb>True</WriteSecondaryDataToNdb>
                 </Setup>
             </LeftMapleKeypad>
             <!-- ******************************************************* -->
@@ -651,7 +649,7 @@
                         <AdditionalLogFile>/Servers/RightMapleKeypad.log</AdditionalLogFile>
                         <Debug>Off</Debug>
                         <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x1F</Verbose>
+                        <Verbose>0x01</Verbose>
                     </Logging>
                     <ThreadPool>
                         <Debug>Off</Debug>
@@ -698,7 +696,6 @@
                         <BlockModeFillCharacter/>
                         <DisableKeyboard>1</DisableKeyboard>
                         <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER VIN #</EnterVIN>
-                        <EnterModelCode RowIndex="1" ColumnIndex="10">PLEASE ENTER MODEL #</EnterModelCode>
                         <ReadyToTest RowIndex="1" ColumnIndex="18">READY!</ReadyToTest>
                         <NotReady RowIndex="1" ColumnIndex="11">NOT READY TO TEST</NotReady>
                         <PleaseWait RowIndex="2" ColumnIndex="12">PLEASE WAIT</PleaseWait>
@@ -708,7 +705,6 @@
                     <VinLength>17</VinLength>
                     <SecondaryDataTag>ModelCode</SecondaryDataTag>
                     <SecondaryDataLength>6</SecondaryDataLength>
-                    <WriteSecondaryDataToNdb>True</WriteSecondaryDataToNdb>
                 </Setup>
             </RightMapleKeypad>
         </InputDevices>

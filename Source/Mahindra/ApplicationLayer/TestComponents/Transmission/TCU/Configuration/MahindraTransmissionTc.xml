@@ -199,10 +199,11 @@
 			<ATLearnBrakeAtEnd>False</ATLearnBrakeAtEnd>
 
 			<!-- Misfire Test Parameters -->
-			<MisfireTestSpeed Units="mph">50</MisfireTestSpeed>
-			<MisfireTestSpeedRange Units="mph">45 50</MisfireTestSpeedRange>
-			<MisfireSpeedScanDelay>50</MisfireSpeedScanDelay>
-			<MisfireTestDecelSpeed Units="mph">25</MisfireTestDecelSpeed>
+			<MisfireTestSpeed Units="mph">49</MisfireTestSpeed>
+			<MisfireTestSpeedRange Units="mph">49 53</MisfireTestSpeedRange>
+			<MisfireSpeedScanDelay>70</MisfireSpeedScanDelay>
+			<MisfireTestDecelSpeed Units="mph">19</MisfireTestDecelSpeed>
+			<MisfireTestDecelSpeedRange Units="mph">19 22.5</MisfireTestDecelSpeedRange>
 
 		</Parameters>
 		<Prompts>
@@ -220,6 +221,7 @@
 			<CruiseDecelerate PromptBox="1" Priority="0">CruiseDecelerate</CruiseDecelerate>
 			<AcceleratePedalInGreen PromptBox="1" Priority="0">AcceleratePedalInGreen</AcceleratePedalInGreen>
 			<AccelNotInRange PromptBox="1" Priority="0">AccelNotInRange</AccelNotInRange>
+			<DecelToSpeed PromptBox="1" Priority="0">DecelToSpeed</DecelToSpeed>
 		</Prompts>
 	</Setup>
 	<Objectives>
@@ -246,8 +248,11 @@
 		</ParkBrakeTest>
 		<CruiseTest>
 			<TestStep05>CruiseTest</TestStep05>
-			<TestStep10>MisfireTest</TestStep10>
+			<!-- <TestStep10>MisfireTest</TestStep10> -->
 		</CruiseTest>
+		<MisfireTest>
+			<TestStep10>MisfireTest</TestStep10>
+		</MisfireTest>
 		<Setup>
 			<TestStep00>Setup</TestStep00>
 			<TestStep012>EnterDiagnosticMode</TestStep012>
@@ -301,6 +306,6 @@
 		<ATLearnTest Result="Not Tested" Timeout="300000" Description="Perform the AT learn test" ScanDelay="500"/>
 		<MisfireTest Result="Not Tested" Timeout="30000" Description="Perform the Misfire Test"/>
 		<CheckTpmsStatus Result="Not Tested" Timeout="30000" Description="Perform the TPMS Test"/>
-		<MaintainSpeed Result="Not Tested" Timeout="30000" Description="Maintain Speed for TPMS Test" Delay="10000"/>
+		<MaintainSpeed Result="Not Tested" Timeout="60000" Description="Maintain Speed for TPMS Test" SpeedTarget="59 65" Delay="30000"/>
 	</TestSteps>
 </RwalBrakeTest>

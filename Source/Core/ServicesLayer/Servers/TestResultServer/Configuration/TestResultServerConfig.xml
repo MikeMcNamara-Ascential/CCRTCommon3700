@@ -59,7 +59,7 @@
       <TestResults>
          <TestResultPath>/TestResults/Vehicle/</TestResultPath>
          <TestResultFile>TestResultIndex</TestResultFile>
-         <NumberOfTests>50000</NumberOfTests>
+         <NumberOfTests>5000</NumberOfTests>
       </TestResults>
       <ThreadPool>
          <Debug>Off</Debug>

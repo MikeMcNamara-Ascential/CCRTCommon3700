@@ -28,6 +28,13 @@
 			<ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
 			<Debug>Off</Debug>
 		</Transmission>
+		<Tpms>
+			<ComponentName>TpmsTc.qxe</ComponentName>
+			<ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+			<ConfigFile>UdsTpmsTc.xml</ConfigFile>
+			<ConfigPath>/Configuration/Components/TPMS/</ConfigPath>
+			<Debug>Off</Debug>
+		</Tpms>
 	</Components>
 
 	<Test Result="" Debug="Off">
@@ -46,6 +53,11 @@
 					<Setup/>
 				</Objective0>
 			</ForegroundObjectives>
+			<BackgroundObjectives Result="" Timeout="">
+				<Objective0 Description="Setup" Result="" Timeout="" Component="Tpms">
+					<Setup/>
+				</Objective0>
+			</BackgroundObjectives>
 		</TestPhase005>
 
 		<TestPhase010 Description="Initialize the Transmission test" Result="" Timeout="">
@@ -73,23 +85,42 @@
 			</ForegroundObjectives>
 		</TestPhase095>	
 
+		<TestPhase097 Description="Engage the machine" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="Init machine Component" Result="" Timeout="" Component="Machine">
+					<EngageMachine/>
+				</Objective0>
+			</ForegroundObjectives>
+		</TestPhase097>
+
 		<TestPhase100 Description="Perform the PerformATLearn" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">
 				<Objective0 Description="run the AT Learn" Result="" Timeout="" Component="Transmission">
 					<PerformATLearn/>
 				</Objective0>
 			</ForegroundObjectives>
+			<BackgroundObjectives Result="" Timeout="">
+				<Objective0 Description="Start Speed Monitor" Result="" Timeout="" Component="Tpms">
+					<StartSpeedMonitor/>
+				</Objective0>
+			</BackgroundObjectives>
 		</TestPhase100>
 
-		<TestPhase110 Description="Maintain Speed for TPMS" Result="" Timeout="">
+		<TestPhase105 Description="Perform the Speedo Test" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">
-				<Objective0 Description="Maintain Speed for TPMS" Result="" Timeout="" Component="Transmission">
-					<MaintainSpeed/>
+				<Objective0 Description="run the Speedo Test" Result="" Timeout="" Component="Machine">
+					<Speedometer/>
 				</Objective0>
 			</ForegroundObjectives>
-		</TestPhase110>
-		
-		
+		</TestPhase105>
+
+		<TestPhase160 Description="Wait for TPMS speed to finish" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="Wait for TPMS speed to finish" Result="" Timeout="" Component="Tpms">
+					<WaitForTimeAboveSpeed/>
+				</Objective0>
+			</ForegroundObjectives>
+		</TestPhase160>
 
 		<!-- Perform the brake test -->
 		<TestPhase200 Description="Perform the brake test" Result="" Timeout="">
@@ -103,7 +134,7 @@
 		<TestPhase205 Description="Brake to stop and analyze results" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">
 				<Objective0 Description="Brake to stop" Result="" Timeout="" Component="Machine">
-					<BrakeToStop/>
+					<ModerateBrakeToStop/>
 				</Objective0>
 			</ForegroundObjectives>
 			<BackgroundObjectives Result="" Timeout="">
@@ -112,7 +143,6 @@
 				</Objective0>
 			</BackgroundObjectives>
 		</TestPhase205>	
-
 
 		<TestPhase210 Description="Engage the machine" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">
@@ -123,13 +153,13 @@
 		</TestPhase210>
 
 		<!-- Final Low Speed Testing -->
-		<TestPhase310 Description="Finishup the transmission testing and run the park brake test" Result="" Timeout="">
+		<!--TestPhase310 Description="Finishup the transmission testing and run the park brake test" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">
 				<Objective0 Description="Perform the park brake test" Result="" Timeout="" Component="Brake">
 					<ParkBrakeTest/>
 				</Objective0>
 			</ForegroundObjectives>
-		</TestPhase310>
+		</TestPhase310-->
 
 		<TestPhase320 Description="4HI t-case test" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">
@@ -145,21 +175,13 @@
 				</Objective0>
 			</ForegroundObjectives>
 		</TestPhase325>
-		<TestPhase330 Description="4LO t-case test" Result="" Timeout="">
+		<!--TestPhase330 Description="4LO t-case test" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">
 				<Objective0 Description="4-LOW T-case test" Result="" Timeout="" Component="TCase">
 					<Tcase4LoTest/>
 				</Objective0>
 			</ForegroundObjectives>
-		</TestPhase330>
-
-		<TestPhase350 Description="Perform the TPMS test" Result="" Timeout="">
-			<ForegroundObjectives Result="" Timeout="">
-				<Objective0 Description="Perform the TPMS test" Result="" Timeout="" Component="Transmission">
-					<CheckTpmsStatus/>
-				</Objective0>
-			</ForegroundObjectives>
-		</TestPhase350>
+		</TestPhase330-->
 
 		<!-- Finishup and set results -->
 		<TestPhase400 Description="Set the result for the brake test" Result="" Timeout="">
@@ -167,9 +189,18 @@
 				<Objective0 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
 					<FinishUp/>
 				</Objective0>
-				<Objective1 Description="Finish Transmission Results" Result="" Timeout="" Component="Transmission">
+				<Objective1 Description="Finish Machine Results" Result="" Timeout="" Component="Machine">
 					<FinishUp/>
 				</Objective1>
+				<Objective2 Description="Finish TCase Results" Result="" Timeout="" Component="TCase">
+					<FinishUp/>
+				</Objective2>
+				<Objective3 Description="Finish Transmission Results" Result="" Timeout="" Component="Transmission">
+					<FinishUp/>
+				</Objective3>
+				<Objective4 Description="Finish Tpms Results" Result="" Timeout="" Component="Tpms">
+					<FinishUp/>
+				</Objective4>
 			</ForegroundObjectives>
 		</TestPhase400>
 		<TestPhase500 Description="Disconect Cable" Result="" Timeout="">

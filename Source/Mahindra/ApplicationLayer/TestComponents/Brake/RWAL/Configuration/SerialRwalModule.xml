@@ -1,0 +1,105 @@
+<RwalModuleConfig>
+    <Setup>
+        <!-- Message Data setup -->
+        <ChecksumCalculationMethod>None</ChecksumCalculationMethod>
+        <CheckSumLength>0</CheckSumLength>
+        <DataHeaderLength>0</DataHeaderLength>
+        <DataStartIndex>0</DataStartIndex>
+        <NegativeResponseCodeIndex>0</NegativeResponseCodeIndex>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NumberOfRetries>3</NumberOfRetries>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <ValidateChecksum>False</ValidateChecksum>
+        <ValidResponseOffset>0</ValidResponseOffset>
+
+        <!-- Message timings -->
+        <ModuleResponseDelay>10</ModuleResponseDelay>
+        <ModuleResponseEndDelay>1</ModuleResponseEndDelay>
+
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>RWAL</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>TevesAbsModule</ProcessName>
+            <AdditionalLogFile>/Communication/TevesAbsModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+
+
+
+    <SerialMessages>
+        <VehicleMessages>
+            <ReadRwalSensor>
+                <TransmitMessage>ReadRwalSensor</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>RwalSensor</ReplyMessage>
+                <ReplyInterpretation>RwalSensor</ReplyInterpretation>
+            </ReadRwalSensor>
+            <StartRWALSpeedBroadcast>
+                <TransmitMessage>ReadRwalSensor</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>RwalSensor</ReplyMessage>
+                <ReplyInterpretation>RwalSensor</ReplyInterpretation>
+            </StartRWALSpeedBroadcast>
+        </VehicleMessages>
+
+        <TransmitMessages>
+            <ReadRwalSensor>0x59</ReadRwalSensor>
+        </TransmitMessages>
+
+        <TransmitInterpretations/>
+
+        <ReplyMessages>
+            <RwalSensor>
+                <Reply_00>0x0D,0x0A,0x??,0x??,0x??,0x2E,0x??,0x??</Reply_00>
+            </RwalSensor>
+        </ReplyMessages>
+
+        <ReplyInterpretations>
+            <RwalSensor>
+                <Float scale="1" offset="0">
+                    <String>
+                        <Substring format="%6s">
+                            <Chars input_index="3" mask="0xFF" length="6"/>
+                        </Substring>
+                    </String>
+                </Float>
+            </RwalSensor>
+        </ReplyInterpretations>
+
+    </SerialMessages>
+</RwalModuleConfig>

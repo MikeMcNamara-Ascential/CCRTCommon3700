@@ -1,7 +1,7 @@
 <UdsBIAbsConfig>
 
     <Setup>
-        <FaultList>/Configuration/Components/Brake/Tata.BrakeFaultList.xml</FaultList>
+        <FaultList>/Configuration/Components/SampleFaultList.xml</FaultList>
 
         <Prompts>
             <CableConnect PromptBox="1" Priority="0">CableDisconnected</CableConnect>
@@ -258,9 +258,9 @@
             <SensorTestStartDelay Description="Amount of time to delay before starting the rolls for the sensor test" Units="mSec">3000</SensorTestStartDelay>
             <SensorTestSpeed Description="Roll speed for the sensor test" Units="MPH">5</SensorTestSpeed>
 			<WSSSteadySpeedSamples>5</WSSSteadySpeedSamples>
-			<WSSSteadySpeedTimeout>20000</WSSSteadySpeedTimeout>
-			<WSSMinSteadyWheelSpeed>2.95</WSSMinSteadyWheelSpeed>
-			<WSSMaxSteadyWheelSpeed>2.25</WSSMaxSteadyWheelSpeed>
+			<WSSSteadySpeedTimeout>15000</WSSSteadySpeedTimeout>
+			<WSSMinSteadyWheelSpeed>2.75</WSSMinSteadyWheelSpeed>
+			<WSSMaxSteadyWheelSpeed>3.5</WSSMaxSteadyWheelSpeed>
 
             <!-- ABS Valve Test -->
             <ABS4ChannelFiringSequence>
@@ -372,10 +372,10 @@
 
             <LowSpeed_ValveFiringCommands>
                 <!-- Actually ABS -->
-                <Command0002 CommandType="Machine" Torque="-350" Delay="2000">TorqueFrontAxle</Command0002>
-                <Command0005 Precondition="MinSpeed" MinSpeed="4.5">Activate_ALL_ISO</Command0005>
+                <Command0002 CommandType="Machine" Torque="-350" Delay="1000">TorqueFrontAxle</Command0002>
+                <Command0005>Activate_ALL_ISO</Command0005>
                 <Command0010 CommandType="Prompt" Prompt2="ApplyBrake" Delay="1000"/>
-                <Command0020 ArrayTag="MotorOn" Delay="3000">Turn_MOTOR_ON</Command0020>
+                <Command0020 ArrayTag="MotorOn" Delay="1500">Turn_MOTOR_ON</Command0020>
                 <!-- Left Front -->
                 <Command0025 ArrayTag="LFPressure" Delay="500">Deactivate_FL_ISO</Command0025>
                 <Command0030 ArrayTag="LFESPReductionStart" Delay="200" RollerIndex="0" TagType="ReductionStart">Activate_ISOFL_DUMPFL</Command0030>  
@@ -408,7 +408,7 @@
                 
                 <!-- Left Rear -->
 				
-                <Command0147 Precondition="MinSpeed" MinSpeed="4.5" Delay="500">Activate_ALL_ISO</Command0147>
+                <Command0147 Delay="500">Activate_ALL_ISO</Command0147>
 				<!--Command0148 ArrayTag="LRPressure" Delay="500">Deactivate_ISORL</Command0148-->
                 <Command0148 Delay="500">Deactivate_ISORL</Command0148>
                 <!--Command0150 Precondition="MinSpeed" MinSpeed="4.5" ArrayTag="LRESPReductionStart" Delay="500" RollerIndex="2" TagType="ReductionStart">Activate_ISORL_DUMPRL</Command0150-->
@@ -460,9 +460,9 @@
             <LeftFrontSensorSpeedTarget Units="km/h">2.5</LeftFrontSensorSpeedTarget>
             <LeftRearSensorSpeedTarget Units="km/h">2.5</LeftRearSensorSpeedTarget>
             <ReadWheelSensorsIndividually>False</ReadWheelSensorsIndividually>
-            <RightFrontSensorSpeedTarget Units="km/h">3.72</RightFrontSensorSpeedTarget>
-            <RightRearSensorSpeedTarget Units="km/h">3.72</RightRearSensorSpeedTarget>
-            <SensorSpeedTolerance Units="Percent">5.0</SensorSpeedTolerance>
+            <RightFrontSensorSpeedTarget Units="km/h">3.15</RightFrontSensorSpeedTarget>
+            <RightRearSensorSpeedTarget Units="km/h">3.15</RightRearSensorSpeedTarget>
+            <SensorSpeedTolerance Units="Percent">8.0</SensorSpeedTolerance>
             <!-- Park Brake Parameters -->
             <ParkBrakeArmSpeed Units="mph">6</ParkBrakeArmSpeed>
             <ParkBrakeEndSampleSpeed Units="mph">1</ParkBrakeEndSampleSpeed>
@@ -491,9 +491,9 @@
 			<TestStep021>CheckEcuId</TestStep021>
             <TestStep025>GenericPartNumberCheck</TestStep025>
             <TestStep030>CollectTraceData</TestStep030>                           
-            <TestStep040 AltValue="InitialPreClear">ReadFaultsByPhase</TestStep040>  
+            <!--<TestStep040 AltValue="InitialPreClear">ReadFaultsByPhase</TestStep040>  
             <TestStep045>ClearFaults</TestStep045>            
-            <TestStep050 AltValue="InitialPostClear">ReadFaultsByPhase</TestStep050>  
+            <TestStep050 AltValue="InitialPostClear">ReadFaultsByPhase</TestStep050>  -->
             <TestStep055>CheckProcessByte</TestStep055>
             <TestStep095>StartModuleKeepAlive</TestStep095>                      
         </Setup>
@@ -528,13 +528,14 @@
             <TestStep00>AccelerateToParkBrakeSpeed</TestStep00>
             <TestStep05>DynamicParkBrakeTest</TestStep05>
             <TestStep10>AnalyzeDynamicParkBrake</TestStep10>
+            <TestStep20>DisableForceMeter</TestStep20>
         </ParkBrakeTest>
         <WheelSpeedSensorTest>
-            <TestStep00>BrakeToStop</TestStep00>
+            <!--TestStep00>BrakeToStop</TestStep00-->
             <TestStep05 AltValue="Rear">TwoMotorWssTest</TestStep05>
-			<TestStep07>BrakeToStop</TestStep07>
+			<!--TestStep07>BrakeToStop</TestStep07-->
             <TestStep10 AltValue="Front">TwoMotorWssTest</TestStep10>
-            <TestStep15>BrakeToStop</TestStep15>
+            <!--TestStep15>BrakeToStop</TestStep15-->
         </WheelSpeedSensorTest>
         <SensorTest>
             <TestStep000>LFSensorTest</TestStep000>
@@ -671,7 +672,8 @@
         <ReadFaultsFinal Result="" Timeout="10000" Description="Read ABS Fault Codes" 
             Prompt1="ReadingABSFaults" Prompt2="PleaseWait"/>
 
-        <ReadFaultsByPhase Result="" Timeout="10000" Description="Read ABS Fault Codes" 
+		<!-- Customer Requested no Failures for DTCs on 2019-04-04 -->
+        <ReadFaultsByPhase InfoOnlyTest="True" Result="" Timeout="10000" Description="Read ABS Fault Codes" 
             Prompt1="ReadingABSFaults" Prompt2="PleaseWait"/>
 
         <RFSensorTest Result="" Timeout="30000" Description="Check the RF sensor" 

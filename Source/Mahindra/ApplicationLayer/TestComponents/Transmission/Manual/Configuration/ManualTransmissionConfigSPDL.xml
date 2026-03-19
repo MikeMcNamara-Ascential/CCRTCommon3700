@@ -189,6 +189,7 @@
          <TestStep20>SpeedBasedGearTest_3</TestStep20>
          <TestStep30>SpeedBasedGearTest_4</TestStep30>
          <TestStep40>SpeedBasedGearTest_5</TestStep40>
+         <TestStep45>SpeedBasedGearTest_6</TestStep45>
       </SpeedBasedShiftTest>
       <SpeedBasedShiftTestLow>
          <TestStep10>SpeedBasedGearTest_1</TestStep10>
@@ -242,19 +243,19 @@
       <BlingGearSpeedTest Result="" Timeout="30000" Description="Check maximum gear speed"/>
       <GearTest_1 Result="" Timeout="5000" Description="Validate 1st gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="1st" ScanDelay="500" SpeedTarget="38 42" TargetGear="1"/>
       <GearTest_2 Result="" Timeout="5000" Description="Validate 2nd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="2nd" ScanDelay="500" SpeedTarget="38 42" TargetGear="2"/>
-      <GearTest_3 Result="" Timeout="10000" Description="Validate 3rd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="3rd" ScanDelay="1000" SpeedTarget="38 42" TargetGear="3"/>
-      <GearTest_4 Result="" Timeout="10000" Description="Validate 4th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="4th" ScanDelay="5000" SpeedTarget="38 42" TargetGear="4"/>
-      <GearTest_5 Result="" Timeout="10000" Description="Validate 5th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="5th" ScanDelay="5000" SpeedTarget="38 42" TargetGear="5"/>
+      <GearTest_3 Result="" Timeout="10000" Description="Validate 3rd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="3rd" ScanDelay="10000" SpeedTarget="38 42" TargetGear="3"/>
+      <GearTest_4 Result="" Timeout="10000" Description="Validate 4th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="4th" ScanDelay="10000" SpeedTarget="38 42" TargetGear="4"/>
+      <GearTest_5 Result="" Timeout="10000" Description="Validate 5th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="5th" ScanDelay="10000" SpeedTarget="38 42" TargetGear="5"/>
       <GearTest_6 Result="" Timeout="10000" Description="Validate SpeedLimit functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="Max Speed " ScanDelay="1000" SpeedTarget="38 42" TargetGear="6"/>
       <GearTest_7 Result="" Timeout="4000" Description="Validate 7th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="7th" ScanDelay="250" SpeedTarget="38 42" TargetGear="7"/>
       <GearTest_8 Result="" Timeout="4000" Description="Validate 8th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="8th" ScanDelay="250" SpeedTarget="38 42" TargetGear="8"/>
       <GearTest_9 Result="" Timeout="4000" Description="Validate 9th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="9th" ScanDelay="250" SpeedTarget="38 42" TargetGear="9"/>
-      <SpeedBasedGearTest_1 Result="" Timeout="30000" Description="Validate 1st gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="1st" ScanDelay="500" SpeedTarget="38 42" TargetGear="1" MaxSpeedTarget="10" MaxSpeedTolerance="3" MaxSpeedDelay="3000"/>
-      <SpeedBasedGearTest_2 Result="" Timeout="30000" Description="Validate 2nd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="2nd" ScanDelay="500" SpeedTarget="38 42" TargetGear="2" MaxSpeedTarget="14" MaxSpeedTolerance="3" MaxSpeedDelay="3000"/>
-      <SpeedBasedGearTest_3 Result="" Timeout="30000" Description="Validate 3rd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="3rd" ScanDelay="1000" SpeedTarget="38 42" TargetGear="3" MaxSpeedTarget="21" MaxSpeedTolerance="3" MaxSpeedDelay="5000"/>
-      <SpeedBasedGearTest_4 Result="" Timeout="30000" Description="Validate 4th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="4th" ScanDelay="5000" SpeedTarget="38 42" TargetGear="4" MaxSpeedTarget="28" MaxSpeedTolerance="5" MaxSpeedDelay="6000"/>
-      <SpeedBasedGearTest_5 Result="" Timeout="30000" Description="Validate 5th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="5th" ScanDelay="5000" SpeedTarget="38 42" TargetGear="5" MaxSpeedTarget="35" MaxSpeedTolerance="3" MaxSpeedDelay="6000"/>
-      <SpeedBasedGearTest_6 Result="" Timeout="30000" Description="Validate SpeedLimit functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="Max Speed" ScanDelay="1000" SpeedTarget="38 42" TargetGear="6" MaxSpeedTarget="40" MaxSpeedTolerance="4" MaxSpeedDelay="4000"/>
+      <SpeedBasedGearTest_1 Result="" Timeout="30000" Description="Validate 1st gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="1st" ScanDelay="500" SpeedTarget="38 42" TargetGear="1" MaxSpeedTarget="10" MaxSpeedTolerance="3" MaxSpeedDelay="2000"/>
+      <SpeedBasedGearTest_2 Result="" Timeout="30000" Description="Validate 2nd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="2nd" ScanDelay="500" SpeedTarget="38 42" TargetGear="2" MaxSpeedTarget="14" MaxSpeedTolerance="3" MaxSpeedDelay="2000"/>
+      <SpeedBasedGearTest_3 Result="" Timeout="30000" Description="Validate 3rd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="3rd" ScanDelay="500" SpeedTarget="38 42" TargetGear="3" MaxSpeedTarget="21" MaxSpeedTolerance="3" MaxSpeedDelay="3000"/>
+      <SpeedBasedGearTest_4 Result="" Timeout="30000" Description="Validate 4th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="4th" ScanDelay="5000" SpeedTarget="38 42" TargetGear="4" MaxSpeedTarget="28" MaxSpeedTolerance="5" MaxSpeedDelay="3000"/>
+      <SpeedBasedGearTest_5 Result="" Timeout="30000" Description="Validate 5th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="5th" ScanDelay="5000" SpeedTarget="38 42" TargetGear="5" MaxSpeedTarget="35" MaxSpeedTolerance="3" MaxSpeedDelay="3000"/>
+      <SpeedBasedGearTest_6 Result="" Timeout="30000" Description="Validate SpeedLimit functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="Max Speed" ScanDelay="500" SpeedTarget="38 42" TargetGear="6" MaxSpeedTarget="40" MaxSpeedTolerance="4" MaxSpeedDelay="4000"/>
       <SpeedBasedGearTest_7 Result="" Timeout="30000" Description="Validate 7th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="7th" ScanDelay="250" SpeedTarget="38 42" TargetGear="7"/>
       <SpeedBasedGearTest_8 Result="" Timeout="30000" Description="Validate 8th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="8th" ScanDelay="250" SpeedTarget="38 42" TargetGear="8"/>
       <SpeedBasedGearTest_9 Result="" Timeout="30000" Description="Validate 9th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="9th" ScanDelay="250" SpeedTarget="38 42" TargetGear="9"/>

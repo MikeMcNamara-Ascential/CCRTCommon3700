@@ -136,7 +136,7 @@
 
 			<ReadEcuId>
 				<TransmitMessage>ReadPID</TransmitMessage>
-				<TransmitInterpretation>EcuSoftwareId</TransmitInterpretation>
+				<TransmitInterpretation>SoftwareIDIdentifier</TransmitInterpretation>
 				<ReplyMessage>ReadPID</ReplyMessage>
 				<ReplyInterpretation>EcuSoftwareId</ReplyInterpretation>
 			</ReadEcuId>

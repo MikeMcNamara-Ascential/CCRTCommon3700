@@ -1,215 +1,180 @@
 <MahindraTcaseTc>
-    <Setup>
-        <Name>TransferCase</Name>
-        <Debug>Off</Debug>
-        <DebugLevel>0</DebugLevel>
-        <TestDomain>Foreground</TestDomain>
-        <ProcessPriority>11</ProcessPriority>
-        <Communication>
-            <Comm>IPC</Comm>
-            <Type>Server</Type>
-            <Name>component/MahindraTcase</Name>
+   <Setup>
+      <Name>TransferCase</Name>
+      <Debug>Off</Debug>
+      <DebugLevel>0</DebugLevel>
+      <TestDomain>Foreground</TestDomain>
+      <ProcessPriority>11</ProcessPriority>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/MahindraTcase</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <NamedDataBrokerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/NamedDataBroker</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </NamedDataBrokerComm>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
             <Debug>Off</Debug>
-            <BufferSize>1024</BufferSize>
-            <Timeout>0</Timeout>
-        </Communication>
-        <NamedDataBrokerComm>
-            <Comm>IPC</Comm>
-            <Type>Client</Type>
-            <Name>core/NamedDataBroker</Name>
-            <Debug>Off</Debug>
-            <Timeout>0</Timeout>
-            <BufferSize>1024</BufferSize>
-        </NamedDataBrokerComm>
-        <ThreadPool>
-            <Debug>Off</Debug>
-            <MinBlockedLimit>2</MinBlockedLimit>
-            <MaxBlockedLimit>4</MaxBlockedLimit>
-            <Increment>2</Increment>
-            <Maximum>50</Maximum>
-        </ThreadPool>
-        <NotificationList>
-            <Setup>
-                <Debug>Off</Debug>
-                <StartOnCreate>Off</StartOnCreate>
-                <LowWater>1</LowWater>
-                <HighWater>3</HighWater>
-                <Maximum>5</Maximum>
-                <Increment>1</Increment>
-                <ResponseTimeout>2000</ResponseTimeout>
-            </Setup>
-        </NotificationList>
-        <Logging>
-            <Status>Enabled</Status>
-            <ProcessName>MahindraTcase</ProcessName>
-            <AdditionalLogFile>/Components/MahindraTcase.log</AdditionalLogFile>
-            <Debug>Off</Debug>
-            <LocalEcho>Disabled</LocalEcho>
-            <Verbose>0x1F</Verbose>
-            <MessageTimeout>100</MessageTimeout>
-            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
-            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
-        </Logging>
-        <TagList>
-            <SubscribeTags>
-                <Abort/>
-                <Clutch/>
-                <Declutch/>
-                <DriveAxle/>
-                <ForegroundTestInProgress/>
-                <Zerospeed/>
-            </SubscribeTags>
-            <PublishTags>
-                <OverallPassFail>Pass</OverallPassFail>
-            </PublishTags>
-        </TagList>
-        <DataTags>
-            <DriveAxle>DriveAxle</DriveAxle>
-            <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
-            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
-            <IcmSpeedArray>/dev/ArraySpeed</IcmSpeedArray>
-            <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
-            <LeftRearSpeed>LRSpeed</LeftRearSpeed>
-            <LFSpeed>LFSpeed</LFSpeed>
-            <LRSpeed>LRSpeed</LRSpeed>
-            <ManualTransType>Manual</ManualTransType>
-            <PromptBox1>PromptBox1</PromptBox1>
-            <PromptBox2>PromptBox2</PromptBox2>
-            <Rear>Rear</Rear>
-            <RFSpeed>RFSpeed</RFSpeed>
-            <RightFrontSpeed>RFSpeed</RightFrontSpeed>
-            <RightRearSpeed>RRSpeed</RightRearSpeed>
-            <RRSpeed>RRSpeed</RRSpeed>
-            <SpeedTarget>SpeedTarget</SpeedTarget>
-            <SpeedValue>SpeedValue</SpeedValue>
-            <TagIndex>TagIndex</TagIndex>
-            <TargetSpeed>SpeedTarget</TargetSpeed>
-            <Zerospeed>Zerospeed</Zerospeed>
-        </DataTags>
-
-        <Parameters>
-            <!-- Test Behavior Parameters -->
-            <CheckIf4wdEquipped>False</CheckIf4wdEquipped>
-            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
-            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
-            <DeveloperTest>False</DeveloperTest>
-            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
-            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
-
-            <!-- T-case Shifting Parameters -->
-            <MinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</MinimumShiftSpeed>
-
-            <!-- 2-WD Parameters -->
-            <CheckShift2WDEngineRunning>Skip</CheckShift2WDEngineRunning>
-            <CheckShift2WDKeyPosition>Skip</CheckShift2WDKeyPosition>
-            <CheckShift2WDMinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</CheckShift2WDMinimumShiftSpeed>
-            <CheckShift2WDThrottlePosition>Skip</CheckShift2WDThrottlePosition>
-            <CheckShift2WDTransmissionGear>Skip</CheckShift2WDTransmissionGear>
-            <CheckShift2WDVerifyMethod>Prompt</CheckShift2WDVerifyMethod>
-
-            <!-- 4-HI Parameters -->
-            <Check4HIAxleBalanceMaxFrontToRearDeltaPercent Units="percent">0.0</Check4HIAxleBalanceMaxFrontToRearDeltaPercent>
-            <Check4HIAxleBalanceMaxFrontToRearDelta Units="km/h" ConvertToEnglishUnits="True">5.0</Check4HIAxleBalanceMaxFrontToRearDelta>
-            <Check4HIAxleBalanceMaxLeftToRightDelta Units="km/h" ConvertToEnglishUnits="True">1.0</Check4HIAxleBalanceMaxLeftToRightDelta>
-            <Check4HIAxleBalanceTargetSpeed Units="km/h" ConvertToEnglishUnits="True">20</Check4HIAxleBalanceTargetSpeed>
-            <Check4HIAxleBalanceMaximumSpeed Units="km/h" ConvertToEnglishUnits="True">40</Check4HIAxleBalanceMaximumSpeed>
-            <Check4HIAxleBalanceMinimumSpeed Units="km/h" ConvertToEnglishUnits="True">20</Check4HIAxleBalanceMinimumSpeed>
-            <Check4HIAxleBalanceOnlyTestFrontRearRatio>False</Check4HIAxleBalanceOnlyTestFrontRearRatio>
-            <CheckShift4HIEngineRunning>Skip</CheckShift4HIEngineRunning>
-            <CheckShift4HIKeyPosition>Skip</CheckShift4HIKeyPosition>
-            <CheckShift4HIMinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</CheckShift4HIMinimumShiftSpeed>
-            <CheckShift4HIThrottlePosition>Skip</CheckShift4HIThrottlePosition>
-            <CheckShift4HITransmissionGear>Skip</CheckShift4HITransmissionGear>
-            <CheckShift4HIVerifyMethod>Prompt</CheckShift4HIVerifyMethod>
-
-            <!-- 4-LO Parameters -->
-            <AxleRatioBrakeToStopNotRequired>False</AxleRatioBrakeToStopNotRequired>
-            <AxleRatioDirection>Forward</AxleRatioDirection>
-            <AxleRatioMinimum Units="percent">97.0</AxleRatioMinimum>
-            <AxleRatioMaximum Units="percent">103.0</AxleRatioMaximum>
-            <AxleRatioSkipPreconditions>False</AxleRatioSkipPreconditions>
-            <CheckShift4LOWEngineRunning>Skip</CheckShift4LOWEngineRunning>
-            <CheckShift4LOWKeyPosition>Skip</CheckShift4LOWKeyPosition>
-            <CheckShift4LOWMinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</CheckShift4LOWMinimumShiftSpeed>
-            <CheckShift4LOWThrottlePosition>Skip</CheckShift4LOWThrottlePosition>
-            <CheckShift4LOWTransmissionGear>Skip</CheckShift4LOWTransmissionGear>
-            <CheckShift4LOWVerifyMethod>Prompt</CheckShift4LOWVerifyMethod>
-            <MaximumAxleRatioAttempts>1</MaximumAxleRatioAttempts>
-
-            <!-- Maintain Speed Parameters -->
-            <MaintainSpeedTime Units="ms">3000</MaintainSpeedTime>
-            <MaintainSpeedMinSpeed Units="km/h" ConvertToEnglishUnits="True">20</MaintainSpeedMinSpeed>
-            <MaintainSpeedMaxSpeed Units="km/h" ConvertToEnglishUnits="True">40</MaintainSpeedMaxSpeed>
-        </Parameters>
-
-        <Prompts>
-            <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
-            <ApplyClutch PromptBox="1" Priority="0">ApplyClutch</ApplyClutch>
-            <CheckShift2WDShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift2WDShiftTcase>
-            <CheckShift4HIShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4HIShiftTcase>
-            <CheckShift4LOWShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4LOWShiftTcase>
-            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
-            <ShiftToDrive PromptBox="1" Priority="0">ShiftToFirst</ShiftToDrive>
-            <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
-            <TcaseTesting PromptBox="1" Priority="0">TransferCaseTest</TcaseTesting>
-            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
-        </Prompts>
-
-        <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
-    </Setup>
-
-
-    <Objectives>
-        <Tcase4HiTest>
-            <TestStep00>DisengageMachine</TestStep00>
-            <TestStep05>CheckShift4HI</TestStep05>
-            <TestStep10>Check4HIAxleBalance</TestStep10>
-            <TestStep15>MaintainSpeedForTime</TestStep15>
-        </Tcase4HiTest>
-
-        <Tcase4LoTest>
-            <TestStep00>DisengageMachine</TestStep00>
-            <TestStep05>CheckShift4LOW</TestStep05>
-            <TestStep10>CheckAxleRatio</TestStep10>
-            <TestStep90>CheckShift2WD</TestStep90>
-            <TestStep99>FinishUp</TestStep99>
-        </Tcase4LoTest>
-
-    </Objectives>
-
-
-    <TestSteps>
-
-        <Check4HIAxleBalance Result="" Timeout="60000" Description="Check axle balance in 4-HI" ScanDelay="500"
-            AbortOnFail="False"/>
-
-        <CheckAxleRatio Result="Not Tested" Timeout="30000" Description="Verify Axle Ratio" ScanDelay="500" 
-            SpeedSampleDelay="500" TargetSpeed="9" MinimumSpeed="9" MaximumSpeed="19" 
-            RatioSamples="20" SampleTime="3000"/>
-
-        <CheckShift2WD Result="Not Tested" Timeout="30000" Description="Test Tcase 2WD" ScanDelay="500" 
-            SpeedSampleDelay="500" TcaseMessageDelay="5000" TransmissionMessageDelay="5000" 
-            ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" 
-            CommandMessageDelay="5000" 
-            TcaseGear="2WD" TargetSpeed="30" MinimumSpeed="0" MaximumSpeed="5"/>
-
-        <CheckShift4HI Result="Not Tested" Timeout="10000" Description="Test Tcase 4HI" ScanDelay="500" 
-            SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" 
-            ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" 
-            CommandMessageDelay="5000" 
-            TcaseGear="4-HI" TargetSpeed="10" MinimumSpeed="0" MaximumSpeed="5"/>
-
-        <CheckShift4LOW Result="Not Tested" Timeout="10000" Description="Test Tcase 4LO" ScanDelay="500" 
-            SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" 
-            ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" 
-            CommandMessageDelay="5000" 
-            TcaseGear="4-LOW" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="5"/>
-
-        <DisengageMachine Result="" Timeout="3000" Description="Disengage machine for t-case testing"/>
-
-        <FinishUp Result="Not Tested" Timeout="500" Description="Finish Tcase testing"/>
-
-        <MaintainSpeedForTime Result="Not Tested" Timeout="3000" Description="Maintain current speed for allotted time"/>
-
-    </TestSteps>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>MahindraTcase</ProcessName>
+         <AdditionalLogFile>/Components/MahindraTcase.log</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+         <MessageTimeout>100</MessageTimeout>
+         <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+         <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+      </Logging>
+      <TagList>
+         <SubscribeTags>
+            <Abort/>
+            <Clutch/>
+            <Declutch/>
+            <DriveAxle/>
+            <ForegroundTestInProgress/>
+            <Zerospeed/>
+         </SubscribeTags>
+         <PublishTags>
+            <OverallPassFail>Pass</OverallPassFail>
+         </PublishTags>
+      </TagList>
+      <DataTags>
+         <DriveAxle>DriveAxle</DriveAxle>
+         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+         <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+         <IcmSpeedArray>/dev/ArraySpeed</IcmSpeedArray>
+         <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+         <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+         <LFSpeed>LFSpeed</LFSpeed>
+         <LRSpeed>LRSpeed</LRSpeed>
+         <ManualTransType>Manual</ManualTransType>
+         <PromptBox1>PromptBox1</PromptBox1>
+         <PromptBox2>PromptBox2</PromptBox2>
+         <Rear>Rear</Rear>
+         <RFSpeed>RFSpeed</RFSpeed>
+         <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+         <RightRearSpeed>RRSpeed</RightRearSpeed>
+         <RRSpeed>RRSpeed</RRSpeed>
+         <SpeedTarget>SpeedTarget</SpeedTarget>
+         <SpeedValue>SpeedValue</SpeedValue>
+         <TagIndex>TagIndex</TagIndex>
+         <TargetSpeed>SpeedTarget</TargetSpeed>
+         <Zerospeed>Zerospeed</Zerospeed>
+      </DataTags>
+      <Parameters>
+         <!-- Test Behavior Parameters -->
+         <CheckIf4wdEquipped>False</CheckIf4wdEquipped>
+         <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+         <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+         <DeveloperTest>False</DeveloperTest>
+         <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+         <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+         <!-- T-case Shifting Parameters -->
+         <MinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</MinimumShiftSpeed>
+         <!-- 2-WD Parameters -->
+         <CheckShift2WDEngineRunning>Skip</CheckShift2WDEngineRunning>
+         <CheckShift2WDKeyPosition>Skip</CheckShift2WDKeyPosition>
+         <CheckShift2WDMinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</CheckShift2WDMinimumShiftSpeed>
+         <CheckShift2WDThrottlePosition>Skip</CheckShift2WDThrottlePosition>
+         <CheckShift2WDTransmissionGear>Skip</CheckShift2WDTransmissionGear>
+         <CheckShift2WDVerifyMethod>Prompt</CheckShift2WDVerifyMethod>
+         <!-- 4-HI Parameters -->
+         <Check4HIAxleBalanceMaxFrontToRearDeltaPercent Units="percent">0.0</Check4HIAxleBalanceMaxFrontToRearDeltaPercent>
+         <Check4HIAxleBalanceMaxFrontToRearDelta Units="km/h" ConvertToEnglishUnits="True">5.0</Check4HIAxleBalanceMaxFrontToRearDelta>
+         <Check4HIAxleBalanceMaxLeftToRightDelta Units="km/h" ConvertToEnglishUnits="True">4.0</Check4HIAxleBalanceMaxLeftToRightDelta>
+         <Check4HIAxleBalanceTargetSpeed Units="km/h" ConvertToEnglishUnits="True">10</Check4HIAxleBalanceTargetSpeed>
+         <Check4HIAxleBalanceMaximumSpeed Units="km/h" ConvertToEnglishUnits="True">45</Check4HIAxleBalanceMaximumSpeed>
+         <Check4HIAxleBalanceMinimumSpeed Units="km/h" ConvertToEnglishUnits="True">15</Check4HIAxleBalanceMinimumSpeed>
+         <Check4HIAxleBalanceOnlyTestFrontRearRatio>False</Check4HIAxleBalanceOnlyTestFrontRearRatio>
+         <CheckShift4HIEngineRunning>Skip</CheckShift4HIEngineRunning>
+         <CheckShift4HIKeyPosition>Skip</CheckShift4HIKeyPosition>
+         <CheckShift4HIMinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</CheckShift4HIMinimumShiftSpeed>
+         <CheckShift4HIThrottlePosition>Skip</CheckShift4HIThrottlePosition>
+         <CheckShift4HITransmissionGear>Skip</CheckShift4HITransmissionGear>
+         <CheckShift4HIVerifyMethod>Prompt</CheckShift4HIVerifyMethod>
+         <!-- 4-LO Parameters -->
+         <AxleRatioBrakeToStopNotRequired>False</AxleRatioBrakeToStopNotRequired>
+         <AxleRatioDirection>Forward</AxleRatioDirection>
+         <AxleRatioMinimum Units="percent">97</AxleRatioMinimum>
+         <AxleRatioMaximum Units="percent">102</AxleRatioMaximum>
+         <AxleRatioSkipPreconditions>False</AxleRatioSkipPreconditions>
+         <CheckShift4LOWEngineRunning>Skip</CheckShift4LOWEngineRunning>
+         <CheckShift4LOWKeyPosition>Skip</CheckShift4LOWKeyPosition>
+         <CheckShift4LOWMinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</CheckShift4LOWMinimumShiftSpeed>
+         <CheckShift4LOWThrottlePosition>Skip</CheckShift4LOWThrottlePosition>
+         <CheckShift4LOWTransmissionGear>Skip</CheckShift4LOWTransmissionGear>
+         <CheckShift4LOWVerifyMethod>Prompt</CheckShift4LOWVerifyMethod>
+         <MaximumAxleRatioAttempts>1</MaximumAxleRatioAttempts>
+         <!-- Maintain Speed Parameters -->
+         <MaintainSpeedTime Units="ms">3000</MaintainSpeedTime>
+         <MaintainSpeedMinSpeed Units="km/h" ConvertToEnglishUnits="True">20</MaintainSpeedMinSpeed>
+         <MaintainSpeedMaxSpeed Units="km/h" ConvertToEnglishUnits="True">40</MaintainSpeedMaxSpeed>
+      </Parameters>
+      <Prompts>
+         <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+         <ApplyClutch PromptBox="1" Priority="0">ApplyClutch</ApplyClutch>
+         <CheckShift2WDShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift2WDShiftTcase>
+         <CheckShift4HIShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4HIShiftTcase>
+         <CheckShift4LOWShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4LOWShiftTcase>
+         <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+         <ShiftToDrive PromptBox="1" Priority="0">ShiftToFirst</ShiftToDrive>
+         <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+         <TcaseTesting PromptBox="1" Priority="0">TransferCaseTest</TcaseTesting>
+         <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+      </Prompts>
+      <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
+   </Setup>
+   <Objectives>
+      <Tcase4HiTest>
+         <TestStep00>DisengageMachine</TestStep00>
+         <TestStep05>CheckShift4HI</TestStep05>
+         <TestStep10>Check4HIAxleBalance</TestStep10>
+         <TestStep15>MaintainSpeedForTime</TestStep15>
+      </Tcase4HiTest>
+      <Tcase4LoTest>
+         <TestStep00>DisengageMachine</TestStep00>
+         <TestStep05>CheckShift4LOW</TestStep05>
+         <TestStep10>CheckAxleRatio</TestStep10>
+         <TestStep90>CheckShift2WD</TestStep90>
+         <TestStep99>FinishUp</TestStep99>
+      </Tcase4LoTest>
+	  <FinishUp>
+         <TestStep99>FinishUp</TestStep99>
+	  </FinishUp>
+   </Objectives>
+   <TestSteps>
+      <Check4HIAxleBalance Result="" Timeout="60000" Description="Check axle balance in 4-HI" ScanDelay="500" AbortOnFail="False"/>
+      <CheckAxleRatio Result="Not Tested" Timeout="30000" Description="Verify Axle Ratio" ScanDelay="500" SpeedSampleDelay="500" TargetSpeed="6" MinimumSpeed="6" MaximumSpeed="19" RatioSamples="20" SampleTime="3000"/>
+      <CheckShift2WD Result="Not Tested" Timeout="30000" Description="Test Tcase 2WD" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="3000" TransmissionMessageDelay="3000" ThrottleMessageDelay="3000" EngineOnOffMessageDelay="3000" KeyOnOffMessageDelay="3000" CommandMessageDelay="3000" TcaseGear="2WD" TargetSpeed="30" MinimumSpeed="0" MaximumSpeed="5"/>
+      <CheckShift4HI Result="Not Tested" Timeout="10000" Description="Test Tcase 4HI" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="9000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TcaseGear="4-HI" TargetSpeed="10" MinimumSpeed="0" MaximumSpeed="5"/>
+      <CheckShift4LOW Result="Not Tested" Timeout="10000" Description="Test Tcase 4LO" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="9000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TcaseGear="4-LOW" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="5"/>
+      <DisengageMachine Result="" Timeout="3000" Description="Disengage machine for t-case testing"/>
+      <FinishUp Result="Not Tested" Timeout="500" Description="Finish Tcase testing"/>
+      <MaintainSpeedForTime Result="Not Tested" Timeout="10000" Description="Maintain current speed for allotted time"/>
+   </TestSteps>
 </MahindraTcaseTc>

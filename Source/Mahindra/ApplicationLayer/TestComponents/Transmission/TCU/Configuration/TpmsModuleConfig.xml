@@ -97,7 +97,7 @@
 		
 			<StatusByte>
 				<Boolean>
-					<Byte input_index="3" mask="0x8F" compare="0x01"/>
+					<Byte input_index="3" mask="0x8F" compare="0x8F"/>
 				</Boolean>
 			</StatusByte>
 			

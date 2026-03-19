@@ -39,20 +39,13 @@
          </ForegroundObjectives>
       </TestPhase005>
       <!-- Perform the transmission testing -->
-      <TestPhase100 Description="Perform the transmission gear test" Result="" Timeout="" ConditionalTest="False" ConditionalTag="SpeedLimitTestSelected" ConditionalValue="False">
+      <TestPhase100 Description="Perform the transmission gear test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Run the transmission gear test" Result="" Timeout="" Component="Transmission">
                <SpeedBasedShiftTest/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase100>
-      <TestPhase110 Description="Perform the transmission gear test" Result="" Timeout="" ConditionalTest="True" ConditionalTag="SpeedLimitTestSelected" ConditionalValue="True">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Run the transmission gear test" Result="" Timeout="" Component="Transmission">
-               <ShiftTest/>
-            </Objective0>
-         </ForegroundObjectives>
-      </TestPhase110>
       <!-- Perform the brake test -->
       <TestPhase200 Description="Perform the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

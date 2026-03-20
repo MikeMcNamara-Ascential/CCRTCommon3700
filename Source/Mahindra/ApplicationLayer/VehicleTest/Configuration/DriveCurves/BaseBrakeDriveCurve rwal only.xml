@@ -1,0 +1,73 @@
+<DriveCurve Description="Base brake drive curve">
+
+    <Components Debug="Off">
+        <Brake>
+            <ComponentName>RwalBrakeTest.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>RwalBrakeTestTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+            <Debug>Off</Debug>
+        </Brake>
+        <Machine>
+            <ComponentName>MachineTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>MachineTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+            <Debug>Off</Debug>
+        </Machine>
+        <Transmission>
+            <ComponentName>ManualTransTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>ManualTransmissionConfig.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
+            <Debug>Off</Debug>
+        </Transmission>
+    </Components>
+
+    <Test Result="" Debug="Off">
+        <!-- Initialize the system -->
+        <TestPhase000 Description="Initialize the machine" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Init machine Component" Result="" Timeout="" Component="Machine">
+                    <Initialize/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase000>
+        <TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">
+                    <Setup/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase005>
+
+
+        <TestPhase210 Description="Engage the machine" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Engage the machine" Result="" Timeout="" Component="Machine">
+                    <EngageMachine/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase210>
+
+
+        <TestPhase315 Description="RWAL Sensor Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Perform the RWAL sensor test" Result="" Timeout="" Component="Brake">
+                    <RwalTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase315>
+
+        <!-- Finishup and set results -->
+        <TestPhase400 Description="Set the result for the brake test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
+                    <FinishUp/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase400>
+
+    </Test>
+
+</DriveCurve>

@@ -1,0 +1,48 @@
+<VehicleBuildRecord>
+   <VehicleBuild>
+      <ABSType>None</ABSType>
+      <BrakeType>BaseBrake</BrakeType>
+      <DriveAxle>Rear</DriveAxle>
+      <TransferCase>2WD</TransferCase>
+      <Wheelbase Units="mm">2680</Wheelbase>
+      <UseLargeTireOpening>Yes</UseLargeTireOpening>
+      <OpenExhaustFlap>No</OpenExhaustFlap>
+      <BrakeForces>
+         <!-- front axle brake forces -->
+         <FrontMinBrakeForce Units="kn" ConvertToEnglishUnits="True">1</FrontMinBrakeForce>
+         <FrontMaxBrakeForce Units="kn" ConvertToEnglishUnits="True">3</FrontMaxBrakeForce>
+         <!-- rear axle brake forces -->
+         <RearMinBrakeForce Units="kn" ConvertToEnglishUnits="True">0.4</RearMinBrakeForce>
+         <RearMaxBrakeForce Units="kn" ConvertToEnglishUnits="True">3</RearMaxBrakeForce>
+         <!-- Park brake Forces -->
+         <ParkBrakeMinForce Units="kn" ConvertToEnglishUnits="True">0.4</ParkBrakeMinForce>
+         <!-- ParkBrakeMaxForce Units="kn" ConvertToEnglishUnits="True">224.8089431</ParkBrakeMaxForce -->
+         <ParkBrakeMaxForce Units="kn" ConvertToEnglishUnits="True">2.5</ParkBrakeMaxForce>
+      </BrakeForces>
+      <Transmission>
+         <SpeedBasedShiftTestParameters>
+            <SpeedBasedGearTest_1>
+               <MaxSpeedTarget Description="Max speed target" Units="km/h" ConvertToEnglishUnits="True">32</MaxSpeedTarget>
+               <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h" ConvertToEnglishUnits="True">3</MaxSpeedTolerance>
+            </SpeedBasedGearTest_1>
+            <SpeedBasedGearTest_2>
+               <MaxSpeedTarget Description="Max speed target" Units="km/h" ConvertToEnglishUnits="True">58</MaxSpeedTarget>
+               <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h" ConvertToEnglishUnits="True">4</MaxSpeedTolerance>
+            </SpeedBasedGearTest_2>
+            <SpeedBasedGearTest_3>
+               <MaxSpeedTarget Description="Max speed target" Units="km/h" ConvertToEnglishUnits="True">87</MaxSpeedTarget>
+               <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h" ConvertToEnglishUnits="True">5</MaxSpeedTolerance>
+            </SpeedBasedGearTest_3>
+            <SpeedBasedGearTest_4>
+               <MaxSpeedTarget Description="Max speed target" Units="km/h" ConvertToEnglishUnits="True">110</MaxSpeedTarget>
+               <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h" ConvertToEnglishUnits="True">5</MaxSpeedTolerance>
+            </SpeedBasedGearTest_4>
+            <SpeedBasedGearTest_5>
+               <MaxSpeedTarget Description="Max speed target" Units="km/h" ConvertToEnglishUnits="True">147</MaxSpeedTarget>
+               <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h" ConvertToEnglishUnits="True">13</MaxSpeedTolerance>
+            </SpeedBasedGearTest_5>
+         </SpeedBasedShiftTestParameters>
+         <NumberOfFwdGears>5</NumberOfFwdGears>
+      </Transmission>
+   </VehicleBuild>
+</VehicleBuildRecord>

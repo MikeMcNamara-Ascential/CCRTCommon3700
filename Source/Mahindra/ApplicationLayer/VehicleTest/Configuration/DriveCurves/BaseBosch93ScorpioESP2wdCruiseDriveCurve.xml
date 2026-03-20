@@ -1,0 +1,208 @@
+<DriveCurve Description="4WD BIABS brake drive curve">
+   <Components Debug="Off">
+      <Brake>
+         <ComponentName>Bosch8TC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>BoschEsp93ScorpioCruiseTC.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+         <Debug>Off</Debug>
+      </Brake>
+      <Machine>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MachineTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <Debug>Off</Debug>
+      </Machine>
+      <Transmission>
+         <ComponentName>ManualTransTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>ManualTransmissionConfig.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
+         <Debug>Off</Debug>
+      </Transmission>
+      <Cruise>
+         <ComponentName>MahindraTransmission.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MahindraTransmissionTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
+         <Debug>Off</Debug>
+      </Cruise>
+      <!-- <Tpms>
+         <ComponentName>TpmsTc.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>UdsTpmsTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/TPMS/</ConfigPath>
+         <Debug>Off</Debug>
+      </Tpms> -->
+   </Components>
+   <Test Result="" Debug="Off">
+      <!-- Initialize the system -->
+      <TestPhase000 Description="Initialize the machine" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Init machine Component" Result="" Timeout="" Component="Machine">
+               <InitializeAndSelectDriverSide/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase000>
+      <TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">
+               <Setup/>
+            </Objective0>
+         </ForegroundObjectives>
+         <BackgroundObjectives Result="" Timeout="">
+            <!-- <Objective0 Description="Setup" Result="" Timeout="" Component="Tpms">
+               <Setup/>
+            </Objective0> -->
+         </BackgroundObjectives>
+      </TestPhase005>
+      <TestPhase010 Description="Setup" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Setup" Result="" Timeout="" Component="Cruise">
+               <SetupNonAT/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase010>
+      <!-- Part of ABS test. Uncomment this out. -->
+      <TestPhase090 Description="Sensor Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Perform the sensor test" Result="" Timeout="" Component="Brake">
+               <WheelSpeedSensorTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase090>
+      <TestPhase095 Description="Perform Low Speed Valve Firing Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Low Speed Valve Fire" Result="" Timeout="" Component="Brake">
+               <StaticValveFiringTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase095>
+      <!-- Perform the transmission testing -->
+      <TestPhase100 Description="Perform the transmission gear test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Run the transmission gear test" Result="" Timeout="" Component="Transmission">
+               <SpeedBasedShiftTestLow/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase100>
+      <!-- <TestPhase110 Description="Perform the MisfireTest" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="run the MisfireTest" Result="" Timeout="" Component="Cruise">
+               <MisfireTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase110> -->
+      <TestPhase120 Description="Perform the transmission gear test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Run the transmission gear test" Result="" Timeout="" Component="Transmission">
+               <SpeedBasedShiftTestHigh/>
+            </Objective0>
+         </ForegroundObjectives>
+         <BackgroundObjectives Result="" Timeout="">
+            <!-- <Objective0 Description="Start Speed Monitor" Result="" Timeout="" Component="Tpms">
+               <StartSpeedMonitor/>
+            </Objective0> -->
+         </BackgroundObjectives>
+      </TestPhase120>
+      <TestPhase150 Description="Perform the CruiseTest" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="run the Cruise Test" Result="" Timeout="" Component="Cruise">
+               <CruiseTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase150>
+      <TestPhase155 Description="Perform the Speedo Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="run the Speedo Test" Result="" Timeout="" Component="Machine">
+               <Speedometer/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase155>
+      <!-- <TestPhase160 Description="Wait for TPMS speed to finish" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Wait for TPMS speed to finish" Result="" Timeout="" Component="Tpms">
+               <WaitForTimeAboveSpeed/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase160> -->
+      <!-- Perform the brake test -->
+      <TestPhase200 Description="Perform the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="run the base brake test" Result="" Timeout="" Component="Brake">
+               <BrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase200>
+      <TestPhase205 Description="Brake to stop and analyze results" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Brake to stop" Result="" Timeout="" Component="Machine">
+               <ModerateBrakeToStop/>
+            </Objective0>
+         </ForegroundObjectives>
+         <BackgroundObjectives Result="" Timeout="">
+            <Objective0 Description="Analyze brake test data" Result="" Timeout="" Component="Brake">
+               <AnalyzeBrakeTest/>
+            </Objective0>
+         </BackgroundObjectives>
+      </TestPhase205>
+      <!-- Perform the transmission testing -->
+      <!-- <TestPhase207 Description="Perform the transmission gear test" Result="" Timeout=""> -->
+      <!-- <ForegroundObjectives Result="" Timeout=""> -->
+      <!-- <Objective0 Description="Run the transmission gear test" Result="" Timeout="" Component="Transmission"> -->
+      <!-- <SpeedBasedShiftTest6Gear/> -->
+      <!-- </Objective0> -->
+      <!-- </ForegroundObjectives> -->
+      <!-- </TestPhase207> -->
+      <TestPhase210 Description="Engage the machine" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Engage the machine" Result="" Timeout="" Component="Machine">
+               <EngageMachine/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase210>
+      <!-- Final Low Speed Testing -->
+      <!--TestPhase310 Description="Finishup the transmission testing and run the park brake test" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective1 Description="Perform the park brake test" Result="" Timeout="" Component="Brake">
+					<ParkBrakeTest/>
+				</Objective1>
+			</ForegroundObjectives>
+		</TestPhase310-->
+      <!--TestPhase330 Description="4LO t-case test" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="4-LOW T-case test" Result="" Timeout="" Component="TCase">
+					<Tcase4LoTest/>
+				</Objective0>
+			</ForegroundObjectives>
+		</TestPhase330-->
+      <!-- Finishup and set results -->
+      <TestPhase400 Description="Set the result for the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
+               <FinishUp/>
+            </Objective0>
+            <Objective1 Description="Finish Machine Results" Result="" Timeout="" Component="Machine">
+               <FinishUp/>
+            </Objective1>
+            <Objective3 Description="Finish Transmission Results" Result="" Timeout="" Component="Transmission">
+               <FinishUp/>
+            </Objective3>
+            <Objective4 Description="Finish Cruise Results" Result="" Timeout="" Component="Cruise">
+               <FinishUp/>
+            </Objective4>
+            <!-- <Objective5 Description="Finish Tpms Results" Result="" Timeout="" Component="Tpms">
+               <FinishUp/>
+            </Objective5> -->
+         </ForegroundObjectives>
+      </TestPhase400>
+      <TestPhase500 Description="Disconect Cable" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="PromptDriver To Remove Cable" Result="" Timeout="" Component="Machine">
+               <DisconnectCable/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase500>
+   </Test>
+</DriveCurve>
